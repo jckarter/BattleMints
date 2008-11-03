@@ -23,6 +23,7 @@
 		D81B5AE70EB68693002A40E7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81B5AE60EB68693002A40E7 /* CoreGraphics.framework */; };
 		D81B5BAB0EB7B43E002A40E7 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA70EB7B43E002A40E7 /* collision.cpp */; };
 		D81B5BAC0EB7B43E002A40E7 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA90EB7B43E002A40E7 /* sphere.cpp */; };
+		D82BFAED0EBE801200E65BAF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D82BFAEC0EBE801200E65BAF /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		D81B5BA90EB7B43E002A40E7 /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
 		D81B5BAA0EB7B43E002A40E7 /* sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sphere.hpp; sourceTree = "<group>"; };
 		D81B5CBF0EB82EF6002A40E7 /* player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
+		D82BFAEC0EBE801200E65BAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D82BFAEC0EBE801200E65BAF /* Default.png */,
 				D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -195,6 +198,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */,
+				D82BFAED0EBE801200E65BAF /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
