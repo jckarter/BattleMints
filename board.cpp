@@ -1,6 +1,8 @@
 #include "board.hpp"
 #include "game.hpp"
 #include <functional>
+#include <iostream>
+#include <limits>
 
 namespace battlemints {
 
@@ -9,9 +11,9 @@ static const vec2 BOARD_CELL_SIZE = make_vec2(4.0, 4.0);
 
 board::board()
     : _visibility_grid(BOARD_RECT, BOARD_CELL_SIZE),
-      _collision_grid(BOARD_RECT, BOARD_CELL_SIZE)
-{
-}
+      _collision_grid(BOARD_RECT, BOARD_CELL_SIZE),
+      _tick_count(0)
+{ }
 
 board::~board()
 {
@@ -74,10 +76,8 @@ board::_update_thing(thing *t, UnaryFunctor const &f)
     rect new_visibility = t->visibility_box();
     rect new_collision  = t->collision_box();
 
-    if (old_visibility != new_visibility)
-        _visibility_grid.move_thing(t, old_visibility, new_visibility);
-    if (old_collision != new_collision)
-        _visibility_grid.move_thing(t, old_collision, new_collision);
+    _visibility_grid.move_thing(t, old_visibility, new_visibility);
+    _collision_grid.move_thing(t, old_collision, new_collision);
 }
 
 template<typename BinaryFunctor>
@@ -96,15 +96,11 @@ board::_update_2_things(thing *t, thing *u, BinaryFunctor const &f)
     rect u_new_visibility = u->visibility_box();
     rect u_new_collision  = u->collision_box();
 
-    if (t_old_visibility != t_new_visibility)
-        _visibility_grid.move_thing(t, t_old_visibility, t_new_visibility);
-    if (t_old_collision != t_new_collision)
-        _visibility_grid.move_thing(t, t_old_collision, t_new_collision);
+    _visibility_grid.move_thing(t, t_old_visibility, t_new_visibility);
+    _collision_grid.move_thing(t, t_old_collision, t_new_collision);
 
-    if (u_old_visibility != u_new_visibility)
-        _visibility_grid.move_thing(u, u_old_visibility, u_new_visibility);
-    if (u_old_collision != u_new_collision)
-        _visibility_grid.move_thing(u, u_old_collision, u_new_collision);
+    _visibility_grid.move_thing(u, u_old_visibility, u_new_visibility);
+    _collision_grid.move_thing(u, u_old_collision, u_new_collision);
 }
 
 inline void
@@ -142,7 +138,7 @@ board::tick()
 
     while (tick_time > 0.0) {
         thing *a, *b;
-        float collide_time = 1.0/0.0;
+        float collide_time = std::numeric_limits<float>::infinity();
 
         _find_collision(a, b, collide_time);
         _move_things(std::min(tick_time, collide_time));
@@ -155,6 +151,8 @@ board::tick()
 
     BOOST_FOREACH (thing *th, _tickable_things)
         _update_thing(th, _tick_thing());
+
+    ++_tick_count;
 }
 
 void
@@ -189,8 +187,10 @@ struct _move_thing {
 void
 board::_move_things(float timeslice)
 {
-    BOOST_FOREACH (thing *th, _all_things)
-        _update_thing(th, _move_thing(timeslice));
+    BOOST_FOREACH (thing *th, _all_things) {
+        if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
+            _update_thing(th, _move_thing(timeslice));
+    }
 }
 
 }

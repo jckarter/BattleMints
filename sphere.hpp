@@ -20,6 +20,7 @@ struct sphere : thing {
 
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
+    virtual void collide_spring(spring &s) { collide_sphere_spring(*this, s); }
 
     virtual float collision_time(thing const &t) const
         { return t.collision_time_sphere(*this); }
@@ -30,6 +31,10 @@ struct sphere : thing {
         : thing(m, ct), color(co), radius(r) { _set_up_drawing(); }
 
     virtual ~sphere() { _tear_down_drawing(); }
+
+    virtual char const * kind() const { return "sphere"; }
+    virtual void print(std::ostream &os) const
+        { thing::print(os); os << " color:" << color << " r:" << radius; }
 
 private:
     GLuint _texture;

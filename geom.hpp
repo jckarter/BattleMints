@@ -77,6 +77,13 @@ static inline bool operator==(rect a, rect b) { return a.low == b.low && a.high 
 static inline bool operator!=(vec2 a, vec2 b) { return a.x != b.x || a.y != b.y; }
 static inline bool operator!=(rect a, rect b) { return a.low != b.low || a.high != b.high; }
 
+static inline std::ostream &operator<<(std::ostream &os, vec2 v)
+    { return os << "<" << v.x << "," << v.y << ">"; }
+static inline std::ostream &operator<<(std::ostream &os, vec4 v)
+    { return os << "<" << v.x << "," << v.y << "," << v.z << "," << v.w << ">"; }
+static inline std::ostream &operator<<(std::ostream &os, rect r)
+    { return os << "[" << r.low << "-" << r.high << "]"; }
+
 }
 
 #endif

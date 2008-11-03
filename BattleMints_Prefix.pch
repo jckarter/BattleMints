@@ -22,6 +22,9 @@
 #include <boost/utility.hpp>
 #include <cmath>
 #include <cstdlib>
+#include <ostream>
+#include <iostream>
+#include <limits>
 #endif
 
 #include <CoreGraphics/CoreGraphics.h>

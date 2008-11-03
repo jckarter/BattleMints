@@ -5,6 +5,7 @@
 #include "geom.hpp"
 #include <boost/utility.hpp>
 #include <vector>
+#include <ostream>
 
 namespace battlemints {
 
@@ -22,6 +23,21 @@ struct grid : boost::noncopyable {
     std::vector< std::set<thing*> >::iterator cell_for_point(vec2 pt);
     std::vector< std::set<thing*> >::const_iterator cell_for_point(vec2 pt) const;
 
+    void _dump(std::ostream &os) const {
+        os << "=== === === === ===\n";
+        for (int i = 0; i < cells.size(); ++i) {
+            if (i % _pitch == 0) {
+                if (i != 0) os << "}\n";
+                os << "{\n";
+            }
+            os << " [\n";
+            for (std::set<thing*>::const_iterator th = cells[i].begin(); th != cells[i].end(); ++th)
+                os << "  " << **th << "\n";
+            os << " ]\n";
+        }
+        os << "}\n";
+    }
+
 private:
     vec2 _origin, _cell_size_inv; // members are order dependent
     int _pitch;
@@ -30,6 +46,8 @@ private:
     void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f);
     template <typename T, typename BinaryFunctor>
     void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f) const;
+
+    bool _rects_require_movement(rect old_bound, rect new_bound) const;
 
 public:
     std::vector< std::set<thing*> > cells;

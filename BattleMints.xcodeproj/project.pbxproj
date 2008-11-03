@@ -227,13 +227,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
+				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = /opt/local/include;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F93013A9-B6C9-42A0-9382-C693EFE708EC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ECE15B39-2B54-4E1E-9AEB-F55D516D2552";
+				SDKROOT = iphoneos2.1;
 			};
 			name = Debug;
 		};

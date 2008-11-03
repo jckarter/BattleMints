@@ -2,10 +2,10 @@
 #include "board.hpp"
 #include "thing.hpp"
 #include "sphere.hpp"
+#include "spring.hpp"
 #include "player.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/foreach.hpp>
 #include <cstdlib>
 #include <cstdio>
@@ -48,14 +48,22 @@ void battlemints_start()
         -2.0f, 2.0f
     );
 
-    for (int i = 0; i < 60; ++i) {
+    for (int i = 0; i < 300; ++i) {
         float radius = rand_between(0.25f, 0.75f);
 
         sphere *s = new sphere(
             2.0 * radius,
-            make_vec2(rand_between(-8.0f, 8.0f), rand_between(-8.0f, 8.0f)),
+            make_vec2(rand_between(-24.0f, 24.0f), rand_between(-24.0f, 24.0f)),
             radius,
             make_vec4(rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), 1.0f)
+        );
+
+        game_board->add_thing(s);
+    }
+
+    for (int i = 0; i < 50; ++i) {
+        spring *s = new spring(
+            make_vec2(rand_between(-32.0f, 32.0f), rand_between(-32.0f, 32.0f))
         );
 
         game_board->add_thing(s);

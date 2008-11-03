@@ -41,6 +41,8 @@ private:
 
     grid _visibility_grid;
     grid _collision_grid;
+
+    unsigned long _tick_count;
 };
 
 }

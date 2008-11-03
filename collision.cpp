@@ -1,26 +1,42 @@
 #include "collision.hpp"
 #include "thing.hpp"
 #include "sphere.hpp"
+#include "spring.hpp"
+#include <iostream>
 
 namespace battlemints {
 
-void transfer_momentum(thing &a, thing &b)
+void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a_coef, float &b_coef)
 {
-    vec2 direction = vnormalize(b.center - a.center);
+    direction = vnormalize(b.center - a.center);
     float a_comp = vdot(direction, a.velocity);
     float b_comp = vdot(direction, b.velocity);
     float mass_diff = a.mass - b.mass;
     float mass_sum_inv = 1/(a.mass + b.mass);
-    float a_coef = 2*b.mass*b_comp + mass_diff*a_comp * mass_sum_inv;
-    float b_coef = 2*a.mass*a_comp - mass_diff*b_comp * mass_sum_inv;
+    
+    a_coef = (2*b.mass*b_comp + mass_diff*a_comp) * mass_sum_inv - a_comp;
+    b_coef = (2*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp;
 
-    a.velocity += (a_coef - a_comp)*direction;
-    b.velocity += (b_coef - b_comp)*direction;
 }
 
 void collide_sphere_sphere(sphere &a, sphere &b)
 {
-    transfer_momentum(a, b);
+    vec2 direction;
+    float a_coef, b_coef;
+    transfer_momentum(a, b, direction, a_coef, b_coef);
+
+    a.velocity += a_coef*direction;
+    b.velocity += b_coef*direction;
+}
+
+void collide_sphere_spring(sphere &a, spring &b)
+{
+    vec2 direction;
+    float a_coef, b_coef;
+    transfer_momentum(a, b, direction, a_coef, b_coef);
+
+    a.velocity += 5*a_coef*direction;
+    b.velocity += b_coef*direction;
 }
 
 float collision_time_sphere_sphere(sphere const &a, sphere const &b)

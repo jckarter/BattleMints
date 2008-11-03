@@ -5,14 +5,14 @@
 
 namespace battlemints {
 
-struct _set_adjoin {
-    _set_adjoin() {}
+struct _adjoin {
+    _adjoin() {}
 
     template<typename FromPointer>
     inline void
-    operator()(FromPointer from, std::set<thing *> & to) const
+    operator()(FromPointer from, std::vector<thing*> & to) const
     {
-        std::copy(from->begin(), from->end(), std::inserter(to, to.begin()));
+        std::copy(from->begin(), from->end(), std::back_inserter(to));
     }
 };
 
@@ -85,21 +85,32 @@ grid::remove_thing(thing *t, rect bound)
     _for_cells_in_rect(t, bound, _erase());
 }
 
+bool
+grid::_rects_require_movement(rect old_bound, rect new_bound) const
+{
+    return old_bound != new_bound && (
+           cell_for_point(old_bound.low)  != cell_for_point(new_bound.low)
+        || cell_for_point(old_bound.high) != cell_for_point(new_bound.high)
+    );
+}
+
 void
 grid::move_thing(thing *t, rect old_bound, rect new_bound)
 {
-    remove_thing(t, old_bound);
-    add_thing(t, new_bound);
+    if (_rects_require_movement(old_bound, new_bound)) {
+        remove_thing(t, old_bound);
+        add_thing(t, new_bound);
+    }
 }
 
 std::set<thing*>
 grid::things_in_rect(rect r) const
 {
-    std::set<thing *> ret;
+    std::vector<thing *> ret;
 
-    _for_cells_in_rect(boost::ref(ret), r, _set_adjoin());
+    _for_cells_in_rect(boost::ref(ret), r, _adjoin());
 
-    return ret;
+    return std::set<thing*>(ret.begin(), ret.end());
 }
 
 std::vector< std::set<thing*> >::iterator
