@@ -1,7 +1,8 @@
 #include "board.hpp"
 #include "game.hpp"
-#include "player.hpp"
 #include "thing.hpp"
+#include "sphere.hpp"
+#include "player.hpp"
 #include "spring.hpp"
 #include <functional>
 #include <iostream>
