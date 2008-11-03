@@ -31,14 +31,27 @@ static inline vec2 operator*(float n, vec2 v) { return v*n; }
 static inline vec2 operator/(float n, vec2 v) { return vec2::make(n / v.x, n / v.y); }
 
 static inline vec2 make_vec2(float a, float b) { return vec2::make(a,b); }
-static inline vec2 make_vec2(float a) { return (vec2){a, a}; }
+static inline vec2 make_vec2(float a) { return vec2::make(a,a); }
 
 struct vec4 {
     float x, y, z, w;
+
+    inline static vec4 make(float a, float b, float c, float d) { return (vec4){a, b, c, d}; }
+
+    inline vec4 operator+(vec4 o) const { return make(x + o.x, y + o.y, z + o.z, w + o.w); }
+    inline vec4 operator-(vec4 o) const { return make(x - o.x, y - o.y, z - o.z, w - o.w); }
+    inline vec4 operator*(vec4 o) const { return make(x * o.x, y * o.y, z * o.z, w * o.w); }
+    inline vec4 operator/(vec4 o) const { return make(x / o.x, y / o.y, z / o.z, w / o.w); }
+
+    inline vec4 operator*(float o) const { return make(x * o, y * o, z * o, w * o); }
+    inline vec4 operator/(float o) const { return make(x / o, y / o, z / o, w / o); }
 };
 
-static inline vec4 make_vec4(float a, float b, float c, float d) { return (vec4){a, b, c, d}; }
-static inline vec4 make_vec4(float a) { return (vec4){a, a, a, a}; }
+static inline vec4 operator*(float n, vec4 v) { return v*n; }
+static inline vec4 operator/(float n, vec4 v) { return vec4::make(n / v.x, n / v.y, n / v.z, n / v.w); }
+
+static inline vec4 make_vec4(float a, float b, float c, float d) { return vec4::make(a, b, c, d); }
+static inline vec4 make_vec4(float a) { return vec4::make(a, a, a, a); }
 
 static inline vec2 vmin(vec2 a, vec2 b)
 {
@@ -83,6 +96,15 @@ static inline std::ostream &operator<<(std::ostream &os, vec4 v)
     { return os << "<" << v.x << "," << v.y << "," << v.z << "," << v.w << ">"; }
 static inline std::ostream &operator<<(std::ostream &os, rect r)
     { return os << "[" << r.low << "-" << r.high << "]"; }
+
+static inline float rand_between(float lo, float hi)
+{
+    float r = (float)rand()/(float)RAND_MAX;
+    float spread = hi - lo;
+    float ret = r * spread + lo;
+
+    return ret;
+}
 
 }
 

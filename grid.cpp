@@ -41,6 +41,7 @@ struct _erase {
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
       _cell_size_inv(1/cell_size),
+      _cell_dims(vceil( (space.high-space.low)*_cell_size_inv ) - make_vec2(1.0,1.0)),
       _pitch((int)ceilf((space.high.x - space.low.x) * _cell_size_inv.x)),
       cells((unsigned)vproduct(vceil((space.high - space.low) * _cell_size_inv)))
 { }
@@ -117,6 +118,9 @@ std::vector< std::set<thing*> >::iterator
 grid::cell_for_point(vec2 pt)
 {
     vec2 coords = (pt - _origin) * _cell_size_inv;
+    coords = vmax(make_vec2(0.0, 0.0), coords);
+    coords = vmin(_cell_dims, coords);
+
     return cells.begin() + _pitch * (unsigned)coords.y + (unsigned)coords.x;
 }
 

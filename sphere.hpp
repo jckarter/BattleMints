@@ -3,7 +3,6 @@
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
-#include <CoreGraphics/CoreGraphics.h>
 #include <boost/array.hpp>
 #include "collision.hpp"
 #include "thing.hpp"
@@ -43,7 +42,6 @@ private:
     void _set_up_drawing();
     void _tear_down_drawing();
 
-    CGContextRef _context(unsigned pixel_radius, void *data);
     void _render_sphere_texture(float border_radius, unsigned pixel_radius, void *data);
     GLuint _make_sphere_texture(float radius, unsigned pixel_radius);
 };

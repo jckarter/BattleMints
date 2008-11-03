@@ -1,4 +1,5 @@
 #include "sphere.hpp"
+#include "drawing.hpp"
 #include "game.hpp"
 #include <cmath>
 #include <vector>
@@ -29,9 +30,7 @@ void sphere::draw()
     glTranslatef(center.x, center.y, 0.0f);
     glBindTexture(GL_TEXTURE_2D, _texture);
 
-    glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)&unit_texcoords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -56,22 +55,9 @@ void sphere::_tear_down_drawing()
     glDeleteTextures(1, &_texture);
 }
 
-CGContextRef sphere::_context(unsigned pixel_radius, void *data)
-{
-    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(
-        data,
-        pixel_radius*2, pixel_radius*2,
-        8, pixel_radius*2*4,
-        colorspace, kCGImageAlphaPremultipliedLast
-    );
-    CGColorSpaceRelease(colorspace);
-    return context;
-}
-
 void sphere::_render_sphere_texture(float border_radius, unsigned pixel_radius, void *data)
 {
-    CGContextRef context = _context(pixel_radius, data);
+    CGContextRef context = make_bitmap_context(pixel_radius*2, pixel_radius*2, data);
 
     float scale = pixel_radius/border_radius;
 
@@ -79,8 +65,11 @@ void sphere::_render_sphere_texture(float border_radius, unsigned pixel_radius, 
     CGContextTranslateCTM(context, border_radius, border_radius);
 
     CGContextSetLineWidth(context, BORDER_THICKNESS);
-    CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0);
-    CGContextSetRGBFillColor(context, color.x, color.y, color.z, color.w);
+
+    vec4 stroke_color = color*0.75 - make_vec4(0.5);
+
+    CGContextSetRGBStrokeColor(context, stroke_color.x, stroke_color.y, stroke_color.z, 1.0);
+    CGContextSetRGBFillColor(context, color.x, color.y, color.z, 1.0);
 
     CGRect ellipse_rect = CGRectMake(-radius, -radius, radius*2, radius*2);
 

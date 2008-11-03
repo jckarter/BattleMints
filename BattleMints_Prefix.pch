@@ -16,7 +16,6 @@
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/ref.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>

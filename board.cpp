@@ -1,5 +1,8 @@
 #include "board.hpp"
 #include "game.hpp"
+#include "player.hpp"
+#include "thing.hpp"
+#include "spring.hpp"
 #include <functional>
 #include <iostream>
 #include <limits>
@@ -7,13 +10,37 @@
 namespace battlemints {
 
 static const rect BOARD_RECT = make_rect(-128.0, -128.0, 128.0, 128.0);
-static const vec2 BOARD_CELL_SIZE = make_vec2(4.0, 4.0);
+static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
+static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
 
 board::board()
-    : _visibility_grid(BOARD_RECT, BOARD_CELL_SIZE),
-      _collision_grid(BOARD_RECT, BOARD_CELL_SIZE),
+    : _visibility_grid(BOARD_RECT, BOARD_VISIBILITY_CELL_SIZE),
+      _collision_grid(BOARD_RECT, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0)
-{ }
+{}
+
+void
+board::setup()
+{
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrthof(
+        -160.0f * GAME_UNITS_PER_PIXEL, 160.0f * GAME_UNITS_PER_PIXEL,
+        -240.0f * GAME_UNITS_PER_PIXEL, 240.0f * GAME_UNITS_PER_PIXEL,
+        -16.0f, 16.0f
+    );
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glColor4f(1.0, 1.0, 1.0, 1.0);
+}
 
 board::~board()
 {
@@ -62,6 +89,39 @@ thing *
 board::camera()
 {
     return _camera;
+}
+
+board *
+board::make_demo_board()
+{
+    board *b = new board();
+
+    for (int i = 0; i < 300; ++i) {
+        float radius = rand_between(0.25f, 0.75f);
+
+        sphere *s = new sphere(
+            2.0 * radius,
+            make_vec2(rand_between(-24.0f, 24.0f), rand_between(-24.0f, 24.0f)),
+            radius,
+            make_vec4(rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), 1.0f)
+        );
+
+        b->add_thing(s);
+    }
+
+    for (int i = 0; i < 50; ++i) {
+        spring *s = new spring(
+            make_vec2(rand_between(-32.0f, 32.0f), rand_between(-32.0f, 32.0f))
+        );
+
+        b->add_thing(s);
+    }
+
+    player *p = new player();
+    b->add_thing(p);
+    b->set_camera(p);
+
+    return b;
 }
 
 template<typename UnaryFunctor>
@@ -158,6 +218,8 @@ board::tick()
 void
 board::draw()
 {
+    _draw_background();
+
     vec2 camera_center = _camera ? _camera->center : make_vec2(0.0);
     rect camera_rect = make_rect(
         camera_center - GAME_WINDOW_UNIT_SIZE/2,
@@ -168,8 +230,21 @@ board::draw()
     glLoadIdentity();
     glTranslatef(-camera_center.x, -camera_center.y, 0.0f);
 
-    BOOST_FOREACH (thing *th, _visibility_grid.things_in_rect(camera_rect))
+    std::set<thing*> visible_things = _visibility_grid.things_in_rect(camera_rect);
+    BOOST_FOREACH (thing *th, visible_things) {
         th->draw();
+    }
+
+    if (_tick_count % 300 == 0) {
+        std::cerr << visible_things.size() << " visible things\n";
+    }
+}
+
+void
+board::_draw_background()
+{
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 struct _move_thing {

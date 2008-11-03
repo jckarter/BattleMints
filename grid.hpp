@@ -11,7 +11,10 @@ namespace battlemints {
 
 struct grid : boost::noncopyable {
 
-    grid() : _origin(make_vec2(0.0)), _cell_size_inv(make_vec2(0.0)), _pitch(0), cells(0) { }
+    grid()
+        : _origin(make_vec2(0.0)), _cell_size_inv(make_vec2(0.0)),
+          _cell_dims(make_vec2(0.0)), _pitch(0), cells(0)
+        { }
     grid(rect space, vec2 cell_size);
     
     void add_thing(thing *t, rect bound);
@@ -39,7 +42,7 @@ struct grid : boost::noncopyable {
     }
 
 private:
-    vec2 _origin, _cell_size_inv; // members are order dependent
+    vec2 _origin, _cell_size_inv, _cell_dims; // members are order dependent
     int _pitch;
 
     template <typename T, typename BinaryFunctor>

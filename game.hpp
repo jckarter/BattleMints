@@ -6,8 +6,9 @@
 namespace battlemints {
 
 struct thing;
+struct controller;
 
-static const float BORDER_THICKNESS = 0.040f;
+static const float BORDER_THICKNESS = 0.045f;
 static const float PIXELS_PER_GAME_UNIT = 50.0f;
 static const float GAME_UNITS_PER_PIXEL = 1.0f / PIXELS_PER_GAME_UNIT;
 static const float PLAYER_ACCEL_SCALE = 0.02f;

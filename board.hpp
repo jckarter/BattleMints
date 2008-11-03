@@ -2,18 +2,17 @@
 #define __BOARD_HPP__
 
 #include <set>
-#include <vector>
-#include <boost/utility.hpp>
 #include "grid.hpp"
+#include "controller.hpp"
 
 namespace battlemints {
 
 typedef std::set<thing*> thing_set;
 
-struct board : boost::noncopyable {
+struct board : controller {
 
     board();
-    ~board();
+    virtual ~board();
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
     void remove_thing(thing *t);
@@ -21,10 +20,15 @@ struct board : boost::noncopyable {
     void set_camera(thing *t);
     thing *camera();
 
-    void tick();
-    void draw();
+    virtual void setup();
+    virtual void tick();
+    virtual void draw();
+
+    static board *make_demo_board();
 
 private:
+    void _draw_background();
+
     void _find_collision(thing *&a, thing *&b, float &collide_time);
     void _move_things(float timeslice);
 
