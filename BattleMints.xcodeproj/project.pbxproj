@@ -27,6 +27,7 @@
 		D82BFB550EBEE72B00E65BAF /* intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB510EBEE72B00E65BAF /* intro.cpp */; };
 		D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB520EBEE72B00E65BAF /* drawing.mm */; };
 		D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */; };
+		D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC540EC0D2AC00E65BAF /* wall.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,13 +62,14 @@
 		D81B5BAA0EB7B43E002A40E7 /* sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sphere.hpp; sourceTree = "<group>"; };
 		D81B5CBF0EB82EF6002A40E7 /* player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 		D82BFAEC0EBE801200E65BAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D82BFB4F0EBEE72B00E65BAF /* spring.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spring.hpp; sourceTree = "<group>"; };
 		D82BFB500EBEE72B00E65BAF /* intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intro.hpp; sourceTree = "<group>"; };
 		D82BFB510EBEE72B00E65BAF /* intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intro.cpp; sourceTree = "<group>"; };
 		D82BFB520EBEE72B00E65BAF /* drawing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = drawing.mm; sourceTree = "<group>"; };
 		D82BFB530EBEE72B00E65BAF /* drawing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawing.hpp; sourceTree = "<group>"; };
 		D82BFB540EBEE72B00E65BAF /* controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controller.hpp; sourceTree = "<group>"; };
 		D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller.cpp; sourceTree = "<group>"; };
+		D82BFC530EC0D2AC00E65BAF /* wall.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wall.hpp; sourceTree = "<group>"; };
+		D82BFC540EC0D2AC00E65BAF /* wall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wall.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,13 +139,14 @@
 				D81A11570EBCD00800283428 /* grid.hpp */,
 				D81A11580EBCD00800283428 /* board.cpp */,
 				D81A11590EBCD00800283428 /* board.hpp */,
-				D82BFB4F0EBEE72B00E65BAF /* spring.hpp */,
 				D82BFB500EBEE72B00E65BAF /* intro.hpp */,
 				D82BFB510EBEE72B00E65BAF /* intro.cpp */,
 				D82BFB520EBEE72B00E65BAF /* drawing.mm */,
 				D82BFB530EBEE72B00E65BAF /* drawing.hpp */,
 				D82BFB540EBEE72B00E65BAF /* controller.hpp */,
 				D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */,
+				D82BFC530EC0D2AC00E65BAF /* wall.hpp */,
+				D82BFC540EC0D2AC00E65BAF /* wall.cpp */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				D82BFB550EBEE72B00E65BAF /* intro.cpp in Sources */,
 				D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */,
 				D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */,
+				D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +255,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;

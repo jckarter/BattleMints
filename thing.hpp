@@ -11,7 +11,7 @@
 namespace battlemints {
 
 struct sphere;
-struct spring;
+struct wall;
 
 struct thing : boost::noncopyable {
     static const boost::array<float, 8> unit_texcoords;
@@ -34,10 +34,11 @@ struct thing : boost::noncopyable {
 
     virtual void collide(thing &o) = 0;
     virtual void collide_sphere(sphere &s) = 0;
-    virtual void collide_spring(spring &s) = 0;
+    virtual void collide_wall(wall &w) = 0;
 
     virtual float collision_time(thing const &o) const = 0;
     virtual float collision_time_sphere(sphere const &s) const = 0;
+    virtual float collision_time_wall(wall const &s) const = 0;
 
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const

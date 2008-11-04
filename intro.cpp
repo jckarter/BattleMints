@@ -22,14 +22,14 @@ const boost::array<float, 8> intro::vertices = {
 };
 
 intro::intro()
-     : _splash_texture(_load_splash_texture()), _countdown(30), _peak(30)
+     : _splash_texture(_load_splash_texture()), _countdown(20), _peak(20)
 { }
 
 void
 intro::setup()
 {
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
+    glEnable(GL_CULL_FACE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glMatrixMode(GL_PROJECTION);
@@ -53,9 +53,10 @@ void
 intro::draw()
 {
     float intensity = _intensity();
-    float intensity2 = 0.125*(sqrtf(intensity) + intensity*7);
+    float intensity_sqrt  = sqrtf(intensity);
+    float intensity_atten = 0.125*(intensity_sqrt + intensity*7);
 
-    glColor4f(intensity2, intensity, intensity, 1.0);
+    glColor4f(intensity_sqrt, intensity_atten, intensity_atten, 1.0);
     glBindTexture(GL_TEXTURE_2D, _splash_texture);
 
     glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);

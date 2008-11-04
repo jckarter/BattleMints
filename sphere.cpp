@@ -24,12 +24,16 @@ rect sphere::collision_box()
 
 void sphere::draw()
 {
+    glEnable(GL_TEXTURE_2D);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
     glTranslatef(center.x, center.y, 0.0f);
     glBindTexture(GL_TEXTURE_2D, _texture);
 
+    glColor4f(1.0, 1.0, 1.0, 1.0);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)&unit_texcoords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

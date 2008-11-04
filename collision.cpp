@@ -1,8 +1,9 @@
 #include "collision.hpp"
 #include "thing.hpp"
 #include "sphere.hpp"
-#include "spring.hpp"
+#include "wall.hpp"
 #include <iostream>
+#include <limits>
 
 namespace battlemints {
 
@@ -19,6 +20,16 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
 
 }
 
+void collide_wall_wall(wall &a, wall &b)
+{
+    // walls don't move
+}
+
+void collide_sphere_wall(sphere &a, wall &b)
+{
+    a.velocity = vreflect(b.normal, a.velocity);
+}
+
 void collide_sphere_sphere(sphere &a, sphere &b)
 {
     vec2 direction;
@@ -29,26 +40,48 @@ void collide_sphere_sphere(sphere &a, sphere &b)
     b.velocity += b_coef*direction;
 }
 
-void collide_sphere_spring(sphere &a, spring &b)
+static inline float _collision_time_points(vec2 pt_a, vec2 pt_b, vec2 velocity, float radius)
 {
-    vec2 direction;
-    float a_coef, b_coef;
-    transfer_momentum(a, b, direction, a_coef, b_coef);
-
-    a.velocity += 5*a_coef*direction;
-    b.velocity += b_coef*direction;
-}
-
-float collision_time_sphere_sphere(sphere const &a, sphere const &b)
-{
-    vec2 distance = a.center - b.center;
-    vec2 velocity = b.velocity - a.velocity;
-    float radius = a.radius + b.radius;
+    vec2 distance = pt_a - pt_b;
     float speed2 = vnorm2(velocity);
     float distance2 = vnorm2(distance);
     float spread = vdot(velocity, distance);
 
     return (spread - sqrtf(spread*spread - speed2*(distance2 - radius*radius))) / speed2;
+}
+
+static inline float _collision_time_point_line(vec2 pt, vec2 line_pt, vec2 normal, vec2 velocity)
+{
+    return vdot(line_pt - pt, normal)/vdot(velocity, normal);
+}
+
+float collision_time_wall_wall(wall const &a, wall const &b)
+{
+    // walls don't move
+    return std::numeric_limits<float>::infinity();
+}
+
+float collision_time_sphere_wall(sphere const &a, wall const &b)
+{
+    float side = signum(vdot(a.velocity, b.normal));
+
+    vec2 tangent_pt = a.center + side * b.normal * a.radius;
+    vec2 vel_perp = side * vperp(a.velocity);
+
+    float cos_a = vdot((b.endpoint_a - tangent_pt), vel_perp);
+    float cos_b = vdot((b.endpoint_b - tangent_pt), vel_perp);
+
+    if (cos_a >= 0.0 && cos_b <= 0.0)
+        return _collision_time_point_line(tangent_pt, b.endpoint_a, b.normal, a.velocity);
+    else
+        return std::numeric_limits<float>::infinity();
+}
+
+float collision_time_sphere_sphere(sphere const &a, sphere const &b)
+{
+    return _collision_time_points(
+        a.center, b.center, b.velocity - a.velocity, a.radius + b.radius
+    );
 }
 
 }

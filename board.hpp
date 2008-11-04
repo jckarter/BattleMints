@@ -11,7 +11,7 @@ typedef std::set<thing*> thing_set;
 
 struct board : controller {
 
-    board();
+    board(rect bound);
     virtual ~board();
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done

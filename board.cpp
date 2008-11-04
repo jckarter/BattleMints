@@ -3,20 +3,19 @@
 #include "thing.hpp"
 #include "sphere.hpp"
 #include "player.hpp"
-#include "spring.hpp"
+#include "wall.hpp"
 #include <functional>
 #include <iostream>
 #include <limits>
 
 namespace battlemints {
 
-static const rect BOARD_RECT = make_rect(-128.0, -128.0, 128.0, 128.0);
 static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
 static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
 
-board::board()
-    : _visibility_grid(BOARD_RECT, BOARD_VISIBILITY_CELL_SIZE),
-      _collision_grid(BOARD_RECT, BOARD_COLLISION_CELL_SIZE),
+board::board(rect bound)
+    : _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
+      _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0)
 {}
 
@@ -25,6 +24,7 @@ board::setup()
 {
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
+    glEnable(GL_CULL_FACE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glMatrixMode(GL_PROJECTION);
@@ -95,28 +95,34 @@ board::camera()
 board *
 board::make_demo_board()
 {
-    board *b = new board();
+    board *b = new board(make_rect(-128.0, -128.0, 128.0, 128.0));
 
-    for (int i = 0; i < 300; ++i) {
-        float radius = rand_between(0.25f, 0.75f);
+    //for (int i = 0; i < 30; ++i) {
+    //    float radius = rand_between(0.25f, 0.75f);
 
-        sphere *s = new sphere(
-            2.0 * radius,
-            make_vec2(rand_between(-24.0f, 24.0f), rand_between(-24.0f, 24.0f)),
-            radius,
-            make_vec4(rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), 1.0f)
-        );
+    //    sphere *s = new sphere(
+    //        2.0 * radius,
+    //        make_vec2(rand_between(-24.0f, 24.0f), rand_between(-24.0f, 24.0f)),
+    //        radius,
+    //        make_vec4(rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), 1.0f)
+    //    );
 
-        b->add_thing(s);
-    }
+    //    b->add_thing(s);
+    //}
 
-    for (int i = 0; i < 50; ++i) {
-        spring *s = new spring(
-            make_vec2(rand_between(-32.0f, 32.0f), rand_between(-32.0f, 32.0f))
-        );
+    wall *w = new wall(
+        make_vec2(rand_between(-4.0, 4.0), rand_between(0.0, 8.0)),
+        make_vec2(rand_between(-4.0, 4.0), rand_between(0.0, 8.0))
+    );
+    b->add_thing(w);
 
-        b->add_thing(s);
-    }
+    //for (int i = 0; i < 50; ++i) {
+    //    spring *s = new spring(
+    //        make_vec2(rand_between(-32.0f, 32.0f), rand_between(-32.0f, 32.0f))
+    //    );
+
+    //    b->add_thing(s);
+    //}
 
     player *p = new player();
     b->add_thing(p);

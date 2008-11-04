@@ -19,12 +19,14 @@ struct sphere : thing {
 
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
-    virtual void collide_spring(spring &s) { collide_sphere_spring(*this, s); }
+    virtual void collide_wall(wall &w) { collide_sphere_wall(*this, w); }
 
     virtual float collision_time(thing const &t) const
         { return t.collision_time_sphere(*this); }
     virtual float collision_time_sphere(sphere const &s) const
         { return collision_time_sphere_sphere(*this, s); }
+    virtual float collision_time_wall(wall const &w) const
+        { return collision_time_sphere_wall(*this, w); }
 
     sphere(float m, vec2 ct, float r, vec4 co)
         : thing(m, ct), color(co), radius(r) { _set_up_drawing(); }

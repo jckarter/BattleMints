@@ -10,6 +10,8 @@ struct vec2 {
 
     inline static vec2 make(float a, float b) { return (vec2){a, b}; }
 
+    inline vec2 operator-() const { return make(-x, -y); }
+
     inline vec2 operator+(vec2 o) const { return make(x + o.x, y + o.y); }
     inline vec2 operator-(vec2 o) const { return make(x - o.x, y - o.y); }
     inline vec2 operator*(vec2 o) const { return make(x * o.x, y * o.y); }
@@ -37,6 +39,8 @@ struct vec4 {
     float x, y, z, w;
 
     inline static vec4 make(float a, float b, float c, float d) { return (vec4){a, b, c, d}; }
+
+    inline vec4 operator-() const { return make(-x, -y, -z, -w); }
 
     inline vec4 operator+(vec4 o) const { return make(x + o.x, y + o.y, z + o.z, w + o.w); }
     inline vec4 operator-(vec4 o) const { return make(x - o.x, y - o.y, z - o.z, w - o.w); }
@@ -71,7 +75,10 @@ static inline float vproduct(vec2 a) { return a.x * a.y; }
 static inline float vdot(vec2 a, vec2 b) { return vsum(a * b); }
 static inline float vnorm2(vec2 a) { return vdot(a, a); }
 static inline float vnorm(vec2 a) { return sqrtf(vnorm2(a)); }
-static inline vec2 vnormalize(vec2 a) { return a/make_vec2(vnorm(a)); }
+static inline vec2 vnormalize(vec2 a) { return a/vnorm(a); }
+
+static inline vec2 vreflect(vec2 normal, vec2 a) { return a - 2.0*vdot(a, normal)*normal; }
+static inline vec2 vperp(vec2 a) { return make_vec2(-a.y, a.x); }
 
 struct rect {
     vec2 low, high;
@@ -104,6 +111,14 @@ static inline float rand_between(float lo, float hi)
     float ret = r * spread + lo;
 
     return ret;
+}
+
+static inline float signum(float n)
+{
+    return n <  0.0 ? -1.0
+         : n == 0.0 ?  0.0
+         :             1.0;
+
 }
 
 }
