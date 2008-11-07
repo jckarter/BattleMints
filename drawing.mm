@@ -1,5 +1,6 @@
 #include "drawing.hpp"
 #include <UIKit/UIKit.h>
+#include <CoreGraphics/CoreGraphics.h>
 
 namespace battlemints {
 

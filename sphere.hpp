@@ -4,6 +4,7 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/array.hpp>
+#include <json/json.h>
 #include "collision.hpp"
 #include "thing.hpp"
 
@@ -36,6 +37,8 @@ struct sphere : thing {
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " color:" << color << " r:" << radius; }
+
+    static thing *from_json(Json::Value const &v);
 
 private:
     GLuint _texture;

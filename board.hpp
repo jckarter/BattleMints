@@ -2,6 +2,9 @@
 #define __BOARD_HPP__
 
 #include <set>
+#include <string>
+#include <stdexcept>
+#include <json/json.h>
 #include "grid.hpp"
 #include "controller.hpp"
 
@@ -25,6 +28,8 @@ struct board : controller {
     virtual void draw();
 
     static board *make_demo_board();
+    static board *from_json(Json::Value const &v);
+    static board *from_file(std::string const &name);
 
 private:
     void _draw_background();

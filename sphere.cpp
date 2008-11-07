@@ -1,6 +1,7 @@
 #include "sphere.hpp"
 #include "drawing.hpp"
 #include "game.hpp"
+#include "serialization.hpp"
 #include <cmath>
 #include <vector>
 #include <boost/cstdint.hpp>
@@ -105,6 +106,16 @@ GLuint sphere::_make_sphere_texture(float radius, unsigned pixel_radius)
     );
 
     return texture;
+}
+
+thing *sphere::from_json(Json::Value const &v)
+{
+    vec2  center = vec2_from_json(v["center"]);
+    vec4  color  = vec4_from_json(v["color"]);
+    float radius = (float)v["radius"].asDouble();
+    float mass   = (float)v["mass"].asDouble();
+
+    return new sphere(mass, center, radius, color);
 }
 
 }

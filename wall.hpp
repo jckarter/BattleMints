@@ -34,9 +34,11 @@ struct wall : thing {
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " a:" << endpoint_a << " b:" << endpoint_b << " n:" << normal; }
 
+    static thing *from_json(Json::Value const &v);
+
 private:
     void _set_up_vertices();
-    boost::array<float, 8> _vertices;
+    boost::array<float, 4> _vertices;
 };
 
 }

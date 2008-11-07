@@ -4,6 +4,7 @@
 #include "sphere.hpp"
 #include "player.hpp"
 #include "wall.hpp"
+#include "serialization.hpp"
 #include <functional>
 #include <iostream>
 #include <limits>
@@ -14,7 +15,8 @@ static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
 static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
 
 board::board(rect bound)
-    : _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
+    : _camera(NULL),
+      _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0)
 {}
@@ -25,6 +27,8 @@ board::setup()
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glEnable(GL_CULL_FACE);
+    glEnable(GL_LINE_SMOOTH);
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glMatrixMode(GL_PROJECTION);
@@ -36,6 +40,8 @@ board::setup()
     );
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    glLineWidth(BORDER_THICKNESS * PIXELS_PER_GAME_UNIT);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -124,7 +130,7 @@ board::make_demo_board()
     //    b->add_thing(s);
     //}
 
-    player *p = new player();
+    player *p = new player(make_vec2(0.0, 0.0));
     b->add_thing(p);
     b->set_camera(p);
 
@@ -272,6 +278,54 @@ board::_move_things(float timeslice)
     BOOST_FOREACH (thing *th, _all_things) {
         if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
             _update_thing(th, _move_thing(timeslice));
+    }
+}
+
+board *
+board::from_json(Json::Value const &v)
+{
+    if (!v.isObject())
+        throw invalid_board_json("Root of board JSON must be Object");
+
+    rect bounds = rect_from_json(v["bounds"]);
+    Json::Value things = v["things"];
+    if (!things.isArray())
+        throw invalid_board_json("\"things\" field of board JSON must be Array");
+
+    board *b = new board(bounds);
+    try {
+        for (unsigned i = 0; i < things.size(); ++i) {
+            Json::Value const &tv = things[i];
+            thing *t = thing_from_json(tv);
+            b->add_thing(t);
+            if (tv[1].isMember("camera"))
+                b->set_camera(t);
+        }
+    } catch (...) {
+        delete b;
+        throw;
+    }
+
+    return b;
+}
+
+board *
+board::from_file(std::string const &name)
+{
+    boost::optional<std::string> path = resource_filename(name, "board");
+    try {
+        Json::Value json;
+        {
+            std::ifstream file(path->c_str());
+            file >> json;
+        }
+        return from_json(json);
+    } catch(std::exception const &x) {
+        std::cerr << "Reading board " << name << " failed: " << x.what() << "\n";
+        return NULL;
+    } catch(...) {
+        std::cerr << "Reading board " << name << " failed: ...\n";
+        return NULL;
     }
 }
 

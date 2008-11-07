@@ -1,5 +1,6 @@
 #include "wall.hpp"
 #include "game.hpp"
+#include "serialization.hpp"
 
 namespace battlemints {
 
@@ -23,20 +24,23 @@ wall::draw()
 
     glColor4f(0.0, 0.0, 0.0, 1.0);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_LINES, 0, 2);
 }
 
 void
 wall::_set_up_vertices()
 {
-    vec2 thickness = normal * BORDER_THICKNESS * 0.5;
-    vec2 ll = endpoint_a - thickness, lr = endpoint_b - thickness,
-         ul = endpoint_a + thickness, ur = endpoint_b + thickness;
+    _vertices[0] = endpoint_a.x; _vertices[1] = endpoint_a.y;
+    _vertices[2] = endpoint_b.x; _vertices[3] = endpoint_b.y;
+}
 
-    _vertices[0] = ll.x; _vertices[1] = ll.y;
-    _vertices[2] = lr.x; _vertices[3] = lr.y;
-    _vertices[4] = ul.x; _vertices[5] = ul.y;
-    _vertices[6] = ur.x; _vertices[7] = ur.y;
+thing *
+wall::from_json(Json::Value const &v)
+{
+    vec2 endpoint_a = vec2_from_json(v["endpoint_a"]);
+    vec2 endpoint_b = vec2_from_json(v["endpoint_b"]);
+
+    return new wall(endpoint_a, endpoint_b);
 }
 
 }

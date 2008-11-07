@@ -28,6 +28,12 @@
 		D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB520EBEE72B00E65BAF /* drawing.mm */; };
 		D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */; };
 		D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC540EC0D2AC00E65BAF /* wall.cpp */; };
+		D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
+		D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
+		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
+		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
+		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
+		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +76,13 @@
 		D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller.cpp; sourceTree = "<group>"; };
 		D82BFC530EC0D2AC00E65BAF /* wall.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wall.hpp; sourceTree = "<group>"; };
 		D82BFC540EC0D2AC00E65BAF /* wall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wall.cpp; sourceTree = "<group>"; };
+		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		D86F03310EC4C274004F03F8 /* demo.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo.board; sourceTree = "<group>"; };
+		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
+		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
+		D86F03350EC4C292004F03F8 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +135,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D82BFC860EC1829100E65BAF /* lib_json */,
 				32CA4F630368D1EE00C91783 /* BattleMints_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				D81B5A800EB53725002A40E7 /* battlemints.h */,
@@ -134,6 +148,7 @@
 				D81B5BA80EB7B43E002A40E7 /* collision.hpp */,
 				D81B5BA90EB7B43E002A40E7 /* sphere.cpp */,
 				D81B5BAA0EB7B43E002A40E7 /* sphere.hpp */,
+				D86F03350EC4C292004F03F8 /* player.cpp */,
 				D81B5CBF0EB82EF6002A40E7 /* player.hpp */,
 				D81A11560EBCD00800283428 /* grid.cpp */,
 				D81A11570EBCD00800283428 /* grid.hpp */,
@@ -147,6 +162,8 @@
 				D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */,
 				D82BFC530EC0D2AC00E65BAF /* wall.hpp */,
 				D82BFC540EC0D2AC00E65BAF /* wall.cpp */,
+				D86F03330EC4C292004F03F8 /* serialization.hpp */,
+				D86F03340EC4C292004F03F8 /* serialization.mm */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -154,6 +171,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D86F03310EC4C274004F03F8 /* demo.board */,
 				D82BFAEC0EBE801200E65BAF /* Default.png */,
 				D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -172,6 +190,17 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D82BFC860EC1829100E65BAF /* lib_json */ = {
+			isa = PBXGroup;
+			children = (
+				D82BFC8A0EC1829100E65BAF /* json_reader.cpp */,
+				D82BFC8B0EC1829100E65BAF /* json_value.cpp */,
+				D82BFC8D0EC1829100E65BAF /* json_writer.cpp */,
+			);
+			name = lib_json;
+			path = jsoncpp/src/lib_json;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +248,7 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */,
 				D82BFAED0EBE801200E65BAF /* Default.png in Resources */,
+				D86F03320EC4C274004F03F8 /* demo.board in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +272,11 @@
 				D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */,
 				D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */,
 				D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */,
+				D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */,
+				D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */,
+				D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */,
+				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
+				D86F03370EC4C292004F03F8 /* player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +294,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
-				HEADER_SEARCH_PATHS = /opt/local/include;
+				HEADER_SEARCH_PATHS = (
+					jsoncpp/include,
+					/opt/local/include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ECE15B39-2B54-4E1E-9AEB-F55D516D2552";

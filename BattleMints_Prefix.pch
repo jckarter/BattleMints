@@ -16,14 +16,21 @@
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
+#include <boost/optional.hpp>
 #include <boost/ref.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>
 #include <cmath>
 #include <cstdlib>
+#include <fstream>
+#include <map>
 #include <ostream>
 #include <iostream>
 #include <limits>
+#include <string>
+#include <stdexcept>
+
+#include <json/json.h>
 #endif
 
 #include <CoreGraphics/CoreGraphics.h>
