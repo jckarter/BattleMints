@@ -1,7 +1,9 @@
 #include "sphere.hpp"
 #include "drawing.hpp"
 #include "game.hpp"
+#include "exhaust.hpp"
 #include "serialization.hpp"
+#include "board.hpp"
 #include <cmath>
 #include <vector>
 #include <boost/cstdint.hpp>
@@ -114,8 +116,16 @@ thing *sphere::from_json(Json::Value const &v)
     vec4  color  = vec4_from_json(v["color"]);
     float radius = (float)v["radius"].asDouble();
     float mass   = (float)v["mass"].asDouble();
+    float spring = (float)v["spring"].asDouble();
 
-    return new sphere(mass, center, radius, color);
+    return new sphere(mass, center, radius, color, spring);
+}
+
+void sphere::accelerate_with_exhaust(vec2 accel)
+{
+    velocity += accel;
+    exhaust *x = new exhaust(center - vnormalize(accel)*radius, accel);
+    board::current()->add_thing(x);
 }
 
 }

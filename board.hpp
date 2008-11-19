@@ -31,11 +31,13 @@ struct board : controller {
     static board *from_json(Json::Value const &v);
     static board *from_file(std::string const &name);
 
+    static board *current() { return _current; }
+
 private:
     void _draw_background();
-
     void _find_collision(thing *&a, thing *&b, float &collide_time);
     void _move_things(float timeslice);
+    void _kill_dying_things();
 
     template<typename UnaryFunctor>
     void _update_thing(thing *t, UnaryFunctor const &f);
@@ -45,6 +47,7 @@ private:
 
     thing_set _all_things;
     thing_set _tickable_things;
+    thing_set _dying_things;
 
     thing *_camera;
 
@@ -52,6 +55,8 @@ private:
     grid _collision_grid;
 
     unsigned long _tick_count;
+
+    static board *_current;
 };
 
 }

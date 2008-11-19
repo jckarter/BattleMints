@@ -13,6 +13,7 @@ namespace battlemints {
 struct sphere : thing {
     vec4 color;
     float radius;
+    float spring;
 
     virtual rect visibility_box();
     virtual rect collision_box();
@@ -29,8 +30,8 @@ struct sphere : thing {
     virtual float collision_time_wall(wall const &w) const
         { return collision_time_sphere_wall(*this, w); }
 
-    sphere(float m, vec2 ct, float r, vec4 co)
-        : thing(m, ct), color(co), radius(r) { _set_up_drawing(); }
+    sphere(float m, vec2 ct, float r, vec4 co, float sp)
+        : thing(m, ct), color(co), radius(r), spring(sp) { _set_up_drawing(); }
 
     virtual ~sphere() { _tear_down_drawing(); }
 
@@ -39,6 +40,8 @@ struct sphere : thing {
         { thing::print(os); os << " color:" << color << " r:" << radius; }
 
     static thing *from_json(Json::Value const &v);
+
+    void accelerate_with_exhaust(vec2 accel);
 
 private:
     GLuint _texture;

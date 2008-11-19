@@ -76,6 +76,11 @@ static inline float vdot(vec2 a, vec2 b) { return vsum(a * b); }
 static inline float vnorm2(vec2 a) { return vdot(a, a); }
 static inline float vnorm(vec2 a) { return sqrtf(vnorm2(a)); }
 static inline vec2 vnormalize(vec2 a) { return a/vnorm(a); }
+static inline vec2 vclip(vec2 a, float limit)
+{
+    float norm2 = vnorm2(a), limit2 = limit*limit;
+    return norm2 > limit2 ? a*sqrtf(limit2/norm2) : a;
+}
 
 static inline vec2 vreflect(vec2 normal, vec2 a) { return a - 2.0*vdot(a, normal)*normal; }
 static inline vec2 vperp(vec2 a) { return make_vec2(-a.y, a.x); }

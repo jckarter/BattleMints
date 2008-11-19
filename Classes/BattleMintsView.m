@@ -20,8 +20,8 @@ static void _report_touch(UIView *view, UITouch *touch)
     CGSize bounds = [view bounds].size;
 
     battlemints_input(0,
-        (location.x - bounds.width/2)/(bounds.width/2),
-        -(location.y - bounds.height/2)/(bounds.height/2),
+        (location.x - bounds.width/2)/(bounds.width/4),
+        -(location.y - bounds.height/2)/(bounds.height/4),
     0);
 }
 

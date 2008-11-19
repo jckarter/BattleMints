@@ -23,22 +23,30 @@ struct thing : boost::noncopyable {
     thing(float m, vec2 ct) : velocity(make_vec2(0.0)), center(ct), mass(m) { }
 
     virtual ~thing() { }
-    virtual rect visibility_box() = 0;
-    virtual rect collision_box() = 0;
-    virtual void draw() = 0;
+    virtual rect visibility_box() { return make_rect(0,0,0,0); }
+    virtual rect collision_box() { return make_rect(0,0,0,0); }
+    virtual void draw() { }
 
+    virtual bool does_draws() const { return true; }
     virtual bool does_ticks() const { return false; }
     virtual bool does_collisions() const { return true; }
 
     virtual void tick() { }
 
-    virtual void collide(thing &o) = 0;
-    virtual void collide_sphere(sphere &s) = 0;
-    virtual void collide_wall(wall &w) = 0;
+    /* handle physical results of collision */
+    virtual void collide(thing &o) { }
+    virtual void collide_sphere(sphere &s) { }
+    virtual void collide_wall(wall &w) { }
 
-    virtual float collision_time(thing const &o) const = 0;
-    virtual float collision_time_sphere(sphere const &s) const = 0;
-    virtual float collision_time_wall(wall const &s) const = 0;
+    virtual float collision_time(thing const &o) const
+        { return std::numeric_limits<float>::infinity(); }
+    virtual float collision_time_sphere(sphere const &s) const
+        { return std::numeric_limits<float>::infinity(); }
+    virtual float collision_time_wall(wall const &s) const
+        { return std::numeric_limits<float>::infinity(); }
+
+    /* thing-specific reaction to collision */
+    virtual void on_collision(thing &o) { }
 
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const

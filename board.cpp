@@ -11,8 +11,10 @@
 
 namespace battlemints {
 
-static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
+static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(2.0, 2.0);
 static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
+
+board *board::_current = NULL;
 
 board::board(rect bound)
     : _camera(NULL),
@@ -47,10 +49,13 @@ board::setup()
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glColor4f(1.0, 1.0, 1.0, 1.0);
+
+    _current = this;
 }
 
 board::~board()
 {
+    _kill_dying_things();
     BOOST_FOREACH (thing *th, _all_things)
         delete th;
 }
@@ -62,7 +67,8 @@ board::add_thing(thing *t)
 
     if (t->does_ticks())
         _tickable_things.insert(t);
-    _visibility_grid.add_thing(t, t->visibility_box());
+    if (t->does_draws())
+        _visibility_grid.add_thing(t, t->visibility_box());
     if (t->does_collisions())
         _collision_grid.add_thing(t, t->collision_box());
 }
@@ -73,14 +79,7 @@ board::remove_thing(thing *t)
     if (_all_things.find(t) == _all_things.end())
         return;
 
-    _all_things.erase(t);
-    if (t->does_ticks())
-        _tickable_things.erase(t);
-    _visibility_grid.remove_thing(t, t->visibility_box());
-    if (t->does_collisions())
-        _collision_grid.remove_thing(t, t->collision_box());
-
-    delete t;
+    _dying_things.insert(t);
 }
 
 void
@@ -96,45 +95,6 @@ thing *
 board::camera()
 {
     return _camera;
-}
-
-board *
-board::make_demo_board()
-{
-    board *b = new board(make_rect(-128.0, -128.0, 128.0, 128.0));
-
-    //for (int i = 0; i < 30; ++i) {
-    //    float radius = rand_between(0.25f, 0.75f);
-
-    //    sphere *s = new sphere(
-    //        2.0 * radius,
-    //        make_vec2(rand_between(-24.0f, 24.0f), rand_between(-24.0f, 24.0f)),
-    //        radius,
-    //        make_vec4(rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), rand_between(0.8f, 1.0f), 1.0f)
-    //    );
-
-    //    b->add_thing(s);
-    //}
-
-    wall *w = new wall(
-        make_vec2(rand_between(-4.0, 4.0), rand_between(0.0, 8.0)),
-        make_vec2(rand_between(-4.0, 4.0), rand_between(0.0, 8.0))
-    );
-    b->add_thing(w);
-
-    //for (int i = 0; i < 50; ++i) {
-    //    spring *s = new spring(
-    //        make_vec2(rand_between(-32.0f, 32.0f), rand_between(-32.0f, 32.0f))
-    //    );
-
-    //    b->add_thing(s);
-    //}
-
-    player *p = new player(make_vec2(0.0, 0.0));
-    b->add_thing(p);
-    b->set_camera(p);
-
-    return b;
 }
 
 template<typename UnaryFunctor>
@@ -162,7 +122,7 @@ board::_update_2_things(thing *t, thing *u, BinaryFunctor const &f)
     rect u_old_visibility = u->visibility_box();
     rect u_old_collision  = u->collision_box();
 
-    f(t, *u);
+    f(t, u);
 
     rect t_new_visibility = t->visibility_box();
     rect t_new_collision  = t->collision_box();
@@ -186,7 +146,7 @@ board::_find_collision(thing *&a, thing *& b, float &collide_time)
         for (ia = cell->begin(); ia != cell->end(); ++ia)
             for (ib = ia, ++ib; ib != cell->end(); ++ib) {
                 float pair_time = (*ia)->collision_time(**ib);
-                if (pair_time > 0.0 && pair_time < collide_time) {
+                if (pair_time >= 0.0 && pair_time < collide_time) {
                     collide_time = pair_time; a = *ia; b = *ib;
                 }
             }
@@ -203,9 +163,40 @@ struct _tick_thing {
     }
 };
 
+struct _collide_things {
+    _collide_things() {}
+
+    inline void
+    operator()(thing *a, thing *b) const
+    {
+        a->collide(*b);
+        a->on_collision(*b);
+        b->on_collision(*a);
+    }
+};
+
+inline void
+board::_kill_dying_things()
+{
+    BOOST_FOREACH (thing *th, _dying_things) {
+        _all_things.erase(th);
+        if (th->does_ticks())
+            _tickable_things.erase(th);
+        if (th->does_draws())
+            _visibility_grid.remove_thing(th, th->visibility_box());
+        if (th->does_collisions())
+            _collision_grid.remove_thing(th, th->collision_box());
+
+        delete th;
+    }
+    _dying_things.clear();
+}
+
 void
 board::tick()
 {
+    _kill_dying_things();
+
     float tick_time = 1.0;
     int rounds = 0;
 
@@ -216,7 +207,7 @@ board::tick()
         _find_collision(a, b, collide_time);
         _move_things(std::min(tick_time, collide_time));
         if (collide_time <= tick_time)
-            _update_2_things(a, b, std::mem_fun(&thing::collide));
+            _update_2_things(a, b, _collide_things());
 
         tick_time -= collide_time;
         ++rounds;
@@ -272,12 +263,24 @@ struct _move_thing {
     }
 };
 
+struct _stop_thing {
+    _stop_thing() {}
+
+    inline void
+    operator()(thing *t) const
+    {
+        t->velocity = make_vec2(0.0);
+    }
+};
+
 void
 board::_move_things(float timeslice)
 {
     BOOST_FOREACH (thing *th, _all_things) {
         if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
             _update_thing(th, _move_thing(timeslice));
+        else
+            _update_thing(th, _stop_thing());
     }
 }
 

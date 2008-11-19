@@ -1,9 +1,10 @@
-USING: math.geometry.rect json.reader assocs kernel fry sequences math.vectors
+USING: math.geometry.rect json.reader json.writer assocs kernel fry sequences math.vectors
 shuffle cairo cairo.ffi cairo.gadgets macros combinators accessors 
 arrays math math.constants alien.c-types ui.gadgets opengl.gadgets math.order
 colors opengl locals combinators.short-circuit ui.gestures generalizations
-vectors namespaces ui.tools.inspector ui.gadgets.packs symbols
-ui.gadgets.labels ui.gadgets.buttons hashtables classes ;
+vectors namespaces ui.tools.inspector ui.gadgets.packs symbols ui
+ui.gadgets.labels ui.gadgets.buttons hashtables classes io.encodings.utf8
+io.files ;
 IN: mint-editor.board
 
 : BORDER-THICKNESS 0.045 ;
@@ -12,7 +13,8 @@ IN: mint-editor.board
 : HANDLE-SELECT-COLOR 1.0 0.2 0.2 0.5 ;
 
 TUPLE: wall endpoint-a endpoint-b ;
-TUPLE: sphere center color radius mass ;
+TUPLE: sphere center color radius mass spring ;
+TUPLE: enemy < sphere accel responsiveness ;
 TUPLE: player center ;
 
 ! ! !
@@ -40,6 +42,18 @@ M: sphere init-thing
         { "color"  [ first4 <rgba> >>color ] }
         { "radius" [ >>radius ] }
         { "mass"   [ >>mass   ] }
+        { "spring" [ >>spring ] }
+    } keys-to-slots ;
+
+M: enemy init-thing
+    {
+        { "center" [ >>center ] }
+        { "color"  [ first4 <rgba> >>color ] }
+        { "radius" [ >>radius ] }
+        { "mass"   [ >>mass   ] }
+        { "spring" [ >>spring ] }
+        { "accel"  [ >>accel  ] }
+        { "responsiveness" [ >>responsiveness ] }
     } keys-to-slots ;
 
 M: player init-thing
@@ -63,6 +77,17 @@ M: sphere thing>assoc
         { "color"  [ color>> color>raw 4array ] }
         { "radius" [ radius>> ] }
         { "mass"   [ mass>>   ] }
+        { "spring" [ spring>> ] }
+    } slots-to-keys ;
+M: enemy thing>assoc
+    {
+        { "center" [ center>> ] }
+        { "color"  [ color>> color>raw 4array ] }
+        { "radius" [ radius>> ] }
+        { "mass"   [ mass>>   ] }
+        { "spring" [ spring>> ] }
+        { "accel"  [ accel>>  ] }
+        { "responsiveness" [ responsiveness>> ] }
     } slots-to-keys ;
 M: player thing>assoc
     {
@@ -95,6 +120,7 @@ M: sequence extents
         { "player" player }
         { "wall"   wall }
         { "sphere" sphere }
+        { "enemy"  enemy }
     } ;
 
 : string>thing-class ( string -- class ) thing-class-names at ;
@@ -158,6 +184,23 @@ M:: endpoint-b-handle drag-handle ( delta handle thing -- )
 
 GENERIC: draw ( thing -- )
 
+: text-extents ( string -- extents )
+    cr swap "cairo_text_extents_t" <c-object> [ cairo_text_extents ] keep ;
+
+: extents-offset-to-center ( extents -- offset )
+    [ [ cairo_text_extents_t-width     ] [ cairo_text_extents_t-height    ] bi 2array 0.5 v*n ]
+    [ [ cairo_text_extents_t-x_bearing ] [ cairo_text_extents_t-y_bearing ] bi 2array ] bi
+    v+ vneg ;
+
+:: draw-text-centered ( center string -- )
+    cr center first2 cairo_move_to
+    cr cairo_save
+    cr 0.08 -0.08 cairo_scale
+    cr string text-extents extents-offset-to-center first2 cairo_rel_move_to
+    cr string cairo_show_text
+    cr cairo_restore
+    cr cairo_new_path ;
+
 M: wall draw
     cr swap
     [ endpoint-a>> first2 cairo_move_to ]
@@ -175,22 +218,9 @@ M: sphere draw
     cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
     cr cairo_stroke ;
 
-: text-extents ( string -- extents )
-    cr swap "cairo_text_extents_t" <c-object> [ cairo_text_extents ] keep ;
-
-: extents-offset-to-center ( extents -- offset )
-    [ [ cairo_text_extents_t-width     ] [ cairo_text_extents_t-height    ] bi 2array 0.5 v*n ]
-    [ [ cairo_text_extents_t-x_bearing ] [ cairo_text_extents_t-y_bearing ] bi 2array ] bi
-    v+ vneg ;
-
-:: draw-text-centered ( center string -- )
-    cr center first2 cairo_move_to
-    cr cairo_save
-    cr 0.08 -0.08 cairo_scale
-    cr string text-extents extents-offset-to-center first2 cairo_rel_move_to
-    cr string cairo_show_text
-    cr cairo_restore
-    cr cairo_new_path ;
+M: enemy draw
+    dup call-next-method
+    center>> "E" draw-text-centered ;
 
 M: player draw
     cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
@@ -214,7 +244,7 @@ M: handle-base draw
 
 ! ! !
 
-SINGLETONS: drag-tool wall-tool sphere-tool delete-tool ;
+SINGLETONS: drag-tool wall-tool sphere-tool enemy-tool delete-tool clone-tool ;
 
 TUPLE: board-gadget < cairo-gadget
     things
@@ -233,7 +263,35 @@ M: board-gadget handles
         V{ } clone >>selected-handles
         drag-tool >>tool ;
 
-: <board-top-row> ( board -- pack )
+! ! !
+
+: assoc>board ( assoc -- board )
+    <board-gadget>
+    "things" rot at [ first2 swap string>thing-class new-thing ] V{ } map-as
+    >>things ;
+
+: (thing>board-assoc-entry) ( thing -- sequence )
+    [ class thing-class>string ] [ thing>assoc ] bi 2array ;
+
+: board>assoc ( board -- assoc )
+    things>> 2 <hashtable>
+    [ [ extents append "bounds" ] dip set-at ]
+    [ [ [ (thing>board-assoc-entry) ] { } map-as "things" ] dip set-at ]
+    [ nip ] 2tri ;
+
+: <fresh-board> ( -- gadget )
+    <board-gadget>
+        {  -5.5  -5.5 } {  -5.0   5.5 } wall boa 
+        {   5.0  -5.5 } {   5.5   5.5 } wall boa
+        {  -2.5   0.0 } 0.7 1.0 1.0 1.0 <rgba> 1.0 1.0 1.0 sphere boa
+        {   0.0   0.0 } player boa
+        4array >vector >>things ;
+
+: save-board ( board filename -- )
+    [ board>assoc >json ] dip utf8 set-file-contents ;
+
+: <board-top-row> ( board filename -- pack )
+    drop
     <inspector-gadget> [ >>inspector ] keep 2array
     <shelf>
         1 >>fill
@@ -242,18 +300,31 @@ M: board-gadget handles
 : (board-tool) ( board tool label -- button )
     [ '[ drop _ _ >>tool drop ] ] [ <label> ] bi* swap <bevel-button> ;
 
-: <board-bottom-row> ( board -- pack )
-    {
-        { drag-tool "drag" }
-        { wall-tool "wall" }
-        { sphere-tool "sphere" }
-        { delete-tool "delete" }
-    } [ first2 (board-tool) ] with map
+: <board-bottom-row> ( board filename -- pack )
+    [
+        drop {
+            { drag-tool "drag" }
+            { wall-tool "wall" }
+            { sphere-tool "sphere" }
+            { enemy-tool "enemy" }
+            { clone-tool "clone" }
+            { delete-tool "delete" }
+        } [ first2 (board-tool) ] with map
+    ] [ '[ _ _ save-board ] "save" swap <bevel-button> suffix ] 2bi
     <shelf> swap add-gadgets ;
 
-: <board-controls> ( board -- blob )
-    <pile> swap
-    [ <board-top-row> add-gadget ] [ <board-bottom-row> add-gadget ] bi ;
+: <board-controls> ( board filename -- blob )
+    <pile> -rot
+    [ <board-top-row> add-gadget ] [ <board-bottom-row> add-gadget ] 2bi ;
+
+: new-board ( filename -- )
+    [ <fresh-board> swap <board-controls> ] [ open-window ] bi ;
+
+: open-board ( filename -- )
+    [ utf8 file-contents json> assoc>board ] [ <board-controls> ]
+    [ open-window ] tri ;
+
+! ! !
 
 : board-scale ( gadget -- scale )
     [ dim>> first2 min ] [ zoom>> ] bi / { 1.0 -1.0 } n*v ;
@@ -277,14 +348,6 @@ M: board-gadget render-cairo*
 M: board-gadget pref-dim*
     drop { 600 600 } ;
 
-: dummy-board ( -- gadget )
-    <board-gadget>
-        {  -5.5  -5.5 } {  -5.0   5.5 } wall boa 
-        {   5.0  -5.5 } {   5.5   5.5 } wall boa
-        {  -2.5   0.0 } 0.7 1.0 1.0 1.0 <rgba> 1.0 1.0 sphere boa
-        {   0.0   0.0 } player boa
-        4array >vector >>things ;
-
 : user-space-click-loc ( gadget -- point )
     {
         [ hand-click-rel ] 
@@ -300,7 +363,7 @@ M: board-gadget pref-dim*
     [ inspect-object ] [ 3drop ] if* ;
 
 : inspect-nothing ( board -- )
-    f f f roll inspector>> ?inspect-object ;
+    f f pick inspector>> inspect-object ;
 
 : inspect-thing ( thing board -- )
     [ f f ] dip inspector>> ?inspect-object ;
@@ -319,7 +382,7 @@ M: board-gadget pref-dim*
     [ [ thing>> ] dip inspect-thing ] 2bi ;
 
 : clear-selected-handles ( gadget -- )
-    V{ } clone >>selected-handles drop ;
+    V{ } clone >>selected-handles inspect-nothing ;
 
 : handle-under-cursor ( gadget -- handle )
     [ user-space-click-loc ] [ handles ] bi <reversed> find-handle ;
@@ -396,7 +459,17 @@ M: wall-tool board-button-down
     drop dup user-space-click-loc dup wall boa 1 spawn-thing ;
 
 M: sphere-tool board-button-down
-    drop dup user-space-click-loc 1.0 1.0 1.0 1.0 <rgba> 0.0 1.0 sphere boa 1 spawn-thing ;
+    drop dup user-space-click-loc 1.0 1.0 1.0 1.0 <rgba> 0.0 1.0 1.0 sphere boa 1 spawn-thing ;
+
+M: enemy-tool board-button-down
+    drop
+    dup user-space-click-loc
+    1.0 1.0 1.0 1.0 <rgba>
+    0.0
+    1.0
+    1.0
+    0.015
+    1.0 enemy boa 1 spawn-thing ;
 
 : ?delete ( thing seq -- )
     over deletable? [ delete ] [ 2drop ] if ;
@@ -411,15 +484,8 @@ M: delete-tool board-button-up
         } cleave
     ] [ drop ] if ;
 
-! ! !
+M: clone-tool board-button-down
+    drop dup handle-under-cursor
+    [ dup thing>> dup deletable? [ clone swap #>> spawn-thing ] [ 3drop ] if ]
+    [ drop ] if* ;
 
-: assoc>board ( assoc -- board )
-    <board-gadget>
-    "things" rot at [ first2 swap string>thing-class new-thing ] V{ } map-as
-    >>things ;
-
-: board>assoc ( board -- assoc )
-    things>> 2 <hashtable>
-    [ [ extents append "bounds" ] dip set-at ]
-    [ [ [ [ class thing-class>string ] [ thing>assoc ] bi 2array ] { } map-as "things" ] dip set-at ]
-    [ nip ] 2tri ;

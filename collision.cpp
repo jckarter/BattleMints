@@ -43,11 +43,16 @@ void collide_sphere_sphere(sphere &a, sphere &b)
 static inline float _collision_time_points(vec2 pt_a, vec2 pt_b, vec2 velocity, float radius)
 {
     vec2 distance = pt_a - pt_b;
-    float speed2 = vnorm2(velocity);
     float distance2 = vnorm2(distance);
+    float radius2 = radius*radius;
     float spread = vdot(velocity, distance);
 
-    return (spread - sqrtf(spread*spread - speed2*(distance2 - radius*radius))) / speed2;
+    if (spread > 0.0 && distance2 <= radius2)
+        return 0.0;
+
+    float speed2 = vnorm2(velocity);
+
+    return (spread - sqrtf(spread*spread - speed2*(distance2 - radius2))) / speed2;
 }
 
 static inline float _collision_time_point_line(vec2 pt, vec2 line_pt, vec2 normal, vec2 velocity)
@@ -65,14 +70,18 @@ float collision_time_sphere_wall(sphere const &a, wall const &b)
 {
     float side = signum(vdot(a.velocity, b.normal));
 
-    vec2 tangent_pt = a.center + side * b.normal * a.radius;
-    vec2 vel_perp = side * vperp(a.velocity);
+    vec2 normal = side * b.normal * a.radius;
+    vec2 near_pt = a.center + normal;
 
-    float cos_a = vdot((b.endpoint_a - tangent_pt), vel_perp);
-    float cos_b = vdot((b.endpoint_b - tangent_pt), vel_perp);
+    if (vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
+        return 0.0;
+
+    vec2 vel_perp = side * vperp(a.velocity);
+    float cos_a = vdot((b.endpoint_a - near_pt), vel_perp);
+    float cos_b = vdot((b.endpoint_b - near_pt), vel_perp);
 
     if (cos_a >= 0.0 && cos_b <= 0.0)
-        return _collision_time_point_line(tangent_pt, b.endpoint_a, b.normal, a.velocity);
+        return _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
     else
         return std::numeric_limits<float>::infinity();
 }

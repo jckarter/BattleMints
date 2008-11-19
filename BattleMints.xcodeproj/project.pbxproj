@@ -31,6 +31,8 @@
 		D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
 		D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
+		D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C29A50ED0F2540000DE73 /* enemy.cpp */; };
+		D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A040ED1F8360000DE73 /* exhaust.cpp */; };
 		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
 		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
@@ -79,6 +81,10 @@
 		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
 		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		D84C29A50ED0F2540000DE73 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy.cpp; sourceTree = "<group>"; };
+		D84C29A60ED0F2540000DE73 /* enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = enemy.hpp; sourceTree = "<group>"; };
+		D84C2A030ED1F8360000DE73 /* exhaust.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = exhaust.hpp; sourceTree = "<group>"; };
+		D84C2A040ED1F8360000DE73 /* exhaust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exhaust.cpp; sourceTree = "<group>"; };
 		D86F03310EC4C274004F03F8 /* demo.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo.board; sourceTree = "<group>"; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
@@ -164,6 +170,10 @@
 				D82BFC540EC0D2AC00E65BAF /* wall.cpp */,
 				D86F03330EC4C292004F03F8 /* serialization.hpp */,
 				D86F03340EC4C292004F03F8 /* serialization.mm */,
+				D84C29A50ED0F2540000DE73 /* enemy.cpp */,
+				D84C29A60ED0F2540000DE73 /* enemy.hpp */,
+				D84C2A030ED1F8360000DE73 /* exhaust.hpp */,
+				D84C2A040ED1F8360000DE73 /* exhaust.cpp */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -277,6 +287,8 @@
 				D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */,
 				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
 				D86F03370EC4C292004F03F8 /* player.cpp in Sources */,
+				D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */,
+				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
