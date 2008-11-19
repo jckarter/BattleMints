@@ -28,7 +28,6 @@ struct thing : boost::noncopyable {
     virtual void draw() { }
 
     virtual bool does_draws() const { return true; }
-    virtual bool does_ticks() const { return false; }
     virtual bool does_collisions() const { return true; }
 
     virtual void tick() { }

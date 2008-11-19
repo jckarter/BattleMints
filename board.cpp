@@ -65,8 +65,6 @@ board::add_thing(thing *t)
 {
     _all_things.insert(t);
 
-    if (t->does_ticks())
-        _tickable_things.insert(t);
     if (t->does_draws())
         _visibility_grid.add_thing(t, t->visibility_box());
     if (t->does_collisions())
@@ -159,6 +157,7 @@ struct _tick_thing {
     inline void
     operator()(thing *t) const
     {
+        t->velocity *= FRICTION;
         t->tick();
     }
 };
@@ -180,8 +179,6 @@ board::_kill_dying_things()
 {
     BOOST_FOREACH (thing *th, _dying_things) {
         _all_things.erase(th);
-        if (th->does_ticks())
-            _tickable_things.erase(th);
         if (th->does_draws())
             _visibility_grid.remove_thing(th, th->visibility_box());
         if (th->does_collisions())
@@ -213,7 +210,7 @@ board::tick()
         ++rounds;
     }
 
-    BOOST_FOREACH (thing *th, _tickable_things)
+    BOOST_FOREACH (thing *th, _all_things)
         _update_thing(th, _tick_thing());
 
     ++_tick_count;
@@ -259,7 +256,6 @@ struct _move_thing {
     operator()(thing *t) const
     {
         t->center += t->velocity*timeslice;
-        t->velocity *= FRICTION;
     }
 };
 

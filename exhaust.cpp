@@ -6,10 +6,10 @@ namespace battlemints {
 static const unsigned EXHAUST_LIFE_EXPECTANCY = 60;
 
 const boost::array<float, 8> exhaust::vertices = {
-      0.0,   3.0,
-     -7.0,  21.0,
-      0.0, - 3.0,
-     -7.0, -21.0
+      0.0,   4.0,
+     -9.0,  24.0,
+      0.0, - 4.0,
+     -9.0, -24.0
 };
 
 rect exhaust::visibility_box()

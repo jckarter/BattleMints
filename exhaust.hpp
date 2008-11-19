@@ -13,7 +13,6 @@ struct exhaust : thing {
 
     exhaust(vec2 ct, vec2 d) : thing(0.0, ct), direction(d), age(0) { }
 
-    virtual bool does_ticks() const { return true; }
     virtual bool does_collisions() const { return false; }
 
     virtual rect visibility_box();

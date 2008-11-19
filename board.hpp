@@ -46,7 +46,6 @@ private:
     void _update_2_things(thing *t, thing *u, BinaryFunctor const &f);
 
     thing_set _all_things;
-    thing_set _tickable_things;
     thing_set _dying_things;
 
     thing *_camera;
