@@ -36,3 +36,5 @@
 #include <CoreGraphics/CoreGraphics.h>
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>

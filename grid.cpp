@@ -86,6 +86,7 @@ grid::remove_thing(thing *t, rect bound)
     _for_cells_in_rect(t, bound, _erase());
 }
 
+// XXX potential bottleneck
 bool
 grid::_rects_require_movement(rect old_bound, rect new_bound) const
 {

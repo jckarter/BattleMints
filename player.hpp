@@ -8,7 +8,7 @@ namespace battlemints {
 
 struct player : sphere {
 
-    player(vec2 center) : sphere(1.0, center, 0.5, make_vec4(0.6, 0.7, 0.9, 1.0), 1.0) { }
+    player(vec2 center) : sphere(1.0, center, 0.5, make_vec4(0.6, 0.8, 1.0, 1.0), 1.0) { }
 
     virtual void tick();
 
