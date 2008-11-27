@@ -2,6 +2,7 @@
 #define __GAME_HPP__
 
 #include "geom.hpp"
+#include "sound_server.hpp"
 
 namespace battlemints {
 
@@ -18,6 +19,8 @@ static const vec2 GAME_WINDOW_SIZE = make_vec2(320.0, 480.0);
 static const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
 extern vec2 controller_state;
+extern sound_server *sounds;
+extern sound_effect *impact_sound;
 
 }
 

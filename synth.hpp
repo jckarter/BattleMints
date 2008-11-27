@@ -1,6 +1,7 @@
 #ifndef __SYNTH_HPP__
 #define __SYNTH_HPP__
 
+#include <boost/preprocessor.hpp>
 #include <boost/cstdint.hpp>
 #include <cmath>
 #include <limits>
@@ -76,118 +77,45 @@ struct envelope {
 };
 
 template<void SynthSampleFunc(float &, float, float)>
-inline void _synth_loop(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
+inline void _synth_loop(int16_t *buffer, unsigned start, unsigned length, float amplitude, float frequency, float phase)
 {
-    float lengthf = (float)length;
+    float startf = (float)start, lengthf = (float)length;
     for (float i = 0.0f; i < lengthf; i += 1.0f, ++buffer) {
         float y = 0.0f;
-        float time = SYNTH_SAMPLE_LENGTH*i;
+        float time = SYNTH_SAMPLE_LENGTH*(startf + i);
         SynthSampleFunc(y, frequency*(time + phase), time);
         *buffer = (int16_t)(amplitude * SYNTH_AMP * y);
     }
 }
 
-template<typename S1>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-}
-template<typename S1>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1> >(buffer, length, amplitude, frequency, phase); }
+#define _SYNTH_TEMPLATE_PARAMS_(_, __, elem) (typename elem)
+#define SYNTH_TEMPLATE_PARAMS(params) \
+    BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_FOR_EACH(_SYNTH_TEMPLATE_PARAMS_, _, params))
 
-template<typename S1, typename S2>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-}
-template<typename S1, typename S2>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2> >(buffer, length, amplitude, frequency, phase); }
+#define _SYNTH_CALLS_(_, __, elem) elem::synth(y, x, time);
+#define SYNTH_CALLS(params) \
+    BOOST_PP_SEQ_FOR_EACH(_SYNTH_CALLS_, _, params)
 
-template<typename S1, typename S2, typename S3>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3> >(buffer, length, amplitude, frequency, phase); }
+#define SYNTH_TEMPLATE_ARGS(params) \
+    BOOST_PP_SEQ_ENUM(params)
 
-template<typename S1, typename S2, typename S3, typename S4>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-    S4::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3, typename S4>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3, S4> >(buffer, length, amplitude, frequency, phase); }
+#define DEFINE_SYNTH_FOR(params) \
+    template<SYNTH_TEMPLATE_PARAMS(params)> \
+    inline void _synth_sample(float &y, float x, float time) { SYNTH_CALLS(params) } \
+    template<SYNTH_TEMPLATE_PARAMS(params)> \
+    void synth(int16_t *buffer, unsigned start, unsigned length, float amplitude, float frequency, float phase) \
+        { _synth_loop<_synth_sample<SYNTH_TEMPLATE_ARGS(params)> >(buffer, start, length, amplitude, frequency, phase); }
 
-template<typename S1, typename S2, typename S3, typename S4, typename S5>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-    S4::synth(y, x, time);
-    S5::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3, typename S4, typename S5>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3, S4, S5> >(buffer, length, amplitude, frequency, phase); }
-
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-    S4::synth(y, x, time);
-    S5::synth(y, x, time);
-    S6::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3, S4, S5, S6> >(buffer, length, amplitude, frequency, phase); }
-
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6, typename S7>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-    S4::synth(y, x, time);
-    S5::synth(y, x, time);
-    S6::synth(y, x, time);
-    S7::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6, typename S7>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3, S4, S5, S6, S7> >(buffer, length, amplitude, frequency, phase); }
-
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6, typename S7, typename S8>
-inline void _synth_sample(float &y, float x, float time)
-{
-    S1::synth(y, x, time);
-    S2::synth(y, x, time);
-    S3::synth(y, x, time);
-    S4::synth(y, x, time);
-    S5::synth(y, x, time);
-    S6::synth(y, x, time);
-    S7::synth(y, x, time);
-    S8::synth(y, x, time);
-}
-template<typename S1, typename S2, typename S3, typename S4, typename S5, typename S6, typename S7, typename S8>
-void synth(int16_t *buffer, unsigned length, float amplitude, float frequency, float phase)
-    { _synth_loop<_synth_sample<S1, S2, S3, S4, S5, S6, S7, S8> >(buffer, length, amplitude, frequency, phase); }
-
-
+DEFINE_SYNTH_FOR((S1))
+DEFINE_SYNTH_FOR((S1)(S2))
+DEFINE_SYNTH_FOR((S1)(S2)(S3))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5)(S6))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5)(S6)(S7))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5)(S6)(S7)(S8))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5)(S6)(S7)(S8)(S9))
+DEFINE_SYNTH_FOR((S1)(S2)(S3)(S4)(S5)(S6)(S7)(S8)(S9)(S10))
 
 }
 

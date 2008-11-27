@@ -3,6 +3,7 @@
 #include "thing.hpp"
 #include "sphere.hpp"
 #include "player.hpp"
+#include "exhaust.hpp"
 #include "wall.hpp"
 #include "serialization.hpp"
 #include <functional>
@@ -20,8 +21,11 @@ board::board(rect bound)
     : _camera(NULL),
       _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
-      _tick_count(0)
-{}
+      _tick_count(0),
+      _exhaust_thing(new exhaust(bound))
+{
+    add_thing(_exhaust_thing);
+}
 
 void
 board::setup()
@@ -194,6 +198,8 @@ board::tick()
 {
     _kill_dying_things();
 
+    sounds->listener(_camera_center(), _camera_velocity(), 1.0f);
+
     float tick_time = 1.0;
     int rounds = 0;
 
@@ -216,12 +222,24 @@ board::tick()
     ++_tick_count;
 }
 
+vec2
+board::_camera_velocity() const
+{
+    return _camera ? _camera->velocity : make_vec2(0.0);
+}
+
+vec2
+board::_camera_center() const
+{
+    return _camera ? _camera->center : make_vec2(0.0);
+}
+
 void
 board::draw()
 {
     _draw_background();
 
-    vec2 camera_center = _camera ? _camera->center : make_vec2(0.0);
+    vec2 camera_center = _camera_center();
     rect camera_rect = make_rect(
         camera_center - GAME_WINDOW_UNIT_SIZE/2,
         camera_center + GAME_WINDOW_UNIT_SIZE/2

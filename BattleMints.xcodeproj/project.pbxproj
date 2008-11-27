@@ -33,6 +33,8 @@
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
 		D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C29A50ED0F2540000DE73 /* enemy.cpp */; };
 		D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A040ED1F8360000DE73 /* exhaust.cpp */; };
+		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
+		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
 		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
@@ -85,6 +87,10 @@
 		D84C29A60ED0F2540000DE73 /* enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = enemy.hpp; sourceTree = "<group>"; };
 		D84C2A030ED1F8360000DE73 /* exhaust.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = exhaust.hpp; sourceTree = "<group>"; };
 		D84C2A040ED1F8360000DE73 /* exhaust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exhaust.cpp; sourceTree = "<group>"; };
+		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
+		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
+		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
+		D84C2AB10EDD24180000DE73 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D86F03310EC4C274004F03F8 /* demo.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo.board; sourceTree = "<group>"; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
 				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
 				D81B5AE70EB68693002A40E7 /* CoreGraphics.framework in Frameworks */,
+				D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +181,9 @@
 				D84C29A60ED0F2540000DE73 /* enemy.hpp */,
 				D84C2A030ED1F8360000DE73 /* exhaust.hpp */,
 				D84C2A040ED1F8360000DE73 /* exhaust.cpp */,
+				D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */,
+				D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */,
+				D84C2A870EDD20760000DE73 /* synth.hpp */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -193,6 +203,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D84C2AB10EDD24180000DE73 /* OpenAL.framework */,
 				D81B5AE60EB68693002A40E7 /* CoreGraphics.framework */,
 				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
 				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
@@ -289,6 +300,7 @@
 				D86F03370EC4C292004F03F8 /* player.cpp in Sources */,
 				D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */,
 				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
+				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

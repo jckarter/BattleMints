@@ -124,8 +124,8 @@ thing *sphere::from_json(Json::Value const &v)
 void sphere::accelerate_with_exhaust(vec2 accel)
 {
     velocity += accel;
-    exhaust *x = new exhaust(center - vnormalize(accel)*radius, mass*accel);
-    board::current()->add_thing(x);
+    board::current()->exhaust_thing()
+        ->add_particle(center - vnormalize(accel)*radius, mass*accel);
 }
 
 }

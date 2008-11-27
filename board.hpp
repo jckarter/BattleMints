@@ -12,6 +12,8 @@ namespace battlemints {
 
 typedef std::set<thing*> thing_set;
 
+struct exhaust;
+
 struct board : controller {
 
     board(rect bound);
@@ -22,6 +24,8 @@ struct board : controller {
 
     void set_camera(thing *t);
     thing *camera();
+
+    exhaust *exhaust_thing() { return _exhaust_thing; }
 
     virtual void setup();
     virtual void tick();
@@ -39,6 +43,9 @@ private:
     void _move_things(float timeslice);
     void _kill_dying_things();
 
+    vec2 _camera_velocity() const;
+    vec2 _camera_center() const;
+
     template<typename UnaryFunctor>
     void _update_thing(thing *t, UnaryFunctor const &f);
 
@@ -49,6 +56,7 @@ private:
     thing_set _dying_things;
 
     thing *_camera;
+    exhaust *_exhaust_thing;
 
     grid _visibility_grid;
     grid _collision_grid;

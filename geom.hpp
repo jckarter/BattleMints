@@ -20,6 +20,8 @@ struct vec2 {
     inline vec2 operator*(float o) const { return make(x * o, y * o); }
     inline vec2 operator/(float o) const { return make(x / o, y / o); }
 
+    inline bool operator<(vec2 o) const { return x == o.x ? y < o.y : x < o.x; }
+
     inline vec2 &operator+=(vec2 o) { x += o.x; y += o.y; return *this; }
     inline vec2 &operator-=(vec2 o) { x -= o.x; y -= o.y; return *this; }
     inline vec2 &operator*=(vec2 o) { x *= o.x; y *= o.y; return *this; }

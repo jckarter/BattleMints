@@ -68,7 +68,7 @@ main(int argc, char *argv[])
         sine_wave_synth<fraction<5,70>, fraction<12,1> >,
         sine_wave_synth<fraction<5,70>, fraction<40,3> >,
         envelope<attack, decay>
-    >(buffer_data, 7056, 1.0f, 450.0f, 0.0f);
+    >(buffer_data, 0, 7056, 1.0f, 450.0f, 0.0f);
 
     if (argc > 1) {
         FILE *file = fopen(argv[1], "w");
