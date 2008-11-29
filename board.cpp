@@ -22,7 +22,8 @@ board::board(rect bound)
       _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0),
-      _exhaust_thing(new exhaust(bound))
+      _exhaust_thing(new exhaust(bound)),
+      _sound(new sound_server())
 {
     add_thing(_exhaust_thing);
 }
@@ -60,6 +61,7 @@ board::setup()
 board::~board()
 {
     _kill_dying_things();
+    delete _sound;
     BOOST_FOREACH (thing *th, _all_things)
         delete th;
 }
@@ -198,7 +200,7 @@ board::tick()
 {
     _kill_dying_things();
 
-    sounds->listener(_camera_center(), _camera_velocity(), 1.0f);
+    _sound->tick();
 
     float tick_time = 1.0;
     int rounds = 0;
@@ -223,13 +225,13 @@ board::tick()
 }
 
 vec2
-board::_camera_velocity() const
+board::camera_velocity() const
 {
     return _camera ? _camera->velocity : make_vec2(0.0);
 }
 
 vec2
-board::_camera_center() const
+board::camera_center() const
 {
     return _camera ? _camera->center : make_vec2(0.0);
 }
@@ -239,15 +241,15 @@ board::draw()
 {
     _draw_background();
 
-    vec2 camera_center = _camera_center();
+    vec2 cam_center = camera_center();
     rect camera_rect = make_rect(
-        camera_center - GAME_WINDOW_UNIT_SIZE/2,
-        camera_center + GAME_WINDOW_UNIT_SIZE/2
+        cam_center - GAME_WINDOW_UNIT_SIZE/2,
+        cam_center + GAME_WINDOW_UNIT_SIZE/2
     );
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(-camera_center.x, -camera_center.y, 0.0f);
+    glTranslatef(-cam_center.x, -cam_center.y, 0.0f);
 
     std::set<thing*> visible_things = _visibility_grid.things_in_rect(camera_rect);
     BOOST_FOREACH (thing *th, visible_things) {

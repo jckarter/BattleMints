@@ -7,6 +7,7 @@
 #include <json/json.h>
 #include "grid.hpp"
 #include "controller.hpp"
+#include "sound_server.hpp"
 
 namespace battlemints {
 
@@ -26,6 +27,7 @@ struct board : controller {
     thing *camera();
 
     exhaust *exhaust_thing() { return _exhaust_thing; }
+    sound_server *sound() { return _sound; }
 
     virtual void setup();
     virtual void tick();
@@ -37,14 +39,14 @@ struct board : controller {
 
     static board *current() { return _current; }
 
+    vec2 camera_velocity() const;
+    vec2 camera_center() const;
+
 private:
     void _draw_background();
     void _find_collision(thing *&a, thing *&b, float &collide_time);
     void _move_things(float timeslice);
     void _kill_dying_things();
-
-    vec2 _camera_velocity() const;
-    vec2 _camera_center() const;
 
     template<typename UnaryFunctor>
     void _update_thing(thing *t, UnaryFunctor const &f);
@@ -57,6 +59,7 @@ private:
 
     thing *_camera;
     exhaust *_exhaust_thing;
+    sound_server *_sound;
 
     grid _visibility_grid;
     grid _collision_grid;

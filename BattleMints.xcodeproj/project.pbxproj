@@ -15,6 +15,7 @@
 		28FD14FE0DC6FC130079059D /* BattleMintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* BattleMintsView.m */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */; };
 		D81A115A0EBCD00800283428 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11560EBCD00800283428 /* grid.cpp */; };
 		D81A115B0EBCD00800283428 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11580EBCD00800283428 /* board.cpp */; };
 		D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */; };
@@ -54,6 +55,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* BattleMints_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleMints_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_effects.hpp; sourceTree = "<group>"; };
+		D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_effects.cpp; sourceTree = "<group>"; };
 		D81A11560EBCD00800283428 /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
 		D81A11570EBCD00800283428 /* grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = grid.hpp; sourceTree = "<group>"; };
 		D81A11580EBCD00800283428 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				D84C2A040ED1F8360000DE73 /* exhaust.cpp */,
 				D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */,
 				D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */,
+				D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */,
+				D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */,
 				D84C2A870EDD20760000DE73 /* synth.hpp */,
 			);
 			name = "Other Sources";
@@ -301,6 +306,7 @@
 				D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */,
 				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
+				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

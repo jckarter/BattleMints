@@ -3,6 +3,7 @@
 #include "game.hpp"
 #include "exhaust.hpp"
 #include "serialization.hpp"
+#include "sound_effects.hpp"
 #include "board.hpp"
 #include <cmath>
 #include <vector>
@@ -126,6 +127,11 @@ void sphere::accelerate_with_exhaust(vec2 accel)
     velocity += accel;
     board::current()->exhaust_thing()
         ->add_particle(center - vnormalize(accel)*radius, mass*accel);
+}
+
+void sphere::on_collision(thing &o)
+{
+    board::current()->sound()->play(new impact_sound_effect(225.0 / radius), this);
 }
 
 }

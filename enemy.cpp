@@ -34,6 +34,8 @@ void enemy::tick()
 
 void enemy::on_collision(thing &o)
 {
+    sphere::on_collision(o);
+
     if (!target)
         target = &o;
 }
