@@ -28,7 +28,7 @@ struct exhaust : thing {
     rect bounding_box;
     std::vector<particle> particles;
 
-    exhaust(rect bb) : thing(0.0, make_vec2(0.0)), bounding_box(bb), particles() { }
+    exhaust(rect bb) : thing(0.0, ZERO_VEC2), bounding_box(bb), particles() { }
 
     virtual bool does_collisions() const { return false; }
 
@@ -41,8 +41,7 @@ struct exhaust : thing {
     void add_particle(vec2 center, vec2 direction)
         { particles.push_back(particle(center, direction)); }
 
-private:
-    static vec4 _color(unsigned age);
+    static vec4 color(unsigned age);
 };
 
 }

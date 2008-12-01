@@ -6,6 +6,7 @@
 #include <boost/array.hpp>
 #include <json/json.h>
 #include "collision.hpp"
+#include "explosion.hpp"
 #include "thing.hpp"
 
 namespace battlemints {
@@ -41,9 +42,9 @@ struct sphere : thing {
 
     static thing *from_json(Json::Value const &v);
 
-    virtual void on_collision(thing &o);
-
     void accelerate_with_exhaust(vec2 accel);
+
+    virtual void wall_damage() { explosion::explode(this); }
 
 private:
     GLuint _texture;

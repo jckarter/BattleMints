@@ -16,6 +16,7 @@
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */; };
+		D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D550EE3AFE000A0AD25 /* explosion.cpp */; };
 		D81A115A0EBCD00800283428 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11560EBCD00800283428 /* grid.cpp */; };
 		D81A115B0EBCD00800283428 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11580EBCD00800283428 /* board.cpp */; };
 		D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */; };
@@ -57,6 +58,8 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_effects.hpp; sourceTree = "<group>"; };
 		D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_effects.cpp; sourceTree = "<group>"; };
+		D8122D550EE3AFE000A0AD25 /* explosion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = explosion.cpp; sourceTree = "<group>"; };
+		D8122D560EE3AFE000A0AD25 /* explosion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = explosion.hpp; sourceTree = "<group>"; };
 		D81A11560EBCD00800283428 /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
 		D81A11570EBCD00800283428 /* grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = grid.hpp; sourceTree = "<group>"; };
 		D81A11580EBCD00800283428 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */,
 				D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */,
 				D84C2A870EDD20760000DE73 /* synth.hpp */,
+				D8122D550EE3AFE000A0AD25 /* explosion.cpp */,
+				D8122D560EE3AFE000A0AD25 /* explosion.hpp */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
+				D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +326,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;

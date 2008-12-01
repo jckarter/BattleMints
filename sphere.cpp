@@ -20,8 +20,8 @@ rect sphere::visibility_box()
 rect sphere::collision_box()
 {
     vec2 diagonal = make_vec2(radius);
-    vec2 neg = vmin(make_vec2(0.0), velocity);
-    vec2 pos = vmax(make_vec2(0.0), velocity);
+    vec2 neg = vmin(ZERO_VEC2, velocity);
+    vec2 pos = vmax(ZERO_VEC2, velocity);
 
     return make_rect(center - diagonal + neg, center + diagonal + pos);
 }
@@ -127,11 +127,6 @@ void sphere::accelerate_with_exhaust(vec2 accel)
     velocity += accel;
     board::current()->exhaust_thing()
         ->add_particle(center - vnormalize(accel)*radius, mass*accel);
-}
-
-void sphere::on_collision(thing &o)
-{
-    board::current()->sound()->play(new impact_sound_effect(225.0 / radius), this);
 }
 
 }

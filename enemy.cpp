@@ -1,5 +1,6 @@
 #include "enemy.hpp"
 #include "serialization.hpp"
+#include "board.hpp"
 
 namespace battlemints {
 
@@ -18,24 +19,26 @@ thing *enemy::from_json(Json::Value const &v)
 
 void enemy::tick()
 {
-    if (cur_accel != make_vec2(0.0))
+    if (cur_accel != ZERO_VEC2)
         accelerate_with_exhaust(cur_accel);
 
     if (target) {
-        vec2 a = cur_accel, b = accel*vnormalize(target->center - center),
-             c = a*(1.0-responsiveness) + b*responsiveness;
-        cur_accel = c == make_vec2(0.0)
-            ? make_vec2(0.0)
-            : accel*vnormalize(c);
+        if (board::current()->thing_lives(target)) {
+            vec2 a = cur_accel, b = accel*vnormalize(target->center - center),
+                 c = a*(1.0-responsiveness) + b*responsiveness;
+            cur_accel = c == ZERO_VEC2
+                ? ZERO_VEC2
+                : accel*vnormalize(c);
+        } else {
+            target = NULL;
+        }
     } else {
-        cur_accel = make_vec2(0.0);
+        cur_accel = ZERO_VEC2;
     }
 }
 
 void enemy::on_collision(thing &o)
 {
-    sphere::on_collision(o);
-
     if (!target)
         target = &o;
 }

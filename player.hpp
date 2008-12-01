@@ -15,6 +15,8 @@ struct player : sphere {
     virtual char const * kind() const { return "player"; }
 
     static thing *from_json(Json::Value const &v);
+
+    virtual void wall_damage() { }
 };
 
 }

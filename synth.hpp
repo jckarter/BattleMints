@@ -7,6 +7,7 @@
 #include <limits>
 #include <cstdio>
 #include <cstdlib>
+#include "geom.hpp"
 
 namespace battlemints {
 
@@ -39,7 +40,7 @@ template<FloatFunc Amplitude = one, FloatFunc Frequency = one, FloatFunc Phase =
 struct sine_wave_synth
     : synth_base<sine_wave_synth<Amplitude, Frequency, Phase>, Amplitude, Frequency, Phase>
 {
-    static float f(float x) { return sinf(2.0f*(float)M_PI*x); }
+    static float f(float x) { return fast_cos_2pi(x); }
 };
 
 template<FloatFunc Amplitude = one, FloatFunc Frequency = one, FloatFunc Phase = zero>

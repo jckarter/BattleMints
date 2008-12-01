@@ -12,8 +12,8 @@ namespace battlemints {
 struct grid : boost::noncopyable {
 
     grid()
-        : _origin(make_vec2(0.0)), _cell_size_inv(make_vec2(0.0)),
-          _cell_dims(make_vec2(0.0)), _pitch(0), cells(0)
+        : _origin(ZERO_VEC2), _cell_size_inv(ZERO_VEC2),
+          _cell_dims(ZERO_VEC2), _pitch(0), cells(0)
         { }
     grid(rect space, vec2 cell_size);
     

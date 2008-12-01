@@ -2,6 +2,7 @@
 #define __THING_HPP__
 
 #include "geom.hpp"
+#include "game.hpp"
 
 #include <vector>
 #include <boost/array.hpp>
@@ -20,7 +21,7 @@ struct thing : boost::noncopyable {
     vec2 center;
     float mass;
 
-    thing(float m, vec2 ct) : velocity(make_vec2(0.0)), center(ct), mass(m) { }
+    thing(float m, vec2 ct) : velocity(ZERO_VEC2), center(ct), mass(m) { }
 
     virtual ~thing() { }
     virtual rect visibility_box() { return make_rect(0,0,0,0); }
@@ -46,6 +47,8 @@ struct thing : boost::noncopyable {
 
     /* thing-specific reaction to collision */
     virtual void on_collision(thing &o) { }
+
+    virtual void wall_damage() { }
 
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const

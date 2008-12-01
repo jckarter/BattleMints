@@ -31,10 +31,10 @@ void exhaust::draw()
 
         vec2 dir = pi->direction * (float)pi->age/(float)EXHAUST_LIFE_EXPECTANCY;
         vec2 normal = vperp(dir);
-        vec4 color = _color(pi->age);
+        vec4 col = color(pi->age);
         for (unsigned n = 0; n < 4; ++n) {
             (*vi)[n] = pi->center + vertices[n].x * dir + vertices[n].y * normal;
-            (*ci)[n] = color;
+            (*ci)[n] = col;
         }
     }
 
@@ -60,7 +60,7 @@ void exhaust::tick()
     }
 }
 
-vec4 exhaust::_color(unsigned age)
+vec4 exhaust::color(unsigned age)
 {
     float a = 1.0 - (float)age/(float)EXHAUST_LIFE_EXPECTANCY;
     float a2 = sqrtf(a);

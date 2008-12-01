@@ -43,4 +43,10 @@ wall::from_json(Json::Value const &v)
     return new wall(endpoint_a, endpoint_b);
 }
 
+void
+wall::on_collision(thing &o)
+{
+    o.wall_damage();
+}
+
 }

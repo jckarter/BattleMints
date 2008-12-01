@@ -2,6 +2,7 @@
 #define __GEOM_HPP__
 
 #include <algorithm>
+#include <iostream>
 
 namespace battlemints {
 
@@ -84,7 +85,7 @@ static inline vec2 vclip(vec2 a, float limit)
     return norm2 > limit2 ? a*sqrtf(limit2/norm2) : a;
 }
 
-static inline vec2 vreflect(vec2 normal, vec2 a) { return a - 2.0*vdot(a, normal)*normal; }
+static inline vec2 vreflect(vec2 normal, vec2 a) { return a - 2.0f*vdot(a, normal)*normal; }
 static inline vec2 vperp(vec2 a) { return make_vec2(-a.y, a.x); }
 
 struct rect {
@@ -122,11 +123,19 @@ static inline float rand_between(float lo, float hi)
 
 static inline float signum(float n)
 {
-    return n <  0.0 ? -1.0
-         : n == 0.0 ?  0.0
-         :             1.0;
+    return n <  0.0f ? -1.0f
+         : n == 0.0f ?  0.0f
+         :              1.0f;
 
 }
+
+static inline float fast_cos_2pi(float x)
+{
+    float xp = x - 0.5f - floorf(x);
+    return 16.0f*xp*fabsf(xp) - 8.0f*xp;
+}
+
+static inline float fast_sin_2pi(float x) { return fast_cos_2pi(0.25f - x); }
 
 }
 

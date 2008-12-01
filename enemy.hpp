@@ -14,7 +14,7 @@ struct enemy : sphere {
 
     enemy(float m, vec2 ct, float r, vec4 co, float sp, float a, float re)
         : sphere(m, ct, r, co, sp), accel(a), responsiveness(re),
-          target(NULL), cur_accel(make_vec2(0.0)) {}
+          target(NULL), cur_accel(ZERO_VEC2) {}
 
     virtual void tick();
     virtual void on_collision(thing &o);

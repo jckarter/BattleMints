@@ -22,6 +22,8 @@ struct board : controller {
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
     void remove_thing(thing *t);
+    void replace_thing(thing *olde, thing *nu);
+    bool thing_lives(thing *t) { return _all_things.find(t) != _all_things.end(); }
 
     void set_camera(thing *t);
     thing *camera();

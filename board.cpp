@@ -87,6 +87,15 @@ board::remove_thing(thing *t)
 }
 
 void
+board::replace_thing(thing *olde, thing *nu)
+{
+    if (camera() == olde)
+        set_camera(nu);
+    remove_thing(olde);
+    add_thing(nu);
+}
+
+void
 board::set_camera(thing *t)
 {
     if (_all_things.find(t) == _all_things.end())
@@ -227,13 +236,13 @@ board::tick()
 vec2
 board::camera_velocity() const
 {
-    return _camera ? _camera->velocity : make_vec2(0.0);
+    return _camera ? _camera->velocity : ZERO_VEC2;
 }
 
 vec2
 board::camera_center() const
 {
-    return _camera ? _camera->center : make_vec2(0.0);
+    return _camera ? _camera->center : ZERO_VEC2;
 }
 
 void
@@ -285,7 +294,7 @@ struct _stop_thing {
     inline void
     operator()(thing *t) const
     {
-        t->velocity = make_vec2(0.0);
+        t->velocity = ZERO_VEC2;
     }
 };
 

@@ -30,6 +30,8 @@ struct wall : thing {
     virtual float collision_time_wall(wall const &w) const
         { return collision_time_wall_wall(*this, w); }
 
+    virtual void on_collision(thing &o);
+
     virtual char const * kind() const { return "wall"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " a:" << endpoint_a << " b:" << endpoint_b << " n:" << normal; }

@@ -119,7 +119,7 @@ std::vector< std::set<thing*> >::iterator
 grid::cell_for_point(vec2 pt)
 {
     vec2 coords = (pt - _origin) * _cell_size_inv;
-    coords = vmax(make_vec2(0.0, 0.0), coords);
+    coords = vmax(ZERO_VEC2, coords);
     coords = vmin(_cell_dims, coords);
 
     return cells.begin() + _pitch * (unsigned)coords.y + (unsigned)coords.x;
@@ -129,7 +129,7 @@ std::vector< std::set<thing*> >::const_iterator
 grid::cell_for_point(vec2 pt) const
 {
     vec2 coords = (pt - _origin) * _cell_size_inv;
-    coords = vmax(make_vec2(0.0, 0.0), coords);
+    coords = vmax(ZERO_VEC2, coords);
     coords = vmin(_cell_dims, coords);
 
     return cells.begin() + _pitch * (unsigned)coords.y + (unsigned)coords.x;
