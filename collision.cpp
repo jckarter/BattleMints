@@ -1,7 +1,7 @@
 #include "collision.hpp"
 #include "thing.hpp"
 #include "sphere.hpp"
-#include "wall.hpp"
+#include "line.hpp"
 #include <iostream>
 #include <limits>
 
@@ -20,12 +20,12 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
 
 }
 
-void collide_wall_wall(wall &a, wall &b)
+void collide_line_line(line &a, line &b)
 {
-    // walls don't move
+    // lines don't move
 }
 
-void collide_sphere_wall(sphere &a, wall &b)
+void collide_sphere_line(sphere &a, line &b)
 {
     a.velocity = vreflect(b.normal, a.velocity);
 }
@@ -60,13 +60,13 @@ static inline float _collision_time_point_line(vec2 pt, vec2 line_pt, vec2 norma
     return vdot(line_pt - pt, normal)/vdot(velocity, normal);
 }
 
-float collision_time_wall_wall(wall const &a, wall const &b)
+float collision_time_line_line(line const &a, line const &b)
 {
-    // walls don't move
+    // lines don't move
     return std::numeric_limits<float>::infinity();
 }
 
-float collision_time_sphere_wall(sphere const &a, wall const &b)
+float collision_time_sphere_line(sphere const &a, line const &b)
 {
     float side = signum(vdot(a.velocity, b.normal));
 

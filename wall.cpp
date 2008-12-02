@@ -4,18 +4,6 @@
 
 namespace battlemints {
 
-rect
-wall::visibility_box()
-{
-    return make_rect(vmin(endpoint_a, endpoint_b), vmax(endpoint_a, endpoint_b));
-}
-
-rect
-wall::collision_box()
-{
-    return make_rect(vmin(endpoint_a, endpoint_b), vmax(endpoint_a, endpoint_b));
-}
-
 void
 wall::draw()
 {

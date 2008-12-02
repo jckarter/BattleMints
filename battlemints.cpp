@@ -4,6 +4,7 @@
 #include "geom.hpp"
 #include "intro.hpp"
 #include "synth.hpp"
+#include "goal.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/foreach.hpp>
@@ -32,6 +33,9 @@ extern "C"
 void battlemints_start()
 {
     sranddev();
+
+    goal::global_start();        
+
     controller::set_current(new intro());
 }
 
@@ -57,4 +61,6 @@ extern "C"
 void battlemints_finish()
 {
     controller::delete_current();
+
+    goal::global_finish();        
 }

@@ -1,6 +1,7 @@
 #ifndef __BOARD_HPP__
 #define __BOARD_HPP__
 
+#include <iostream>
 #include <set>
 #include <string>
 #include <stdexcept>
@@ -45,6 +46,8 @@ struct board : controller {
     vec2 camera_center() const;
 
 private:
+    friend struct _collide_things;
+
     void _draw_background();
     void _find_collision(thing *&a, thing *&b, float &collide_time);
     void _move_things(float timeslice);
@@ -65,6 +68,17 @@ private:
 
     grid _visibility_grid;
     grid _collision_grid;
+
+    typedef std::pair<thing *, thing *> overlap_pair;
+    std::set<overlap_pair> _overlaps;
+    bool _overlapping(thing *a, thing *b)
+        { return _overlaps.find(std::make_pair(a,b)) != _overlaps.end(); }
+    void _add_overlap(thing *a, thing *b)
+        { std::cerr << "[" << *a << "] [" << *b << "] start overlapping\n";
+          _overlaps.insert(std::make_pair(a,b)); }
+    void _remove_overlap(thing *a, thing *b, float f)
+        { std::cerr << "[" << *a << "] [" << *b << "] stop overlapping " << f << "\n";
+          _overlaps.erase(std::make_pair(a,b)); }
 
     unsigned long _tick_count;
 

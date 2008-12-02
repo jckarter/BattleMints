@@ -23,7 +23,8 @@ board::board(rect bound)
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0),
       _exhaust_thing(new exhaust(bound)),
-      _sound(new sound_server())
+      _sound(new sound_server()),
+      _overlaps()
 {
     add_thing(_exhaust_thing);
 }
@@ -35,6 +36,7 @@ board::setup()
     glEnable(GL_BLEND);
     glEnable(GL_CULL_FACE);
     glEnable(GL_LINE_SMOOTH);
+    glEnable(GL_POINT_SMOOTH);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -149,8 +151,15 @@ board::_update_2_things(thing *t, thing *u, BinaryFunctor const &f)
     _collision_grid.move_thing(u, u_old_collision, u_new_collision);
 }
 
+static inline bool _is_overlapping_time(float f)
+{
+    f = fabsf(f);
+    return f <= 0.01f
+        || f == std::numeric_limits<float>::infinity();
+}
+
 inline void
-board::_find_collision(thing *&a, thing *& b, float &collide_time)
+board::_find_collision(thing *& a, thing *& b, float &collide_time)
 {
     for (std::vector< std::set<thing*> >::iterator cell = _collision_grid.cells.begin();
          cell != _collision_grid.cells.end();
@@ -159,7 +168,10 @@ board::_find_collision(thing *&a, thing *& b, float &collide_time)
         for (ia = cell->begin(); ia != cell->end(); ++ia)
             for (ib = ia, ++ib; ib != cell->end(); ++ib) {
                 float pair_time = (*ia)->collision_time(**ib);
-                if (pair_time >= 0.0 && pair_time < collide_time) {
+                if (_overlapping(*ia, *ib)) {
+                    if (!_is_overlapping_time(pair_time))
+                        _remove_overlap(*ia, *ib, pair_time);
+                } else if (pair_time >= 0.0 && pair_time < collide_time) {
                     collide_time = pair_time; a = *ia; b = *ib;
                 }
             }
@@ -178,12 +190,16 @@ struct _tick_thing {
 };
 
 struct _collide_things {
-    _collide_things() {}
+    board &bo;
+    _collide_things(board &bb) : bo(bb) {}
 
     inline void
     operator()(thing *a, thing *b) const
     {
-        a->collide(*b);
+        if (a->can_overlap() || b->can_overlap())
+            bo._add_overlap(a, b);
+        else
+            a->collide(*b);
         a->on_collision(*b);
         b->on_collision(*a);
     }
@@ -214,18 +230,21 @@ board::tick()
     float tick_time = 1.0;
     int rounds = 0;
 
-    while (tick_time > 0.0) {
+    while (tick_time > 0.0 && rounds < 100) {
         thing *a, *b;
         float collide_time = std::numeric_limits<float>::infinity();
 
         _find_collision(a, b, collide_time);
         _move_things(std::min(tick_time, collide_time));
         if (collide_time <= tick_time)
-            _update_2_things(a, b, _collide_things());
+            _update_2_things(a, b, _collide_things(*this));
 
         tick_time -= collide_time;
         ++rounds;
     }
+
+    if (rounds >= 100)
+        fprintf(stderr, "More than 100 collision rounds!\n");                
 
     BOOST_FOREACH (thing *th, _all_things)
         _update_thing(th, _tick_thing());

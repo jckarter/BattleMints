@@ -3,6 +3,7 @@
 #include "sphere.hpp"
 #include "enemy.hpp"
 #include "wall.hpp"
+#include "goal.hpp"
 #include <UIKit/UIKit.h>
 
 namespace battlemints {
@@ -10,11 +11,12 @@ namespace battlemints {
 typedef thing *(*thing_reader)(Json::Value const &v);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 4> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 5> _thing_reader_pairs = {
     thing_reader_pair("sphere", &sphere::from_json),
     thing_reader_pair("wall", &wall::from_json),
     thing_reader_pair("player", &player::from_json),
-    thing_reader_pair("enemy", &enemy::from_json)
+    thing_reader_pair("enemy", &enemy::from_json),
+    thing_reader_pair("goal", &goal::from_json)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers

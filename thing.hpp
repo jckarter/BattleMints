@@ -12,7 +12,7 @@
 namespace battlemints {
 
 struct sphere;
-struct wall;
+struct line;
 
 struct thing : boost::noncopyable {
     static const boost::array<float, 8> unit_texcoords;
@@ -30,19 +30,20 @@ struct thing : boost::noncopyable {
 
     virtual bool does_draws() const { return true; }
     virtual bool does_collisions() const { return true; }
+    virtual bool can_overlap() const { return false; }
 
     virtual void tick() { }
 
     /* handle physical results of collision */
     virtual void collide(thing &o) { }
     virtual void collide_sphere(sphere &s) { }
-    virtual void collide_wall(wall &w) { }
+    virtual void collide_line(line &w) { }
 
     virtual float collision_time(thing const &o) const
         { return std::numeric_limits<float>::infinity(); }
     virtual float collision_time_sphere(sphere const &s) const
         { return std::numeric_limits<float>::infinity(); }
-    virtual float collision_time_wall(wall const &s) const
+    virtual float collision_time_line(line const &w) const
         { return std::numeric_limits<float>::infinity(); }
 
     /* thing-specific reaction to collision */
