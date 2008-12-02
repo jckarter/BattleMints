@@ -244,7 +244,7 @@ board::tick()
     }
 
     if (rounds >= 100)
-        fprintf(stderr, "More than 100 collision rounds!\n");                
+        std::cerr << "More than 100 collision rounds!\n";
 
     BOOST_FOREACH (thing *th, _all_things)
         _update_thing(th, _tick_thing());

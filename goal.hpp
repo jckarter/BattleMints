@@ -8,11 +8,13 @@ namespace battlemints {
 
 struct goal : tripwire {
     std::string next_board;
+    float trip_strength;
 
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
-        : tripwire(pt_a, pt_b), next_board(nb) { _set_up_vertices(); }
+        : tripwire(pt_a, pt_b), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
     virtual void draw();
+    virtual void tick();
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
 
@@ -24,6 +26,8 @@ private:
     void _set_up_vertices();
     boost::array<vec2, 4> _vertices;
     boost::array<vec2, 4> _texcoords;
+
+    vec4 _color();
 
     static GLuint _goal_texture;
 };

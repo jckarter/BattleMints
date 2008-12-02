@@ -74,11 +74,9 @@ private:
     bool _overlapping(thing *a, thing *b)
         { return _overlaps.find(std::make_pair(a,b)) != _overlaps.end(); }
     void _add_overlap(thing *a, thing *b)
-        { std::cerr << "[" << *a << "] [" << *b << "] start overlapping\n";
-          _overlaps.insert(std::make_pair(a,b)); }
+        { _overlaps.insert(std::make_pair(a,b)); }
     void _remove_overlap(thing *a, thing *b, float f)
-        { std::cerr << "[" << *a << "] [" << *b << "] stop overlapping " << f << "\n";
-          _overlaps.erase(std::make_pair(a,b)); }
+        { _overlaps.erase(std::make_pair(a,b)); }
 
     unsigned long _tick_count;
 

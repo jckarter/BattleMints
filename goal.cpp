@@ -7,8 +7,15 @@
 namespace battlemints {
 
 static const float GOAL_THICKNESS = 0.1f;
+static const float GOAL_TRIP_STRENGTH_FALLOFF = 0.85f;
 
 GLuint goal::_goal_texture;
+
+inline vec4
+goal::_color()
+{
+    return make_vec4(1.0f - trip_strength, 1.0f - 0.5f*trip_strength*trip_strength, 1.0f - trip_strength, 1.0f);
+}
 
 void
 goal::draw()
@@ -18,17 +25,24 @@ goal::draw()
 
     glBindTexture(GL_TEXTURE_2D, _goal_texture);
 
-    glColor4f(1.0, 1.0, 1.0, 1.0);
+    vec4 col = _color();
+    glColor4f(col.x, col.y, col.z, col.w);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)&_texcoords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
 void
+goal::tick()
+{
+    trip_strength *= GOAL_TRIP_STRENGTH_FALLOFF;
+}
+
+void
 goal::on_trip(thing &o)
 {
+    trip_strength = 1.0f;
     //controller::set_current(new transition(board::current(), board::from_file(next_board)));
-    fprintf(stderr, "¡¡¡GOL!!! %s\n", next_board.c_str());
 }
 
 bool
