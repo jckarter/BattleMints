@@ -19,6 +19,8 @@ struct enemy : sphere {
     virtual void tick();
     virtual void on_collision(thing &o);
 
+    virtual void wall_damage() { explosion::explode(this); }
+
     virtual char const * kind() const { return "enemy"; }
 
     static thing *from_json(Json::Value const &v);

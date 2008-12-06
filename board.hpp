@@ -6,11 +6,14 @@
 #include <string>
 #include <stdexcept>
 #include <json/json.h>
+#include <boost/foreach.hpp>
 #include "grid.hpp"
 #include "controller.hpp"
 #include "sound_server.hpp"
 
 namespace battlemints {
+
+struct thing;
 
 typedef std::set<thing*> thing_set;
 
@@ -44,6 +47,13 @@ struct board : controller {
 
     vec2 camera_velocity() const;
     vec2 camera_center() const;
+
+    void dump_things() const
+    {
+        std::cerr << "=== ===\n";
+        BOOST_FOREACH (thing *th, _all_things)
+            std::cerr << *th << "\n";
+    }
 
 private:
     friend struct _collide_things;

@@ -19,6 +19,17 @@
 		D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D550EE3AFE000A0AD25 /* explosion.cpp */; };
 		D8122D7B0EE4EEF700A0AD25 /* line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D760EE4EEF700A0AD25 /* line.cpp */; };
 		D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D780EE4EEF700A0AD25 /* goal.cpp */; };
+		D8122DC80EE6FEEA00A0AD25 /* wall_strip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122DC70EE6FEEA00A0AD25 /* wall_strip.cpp */; };
+		D8122E020EE9C0CB00A0AD25 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5AA80EB68108002A40E7 /* thing.cpp */; };
+		D8122E030EE9C0D000A0AD25 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA90EB7B43E002A40E7 /* sphere.cpp */; };
+		D8122E040EE9C0D800A0AD25 /* line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D760EE4EEF700A0AD25 /* line.cpp */; };
+		D8122E050EE9C0E100A0AD25 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA70EB7B43E002A40E7 /* collision.cpp */; };
+		D8122E060EE9C0E800A0AD25 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122DEE0EE9C0AC00A0AD25 /* test.cpp */; };
+		D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122E7B0EE9C5AC00A0AD25 /* game.cpp */; };
+		D8122E7D0EE9C5D200A0AD25 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122E7B0EE9C5AC00A0AD25 /* game.cpp */; };
+		D8122E7F0EE9C5FC00A0AD25 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
+		D8122E800EE9C5FD00A0AD25 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
+		D8122E810EE9C5FE00A0AD25 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
 		D81A115A0EBCD00800283428 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11560EBCD00800283428 /* grid.cpp */; };
 		D81A115B0EBCD00800283428 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11580EBCD00800283428 /* board.cpp */; };
 		D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */; };
@@ -31,7 +42,6 @@
 		D82BFB550EBEE72B00E65BAF /* intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB510EBEE72B00E65BAF /* intro.cpp */; };
 		D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB520EBEE72B00E65BAF /* drawing.mm */; };
 		D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */; };
-		D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC540EC0D2AC00E65BAF /* wall.cpp */; };
 		D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
 		D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
@@ -67,6 +77,12 @@
 		D8122D780EE4EEF700A0AD25 /* goal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = goal.cpp; sourceTree = "<group>"; };
 		D8122D790EE4EEF700A0AD25 /* goal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = goal.hpp; sourceTree = "<group>"; };
 		D8122D7A0EE4EEF700A0AD25 /* line.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line.hpp; sourceTree = "<group>"; };
+		D8122DC50EE6FEEA00A0AD25 /* wallpost.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wallpost.hpp; sourceTree = "<group>"; };
+		D8122DC60EE6FEEA00A0AD25 /* wall_strip.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wall_strip.hpp; sourceTree = "<group>"; };
+		D8122DC70EE6FEEA00A0AD25 /* wall_strip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wall_strip.cpp; sourceTree = "<group>"; };
+		D8122DED0EE9C0AC00A0AD25 /* synthtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = synthtest.cpp; sourceTree = "<group>"; };
+		D8122DEE0EE9C0AC00A0AD25 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		D8122E7B0EE9C5AC00A0AD25 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		D81A11560EBCD00800283428 /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
 		D81A11570EBCD00800283428 /* grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = grid.hpp; sourceTree = "<group>"; };
 		D81A11580EBCD00800283428 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
@@ -92,7 +108,6 @@
 		D82BFB540EBEE72B00E65BAF /* controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controller.hpp; sourceTree = "<group>"; };
 		D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller.cpp; sourceTree = "<group>"; };
 		D82BFC530EC0D2AC00E65BAF /* wall.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wall.hpp; sourceTree = "<group>"; };
-		D82BFC540EC0D2AC00E65BAF /* wall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wall.cpp; sourceTree = "<group>"; };
 		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
 		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
@@ -124,6 +139,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D8122DE70EE9C03E00A0AD25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -149,8 +171,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D8122DEC0EE9C08A00A0AD25 /* Test */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97315FDCFA39411CA2CEA /* BattleMints */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -158,7 +181,7 @@
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
 				D82BFC860EC1829100E65BAF /* lib_json */,
@@ -167,6 +190,7 @@
 				D81B5A800EB53725002A40E7 /* battlemints.h */,
 				D81B5A870EB53F68002A40E7 /* battlemints.cpp */,
 				D81B5AA60EB68108002A40E7 /* game.hpp */,
+				D8122E7B0EE9C5AC00A0AD25 /* game.cpp */,
 				D81B5AA70EB68108002A40E7 /* geom.hpp */,
 				D81B5AA80EB68108002A40E7 /* thing.cpp */,
 				D81B5AA90EB68108002A40E7 /* thing.hpp */,
@@ -187,7 +211,6 @@
 				D82BFB540EBEE72B00E65BAF /* controller.hpp */,
 				D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */,
 				D82BFC530EC0D2AC00E65BAF /* wall.hpp */,
-				D82BFC540EC0D2AC00E65BAF /* wall.cpp */,
 				D86F03330EC4C292004F03F8 /* serialization.hpp */,
 				D86F03340EC4C292004F03F8 /* serialization.mm */,
 				D84C29A50ED0F2540000DE73 /* enemy.cpp */,
@@ -206,8 +229,11 @@
 				D8122D780EE4EEF700A0AD25 /* goal.cpp */,
 				D8122D790EE4EEF700A0AD25 /* goal.hpp */,
 				D8122D7A0EE4EEF700A0AD25 /* line.hpp */,
+				D8122DC50EE6FEEA00A0AD25 /* wallpost.hpp */,
+				D8122DC60EE6FEEA00A0AD25 /* wall_strip.hpp */,
+				D8122DC70EE6FEEA00A0AD25 /* wall_strip.cpp */,
 			);
-			name = "Other Sources";
+			name = BattleMints;
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -233,6 +259,15 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8122DEC0EE9C08A00A0AD25 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				D8122DED0EE9C0AC00A0AD25 /* synthtest.cpp */,
+				D8122DEE0EE9C0AC00A0AD25 /* test.cpp */,
+			);
+			name = Test;
 			sourceTree = "<group>";
 		};
 		D82BFC860EC1829100E65BAF /* lib_json */ = {
@@ -266,6 +301,21 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* BattleMints.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D8122DE80EE9C03E00A0AD25 /* test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8122DEB0EE9C07900A0AD25 /* Build configuration list for PBXNativeTarget "test" */;
+			buildPhases = (
+				D8122DE60EE9C03E00A0AD25 /* Sources */,
+				D8122DE70EE9C03E00A0AD25 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = test;
+			productName = test;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -279,6 +329,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* BattleMints */,
+				D8122DE80EE9C03E00A0AD25 /* test */,
 			);
 		};
 /* End PBXProject section */
@@ -314,7 +365,6 @@
 				D82BFB550EBEE72B00E65BAF /* intro.cpp in Sources */,
 				D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */,
 				D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */,
-				D82BFC550EC0D2AC00E65BAF /* wall.cpp in Sources */,
 				D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */,
 				D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */,
 				D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */,
@@ -327,6 +377,24 @@
 				D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */,
 				D8122D7B0EE4EEF700A0AD25 /* line.cpp in Sources */,
 				D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */,
+				D8122DC80EE6FEEA00A0AD25 /* wall_strip.cpp in Sources */,
+				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8122DE60EE9C03E00A0AD25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8122E020EE9C0CB00A0AD25 /* thing.cpp in Sources */,
+				D8122E030EE9C0D000A0AD25 /* sphere.cpp in Sources */,
+				D8122E040EE9C0D800A0AD25 /* line.cpp in Sources */,
+				D8122E050EE9C0E100A0AD25 /* collision.cpp in Sources */,
+				D8122E060EE9C0E800A0AD25 /* test.cpp in Sources */,
+				D8122E7D0EE9C5D200A0AD25 /* game.cpp in Sources */,
+				D8122E7F0EE9C5FC00A0AD25 /* json_writer.cpp in Sources */,
+				D8122E800EE9C5FD00A0AD25 /* json_value.cpp in Sources */,
+				D8122E810EE9C5FE00A0AD25 /* json_reader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,10 +413,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
-				HEADER_SEARCH_PATHS = (
-					jsoncpp/include,
-					/opt/local/include,
-				);
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ECE15B39-2B54-4E1E-9AEB-F55D516D2552";
@@ -378,6 +442,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					jsoncpp/include,
+					/opt/local/include,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator2.1;
@@ -394,6 +462,38 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.1;
+			};
+			name = Release;
+		};
+		D8122DE90EE9C04000A0AD25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = NO_GRAPHICS;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = test;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		D8122DEA0EE9C04000A0AD25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = test;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -414,6 +514,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D8122DEB0EE9C07900A0AD25 /* Build configuration list for PBXNativeTarget "test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8122DE90EE9C04000A0AD25 /* Debug */,
+				D8122DEA0EE9C04000A0AD25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -38,13 +38,16 @@ struct thing : boost::noncopyable {
     virtual void collide(thing &o) { }
     virtual void collide_sphere(sphere &s) { }
     virtual void collide_line(line &w) { }
+    virtual void collide_point(thing &p) { }
 
     virtual float collision_time(thing const &o) const
-        { return std::numeric_limits<float>::infinity(); }
+        { return INFINITYF; }
     virtual float collision_time_sphere(sphere const &s) const
-        { return std::numeric_limits<float>::infinity(); }
+        { return INFINITYF; }
     virtual float collision_time_line(line const &w) const
-        { return std::numeric_limits<float>::infinity(); }
+        { return INFINITYF; }
+    virtual float collision_time_point(thing const &p) const
+        { return INFINITYF; }
 
     /* thing-specific reaction to collision */
     virtual void on_collision(thing &o) { }
@@ -55,6 +58,8 @@ struct thing : boost::noncopyable {
     virtual void print(std::ostream &os) const
         { os << kind() << " " << (void*)this
              << " v:" << velocity << " c:" << center << " m:" << mass; }
+
+    virtual void awaken() { } // Called when board activates
 };
 
 static inline std::ostream &operator<<(std::ostream &os, thing const &th)

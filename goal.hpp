@@ -18,6 +18,8 @@ struct goal : tripwire {
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
 
+    virtual char const * kind() const { return "goal"; }
+
     static thing *from_json(Json::Value const &v);
     static void global_start();
     static void global_finish();

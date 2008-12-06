@@ -1,18 +1,29 @@
 USING: math.geometry.rect json.reader json.writer assocs kernel fry sequences math.vectors
 shuffle cairo cairo.ffi cairo.gadgets macros combinators accessors 
-arrays math math.constants alien.c-types ui.gadgets opengl.gadgets math.order
+arrays math math.constants alien.c-types ui.gadgets math.order
 colors opengl locals combinators.short-circuit ui.gestures generalizations
 vectors namespaces ui.tools.inspector ui.gadgets.packs symbols ui
 ui.gadgets.labels ui.gadgets.buttons hashtables classes io.encodings.utf8
-io.files ;
+io.files specialized-arrays.double ;
 IN: mint-editor.board
 
-: BORDER-THICKNESS 0.045 ;
-: HANDLE-RADIUS 0.09 ;
+: BORDER-THICKNESS 0.004 ;
+: GOAL-THICKNESS 0.1 ;
+: HANDLE-RADIUS 0.008 ;
 : HANDLE-COLOR 0.0 0.0 0.0 0.5 ;
 : HANDLE-SELECT-COLOR 1.0 0.2 0.2 0.5 ;
 
-TUPLE: wall endpoint-a endpoint-b ;
+SYMBOL: board
+
+: adjusted-for-board-zoom ( r -- r' )
+    board get zoom>> * ; inline
+: handle-radius ( -- r )
+    HANDLE-RADIUS adjusted-for-board-zoom ; inline
+: border-thickness ( -- r )
+    BORDER-THICKNESS adjusted-for-board-zoom ; inline
+
+TUPLE: wall-strip vertices closed ;
+TUPLE: goal endpoint-a endpoint-b next-board ;
 TUPLE: sphere center color radius mass spring ;
 TUPLE: enemy < sphere accel responsiveness ;
 TUPLE: player center ;
@@ -30,10 +41,17 @@ MACRO: slots-to-keys ( pairs -- )
     [ [ swap '[ [ @ _ ] dip set-at ] ] { } assoc>map ] bi
     '[ _ <hashtable> [ _ 2cleave ] keep ] ;
 
-M: wall init-thing
+M: wall-strip init-thing
+    {
+        { "vertices" [ >vector >>vertices ] }
+        { "closed"   [ >>closed ] }
+    } keys-to-slots ;
+
+M: goal init-thing
     {
         { "endpoint_a" [ >>endpoint-a ] }
         { "endpoint_b" [ >>endpoint-b ] }
+        { "next_board" [ >>next-board ] }
     } keys-to-slots ;
 
 M: sphere init-thing
@@ -66,10 +84,16 @@ M: player init-thing
 
 GENERIC: thing>assoc ( thing -- assoc )
 
-M: wall thing>assoc
+M: wall-strip thing>assoc
+    {
+        { "vertices" [ vertices>> ] }
+        { "closed" [ closed>> ] }
+    } slots-to-keys ;
+M: goal thing>assoc
     {
         { "endpoint_a" [ endpoint-a>> ] }
         { "endpoint_b" [ endpoint-b>> ] }
+        { "next_board" [ next-board>> ] }
     } slots-to-keys ;
 M: sphere thing>assoc
     {
@@ -102,7 +126,11 @@ M: player deletable? drop f ;
 
 GENERIC: extents ( things -- min max )
 
-M: wall extents
+M: wall-strip extents
+    vertices>>
+    [ {  1.0/0.0  1.0/0.0 } [ vmin ] reduce ]
+    [ { -1.0/0.0 -1.0/0.0 } [ vmax ] reduce ] bi ;
+M: goal extents
     [ endpoint-a>> ] [ endpoint-b>> ] bi [ vmin ] [ vmax ] 2bi ;
 M: sphere extents
     [ center>> ] [ radius>> dup 2array ] bi [ v- ] [ v+ ] 2bi ;
@@ -118,7 +146,8 @@ M: sequence extents
 : thing-class-names
     H{
         { "player" player }
-        { "wall"   wall }
+        { "wall_strip" wall-strip }
+        { "goal"   goal }
         { "sphere" sphere }
         { "enemy"  enemy }
     } ;
@@ -134,6 +163,7 @@ TUPLE: center-handle < handle-base ;
 TUPLE: radius-handle < handle-base ;
 TUPLE: endpoint-a-handle < handle-base ;
 TUPLE: endpoint-b-handle < handle-base ;
+TUPLE: vertex-handle < handle-base ;
 
 GENERIC: handles ( thing -- sequence )
 
@@ -142,7 +172,10 @@ M: handle-base equal?
     [ { [ [ thing>> ] bi@ eq? ] [ [ point>> ] bi@ = ] } 2&& ]
     [ 2drop f ] if ; 
 
-M: wall handles
+M: wall-strip handles
+    dup vertices>> [ rot vertex-handle boa ] with map-index ;
+
+M: goal handles
     {
         [ 0 over endpoint-a>> endpoint-a-handle boa ]
         [ 1 over endpoint-b>> endpoint-b-handle boa ]
@@ -180,6 +213,10 @@ M:: endpoint-b-handle drag-handle ( delta handle thing -- )
     thing  [ delta v+ ] change-endpoint-b drop
     handle [ delta v+ ] change-point drop ;
 
+M:: vertex-handle drag-handle ( delta handle thing -- )
+    handle #>> thing vertices>> [ delta v+ ] change-nth
+    handle [ delta v+ ] change-point drop ;
+
 ! ! !
 
 GENERIC: draw ( thing -- )
@@ -201,20 +238,49 @@ GENERIC: draw ( thing -- )
     cr cairo_restore
     cr cairo_new_path ;
 
-M: wall draw
-    cr swap
-    [ endpoint-a>> first2 cairo_move_to ]
-    [ endpoint-b>> first2 cairo_line_to ] 2bi
-    cr BORDER-THICKNESS cairo_set_line_width
+: path-strip ( vertices -- )
+    [ first cr swap first2 cairo_move_to ]
+    [ rest [ cr swap first2 cairo_line_to ] each ] bi ;
+
+M: wall-strip draw
+    [ vertices>> path-strip ]
+    [ closed>> [ cr cairo_close_path ] when ] bi
+    cr border-thickness cairo_set_line_width
     cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
     cr cairo_stroke ;
+
+: path-line ( thing -- )
+    cr swap
+    [ endpoint-a>> first2 cairo_move_to ]
+    [ endpoint-b>> first2 cairo_line_to ] 2bi ;
+
+: perpendicular ( vec -- vec* ) reverse { -1.0 1.0 } v* ;
+
+: line-normal ( line -- normal )
+    [ endpoint-b>> ] [ endpoint-a>> ] bi v-
+    dup { 0.0 0.0 } = 
+    [ drop { 0.0 1.0 } ]
+    [ perpendicular normalize ] if ;
+
+:: draw-goal-row ( goal line-offset dash-offset -- )
+    cr cairo_save
+    cr goal line-normal GOAL-THICKNESS line-offset * v*n first2 cairo_translate
+    cr GOAL-THICKNESS cairo_set_line_width
+    cr GOAL-THICKNESS dup double-array{ } 2sequence underlying>> 2 dash-offset cairo_set_dash
+    goal path-line
+    cr cairo_stroke
+    cr cairo_restore ;
+
+M: goal draw
+    [ -0.5 0.0            draw-goal-row ]
+    [  0.5 GOAL-THICKNESS draw-goal-row ] bi ;
 
 M: sphere draw
     cr swap
     [ [ center>> first2 ] [ radius>> ] bi 0 2 pi * cairo_arc ] 
     [ color>> color>raw cairo_set_source_rgba ] 2bi
     cr cairo_fill_preserve
-    cr BORDER-THICKNESS cairo_set_line_width
+    cr border-thickness cairo_set_line_width
     cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
     cr cairo_stroke ;
 
@@ -232,19 +298,23 @@ M: player draw
     ] bi ;
 
 M: handle-base draw
-    cr swap point>> first2 HANDLE-RADIUS 0 2 pi * cairo_arc
+    cr swap point>> first2 handle-radius 0 2 pi * cairo_arc
     cr HANDLE-COLOR cairo_set_source_rgba
     cr cairo_fill ;
 
 : draw-selected ( handle -- )
-    cr swap point>> first2 HANDLE-RADIUS BORDER-THICKNESS + 0 2 pi * cairo_arc
-    cr BORDER-THICKNESS cairo_set_line_width
+    cr swap point>> first2 handle-radius border-thickness + 0 2 pi * cairo_arc
+    cr border-thickness cairo_set_line_width
     cr HANDLE-SELECT-COLOR cairo_set_source_rgba
     cr cairo_stroke ;
 
 ! ! !
 
-SINGLETONS: drag-tool wall-tool sphere-tool enemy-tool delete-tool clone-tool ;
+SINGLETONS:
+    drag-tool
+    wall-tool goal-tool sphere-tool enemy-tool
+    wall-join-tool wall-split-tool
+    delete-tool clone-tool ;
 
 TUPLE: board-gadget < cairo-gadget
     things
@@ -281,11 +351,15 @@ M: board-gadget handles
 
 : <fresh-board> ( -- gadget )
     <board-gadget>
-        {  -5.5  -5.5 } {  -5.0   5.5 } wall boa 
-        {   5.0  -5.5 } {   5.5   5.5 } wall boa
+        V{
+            {  -6.0  -6.0 }
+            {  -6.0   6.0 }
+            {   6.0   6.0 }
+            {   6.0  -6.0 }
+        } clone t wall-strip boa 
         {  -2.5   0.0 } 0.7 1.0 1.0 1.0 <rgba> 1.0 1.0 1.0 sphere boa
         {   0.0   0.0 } player boa
-        4array >vector >>things ;
+        3array >vector >>things ;
 
 : save-board ( board filename -- )
     [ board>assoc >json ] dip utf8 set-file-contents ;
@@ -305,8 +379,11 @@ M: board-gadget handles
         drop {
             { drag-tool "drag" }
             { wall-tool "wall" }
+            { goal-tool "goal" }
             { sphere-tool "sphere" }
             { enemy-tool "enemy" }
+            { wall-join-tool "join walls" }
+            { wall-split-tool "split walls" }
             { clone-tool "clone" }
             { delete-tool "delete" }
         } [ first2 (board-tool) ] with map
@@ -337,13 +414,16 @@ M: board-gadget handles
     [ cr swap board-scale first2 cairo_scale ] 
     [ cr swap origin>> -1 v*n first2 cairo_translate ] tri ;
 
-M: board-gadget render-cairo*
+: draw-board ( board -- )
     {
         [ set-board-transform ]
         [ things>> [ draw ] each ]
         [ handles [ draw ] each ]
         [ selected-handles>> [ update-handle draw-selected ] each ]
     } cleave ;
+
+M: board-gadget render-cairo*
+    dup board [ draw-board ] with-variable ;
 
 M: board-gadget pref-dim*
     drop { 600 600 } ;
@@ -357,7 +437,7 @@ M: board-gadget pref-dim*
     } cleave ;
 
 : find-handle ( pt handles -- handle/f )
-    [ update-handle point>> v- norm-sq HANDLE-RADIUS sq <= ] with find nip ;
+    [ update-handle point>> v- norm-sq handle-radius sq <= ] with find nip ;
 
 : ?inspect-object ( object x x inspector/f -- )
     [ inspect-object ] [ 3drop ] if* ;
@@ -384,8 +464,8 @@ M: board-gadget pref-dim*
 : clear-selected-handles ( gadget -- )
     V{ } clone >>selected-handles inspect-nothing ;
 
-: handle-under-cursor ( gadget -- handle )
-    [ user-space-click-loc ] [ handles ] bi <reversed> find-handle ;
+: handle-under-cursor ( board -- handle )
+    dup board [ [ user-space-click-loc ] [ handles ] bi <reversed> find-handle ] with-variable ;
 
 ! ! !
 
@@ -456,7 +536,10 @@ M: drag-tool board-drag
     [ relayout-1 ] tri ;
 
 M: wall-tool board-button-down
-    drop dup user-space-click-loc dup wall boa 1 spawn-thing ;
+    drop dup user-space-click-loc dup 2array >vector f wall-strip boa 1 spawn-thing ;
+
+M: goal-tool board-button-down
+    drop dup user-space-click-loc dup "" goal boa 1 spawn-thing ;
 
 M: sphere-tool board-button-down
     drop dup user-space-click-loc 1.0 1.0 1.0 1.0 <rgba> 0.0 1.0 1.0 sphere boa 1 spawn-thing ;
@@ -470,6 +553,23 @@ M: enemy-tool board-button-down
     1.0
     0.015
     1.0 enemy boa 1 spawn-thing ;
+
+M: wall-join-tool board-button-down
+    drop dup handle-under-cursor [
+        [ #>> ] [ thing>> vertices>> ] bi
+        dup length 2 > [ delete-nth ] [ 2drop ] if 
+        [ clear-selected-handles ] [ relayout-1 ] bi
+    ] [ drop ] if* ;
+
+: insert-nth ( elt i seq -- )
+    [ 1array ] [ dup ] [ ] tri* replace-slice ;
+
+M:: wall-split-tool board-button-down ( gadget tool -- )
+    gadget handle-under-cursor [
+        [ [ point>> ] [ #>> 1+ ] [ thing>> vertices>> ] tri insert-nth ]
+        [ [ #>> 1+ ] [ thing>> handles ] bi nth gadget select-handle ] bi
+        gadget drag-tool >>tool relayout-1
+    ] when* ;
 
 : ?delete ( thing seq -- )
     over deletable? [ delete ] [ 2drop ] if ;

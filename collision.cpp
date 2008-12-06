@@ -17,17 +17,25 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
     
     a_coef = (2*b.mass*b_comp + mass_diff*a_comp) * mass_sum_inv - a_comp;
     b_coef = (2*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp;
-
 }
 
-void collide_line_line(line &a, line &b)
-{
-    // lines don't move
-}
+// lines and points don't move
+void collide_line_line(line &a, line &b) { }
+void collide_line_point(line &a, thing &b) { }
+void collide_point_point(thing &a, thing &b) { }
+
+float collision_time_line_line(line const &a, line const &b) { return INFINITYF; }
+float collision_time_line_point(line const &a, thing const &b) { return INFINITYF; }
+float collision_time_point_point(thing const &a, thing const &b) { return INFINITYF; }
 
 void collide_sphere_line(sphere &a, line &b)
 {
     a.velocity = vreflect(b.normal, a.velocity);
+}
+
+void collide_sphere_point(sphere &a, thing &b)
+{
+    a.velocity = vreflect(vnormalize(a.center - b.center), a.velocity);
 }
 
 void collide_sphere_sphere(sphere &a, sphere &b)
@@ -60,12 +68,6 @@ static inline float _collision_time_point_line(vec2 pt, vec2 line_pt, vec2 norma
     return vdot(line_pt - pt, normal)/vdot(velocity, normal);
 }
 
-float collision_time_line_line(line const &a, line const &b)
-{
-    // lines don't move
-    return std::numeric_limits<float>::infinity();
-}
-
 float collision_time_sphere_line(sphere const &a, line const &b)
 {
     float side = signum(vdot(a.velocity, b.normal));
@@ -73,17 +75,20 @@ float collision_time_sphere_line(sphere const &a, line const &b)
     vec2 normal = side * b.normal * a.radius;
     vec2 near_pt = a.center + normal;
 
-    if (vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
-        return 0.0;
-
     vec2 vel_perp = side * vperp(a.velocity);
     float cos_a = vdot((b.endpoint_a - near_pt), vel_perp);
     float cos_b = vdot((b.endpoint_b - near_pt), vel_perp);
 
     if (cos_a >= 0.0 && cos_b <= 0.0)
-        return _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
+        return (vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
+            ? 0.0 : _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
     else
         return std::numeric_limits<float>::infinity();
+}
+
+float collision_time_sphere_point(sphere const &a, thing const &b)
+{
+    return _collision_time_points(b.center, a.center, a.velocity, a.radius);
 }
 
 float collision_time_sphere_sphere(sphere const &a, sphere const &b)

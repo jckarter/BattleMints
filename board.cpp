@@ -58,6 +58,9 @@ board::setup()
     glColor4f(1.0, 1.0, 1.0, 1.0);
 
     _current = this;
+
+    BOOST_FOREACH (thing *th, _all_things)
+        th->awaken();
 }
 
 board::~board()
@@ -196,6 +199,7 @@ struct _collide_things {
     inline void
     operator()(thing *a, thing *b) const
     {
+        std::cerr << "collide [" << *a << "] [" << *b << "]\n";
         if (a->can_overlap() || b->can_overlap())
             bo._add_overlap(a, b);
         else

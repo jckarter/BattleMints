@@ -6,10 +6,11 @@
 
 namespace battlemints {
 
-static const unsigned EXHAUST_LIFE_EXPECTANCY = 60;
+const unsigned EXHAUST_LIFE_EXPECTANCY = 60;
+extern const float EXHAUST_LIFE_EXPECTANCY_INV;
 
 struct exhaust : thing {
-    static const boost::array<vec2, 4> vertices;
+    static const boost::array<vec2, 4> base_vertices;
 
     struct particle {
         vec2 center;
@@ -17,7 +18,8 @@ struct exhaust : thing {
         unsigned age;
 
         particle() {}
-        particle(vec2 c, vec2 d) : center(c), direction(d), age(0) { }
+        particle(vec2 c, vec2 d) : center(c), direction(d), age(0)
+            { }
 
         bool operator==(particle const &p) const
             { return center == p.center && direction == p.direction; }
@@ -28,7 +30,8 @@ struct exhaust : thing {
     rect bounding_box;
     std::vector<particle> particles;
 
-    exhaust(rect bb) : thing(0.0, ZERO_VEC2), bounding_box(bb), particles() { }
+    exhaust(rect bb) : thing(0.0, ZERO_VEC2), bounding_box(bb), particles()
+        { _vert.reserve(200); _col.reserve(200); }
 
     virtual bool does_collisions() const { return false; }
 
@@ -42,6 +45,11 @@ struct exhaust : thing {
         { particles.push_back(particle(center, direction)); }
 
     static vec4 color(unsigned age);
+
+private:
+    std::vector<boost::array<vec2, 4> > _vert;
+    std::vector<boost::array<vec4, 4> > _col;
+    
 };
 
 }

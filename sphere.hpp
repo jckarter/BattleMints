@@ -1,8 +1,10 @@
 #ifndef __SPHERE_HPP__
 #define __SPHERE_HPP__
 
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
+#ifndef NO_GRAPHICS
+# include <OpenGLES/ES1/gl.h>
+# include <OpenGLES/ES1/glext.h>
+#endif
 #include <boost/array.hpp>
 #include <json/json.h>
 #include "collision.hpp"
@@ -23,6 +25,7 @@ struct sphere : thing {
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
     virtual void collide_line(line &w) { collide_sphere_line(*this, w); }
+    virtual void collide_point(thing &p) { collide_sphere_point(*this, p); }
 
     virtual float collision_time(thing const &t) const
         { return t.collision_time_sphere(*this); }
@@ -30,6 +33,8 @@ struct sphere : thing {
         { return collision_time_sphere_sphere(*this, s); }
     virtual float collision_time_line(line const &w) const
         { return collision_time_sphere_line(*this, w); }
+    virtual float collision_time_point(thing const &p) const
+        { return collision_time_sphere_point(*this, p); }
 
     sphere(float m, vec2 ct, float r, vec4 co, float sp)
         : thing(m, ct), color(co), radius(r), spring(sp) { _set_up_drawing(); }
@@ -42,19 +47,20 @@ struct sphere : thing {
 
     static thing *from_json(Json::Value const &v);
 
+#ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);
-
-    virtual void wall_damage() { explosion::explode(this); }
+#endif
 
 private:
+#ifndef NO_GRAPHICS
     GLuint _texture;
     boost::array<float, 8> _vertices;
+    void _render_sphere_texture(float border_radius, unsigned pixel_radius, void *data);
+    GLuint _make_sphere_texture(float radius, unsigned pixel_radius);
+#endif
 
     void _set_up_drawing();
     void _tear_down_drawing();
-
-    void _render_sphere_texture(float border_radius, unsigned pixel_radius, void *data);
-    GLuint _make_sphere_texture(float radius, unsigned pixel_radius);
 };
 
 }

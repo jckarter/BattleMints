@@ -22,12 +22,15 @@ struct line : thing {
     virtual void collide(thing &o) { o.collide_line(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_line(s, *this); }
     virtual void collide_line(line &w) { collide_line_line(*this, w); }
+    virtual void collide_point(thing &p) { collide_line_point(*this, p); }
 
     virtual float collision_time(thing const &o) const { return o.collision_time_line(*this); }
     virtual float collision_time_sphere(sphere const &s) const
         { return collision_time_sphere_line(s, *this); }
     virtual float collision_time_line(line const &w) const
         { return collision_time_line_line(*this, w); }
+    virtual float collision_time_point(thing const &p) const
+        { return collision_time_line_point(*this, p); }
 
     virtual char const * kind() const { return "line"; }
     virtual void print(std::ostream &os) const

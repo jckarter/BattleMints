@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 namespace battlemints {
 

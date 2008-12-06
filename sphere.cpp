@@ -1,10 +1,12 @@
 #include "sphere.hpp"
-#include "drawing.hpp"
+#ifndef NO_GRAPHICS
+# include "drawing.hpp"
+# include "board.hpp"
+#endif
 #include "game.hpp"
 #include "exhaust.hpp"
 #include "serialization.hpp"
 #include "sound_effects.hpp"
-#include "board.hpp"
 #include <cmath>
 #include <vector>
 #include <boost/cstdint.hpp>
@@ -28,6 +30,7 @@ rect sphere::collision_box()
 
 void sphere::draw()
 {
+#ifndef NO_GRAPHICS
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -43,10 +46,12 @@ void sphere::draw()
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     glPopMatrix();
+#endif
 }
 
 void sphere::_set_up_drawing()
 {
+#ifndef NO_GRAPHICS
     float border_radius = radius + BORDER_THICKNESS;
     unsigned pixel_radius = 1 << (unsigned)ilogbf(border_radius * PIXELS_PER_GAME_UNIT) + 1;
 
@@ -56,13 +61,17 @@ void sphere::_set_up_drawing()
     _vertices[2] =  border_radius; _vertices[3] = -border_radius;
     _vertices[4] = -border_radius; _vertices[5] =  border_radius;
     _vertices[6] =  border_radius; _vertices[7] =  border_radius;
+#endif
 }
 
 void sphere::_tear_down_drawing()
 {
+#ifndef NO_GRAPHICS
     glDeleteTextures(1, &_texture);
+#endif
 }
 
+#ifndef NO_GRAPHICS
 void sphere::_render_sphere_texture(float border_radius, unsigned pixel_radius, void *data)
 {
     CGContextRef context = make_bitmap_context(pixel_radius*2, pixel_radius*2, data);
@@ -112,6 +121,15 @@ GLuint sphere::_make_sphere_texture(float radius, unsigned pixel_radius)
     return texture;
 }
 
+void sphere::accelerate_with_exhaust(vec2 accel)
+{
+    velocity += accel;
+    board::current()->exhaust_thing()
+        ->add_particle(center - vnormalize(accel)*radius, mass*accel);
+}
+
+#endif
+
 thing *sphere::from_json(Json::Value const &v)
 {
     vec2  center = vec2_from_json(v["center"]);
@@ -121,13 +139,6 @@ thing *sphere::from_json(Json::Value const &v)
     float spring = (float)v["spring"].asDouble();
 
     return new sphere(mass, center, radius, color, spring);
-}
-
-void sphere::accelerate_with_exhaust(vec2 accel)
-{
-    velocity += accel;
-    board::current()->exhaust_thing()
-        ->add_particle(center - vnormalize(accel)*radius, mass*accel);
 }
 
 }
