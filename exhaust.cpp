@@ -7,35 +7,43 @@ namespace battlemints {
 
 const float EXHAUST_LIFE_EXPECTANCY_INV = 1.0f/(float)EXHAUST_LIFE_EXPECTANCY;
 
-const boost::array<vec2, 4> exhaust::base_vertices = {
-     make_vec2( 0.0,   4.0),
+const boost::array<vec2, EXHAUST_VERTICES> exhaust::base_vertices = {
+     make_vec2( 0.0,   3.0),
      make_vec2(-9.0,  24.0),
-     make_vec2( 0.0, - 4.0),
+     make_vec2( 0.0,  -3.0),
      make_vec2(-9.0, -24.0)
 };
 
 void exhaust::draw()
 {
     unsigned num_particles = particles.size();
-    unsigned num_vertices = 4 * num_particles;
+    unsigned num_vertices = EXHAUST_VERTICES * num_particles;
 
     _vert.resize(num_particles);
     _col.resize(num_particles);
 
-    std::vector<particle>::iterator pi;
-    std::vector<boost::array<vec2, 4> >::iterator vi;
-    std::vector<boost::array<vec4, 4> >::iterator ci;
+    std::deque<particle>::iterator pi;
+    std::vector<boost::array<vec2, EXHAUST_VERTICES> >::iterator vi;
+    std::vector<boost::array<vec4, EXHAUST_VERTICES> >::iterator ci;
 
+    vec4 colr;
+    float agef;
+    unsigned long tick = 0;
     for (pi = particles.begin(), vi = _vert.begin(), ci = _col.begin();
          pi != particles.end();
          ++pi, ++vi, ++ci) {
 
-        vec2 dir = pi->direction * (float)pi->age * EXHAUST_LIFE_EXPECTANCY_INV;
+        if (tick != pi->birthdate) {
+            tick = pi->birthdate;
+            unsigned long age = board::current()->tick_count() - pi->birthdate;
+            agef = (float)age; colr = color(age);
+        }
+
+        vec2 dir = pi->direction * agef * EXHAUST_LIFE_EXPECTANCY_INV;
         vec2 normal = vperp(dir);
-        vec4 col = color(pi->age);
-        for (unsigned n = 0; n < 4; ++n) {
+        for (unsigned n = 0; n < EXHAUST_VERTICES; ++n) {
             (*vi)[n] = pi->center + base_vertices[n].x * dir + base_vertices[n].y * normal;
-            (*ci)[n] = col;
+            (*ci)[n] = colr;
         }
     }
 
@@ -52,13 +60,11 @@ void exhaust::draw()
 
 void exhaust::tick()
 {
-    for (std::vector<particle>::iterator i = particles.begin(); i != particles.end(); ) {
-        ++i->age;
-        if (i->age > EXHAUST_LIFE_EXPECTANCY)
-            particles.erase(i);
-        else
-            ++i;
-    }
+    unsigned long death_tick = board::current()->tick_count() < EXHAUST_LIFE_EXPECTANCY
+        ? 0 : board::current()->tick_count() - EXHAUST_LIFE_EXPECTANCY;
+    
+    while (!particles.empty() && particles.front().birthdate <= death_tick)
+        particles.pop_front();
 }
 
 vec4 exhaust::color(unsigned age)

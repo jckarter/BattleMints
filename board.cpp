@@ -199,7 +199,8 @@ struct _collide_things {
     inline void
     operator()(thing *a, thing *b) const
     {
-        std::cerr << "collide [" << *a << "] [" << *b << "]\n";
+        //std::cerr << "collide " << bo.tick_count()
+        //          <<  "\n    [" << *a << "]\n    [" << *b << "]\n";
         if (a->can_overlap() || b->can_overlap())
             bo._add_overlap(a, b);
         else
@@ -287,10 +288,6 @@ board::draw()
     BOOST_FOREACH (thing *th, visible_things) {
         th->draw();
     }
-
-    if (_tick_count % 300 == 0) {
-        std::cerr << visible_things.size() << " visible things\n";
-    }
 }
 
 void
@@ -371,10 +368,10 @@ board::from_file(std::string const &name)
             file >> json;
         }
         return from_json(json);
-    } catch(std::exception const &x) {
+    } catch (std::exception const &x) {
         std::cerr << "Reading board " << name << " failed: " << x.what() << "\n";
         return NULL;
-    } catch(...) {
+    } catch (...) {
         std::cerr << "Reading board " << name << " failed: ...\n";
         return NULL;
     }

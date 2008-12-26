@@ -80,8 +80,8 @@ float collision_time_sphere_line(sphere const &a, line const &b)
     float cos_b = vdot((b.endpoint_b - near_pt), vel_perp);
 
     if (cos_a >= 0.0 && cos_b <= 0.0)
-        return (vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
-            ? 0.0 : _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
+        return /*(vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
+            ? 0.0 :*/ _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
     else
         return std::numeric_limits<float>::infinity();
 }

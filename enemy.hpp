@@ -3,6 +3,7 @@
 
 #include "game.hpp"
 #include "sphere.hpp"
+#include "board.hpp"
 
 namespace battlemints {
 
@@ -19,7 +20,10 @@ struct enemy : sphere {
     virtual void tick();
     virtual void on_collision(thing &o);
 
-    virtual void wall_damage() { explosion::explode(this); }
+    virtual void wall_damage() {
+        if (board::current()->thing_lives(this))
+            explosion::explode(this);
+    }
 
     virtual char const * kind() const { return "enemy"; }
 

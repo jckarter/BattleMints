@@ -15,8 +15,6 @@ struct sphere;
 struct line;
 
 struct thing : boost::noncopyable {
-    static const boost::array<float, 8> unit_texcoords;
-
     vec2 velocity;
     vec2 center;
     float mass;

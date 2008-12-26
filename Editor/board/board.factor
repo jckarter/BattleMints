@@ -15,6 +15,13 @@ IN: mint-editor.board
 
 SYMBOL: board
 
+TUPLE: board-gadget < cairo-gadget
+    things
+    zoom origin 
+    selected-handles
+    tool
+    inspector ;
+
 : adjusted-for-board-zoom ( r -- r' )
     board get zoom>> * ; inline
 : handle-radius ( -- r )
@@ -316,13 +323,6 @@ SINGLETONS:
     wall-join-tool wall-split-tool
     delete-tool clone-tool ;
 
-TUPLE: board-gadget < cairo-gadget
-    things
-    zoom origin 
-    selected-handles
-    tool
-    inspector ;
-
 M: board-gadget handles
     things>> [ handles ] map concat ;
 
@@ -387,7 +387,7 @@ M: board-gadget handles
             { clone-tool "clone" }
             { delete-tool "delete" }
         } [ first2 (board-tool) ] with map
-    ] [ '[ _ _ save-board ] "save" swap <bevel-button> suffix ] 2bi
+    ] [ '[ drop _ _ save-board ] "save" swap <bevel-button> suffix ] 2bi
     <shelf> swap add-gadgets ;
 
 : <board-controls> ( board filename -- blob )

@@ -4,6 +4,7 @@
 #ifndef NO_GRAPHICS
 # include <OpenGLES/ES1/gl.h>
 # include <OpenGLES/ES1/glext.h>
+#include "drawing.hpp"
 #endif
 #include <boost/array.hpp>
 #include <json/json.h>
@@ -17,6 +18,9 @@ struct sphere : thing {
     vec4 color;
     float radius;
     float spring;
+#ifndef NO_GRAPHICS
+    sphere_texture texture;
+#endif
 
     virtual rect visibility_box();
     virtual rect collision_box();
@@ -37,9 +41,7 @@ struct sphere : thing {
         { return collision_time_sphere_point(*this, p); }
 
     sphere(float m, vec2 ct, float r, vec4 co, float sp)
-        : thing(m, ct), color(co), radius(r), spring(sp) { _set_up_drawing(); }
-
-    virtual ~sphere() { _tear_down_drawing(); }
+        : thing(m, ct), color(co), radius(r), spring(sp), texture(r, co) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
@@ -50,17 +52,6 @@ struct sphere : thing {
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);
 #endif
-
-private:
-#ifndef NO_GRAPHICS
-    GLuint _texture;
-    boost::array<float, 8> _vertices;
-    void _render_sphere_texture(float border_radius, unsigned pixel_radius, void *data);
-    GLuint _make_sphere_texture(float radius, unsigned pixel_radius);
-#endif
-
-    void _set_up_drawing();
-    void _tear_down_drawing();
 };
 
 }

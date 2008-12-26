@@ -55,6 +55,8 @@ struct board : controller {
             std::cerr << *th << "\n";
     }
 
+    unsigned long tick_count() const { return _tick_count; }
+
 private:
     friend struct _collide_things;
 

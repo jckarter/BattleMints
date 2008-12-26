@@ -20,7 +20,6 @@
 		D8122D7B0EE4EEF700A0AD25 /* line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D760EE4EEF700A0AD25 /* line.cpp */; };
 		D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D780EE4EEF700A0AD25 /* goal.cpp */; };
 		D8122DC80EE6FEEA00A0AD25 /* wall_strip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122DC70EE6FEEA00A0AD25 /* wall_strip.cpp */; };
-		D8122E020EE9C0CB00A0AD25 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5AA80EB68108002A40E7 /* thing.cpp */; };
 		D8122E030EE9C0D000A0AD25 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA90EB7B43E002A40E7 /* sphere.cpp */; };
 		D8122E040EE9C0D800A0AD25 /* line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D760EE4EEF700A0AD25 /* line.cpp */; };
 		D8122E050EE9C0E100A0AD25 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA70EB7B43E002A40E7 /* collision.cpp */; };
@@ -34,7 +33,6 @@
 		D81A115B0EBCD00800283428 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11580EBCD00800283428 /* board.cpp */; };
 		D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */; };
 		D81B5A880EB53F68002A40E7 /* battlemints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5A870EB53F68002A40E7 /* battlemints.cpp */; };
-		D81B5AAA0EB68108002A40E7 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5AA80EB68108002A40E7 /* thing.cpp */; };
 		D81B5AE70EB68693002A40E7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81B5AE60EB68693002A40E7 /* CoreGraphics.framework */; };
 		D81B5BAB0EB7B43E002A40E7 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA70EB7B43E002A40E7 /* collision.cpp */; };
 		D81B5BAC0EB7B43E002A40E7 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA90EB7B43E002A40E7 /* sphere.cpp */; };
@@ -92,7 +90,6 @@
 		D81B5A870EB53F68002A40E7 /* battlemints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = battlemints.cpp; sourceTree = "<group>"; };
 		D81B5AA60EB68108002A40E7 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
 		D81B5AA70EB68108002A40E7 /* geom.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geom.hpp; sourceTree = "<group>"; };
-		D81B5AA80EB68108002A40E7 /* thing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thing.cpp; sourceTree = "<group>"; };
 		D81B5AA90EB68108002A40E7 /* thing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thing.hpp; sourceTree = "<group>"; };
 		D81B5AE60EB68693002A40E7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D81B5BA70EB7B43E002A40E7 /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
@@ -192,7 +189,6 @@
 				D81B5AA60EB68108002A40E7 /* game.hpp */,
 				D8122E7B0EE9C5AC00A0AD25 /* game.cpp */,
 				D81B5AA70EB68108002A40E7 /* geom.hpp */,
-				D81B5AA80EB68108002A40E7 /* thing.cpp */,
 				D81B5AA90EB68108002A40E7 /* thing.hpp */,
 				D81B5BA70EB7B43E002A40E7 /* collision.cpp */,
 				D81B5BA80EB7B43E002A40E7 /* collision.hpp */,
@@ -357,7 +353,6 @@
 				1D3623260D0F684500981E51 /* BattleMintsAppDelegate.m in Sources */,
 				28FD14FE0DC6FC130079059D /* BattleMintsView.m in Sources */,
 				D81B5A880EB53F68002A40E7 /* battlemints.cpp in Sources */,
-				D81B5AAA0EB68108002A40E7 /* thing.cpp in Sources */,
 				D81B5BAB0EB7B43E002A40E7 /* collision.cpp in Sources */,
 				D81B5BAC0EB7B43E002A40E7 /* sphere.cpp in Sources */,
 				D81A115A0EBCD00800283428 /* grid.cpp in Sources */,
@@ -386,7 +381,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8122E020EE9C0CB00A0AD25 /* thing.cpp in Sources */,
 				D8122E030EE9C0D000A0AD25 /* sphere.cpp in Sources */,
 				D8122E040EE9C0D800A0AD25 /* line.cpp in Sources */,
 				D8122E050EE9C0E100A0AD25 /* collision.cpp in Sources */,
@@ -405,6 +399,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -415,7 +410,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ECE15B39-2B54-4E1E-9AEB-F55D516D2552";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1B4010E-EC6D-409E-8C84-5B2B4F478EBA";
 				SDKROOT = iphoneos2.1;
 			};
 			name = Debug;
@@ -443,12 +438,13 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					rply,
 					jsoncpp/include,
 					/opt/local/include,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator2.1;
+				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
 		};
@@ -461,7 +457,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphoneos2.2;
 			};
 			name = Release;
 		};
