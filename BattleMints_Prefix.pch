@@ -41,3 +41,4 @@
 #include <OpenGLES/ES1/glext.h>
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
+#include <pthread.h>

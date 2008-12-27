@@ -58,11 +58,18 @@ model::draw() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-const boost::array<float, 8> sphere_texture::unit_texcoords = {
+const boost::array<float, 8> unit_texcoords = {
     0.0, 0.0,
     1.0, 0.0,
     0.0, 1.0,
     1.0, 1.0
+};
+
+const boost::array<float, 8> unit_radius_texcoords = {
+    -1.0, -1.0,
+     1.0, -1.0,
+    -1.0,  1.0,
+     1.0,  1.0
 };
 
 sphere_texture::sphere_texture(float radius, vec4 color)

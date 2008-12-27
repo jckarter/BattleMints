@@ -25,9 +25,10 @@ struct model : boost::noncopyable {
     void draw() const;
 };
 
-struct sphere_texture : boost::noncopyable {
-    static const boost::array<float, 8> unit_texcoords;
+extern const boost::array<float, 8> unit_texcoords;
+extern const boost::array<float, 8> unit_radius_texcoords;
 
+struct sphere_texture : boost::noncopyable {
     GLuint texture;
     boost::array<GLfloat, 8> vertices;
 

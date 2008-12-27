@@ -7,7 +7,6 @@ namespace battlemints {
 
 struct intro : controller {
     static const boost::array<float, 8> texcoords;
-    static const boost::array<float, 8> vertices;
     
     intro();
     virtual ~intro();

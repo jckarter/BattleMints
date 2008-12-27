@@ -14,13 +14,6 @@ const boost::array<float, 8> intro::texcoords = {
     320.0 / 512.0, (512.0-480.0)/512.0
 };
 
-const boost::array<float, 8> intro::vertices = {
-    -1.0, -1.0,
-     1.0, -1.0,
-    -1.0,  1.0,
-     1.0,  1.0
-};
-
 intro::intro()
      : _splash_texture(_load_splash_texture()), _countdown(20), _peak(20)
 { }
@@ -59,7 +52,7 @@ intro::draw()
     glColor4f(intensity_sqrt, intensity_atten, intensity_atten, 1.0);
     glBindTexture(GL_TEXTURE_2D, _splash_texture);
 
-    glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
+    glVertexPointer(2, GL_FLOAT, 0, (void*)&unit_radius_texcoords);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)&texcoords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

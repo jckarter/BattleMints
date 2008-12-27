@@ -1,7 +1,8 @@
 #include "goal.hpp"
 #include "serialization.hpp"
 #include "player.hpp"
-//#include "transition.hpp"
+#include "transition.hpp"
+#include "board_loader.hpp"
 #include <cstdio>
 
 namespace battlemints {
@@ -42,7 +43,7 @@ void
 goal::on_trip(thing &o)
 {
     trip_strength = 1.0f;
-    //controller::set_current(new transition(board::current(), board::from_file(next_board)));
+    controller::set_current(new transition(board::current(), new board_loader(next_board)));
 }
 
 bool

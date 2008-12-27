@@ -50,6 +50,8 @@
 		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
 		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
+		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
+		D8F80CE30F05F290002ACC03 /* board_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CE10F05F290002ACC03 /* board_loader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +122,10 @@
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
 		D86F03350EC4C292004F03F8 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
+		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
+		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
+		D8F80CE10F05F290002ACC03 /* board_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board_loader.cpp; sourceTree = "<group>"; };
+		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +187,10 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D8F80CE10F05F290002ACC03 /* board_loader.cpp */,
+				D8F80CE20F05F290002ACC03 /* board_loader.hpp */,
+				D8F80CD60F05DC62002ACC03 /* transition.cpp */,
+				D8F80CD70F05DC62002ACC03 /* transition.hpp */,
 				D82BFC860EC1829100E65BAF /* lib_json */,
 				32CA4F630368D1EE00C91783 /* BattleMints_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -374,6 +384,8 @@
 				D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */,
 				D8122DC80EE6FEEA00A0AD25 /* wall_strip.cpp in Sources */,
 				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
+				D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */,
+				D8F80CE30F05F290002ACC03 /* board_loader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

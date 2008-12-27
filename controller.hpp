@@ -12,6 +12,8 @@ struct controller : boost::noncopyable {
     virtual void tick() = 0;
     virtual void draw() = 0;
 
+    virtual bool retains_former_controller() const { return false; }
+
     static controller *current() { return _current; }
     static void set_current(controller *next)
         { if (!_current) _activate_current(next); else _next = next; }
@@ -33,8 +35,12 @@ struct controller : boost::noncopyable {
     }
 
 private:
-    static void _activate_current(controller *current)
-        { delete _current; _current = current; _current->setup(); }
+    static void _activate_current(controller *current) {
+        if (!current->retains_former_controller())
+            delete _current;
+        _current = current;
+        _current->setup();
+    }
 
     static controller *_current, *_next;
 };
