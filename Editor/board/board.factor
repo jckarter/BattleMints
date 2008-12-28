@@ -2,7 +2,7 @@ USING: math.geometry.rect json.reader json.writer assocs kernel fry sequences ma
 shuffle cairo cairo.ffi cairo.gadgets macros combinators accessors 
 arrays math math.constants alien.c-types ui.gadgets math.order
 colors opengl locals combinators.short-circuit ui.gestures generalizations
-vectors namespaces ui.tools.inspector ui.gadgets.packs symbols ui
+vectors namespaces ui.tools.inspector ui.gadgets.packs ui
 ui.gadgets.labels ui.gadgets.buttons hashtables classes io.encodings.utf8
 io.files specialized-arrays.double ;
 IN: mint-editor.board
@@ -31,9 +31,28 @@ TUPLE: board-gadget < cairo-gadget
 
 TUPLE: wall-strip vertices closed ;
 TUPLE: goal endpoint-a endpoint-b next-board ;
-TUPLE: sphere center color radius mass spring ;
-TUPLE: enemy < sphere accel responsiveness ;
-TUPLE: player center ;
+TUPLE: (sphere) center ;
+TUPLE: player < (sphere) ;
+TUPLE: mini < (sphere) ;
+TUPLE: mega < (sphere) ;
+
+! ! !
+
+GENERIC: sphere-color ( sphere -- color )
+GENERIC: sphere-radius ( sphere -- color )
+GENERIC: sphere-label ( sphere -- string )
+
+M: player sphere-color drop 0.5 0.89 1.0 1.0 <rgba> ;
+M: player sphere-radius drop 0.5 ;
+M: player sphere-label drop "P" ;
+
+M: mini sphere-color drop 0.0 0.0 0.0 0.0 <rgba> ;
+M: mini sphere-radius drop 0.35 ;
+M: mini sphere-label drop "m" ;
+
+M: mega sphere-color drop 0.33 0.13 0.0 1.0 <rgba> ;
+M: mega sphere-radius drop 2.6 ;
+M: mega sphere-label drop "M" ;
 
 ! ! !
 
@@ -61,27 +80,7 @@ M: goal init-thing
         { "next_board" [ >>next-board ] }
     } keys-to-slots ;
 
-M: sphere init-thing
-    {
-        { "center" [ >>center ] }
-        { "color"  [ first4 <rgba> >>color ] }
-        { "radius" [ >>radius ] }
-        { "mass"   [ >>mass   ] }
-        { "spring" [ >>spring ] }
-    } keys-to-slots ;
-
-M: enemy init-thing
-    {
-        { "center" [ >>center ] }
-        { "color"  [ first4 <rgba> >>color ] }
-        { "radius" [ >>radius ] }
-        { "mass"   [ >>mass   ] }
-        { "spring" [ >>spring ] }
-        { "accel"  [ >>accel  ] }
-        { "responsiveness" [ >>responsiveness ] }
-    } keys-to-slots ;
-
-M: player init-thing
+M: (sphere) init-thing
     {
         { "center" [ >>center ] }
     } keys-to-slots ;
@@ -102,23 +101,9 @@ M: goal thing>assoc
         { "endpoint_b" [ endpoint-b>> ] }
         { "next_board" [ next-board>> ] }
     } slots-to-keys ;
-M: sphere thing>assoc
+M: (sphere) thing>assoc
     {
         { "center" [ center>> ] }
-        { "color"  [ color>> color>raw 4array ] }
-        { "radius" [ radius>> ] }
-        { "mass"   [ mass>>   ] }
-        { "spring" [ spring>> ] }
-    } slots-to-keys ;
-M: enemy thing>assoc
-    {
-        { "center" [ center>> ] }
-        { "color"  [ color>> color>raw 4array ] }
-        { "radius" [ radius>> ] }
-        { "mass"   [ mass>>   ] }
-        { "spring" [ spring>> ] }
-        { "accel"  [ accel>>  ] }
-        { "responsiveness" [ responsiveness>> ] }
     } slots-to-keys ;
 M: player thing>assoc
     {
@@ -139,10 +124,8 @@ M: wall-strip extents
     [ { -1.0/0.0 -1.0/0.0 } [ vmax ] reduce ] bi ;
 M: goal extents
     [ endpoint-a>> ] [ endpoint-b>> ] bi [ vmin ] [ vmax ] 2bi ;
-M: sphere extents
-    [ center>> ] [ radius>> dup 2array ] bi [ v- ] [ v+ ] 2bi ;
-M: player extents
-    center>> dup ;
+M: (sphere) extents
+    [ center>> ] [ sphere-radius dup 2array ] bi [ v- ] [ v+ ] 2bi ;
 
 M: sequence extents
     { 1.0/0.0 1.0/0.0 } { -1.0/0.0 -1.0/0.0 } rot
@@ -155,8 +138,8 @@ M: sequence extents
         { "player" player }
         { "wall_strip" wall-strip }
         { "goal"   goal }
-        { "sphere" sphere }
-        { "enemy"  enemy }
+        { "mini"   mini }
+        { "mega"   mega }
     } ;
 
 : string>thing-class ( string -- class ) thing-class-names at ;
@@ -167,7 +150,6 @@ M: sequence extents
 TUPLE: handle-base thing # point ;
 
 TUPLE: center-handle < handle-base ;
-TUPLE: radius-handle < handle-base ;
 TUPLE: endpoint-a-handle < handle-base ;
 TUPLE: endpoint-b-handle < handle-base ;
 TUPLE: vertex-handle < handle-base ;
@@ -188,13 +170,7 @@ M: goal handles
         [ 1 over endpoint-b>> endpoint-b-handle boa ]
     } cleave 2array ;
 
-M: sphere handles
-    {
-        [ 0 over center>> center-handle boa ]
-        [ 1 over [ center>> ] [ radius>> 0 2array ] bi v+ radius-handle boa ]
-    } cleave 2array ;
-
-M: player handles
+M: (sphere) handles
     0 over center>> center-handle boa 1array ;
 
 : update-handle ( handle -- handle' )
@@ -207,10 +183,6 @@ GENERIC# drag-handle 1 ( delta handle thing -- )
 M:: center-handle drag-handle ( delta handle thing -- )
     thing  [ delta v+ ] change-center drop
     handle [ delta v+ ] change-point drop ;
-
-M:: radius-handle drag-handle ( delta handle thing -- )
-    thing  [ delta first + ] change-radius drop
-    handle [ delta { 1 0 } v* v+ ] change-point drop ;
 
 M:: endpoint-a-handle drag-handle ( delta handle thing -- )
     thing  [ delta v+ ] change-endpoint-a drop
@@ -244,6 +216,16 @@ GENERIC: draw ( thing -- )
     cr string cairo_show_text
     cr cairo_restore
     cr cairo_new_path ;
+
+: 2pi ( -- x ) 2 pi * ; inline
+
+:: draw-sphere ( center radius color -- )
+    cr center first2 radius 0 2pi cairo_arc
+    cr color color>raw cairo_set_source_rgba
+    cr cairo_fill_preserve
+    cr border-thickness cairo_set_line_width
+    cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
+    cr cairo_stroke ;
 
 : path-strip ( vertices -- )
     [ first cr swap first2 cairo_move_to ]
@@ -282,27 +264,9 @@ M: goal draw
     [ -0.5 0.0            draw-goal-row ]
     [  0.5 GOAL-THICKNESS draw-goal-row ] bi ;
 
-M: sphere draw
-    cr swap
-    [ [ center>> first2 ] [ radius>> ] bi 0 2 pi * cairo_arc ] 
-    [ color>> color>raw cairo_set_source_rgba ] 2bi
-    cr cairo_fill_preserve
-    cr border-thickness cairo_set_line_width
-    cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
-    cr cairo_stroke ;
-
-M: enemy draw
-    dup call-next-method
-    center>> "E" draw-text-centered ;
-
-M: player draw
-    cr 0.0 0.0 0.0 1.0 cairo_set_source_rgba
-    center>>
-    [ "P" draw-text-centered ]
-    [
-        cr swap first2 0.5 0 2 pi * cairo_arc
-        cr cairo_stroke
-    ] bi ;
+M: (sphere) draw
+    [ [ center>> ] [ sphere-radius ] [ sphere-color ] tri draw-sphere ]
+    [ [ center>> ] [ sphere-label ] bi draw-text-centered ] bi ;
 
 M: handle-base draw
     cr swap point>> first2 handle-radius 0 2 pi * cairo_arc
@@ -319,7 +283,7 @@ M: handle-base draw
 
 SINGLETONS:
     drag-tool
-    wall-tool goal-tool sphere-tool enemy-tool
+    wall-tool goal-tool mini-tool mega-tool
     wall-join-tool wall-split-tool
     delete-tool clone-tool ;
 
@@ -352,14 +316,15 @@ M: board-gadget handles
 : <fresh-board> ( -- gadget )
     <board-gadget>
         V{
-            {  -6.0  -6.0 }
-            {  -6.0   6.0 }
-            {   6.0   6.0 }
-            {   6.0  -6.0 }
+            {  -8.0  -8.0 }
+            {  -8.0   8.0 }
+            {   8.0   8.0 }
+            {   8.0  -8.0 }
         } clone t wall-strip boa 
-        {  -2.5   0.0 } 0.7 1.0 1.0 1.0 <rgba> 1.0 1.0 1.0 sphere boa
+        {  -6.5   0.0 } mini boa
         {   0.0   0.0 } player boa
-        3array >vector >>things ;
+        {   4.5   0.0 } mega boa
+        4array >vector >>things ;
 
 : save-board ( board filename -- )
     [ board>assoc >json ] dip utf8 set-file-contents ;
@@ -380,8 +345,8 @@ M: board-gadget handles
             { drag-tool "drag" }
             { wall-tool "wall" }
             { goal-tool "goal" }
-            { sphere-tool "sphere" }
-            { enemy-tool "enemy" }
+            { mini-tool "mini" }
+            { mega-tool "mega" }
             { wall-join-tool "join walls" }
             { wall-split-tool "split walls" }
             { clone-tool "clone" }
@@ -541,18 +506,11 @@ M: wall-tool board-button-down
 M: goal-tool board-button-down
     drop dup user-space-click-loc dup "" goal boa 1 spawn-thing ;
 
-M: sphere-tool board-button-down
-    drop dup user-space-click-loc 1.0 1.0 1.0 1.0 <rgba> 0.0 1.0 1.0 sphere boa 1 spawn-thing ;
+M: mini-tool board-button-down
+    drop dup user-space-click-loc mini boa 0 spawn-thing ;
 
-M: enemy-tool board-button-down
-    drop
-    dup user-space-click-loc
-    1.0 1.0 1.0 1.0 <rgba>
-    0.0
-    1.0
-    1.0
-    0.015
-    1.0 enemy boa 1 spawn-thing ;
+M: mega-tool board-button-down
+    drop dup user-space-click-loc mega boa 0 spawn-thing ;
 
 M: wall-join-tool board-button-down
     drop dup handle-under-cursor [

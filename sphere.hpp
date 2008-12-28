@@ -2,29 +2,19 @@
 #define __SPHERE_HPP__
 
 #ifndef NO_GRAPHICS
-# include <OpenGLES/ES1/gl.h>
-# include <OpenGLES/ES1/glext.h>
-#include "drawing.hpp"
+#include <OpenGLES/ES1/gl.h>
 #endif
-#include <boost/array.hpp>
-#include <json/json.h>
 #include "collision.hpp"
-#include "explosion.hpp"
 #include "thing.hpp"
 
 namespace battlemints {
 
 struct sphere : thing {
-    vec4 color;
     float radius;
     float spring;
-#ifndef NO_GRAPHICS
-    sphere_texture texture;
-#endif
 
     virtual rect visibility_box();
     virtual rect collision_box();
-    virtual void draw();
 
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
@@ -40,17 +30,23 @@ struct sphere : thing {
     virtual float collision_time_point(thing const &p) const
         { return collision_time_sphere_point(*this, p); }
 
-    sphere(float m, vec2 ct, float r, vec4 co, float sp)
-        : thing(m, ct), color(co), radius(r), spring(sp), texture(r, co) { }
+    sphere(float m, vec2 ct, float r, float sp)
+        : thing(m, ct), radius(r), spring(sp) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
-        { thing::print(os); os << " color:" << color << " r:" << radius; }
-
-    static thing *from_json(Json::Value const &v);
+        { thing::print(os); os << " r:" << radius; }
 
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);
+
+protected:
+    void _push_translate()
+    {
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glTranslatef(center.x, center.y, 0.0f);
+    }
 #endif
 };
 

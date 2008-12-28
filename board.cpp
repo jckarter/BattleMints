@@ -17,8 +17,9 @@ static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
 
 board *board::_current = NULL;
 
-board::board(rect bound)
-    : _camera(NULL),
+board::board(std::string const &nm, rect bound)
+    : name(nm),
+      _camera(NULL),
       _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0),
@@ -94,10 +95,10 @@ board::remove_thing(thing *t)
 void
 board::replace_thing(thing *olde, thing *nu)
 {
-    if (camera() == olde)
-        set_camera(nu);
     remove_thing(olde);
     add_thing(nu);
+    if (camera() == olde)
+        set_camera(nu);
 }
 
 void
@@ -330,7 +331,7 @@ board::_move_things(float timeslice)
 }
 
 board *
-board::from_json(Json::Value const &v)
+board::from_json(std::string const &name, Json::Value const &v)
 {
     if (!v.isObject())
         throw invalid_board_json("Root of board JSON must be Object");
@@ -340,7 +341,7 @@ board::from_json(Json::Value const &v)
     if (!things.isArray())
         throw invalid_board_json("\"things\" field of board JSON must be Array");
 
-    board *b = new board(bounds);
+    board *b = new board(name, bounds);
     try {
         for (unsigned i = 0; i < things.size(); ++i) {
             Json::Value const &tv = things[i];
@@ -367,7 +368,7 @@ board::from_file(std::string const &name)
             std::ifstream file(path->c_str());
             file >> json;
         }
-        return from_json(json);
+        return from_json(name, json);
     } catch (std::exception const &x) {
         std::cerr << "Reading board " << name << " failed: " << x.what() << "\n";
         return NULL;

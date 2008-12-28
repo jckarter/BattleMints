@@ -5,6 +5,9 @@
 #include "intro.hpp"
 #include "synth.hpp"
 #include "goal.hpp"
+#include "mini.hpp"
+#include "mega.hpp"
+#include "player.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/foreach.hpp>
@@ -19,7 +22,10 @@ void battlemints_start()
 {
     sranddev();
 
+    player::global_start();        
     goal::global_start();        
+    mini::global_start();
+    mega::global_start();
 
     controller::set_current(new intro());
 }
@@ -47,5 +53,8 @@ void battlemints_finish()
 {
     controller::delete_current();
 
+    mega::global_finish();
+    mini::global_finish();
     goal::global_finish();        
+    player::global_finish();
 }

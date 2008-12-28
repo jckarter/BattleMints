@@ -37,7 +37,7 @@ struct wallpost : thing {
     virtual float collision_time_point(thing const &p) const
         { return collision_time_point_point(*this, p); }
 
-    virtual void on_collision(thing &o) { o.wall_damage(); }
+    virtual void on_collision(thing &o) { o.post_damage(); }
 
     virtual char const * kind() const { return "wallpost"; }
 };

@@ -3,9 +3,10 @@
 
 #include <pthread.h>
 #include "controller.hpp"
-#include "board.hpp"
 
 namespace battlemints {
+
+struct board;
 
 struct board_loader : controller {
     bool finished;

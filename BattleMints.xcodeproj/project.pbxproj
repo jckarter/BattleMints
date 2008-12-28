@@ -52,6 +52,7 @@
 		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CE30F05F290002ACC03 /* board_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CE10F05F290002ACC03 /* board_loader.cpp */; };
+		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +127,10 @@
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE10F05F290002ACC03 /* board_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board_loader.cpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
+		D8F80CED0F071FB7002ACC03 /* mega.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mega.hpp; sourceTree = "<group>"; };
+		D8F80CEE0F071FB7002ACC03 /* mini.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mini.hpp; sourceTree = "<group>"; };
+		D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ply_file.cpp; sourceTree = "<group>"; };
+		D8F80CF00F071FB7002ACC03 /* ply_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ply_file.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +192,10 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D8F80CED0F071FB7002ACC03 /* mega.hpp */,
+				D8F80CEE0F071FB7002ACC03 /* mini.hpp */,
+				D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */,
+				D8F80CF00F071FB7002ACC03 /* ply_file.hpp */,
 				D8F80CE10F05F290002ACC03 /* board_loader.cpp */,
 				D8F80CE20F05F290002ACC03 /* board_loader.hpp */,
 				D8F80CD60F05DC62002ACC03 /* transition.cpp */,
@@ -386,6 +395,7 @@
 				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
 				D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */,
 				D8F80CE30F05F290002ACC03 /* board_loader.cpp in Sources */,
+				D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,5 @@
 #include "board_loader.hpp"
+#include "board.hpp"
 
 namespace battlemints {
 

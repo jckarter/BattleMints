@@ -3,20 +3,37 @@
 
 #include "game.hpp"
 #include "sphere.hpp"
+#include "drawing.hpp"
+#include "transition.hpp"
+#include "explosion.hpp"
+#include "board.hpp"
+#include <boost/optional.hpp>
 
 namespace battlemints {
 
 struct player : sphere {
+    static const float ACCEL_SCALE;
+    static const float RADIUS;
+    static const vec4 COLOR;
+    static sphere_texture *texture;
 
-    player(vec2 center) : sphere(1.0, center, 0.5, make_vec4(0.6, 0.8, 1.0, 1.0), 1.0) { }
+    player(vec2 center) : sphere(0.5, center, RADIUS, 1.0) { }
 
     virtual void tick();
 
     virtual char const * kind() const { return "player"; }
 
-    static thing *from_json(Json::Value const &v);
+    virtual void wall_damage() { die(); }
+    virtual void post_damage() { die(); }
 
-    virtual void wall_damage() { }
+    virtual void draw() { _push_translate(); texture->draw(); glPopMatrix(); }
+
+    void die() { explosion::explode(this); board::restart_with<death_transition>(); }
+
+    static thing *from_json(Json::Value const &v);
+    static void global_start();
+    static void global_finish();
+
 };
 
 }

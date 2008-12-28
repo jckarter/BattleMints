@@ -51,6 +51,7 @@ struct thing : boost::noncopyable {
     virtual void on_collision(thing &o) { }
 
     virtual void wall_damage() { }
+    virtual void post_damage() { }
 
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const

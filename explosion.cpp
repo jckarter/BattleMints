@@ -9,6 +9,7 @@ static const float EXPLOSION_MIN_SPEED = 0.5f;
 static const float EXPLOSION_MAX_SPEED = 1.0f;
 static const unsigned EXPLOSION_PARTICLE_COUNT = 300;
 static const unsigned EXPLOSION_LIFE_EXPECTANCY = EXHAUST_LIFE_EXPECTANCY;
+static const float EXPLOSION_VISIBLE_RADIUS = 5.0f;
 
 inline vec2
 explosion::_random_velocity()
@@ -38,15 +39,16 @@ explosion::explosion(vec2 ce)
 void
 explosion::explode(thing *th)
 {
-    explosion *ex = new explosion(th->center);
-    board::current()->replace_thing(th, ex);
+    if (board::current()->thing_lives(th)) {
+        explosion *ex = new explosion(th->center);
+        board::current()->replace_thing(th, ex);
+    }
 }
 
 rect
 explosion::visibility_box()
 {
-    float radius = (float)age * EXPLOSION_MAX_SPEED;
-    vec2 radius_v = make_vec2(radius);
+    vec2 radius_v = make_vec2(EXPLOSION_VISIBLE_RADIUS);
     
     return make_rect(center - radius_v, center + radius_v);
 }

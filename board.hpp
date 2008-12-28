@@ -10,6 +10,7 @@
 #include "grid.hpp"
 #include "controller.hpp"
 #include "sound_server.hpp"
+#include "board_loader.hpp"
 
 namespace battlemints {
 
@@ -20,8 +21,9 @@ typedef std::set<thing*> thing_set;
 struct exhaust;
 
 struct board : controller {
+    std::string name;
 
-    board(rect bound);
+    board(std::string const &nm, rect bound);
     virtual ~board();
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
@@ -40,10 +42,23 @@ struct board : controller {
     virtual void draw();
 
     static board *make_demo_board();
-    static board *from_json(Json::Value const &v);
+    static board *from_json(std::string const &name, Json::Value const &v);
     static board *from_file(std::string const &name);
 
     static board *current() { return _current; }
+
+    template<typename Transition>
+    static void change_board_with(std::string const &name)
+    {
+        controller::set_current(
+            new Transition(current(), new board_loader(name))
+        );
+    }
+    template<typename Transition>
+    static void restart_with()
+    {
+        change_board_with<Transition>(current()->name);
+    }
 
     vec2 camera_velocity() const;
     vec2 camera_center() const;

@@ -5,8 +5,6 @@
 
 namespace battlemints {
 
-static const int TRANSITION_FADE_OUT = 60;
-
 void
 transition::setup()
 {
@@ -16,10 +14,11 @@ transition::setup()
 void
 transition::tick()
 {
-    from->tick();
     ++age;
+    if (age % slowdown == 0)
+        from->tick();
 
-    if (age == TRANSITION_FADE_OUT)
+    if (age == lifespan)
         controller::set_current(to);
 }
 
@@ -30,7 +29,7 @@ transition::draw()
 
     glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glColor4f(1.0f, 1.0f, 1.0f, 5.0f*(float)age/(float)TRANSITION_FADE_OUT);
+    glColor4f(color.x, color.y, color.z, color.w*(float)age/(float)lifespan);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glMatrixMode(GL_PROJECTION);

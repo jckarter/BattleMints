@@ -1,21 +1,10 @@
 #include "enemy.hpp"
+#include "mini.hpp"
+#include "mega.hpp"
 #include "serialization.hpp"
 #include "board.hpp"
 
 namespace battlemints {
-
-thing *enemy::from_json(Json::Value const &v)
-{
-    vec2  center          = vec2_from_json(v["center"]);
-    vec4  color           = vec4_from_json(v["color"]);
-    float radius          = (float)v["radius"].asDouble();
-    float mass            = (float)v["mass"].asDouble();
-    float spring          = (float)v["spring"].asDouble();
-    float accel           = (float)v["accel"].asDouble();
-    float responsiveness  = (float)v["responsiveness"].asDouble();
-
-    return new enemy(mass, center, radius, color, spring, accel, responsiveness);
-}
 
 void enemy::tick()
 {
@@ -41,6 +30,39 @@ void enemy::on_collision(thing &o)
 {
     if (!target)
         target = &o;
+}
+
+const float mini::ACCEL = 0.025;
+const float mini::RADIUS = 0.35;
+boost::ptr_vector<sphere_texture> mini::textures(6);
+
+void mini::global_start()
+{
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.0,  0.0, 1.0)));
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.4,  0.0, 1.0)));
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 1.0,  0.0, 1.0)));
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.0, 1.0,  0.0, 1.0)));
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.3, 0.3,  1.0, 1.0)));
+    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.3, 0.24, 0.2, 1.0)));
+}
+
+void mini::global_finish()
+{
+    textures.clear();
+}
+
+const float mega::ACCEL = 0.006;
+const float mega::RADIUS = 2.6;
+sphere_texture *mega::texture = NULL;
+
+void mega::global_start()
+{
+    texture = new sphere_texture(RADIUS, make_vec4(0.33, 0.13, 0.0, 1.0));
+}
+
+void mega::global_finish()
+{
+    delete texture;
 }
 
 }
