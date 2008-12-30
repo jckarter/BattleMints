@@ -1,5 +1,6 @@
 #include "drawing.hpp"
 #include "game.hpp"
+#include "ply_file.hpp"
 #include <UIKit/UIKit.h>
 #include <CoreGraphics/CoreGraphics.h>
 
@@ -56,6 +57,18 @@ model::draw() const
     glDrawElements(GL_TRIANGLES, num_elements, GL_UNSIGNED_SHORT, (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+model *
+model::from_file(std::string const &name)
+{
+    std::vector<GLfloat> vertices;
+    std::vector<GLushort> elements;
+
+    if (read_ply(name, vertices, elements))
+        return new model(vertices, elements);
+    else
+        return NULL;
 }
 
 const boost::array<float, 8> unit_texcoords = {

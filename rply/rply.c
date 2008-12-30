@@ -1090,7 +1090,7 @@ static int ply_read_header_format(p_ply ply) {
 
 static int ply_read_header_comment(p_ply ply) {
     assert(ply && ply->fp && ply->io_mode == PLY_READ);
-    if (strcmp(BWORD(ply), "comment")) return 0;
+    if (strcmp(BWORD(ply), "comment") && strcmp(BWORD(ply), "Created")) return 0;
     if (!ply_read_line(ply)) return 0;
     if (!ply_add_comment(ply, BLINE(ply))) return 0;
     if (!ply_read_word(ply)) return 0;

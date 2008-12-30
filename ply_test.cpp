@@ -21,7 +21,7 @@ main(int argc, char *argv[])
         std::cerr << "Usage: " << argv[0] << " ply_file\n";
 
     std::vector<GLfloat> vertices;
-    std::vector<GLuint>  elements;
+    std::vector<GLushort>  elements;
 
     if (!read_ply_file(argv[1], vertices, elements))
         return 1;

@@ -106,9 +106,10 @@ bool read_ply(
 {
     try {
         boost::optional<std::string> path = resource_filename(name, "ply");
-        read_ply_file(*path, out_vertices, out_elements);
+        return read_ply_file(*path, out_vertices, out_elements);
     } catch (std::exception const &x) {
         std::cerr << "Reading ply " << name << " failed: " << x.what() << "\n";
+        return false;
     }
 }
 #endif

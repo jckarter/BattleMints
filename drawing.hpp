@@ -23,6 +23,8 @@ struct model : boost::noncopyable {
     ~model();
 
     void draw() const;
+
+    static model *from_file(std::string const &name);
 };
 
 extern const boost::array<float, 8> unit_texcoords;

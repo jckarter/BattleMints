@@ -20,6 +20,8 @@ extern const vec2 GAME_WINDOW_UNIT_SIZE;
 
 extern vec2 controller_state;
 
+static inline float max_speed_for_accel(float accel) { return accel/(1 - FRICTION); }
+
 }
 
 #endif

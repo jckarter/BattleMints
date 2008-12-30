@@ -1,5 +1,6 @@
 #include "board_loader.hpp"
 #include "board.hpp"
+#include <UIKit/UIKit.h>
 
 namespace battlemints {
 
@@ -21,11 +22,13 @@ void board_loader::draw()
 
 void *board_loader::_loader_thread(void *void_thys)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     board_loader *thys = (board_loader*)void_thys;
 
     thys->b = board::from_file(thys->name);
-    thys->  finished = true;
+    thys->finished = true;
 
+    [pool release];
     return NULL;
 }
 

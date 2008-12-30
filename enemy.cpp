@@ -35,9 +35,11 @@ void enemy::on_collision(thing &o)
 const float mini::ACCEL = 0.025;
 const float mini::RADIUS = 0.35;
 boost::ptr_vector<sphere_texture> mini::textures(6);
+sphere_face *mini::face = NULL;
 
 void mini::global_start()
 {
+    face = sphere_face::from_file_set("mini");
     textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.0,  0.0, 1.0)));
     textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.4,  0.0, 1.0)));
     textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 1.0,  0.0, 1.0)));
@@ -49,6 +51,7 @@ void mini::global_start()
 void mini::global_finish()
 {
     textures.clear();
+    delete face;
 }
 
 const float mega::ACCEL = 0.006;
