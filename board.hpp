@@ -9,7 +9,6 @@
 #include <boost/foreach.hpp>
 #include "grid.hpp"
 #include "controller.hpp"
-#include "sound_server.hpp"
 #include "board_loader.hpp"
 
 namespace battlemints {
@@ -35,7 +34,6 @@ struct board : controller {
     thing *camera();
 
     exhaust *exhaust_thing() { return _exhaust_thing; }
-    sound_server *sound() { return _sound; }
 
     virtual void setup();
     virtual void tick();
@@ -91,7 +89,6 @@ private:
 
     thing *_camera;
     exhaust *_exhaust_thing;
-    sound_server *_sound;
 
     grid _visibility_grid;
     grid _collision_grid;

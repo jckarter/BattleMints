@@ -23,10 +23,23 @@ struct read_state {
 
     read_state(std::vector<GLfloat> &vv, std::vector<GLushort> &ee)
         : vertices(vv), elements(ee),
+          current_vertex_index(0), current_face_index(0),
           error(NULL)
     {
         std::fill(current_vertex.begin(), current_vertex.end(), 0.0f);
         std::fill(current_face.begin(),   current_face.end(),   0);
+    }
+
+    void push_vertex()
+    {
+        std::copy(current_vertex.begin(), current_vertex.end(), std::back_inserter(vertices));
+        std::fill(current_vertex.begin(), current_vertex.end(), 0.0f);
+    }
+
+    void push_face()
+    {
+        std::copy(current_face.begin(), current_face.end(), std::back_inserter(elements));
+        std::fill(current_face.begin(), current_face.end(), 0);
     }
 };
 
@@ -50,15 +63,7 @@ namespace {
 
         if (vertex_index != state->current_vertex_index) {
             state->current_vertex_index = vertex_index;
-
-            std::copy(
-                state->current_vertex.begin(), state->current_vertex.end(),
-                std::back_inserter(state->vertices)
-            );
-            std::fill(
-                state->current_vertex.begin(), state->current_vertex.end(),
-                0.0f
-            );
+            state->push_vertex();
         }
         state->current_vertex[vertex_n] = ply_get_argument_value(arg);
 
@@ -81,12 +86,7 @@ namespace {
 
         if (face_index != state->current_face_index) {
             state->current_face_index = face_index;
-
-            std::copy(
-                state->current_face.begin(), state->current_face.end(),
-                std::back_inserter(state->elements)
-            );
-            std::fill(state->current_face.begin(), state->current_face.end(), 0);
+            state->push_face();
         }
 
         if (face_n >= 0)
@@ -139,6 +139,8 @@ read_ply_file(
         if (!ply_read(ply.handle))
             // XXX exception leaks!
             throw state.error ? *state.error : std::runtime_error("ply_read failed");
+        state.push_vertex();
+        state.push_face();
 
         if (out_vertices.size() != vertices_count * 3)
             throw std::runtime_error("Wrong number of vertices extracted");

@@ -7,7 +7,7 @@
 namespace battlemints {
 
 struct sphere_face : boost::noncopyable {
-    static const float PANIC_SPIN_FACTOR, FACE_ROTATE_FACTOR;
+    static const float PANIC_SPIN_FACTOR, ROTATE_SPAN, ROTATE_FACTOR;
 
     model *asleep, *normal, *stressed, *strained, *panicked;
     float panic_spin;

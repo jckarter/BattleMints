@@ -24,7 +24,6 @@ board::board(std::string const &nm, rect bound)
       _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
       _tick_count(0),
       _exhaust_thing(new exhaust(bound)),
-      _sound(new sound_server()),
       _overlaps()
 {
     add_thing(_exhaust_thing);
@@ -68,7 +67,6 @@ board::setup()
 board::~board()
 {
     _kill_dying_things();
-    delete _sound;
     BOOST_FOREACH (thing *th, _all_things)
         delete th;
 }
@@ -231,8 +229,6 @@ void
 board::tick()
 {
     _kill_dying_things();
-
-    _sound->tick();
 
     float tick_time = 1.0;
     int rounds = 0;

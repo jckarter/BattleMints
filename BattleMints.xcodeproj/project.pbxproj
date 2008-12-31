@@ -58,6 +58,11 @@
 		D8B272470F09D99A001844D6 /* mini-strained.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B272420F09D99A001844D6 /* mini-strained.ply */; };
 		D8B272480F09D99A001844D6 /* mini-stressed.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B272430F09D99A001844D6 /* mini-stressed.ply */; };
 		D8B272510F09DDBE001844D6 /* board_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B272500F09DDBE001844D6 /* board_loader.mm */; };
+		D8B272710F0A9D1F001844D6 /* player-asleep.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726C0F0A9D1F001844D6 /* player-asleep.ply */; };
+		D8B272720F0A9D1F001844D6 /* player-normal.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726D0F0A9D1F001844D6 /* player-normal.ply */; };
+		D8B272730F0A9D1F001844D6 /* player-panicked.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */; };
+		D8B272740F0A9D1F001844D6 /* player-strained.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726F0F0A9D1F001844D6 /* player-strained.ply */; };
+		D8B272750F0A9D1F001844D6 /* player-stressed.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B272700F0A9D1F001844D6 /* player-stressed.ply */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
@@ -140,6 +145,11 @@
 		D8B272420F09D99A001844D6 /* mini-strained.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mini-strained.ply"; sourceTree = "<group>"; };
 		D8B272430F09D99A001844D6 /* mini-stressed.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mini-stressed.ply"; sourceTree = "<group>"; };
 		D8B272500F09DDBE001844D6 /* board_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = board_loader.mm; sourceTree = "<group>"; };
+		D8B2726C0F0A9D1F001844D6 /* player-asleep.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-asleep.ply"; sourceTree = "<group>"; };
+		D8B2726D0F0A9D1F001844D6 /* player-normal.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-normal.ply"; sourceTree = "<group>"; };
+		D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-panicked.ply"; sourceTree = "<group>"; };
+		D8B2726F0F0A9D1F001844D6 /* player-strained.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-strained.ply"; sourceTree = "<group>"; };
+		D8B272700F0A9D1F001844D6 /* player-stressed.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-stressed.ply"; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
@@ -274,6 +284,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8B2726C0F0A9D1F001844D6 /* player-asleep.ply */,
+				D8B2726D0F0A9D1F001844D6 /* player-normal.ply */,
+				D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */,
+				D8B2726F0F0A9D1F001844D6 /* player-strained.ply */,
+				D8B272700F0A9D1F001844D6 /* player-stressed.ply */,
 				D8B2723F0F09D99A001844D6 /* mini-asleep.ply */,
 				D8B272400F09D99A001844D6 /* mini-normal.ply */,
 				D8B272410F09D99A001844D6 /* mini-panicked.ply */,
@@ -388,6 +403,11 @@
 				D8B272460F09D99A001844D6 /* mini-panicked.ply in Resources */,
 				D8B272470F09D99A001844D6 /* mini-strained.ply in Resources */,
 				D8B272480F09D99A001844D6 /* mini-stressed.ply in Resources */,
+				D8B272710F0A9D1F001844D6 /* player-asleep.ply in Resources */,
+				D8B272720F0A9D1F001844D6 /* player-normal.ply in Resources */,
+				D8B272730F0A9D1F001844D6 /* player-panicked.ply in Resources */,
+				D8B272740F0A9D1F001844D6 /* player-strained.ply in Resources */,
+				D8B272750F0A9D1F001844D6 /* player-stressed.ply in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,8 @@
 // Prefix header for all source files of the 'BattleMints' target in the 'BattleMints' project
 //
 
+#define __ASSERTMACROS__ // suppress poorly-named macros from AssertMacros.h
+
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>

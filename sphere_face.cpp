@@ -2,12 +2,14 @@
 
 namespace battlemints {
 
-const float sphere_face::PANIC_SPIN_FACTOR = 5.0f, sphere_face::FACE_ROTATE_FACTOR = 1.0f;
+const float sphere_face::PANIC_SPIN_FACTOR = 5.0f,
+            sphere_face::ROTATE_SPAN = 20.0f,
+            sphere_face::ROTATE_FACTOR = 25.0f;
 
 inline model *
 sphere_face::_model_for_course(vec2 velocity, vec2 accel)
 {
-    if (velocity == ZERO_VEC2 && accel == ZERO_VEC2)
+    if (accel == ZERO_VEC2)
         return asleep;
 
     float course = vdot(velocity, accel);
@@ -18,7 +20,7 @@ sphere_face::_model_for_course(vec2 velocity, vec2 accel)
         return speed > ideal ? normal   : stressed;
 }
 
-static inline float _rotation(float magnitude) { return sphere_face::FACE_ROTATE_FACTOR*(1.0f - 1.0f/(magnitude + 1.0f)); }
+static inline float _rotation(float magnitude) { return sphere_face::ROTATE_SPAN*(1.0f - 1.0f/(sphere_face::ROTATE_FACTOR*magnitude + 1.0f)); }
 
 void
 sphere_face::draw_for_course(vec2 velocity, vec2 accel)
@@ -32,8 +34,8 @@ sphere_face::draw_for_course(vec2 velocity, vec2 accel)
     }
     else {
         panic_spin = 0.0f;
-        glRotatef(_rotation(accel.y), 1.0, 0.0, 0.0);
-        glRotatef(_rotation(accel.x), 0.0, 1.0, 0.0);
+        glRotatef(_rotation(accel.y), -1.0, 0.0, 0.0);
+        glRotatef(_rotation(accel.x),  0.0, 1.0, 0.0);
     }
 
     mod->draw();
