@@ -1,6 +1,5 @@
-#include "sphere.hpp"
-#include "wall.hpp"
-#include "wallpost.hpp"
+#include "thing.hpp"
+#include "walls.hpp"
 #include <iostream>
 
 // [wall a:<-24.315,-12.0967> b:<-16.3117,-12.06> n:<-0.00458128,0.99999>]

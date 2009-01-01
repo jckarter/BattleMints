@@ -3,7 +3,7 @@
 
 #include "game.hpp"
 #include "geom.hpp"
-#include "sphere.hpp"
+#include "thing.hpp"
 #include "board.hpp"
 #include "explosion.hpp"
 #include "serialization.hpp"

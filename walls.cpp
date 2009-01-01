@@ -1,7 +1,6 @@
-#include "wall_strip.hpp"
-#include "wallpost.hpp"
-#include "wall.hpp"
+#include "walls.hpp"
 #include "board.hpp"
+#include "serialization.hpp"
 
 namespace battlemints {
 

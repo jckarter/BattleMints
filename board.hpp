@@ -20,6 +20,8 @@ typedef std::set<thing*> thing_set;
 struct exhaust;
 
 struct board : controller {
+    static const vec2 COLLISION_CELL_SIZE, VISIBILITY_CELL_SIZE;
+
     std::string name;
 
     board(std::string const &nm, rect bound);

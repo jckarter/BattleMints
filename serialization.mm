@@ -1,6 +1,6 @@
 #include "serialization.hpp"
 #include "dramatis_personae.hpp"
-#include "wall_strip.hpp"
+#include "walls.hpp"
 #include "goal.hpp"
 #include <UIKit/UIKit.h>
 

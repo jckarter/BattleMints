@@ -13,6 +13,9 @@ const vec2 ZERO_VEC2 = make_vec2(0.0);
 const vec2 GAME_WINDOW_SIZE = make_vec2(320.0, 480.0);
 const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
+const vec2 board::COLLISION_CELL_SIZE = make_vec2(2.0, 2.0);
+const vec2 board::VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
+
 const float player::ACCEL_SCALE = 0.02f;
 const float player::RADIUS = 0.5f;
 const float player::MASS = 1.0f;
@@ -21,7 +24,7 @@ const vec4 player::COLOR = make_vec4(0.5, 0.89, 1.0, 1.0);
 
 const float mini::ACCEL = 0.022f;
 const float mini::RADIUS = 0.35f;
-const float mini::MASS = 0.5f;
+const float mini::MASS = 0.6f;
 const float mini::SPRING = 1.0f;
 const float mini::RESPONSIVENESS = 0.75f;
 

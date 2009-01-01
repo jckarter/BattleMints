@@ -1,7 +1,7 @@
 #ifndef __TRIPWIRE_HPP__
 #define __TRIPWIRE_HPP__
 
-#include "line.hpp"
+#include "thing.hpp"
 #include "board.hpp"
 
 namespace battlemints {

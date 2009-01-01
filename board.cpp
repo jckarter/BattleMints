@@ -1,10 +1,9 @@
 #include "board.hpp"
 #include "game.hpp"
 #include "thing.hpp"
-#include "sphere.hpp"
 #include "dramatis_personae.hpp"
 #include "exhaust.hpp"
-#include "wall.hpp"
+#include "walls.hpp"
 #include "serialization.hpp"
 #include <functional>
 #include <iostream>
@@ -12,16 +11,13 @@
 
 namespace battlemints {
 
-static const vec2 BOARD_COLLISION_CELL_SIZE = make_vec2(2.0, 2.0);
-static const vec2 BOARD_VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
-
 board *board::_current = NULL;
 
 board::board(std::string const &nm, rect bound)
     : name(nm),
       _camera(NULL),
-      _visibility_grid(bound, BOARD_VISIBILITY_CELL_SIZE),
-      _collision_grid(bound, BOARD_COLLISION_CELL_SIZE),
+      _visibility_grid(bound, VISIBILITY_CELL_SIZE),
+      _collision_grid(bound, COLLISION_CELL_SIZE),
       _tick_count(0),
       _exhaust_thing(new exhaust(bound)),
       _overlaps()

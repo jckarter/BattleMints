@@ -1,7 +1,5 @@
 #include "collision.hpp"
 #include "thing.hpp"
-#include "sphere.hpp"
-#include "line.hpp"
 #include <iostream>
 #include <limits>
 
