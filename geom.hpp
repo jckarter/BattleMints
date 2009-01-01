@@ -122,6 +122,9 @@ static inline float rand_between(float lo, float hi)
     return ret;
 }
 
+static inline float rand_near(float center, float epsilon)
+    { return rand_between(center - epsilon, center + epsilon); }
+
 static inline float signum(float n)
 {
     return n <  0.0f ? -1.0f
@@ -137,6 +140,9 @@ static inline float fast_cos_2pi(float x)
 }
 
 static inline float fast_sin_2pi(float x) { return fast_cos_2pi(0.25f - x); }
+
+static inline vec2 polar_vec2(float rho, float theta)
+    { return make_vec2(rho*fast_cos_2pi(theta), rho*fast_sin_2pi(theta)); }
 
 }
 

@@ -30,12 +30,14 @@ struct particles : thing {
 
     virtual char const * kind() const { return "particles"; }
 
+    void explode(thing *th);
+
     static vec4 color(unsigned age)
     {
-        float a = 1.0 - (float)age/(float)LIFE_EXPECTANCY;
+        float a = 1.0f - (float)age/(float)LIFE_EXPECTANCY;
         float a2 = sqrtf(a);
 
-        return make_vec4(a2, (a+a2)*0.5, a, a*a);
+        return make_vec4(a2, (a+a2)*0.5f, a, a*a);
     }
 
     template<typename Container>

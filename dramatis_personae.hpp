@@ -5,7 +5,7 @@
 #include "geom.hpp"
 #include "thing.hpp"
 #include "board.hpp"
-#include "explosion.hpp"
+#include "particles.hpp"
 #include "serialization.hpp"
 #include "drawing.hpp"
 #include "transition.hpp"
@@ -29,7 +29,7 @@ struct player : sphere {
 
     virtual void draw();
 
-    void die() { explosion::explode(this); board::restart_with<death_transition>(); }
+    void die() { board::current()->particles_thing()->explode(this); board::restart_with<death_transition>(); }
 
     static thing *from_json(Json::Value const &v);
     static void global_start();
@@ -56,7 +56,7 @@ struct enemy : sphere {
     virtual void wall_damage() { die(); }
     virtual void post_damage() { die(); }
 
-    void die() { explosion::explode(this); }
+    void die() { board::current()->particles_thing()->explode(this); }
 
     virtual char const * kind() const { return "enemy"; }
 

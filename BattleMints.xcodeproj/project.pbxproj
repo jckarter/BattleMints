@@ -16,7 +16,6 @@
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */; };
-		D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D550EE3AFE000A0AD25 /* explosion.cpp */; };
 		D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D780EE4EEF700A0AD25 /* goal.cpp */; };
 		D8122E050EE9C0E100A0AD25 /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81B5BA70EB7B43E002A40E7 /* collision.cpp */; };
 		D8122E060EE9C0E800A0AD25 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122DEE0EE9C0AC00A0AD25 /* test.cpp */; };
@@ -78,8 +77,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_effects.hpp; sourceTree = "<group>"; };
 		D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_effects.cpp; sourceTree = "<group>"; };
-		D8122D550EE3AFE000A0AD25 /* explosion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = explosion.cpp; sourceTree = "<group>"; };
-		D8122D560EE3AFE000A0AD25 /* explosion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = explosion.hpp; sourceTree = "<group>"; };
 		D8122D770EE4EEF700A0AD25 /* tripwire.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tripwire.hpp; sourceTree = "<group>"; };
 		D8122D780EE4EEF700A0AD25 /* goal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = goal.cpp; sourceTree = "<group>"; };
 		D8122D790EE4EEF700A0AD25 /* goal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = goal.hpp; sourceTree = "<group>"; };
@@ -245,8 +242,6 @@
 				D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */,
 				D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */,
 				D84C2A870EDD20760000DE73 /* synth.hpp */,
-				D8122D550EE3AFE000A0AD25 /* explosion.cpp */,
-				D8122D560EE3AFE000A0AD25 /* explosion.hpp */,
 				D8122D770EE4EEF700A0AD25 /* tripwire.hpp */,
 				D8122D780EE4EEF700A0AD25 /* goal.cpp */,
 				D8122D790EE4EEF700A0AD25 /* goal.hpp */,
@@ -407,7 +402,6 @@
 				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
-				D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */,
 				D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */,
 				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
 				D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */,
