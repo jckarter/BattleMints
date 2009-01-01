@@ -34,7 +34,7 @@ struct exhaust : thing {
     rect bounding_box;
     std::deque<particle> particles;
 
-    exhaust(rect bb) : thing(0.0, ZERO_VEC2), bounding_box(bb), particles()
+    exhaust(rect bb) : thing(0.0f, ZERO_VEC2, 1.0f), bounding_box(bb), particles()
         { _vert.reserve(200); _col.reserve(200); }
 
     virtual bool does_collisions() const { return false; }
