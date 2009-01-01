@@ -17,6 +17,7 @@
 #include <set>
 #include <algorithm>
 #include <boost/array.hpp>
+#include <boost/circular_buffer.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
 #include <boost/optional.hpp>

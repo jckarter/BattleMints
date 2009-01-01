@@ -17,7 +17,7 @@ struct thing;
 
 typedef std::set<thing*> thing_set;
 
-struct exhaust;
+struct particles;
 
 struct board : controller {
     static const vec2 COLLISION_CELL_SIZE, VISIBILITY_CELL_SIZE;
@@ -35,7 +35,7 @@ struct board : controller {
     void set_camera(thing *t);
     thing *camera();
 
-    exhaust *exhaust_thing() { return _exhaust_thing; }
+    particles *particles_thing() { return _particles_thing; }
 
     virtual void setup();
     virtual void tick();
@@ -91,7 +91,7 @@ private:
     thing_set _dying_things;
 
     thing *_camera;
-    exhaust *_exhaust_thing;
+    particles *_particles_thing;
 
     grid _visibility_grid;
     grid _collision_grid;

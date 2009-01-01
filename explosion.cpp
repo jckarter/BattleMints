@@ -1,6 +1,6 @@
 #include "board.hpp"
 #include "explosion.hpp"
-#include "exhaust.hpp"
+#include "particles.hpp"
 #include "geom.hpp"
 
 namespace battlemints {
@@ -8,7 +8,7 @@ namespace battlemints {
 static const float EXPLOSION_MIN_SPEED = 0.5f;
 static const float EXPLOSION_MAX_SPEED = 1.0f;
 static const unsigned EXPLOSION_PARTICLE_COUNT = 300;
-static const unsigned EXPLOSION_LIFE_EXPECTANCY = EXHAUST_LIFE_EXPECTANCY;
+static const unsigned EXPLOSION_LIFE_EXPECTANCY = particles::LIFE_EXPECTANCY;
 static const float EXPLOSION_VISIBLE_RADIUS = 5.0f;
 
 inline vec2
@@ -76,7 +76,7 @@ explosion::draw()
         float age_factor = 1.0f - age_fract;
         for (; pi != particles.end(); ++pi, ++vi, ++ci, ++si) {
             *vi = pi->center;
-            *ci = exhaust::color(age);
+            *ci = particles::color(age);
             *si = pi->size * age_factor;
         }
 

@@ -4,7 +4,7 @@
 # include "board.hpp"
 #endif
 #include "game.hpp"
-#include "exhaust.hpp"
+#include "particles.hpp"
 #include <cmath>
 
 namespace battlemints {
@@ -28,8 +28,8 @@ rect sphere::collision_box()
 void sphere::accelerate_with_exhaust(vec2 accel)
 {
     velocity += accel;
-    board::current()->exhaust_thing()
-        ->add_particle(center - vnormalize(accel)*radius, mass*accel);
+    board::current()->particles_thing()
+        ->add_particles(center - vnormalize(accel)*radius, mass*accel, particles::exhaust);
 }
 #endif
 

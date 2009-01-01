@@ -38,7 +38,6 @@
 		D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
 		D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
-		D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A040ED1F8360000DE73 /* exhaust.cpp */; };
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
@@ -58,6 +57,7 @@
 		D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */; };
 		D8B272D20F0C8FFC001844D6 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272D10F0C8FFC001844D6 /* thing.cpp */; };
 		D8B272D70F0C918E001844D6 /* walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272D50F0C918E001844D6 /* walls.cpp */; };
+		D8B272FF0F0D4C32001844D6 /* particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272FD0F0D4C32001844D6 /* particles.cpp */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
@@ -109,8 +109,6 @@
 		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
 		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
-		D84C2A030ED1F8360000DE73 /* exhaust.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = exhaust.hpp; sourceTree = "<group>"; };
-		D84C2A040ED1F8360000DE73 /* exhaust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exhaust.cpp; sourceTree = "<group>"; };
 		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
 		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
 		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
@@ -136,6 +134,8 @@
 		D8B272D10F0C8FFC001844D6 /* thing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thing.cpp; sourceTree = "<group>"; };
 		D8B272D50F0C918E001844D6 /* walls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = walls.cpp; sourceTree = "<group>"; };
 		D8B272D60F0C918E001844D6 /* walls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = walls.hpp; sourceTree = "<group>"; };
+		D8B272FD0F0D4C32001844D6 /* particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particles.cpp; sourceTree = "<group>"; };
+		D8B272FE0F0D4C32001844D6 /* particles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = particles.hpp; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
@@ -202,6 +202,8 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D8B272FD0F0D4C32001844D6 /* particles.cpp */,
+				D8B272FE0F0D4C32001844D6 /* particles.hpp */,
 				D8B272D50F0C918E001844D6 /* walls.cpp */,
 				D8B272D60F0C918E001844D6 /* walls.hpp */,
 				D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */,
@@ -238,8 +240,6 @@
 				D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */,
 				D86F03330EC4C292004F03F8 /* serialization.hpp */,
 				D86F03340EC4C292004F03F8 /* serialization.mm */,
-				D84C2A030ED1F8360000DE73 /* exhaust.hpp */,
-				D84C2A040ED1F8360000DE73 /* exhaust.cpp */,
 				D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */,
 				D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */,
 				D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */,
@@ -405,7 +405,6 @@
 				D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */,
 				D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */,
 				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
-				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
 				D8122D570EE3AFE000A0AD25 /* explosion.cpp in Sources */,
@@ -418,6 +417,7 @@
 				D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */,
 				D8B272D20F0C8FFC001844D6 /* thing.cpp in Sources */,
 				D8B272D70F0C918E001844D6 /* walls.cpp in Sources */,
+				D8B272FF0F0D4C32001844D6 /* particles.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

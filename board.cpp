@@ -2,7 +2,7 @@
 #include "game.hpp"
 #include "thing.hpp"
 #include "dramatis_personae.hpp"
-#include "exhaust.hpp"
+#include "particles.hpp"
 #include "walls.hpp"
 #include "serialization.hpp"
 #include <functional>
@@ -19,10 +19,10 @@ board::board(std::string const &nm, rect bound)
       _visibility_grid(bound, VISIBILITY_CELL_SIZE),
       _collision_grid(bound, COLLISION_CELL_SIZE),
       _tick_count(0),
-      _exhaust_thing(new exhaust(bound)),
+      _particles_thing(new particles(bound)),
       _overlaps()
 {
-    add_thing(_exhaust_thing);
+    add_thing(_particles_thing);
 }
 
 void
