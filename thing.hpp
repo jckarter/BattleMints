@@ -21,9 +21,10 @@ struct line;
 struct thing : boost::noncopyable {
     vec2 velocity;
     vec2 center;
+    float spring;
     float mass;
 
-    thing(float m, vec2 ct) : velocity(ZERO_VEC2), center(ct), mass(m) { }
+    thing(float m, vec2 ct, float sp) : velocity(ZERO_VEC2), center(ct), spring(sp), mass(m) { }
 
     virtual ~thing() { }
     virtual rect visibility_box() { return make_rect(0,0,0,0); }
@@ -80,7 +81,6 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
 
 struct sphere : thing {
     float radius;
-    float spring;
 
     virtual rect visibility_box();
     virtual rect collision_box();
@@ -100,7 +100,7 @@ struct sphere : thing {
         { return collision_time_sphere_point(*this, p); }
 
     sphere(float m, vec2 ct, float r, float sp)
-        : thing(m, ct), radius(r), spring(sp) { }
+        : thing(m, ct, sp), radius(r) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
@@ -115,7 +115,7 @@ struct line : thing {
     vec2 endpoint_a, endpoint_b, normal;
 
     line(vec2 pt_a, vec2 pt_b)
-        : thing(INFINITYF, (pt_a+pt_b)/2),
+        : thing(INFINITYF, (pt_a+pt_b)/2, 1.0f),
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 

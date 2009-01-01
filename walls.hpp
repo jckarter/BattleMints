@@ -29,7 +29,7 @@ struct wall : line {
 };
 
 struct wallpost : thing {
-    wallpost(vec2 ct) : thing(INFINITYF, ct) {  }
+    wallpost(vec2 ct) : thing(INFINITYF, ct, 1.0f) {  }
 
     virtual bool does_draws() const { return false; }
     //virtual void draw() {
@@ -71,7 +71,7 @@ struct wall_strip : thing {
 
     template<typename InputIterator>
     wall_strip(InputIterator start, InputIterator fin, bool cl)
-        : thing(INFINITYF, ZERO_VEC2), vertices(start, fin), bounding_box(_find_bbox()), closed(cl) 
+        : thing(INFINITYF, ZERO_VEC2, 1.0f), vertices(start, fin), bounding_box(_find_bbox()), closed(cl) 
         { }
 
     virtual bool does_collisions() const { return false; }

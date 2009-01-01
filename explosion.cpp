@@ -27,7 +27,7 @@ explosion::_random_size()
 }
 
 explosion::explosion(vec2 ce)
-    : thing(0.0, ce), age(0), particles(EXPLOSION_PARTICLE_COUNT)
+    : thing(0.0f, ce, 1.0f), age(0), particles(EXPLOSION_PARTICLE_COUNT)
 {
     BOOST_FOREACH (particle &p, particles) {
         p.center = ce;
