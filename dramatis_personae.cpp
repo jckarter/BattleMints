@@ -4,6 +4,15 @@
 
 namespace battlemints {
 
+void camera::tick()
+{
+    if (target && board::current()->thing_lives(target)) {
+        vec2 goal = target->center + target->velocity * LEAD_FACTOR;
+        velocity = (goal - center) * FOLLOW_FACTOR;
+    } else
+        target = NULL;
+}
+
 sphere_texture *player::texture = NULL;
 sphere_face *player::face = NULL;
 

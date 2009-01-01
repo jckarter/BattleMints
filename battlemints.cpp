@@ -11,7 +11,6 @@
 #include <boost/foreach.hpp>
 #include <cstdlib>
 #include <cstdio>
-#include <limits>
 
 using namespace battlemints;
 

@@ -7,7 +7,6 @@
 #include "serialization.hpp"
 #include <functional>
 #include <iostream>
-#include <limits>
 
 namespace battlemints {
 
@@ -15,14 +14,15 @@ board *board::_current = NULL;
 
 board::board(std::string const &nm, rect bound)
     : name(nm),
-      _camera(NULL),
       _visibility_grid(bound, VISIBILITY_CELL_SIZE),
       _collision_grid(bound, COLLISION_CELL_SIZE),
       _tick_count(0),
+      _camera_thing(new camera()),
       _particles_thing(new particles(bound)),
       _overlaps()
 {
     add_thing(_particles_thing);
+    add_thing(_camera_thing);
 }
 
 void
@@ -87,30 +87,6 @@ board::remove_thing(thing *t)
     _dying_things.insert(t);
 }
 
-void
-board::replace_thing(thing *olde, thing *nu)
-{
-    remove_thing(olde);
-    add_thing(nu);
-    if (camera() == olde)
-        set_camera(nu);
-}
-
-void
-board::set_camera(thing *t)
-{
-    if (_all_things.find(t) == _all_things.end())
-        return;
-
-    _camera = t;
-}
-
-thing *
-board::camera()
-{
-    return _camera;
-}
-
 template<typename UnaryFunctor>
 inline void
 board::_update_thing(thing *t, UnaryFunctor const &f)
@@ -154,7 +130,7 @@ static inline bool _is_overlapping_time(float f)
 {
     f = fabsf(f);
     return f <= 0.01f
-        || f == std::numeric_limits<float>::infinity();
+        || f == INFINITYF;
 }
 
 inline void
@@ -231,7 +207,7 @@ board::tick()
 
     while (tick_time > 0.0 && rounds < 100) {
         thing *a, *b;
-        float collide_time = std::numeric_limits<float>::infinity();
+        float collide_time = INFINITYF;
 
         _find_collision(a, b, collide_time);
         _move_things(std::min(tick_time, collide_time));
@@ -251,24 +227,12 @@ board::tick()
     ++_tick_count;
 }
 
-vec2
-board::camera_velocity() const
-{
-    return _camera ? _camera->velocity : ZERO_VEC2;
-}
-
-vec2
-board::camera_center() const
-{
-    return _camera ? _camera->center : ZERO_VEC2;
-}
-
 void
 board::draw()
 {
     _draw_background();
 
-    vec2 cam_center = camera_center();
+    vec2 cam_center = _camera_thing->center;
     rect camera_rect = make_rect(
         cam_center - GAME_WINDOW_UNIT_SIZE/2,
         cam_center + GAME_WINDOW_UNIT_SIZE/2
@@ -341,7 +305,7 @@ board::from_json(std::string const &name, Json::Value const &v)
             thing *t = thing_from_json(tv);
             b->add_thing(t);
             if (tv[1].isMember("camera"))
-                b->set_camera(t);
+                b->camera_thing()->cut_to_target(t);
         }
     } catch (...) {
         delete b;

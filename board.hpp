@@ -14,10 +14,10 @@
 namespace battlemints {
 
 struct thing;
+struct particles;
+struct camera;
 
 typedef std::set<thing*> thing_set;
-
-struct particles;
 
 struct board : controller {
     static const vec2 COLLISION_CELL_SIZE, VISIBILITY_CELL_SIZE;
@@ -29,12 +29,9 @@ struct board : controller {
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
     void remove_thing(thing *t);
-    void replace_thing(thing *olde, thing *nu);
     bool thing_lives(thing *t) { return _all_things.find(t) != _all_things.end(); }
 
-    void set_camera(thing *t);
-    thing *camera();
-
+    camera *camera_thing() { return _camera_thing; }
     particles *particles_thing() { return _particles_thing; }
 
     virtual void setup();
@@ -60,9 +57,6 @@ struct board : controller {
     {
         change_board_with<Transition>(current()->name);
     }
-
-    vec2 camera_velocity() const;
-    vec2 camera_center() const;
 
     void dump_things() const
     {
@@ -90,7 +84,7 @@ private:
     thing_set _all_things;
     thing_set _dying_things;
 
-    thing *_camera;
+    camera *_camera_thing;
     particles *_particles_thing;
 
     grid _visibility_grid;

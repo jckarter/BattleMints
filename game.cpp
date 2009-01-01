@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "dramatis_personae.hpp"
+#include <limits>
 
 namespace battlemints {
 
@@ -15,6 +16,9 @@ const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXE
 
 const vec2 board::COLLISION_CELL_SIZE = make_vec2(2.0, 2.0);
 const vec2 board::VISIBILITY_CELL_SIZE = make_vec2(2.0, 2.0);
+
+const float camera::LEAD_FACTOR = 20.0f;
+const float camera::FOLLOW_FACTOR = 0.1f;
 
 const float player::ACCEL_SCALE = 0.02f;
 const float player::RADIUS = 0.5f;

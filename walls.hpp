@@ -3,7 +3,6 @@
 
 #include "thing.hpp"
 #include "collision.hpp"
-#include <limits>
 #include <boost/array.hpp>
 
 namespace battlemints {

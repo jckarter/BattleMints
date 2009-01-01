@@ -1,6 +1,6 @@
 #include "sound_server.hpp"
 #include "board.hpp"
-#include "thing.hpp"
+#include "dramatis_personae.hpp"
 #include <OpenAL/al.h>
 #include <vector>
 #include <stdexcept>
@@ -182,8 +182,8 @@ sound_server::tick()
         return;
 
     if (board::current()) {
-        vec2 listener_center = board::current()->camera_center();
-        vec2 listener_velocity = board::current()->camera_velocity();
+        vec2 listener_center = board::current()->camera_thing()->center;
+        vec2 listener_velocity = board::current()->camera_thing()->velocity;
 
         alListener3f(AL_POSITION, listener_center.x, listener_center.y, 0.0f);
         alListener3f(AL_VELOCITY, listener_velocity.x, listener_velocity.y, 0.0f);

@@ -31,8 +31,8 @@ void particles::explode(thing *th)
         while (i < 2*(SHOCKWAVE_PARTICLES + DEBRIS_PARTICLES)) {
             float rho = rand_between(3.0, 7.0);
             float theta = rand_between(0.0, 1.0);
-            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.0625));
-            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.0625));
+            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.02));
+            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.02));
         }
 
         add_particles(th->center, make_vec2(1.0, 0.0), explosion);

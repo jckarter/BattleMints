@@ -12,6 +12,21 @@
 
 namespace battlemints {
 
+struct camera : thing {
+    static const float LEAD_FACTOR, FOLLOW_FACTOR;
+
+    thing *target;
+
+    camera() : thing(0.0f, ZERO_VEC2, 0.0f), target(NULL) { }
+
+    virtual bool does_draws() const { return false; }
+    virtual bool does_collisions() const { return false; }
+
+    virtual void tick();
+
+    void cut_to_target(thing *new_target) { target = new_target; center = new_target->center; }
+};
+
 struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING;
     static const vec4 COLOR;
