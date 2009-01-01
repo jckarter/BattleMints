@@ -48,9 +48,10 @@ struct board : controller {
     template<typename Transition>
     static void change_board_with(std::string const &name)
     {
-        controller::set_current(
-            new Transition(current(), new board_loader(name))
-        );
+        if (current() == controller::current())
+            controller::set_current(
+                new Transition(current(), new board_loader(name))
+            );
     }
     template<typename Transition>
     static void restart_with()

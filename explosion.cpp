@@ -56,6 +56,7 @@ explosion::visibility_box()
 void
 explosion::draw()
 {
+#if 1
     if (age < 1) {
         glClearColor(0.9f, 0.85f, 0.75f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -92,6 +93,7 @@ explosion::draw()
         glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
         glDisableClientState(GL_COLOR_ARRAY);
     }
+#endif
 }
 
 void

@@ -16,6 +16,7 @@ const boost::array<vec2, EXHAUST_VERTICES> exhaust::base_vertices = {
 
 void exhaust::draw()
 {
+#if 1
     unsigned num_particles = particles.size();
     unsigned num_vertices = EXHAUST_VERTICES * num_particles;
 
@@ -56,6 +57,7 @@ void exhaust::draw()
     glDrawArrays(GL_LINES, 0, num_vertices);
 
     glDisableClientState(GL_COLOR_ARRAY);
+#endif
 }
 
 void exhaust::tick()
