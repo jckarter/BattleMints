@@ -1,6 +1,6 @@
 #include "goal.hpp"
 #include "serialization.hpp"
-#include "player.hpp"
+#include "dramatis_personae.hpp"
 #include "transition.hpp"
 #include <cstdio>
 

@@ -1,10 +1,50 @@
-#include "enemy.hpp"
-#include "mini.hpp"
-#include "mega.hpp"
+#include "dramatis_personae.hpp"
 #include "serialization.hpp"
 #include "board.hpp"
 
 namespace battlemints {
+
+sphere_texture *player::texture = NULL;
+sphere_face *player::face = NULL;
+
+inline vec2 player::_cur_accel()
+{
+    return vclip(controller_state, 1.0) * make_vec2(ACCEL_SCALE);
+}
+
+void player::draw()
+{
+    _push_translate();
+    texture->draw();
+    glColor4f(0.0, 0.0, 0.0, 1.0);
+    face->draw_for_course(velocity, _cur_accel());
+    glPopMatrix();
+}
+
+void player::tick()
+{
+    accelerate_with_exhaust(_cur_accel());
+}
+
+thing * player::from_json(Json::Value const &v)
+{
+    vec2 center = vec2_from_json(v["center"]);
+
+    return new player(center);
+}
+
+void player::global_start()
+{
+    texture = new sphere_texture(RADIUS, COLOR);
+    face = sphere_face::from_file_set("player");
+}
+
+void player::global_finish()
+{
+    delete face;
+    delete texture;
+    texture = NULL; face = NULL;
+}
 
 void enemy::tick()
 {
@@ -32,8 +72,6 @@ void enemy::on_collision(thing &o)
         target = &o;
 }
 
-const float mini::ACCEL = 0.025;
-const float mini::RADIUS = 0.35;
 boost::ptr_vector<sphere_texture> mini::textures(6);
 sphere_face *mini::face = NULL;
 
@@ -54,13 +92,11 @@ void mini::global_finish()
     delete face;
 }
 
-const float mega::ACCEL = 0.006;
-const float mega::RADIUS = 2.6;
 sphere_texture *mega::texture = NULL;
 
 void mega::global_start()
 {
-    texture = new sphere_texture(RADIUS, make_vec4(0.33, 0.13, 0.0, 1.0));
+    texture = new sphere_texture(RADIUS, COLOR);
 }
 
 void mega::global_finish()

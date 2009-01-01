@@ -43,14 +43,11 @@
 		D82BFC920EC1829100E65BAF /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8A0EC1829100E65BAF /* json_reader.cpp */; };
 		D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8B0EC1829100E65BAF /* json_value.cpp */; };
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
-		D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C29A50ED0F2540000DE73 /* enemy.cpp */; };
 		D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A040ED1F8360000DE73 /* exhaust.cpp */; };
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
-		D86F03370EC4C292004F03F8 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D86F03350EC4C292004F03F8 /* player.cpp */; };
-		D8B272210F09D319001844D6 /* sphere_face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B2721F0F09D319001844D6 /* sphere_face.cpp */; };
 		D8B2722B0F09D89C001844D6 /* rply.c in Sources */ = {isa = PBXBuildFile; fileRef = D8B272290F09D89C001844D6 /* rply.c */; };
 		D8B272440F09D99A001844D6 /* mini-asleep.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2723F0F09D99A001844D6 /* mini-asleep.ply */; };
 		D8B272450F09D99A001844D6 /* mini-normal.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B272400F09D99A001844D6 /* mini-normal.ply */; };
@@ -63,6 +60,7 @@
 		D8B272730F0A9D1F001844D6 /* player-panicked.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */; };
 		D8B272740F0A9D1F001844D6 /* player-strained.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2726F0F0A9D1F001844D6 /* player-strained.ply */; };
 		D8B272750F0A9D1F001844D6 /* player-stressed.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B272700F0A9D1F001844D6 /* player-stressed.ply */; };
+		D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
@@ -111,7 +109,6 @@
 		D81B5BA80EB7B43E002A40E7 /* collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collision.hpp; sourceTree = "<group>"; };
 		D81B5BA90EB7B43E002A40E7 /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
 		D81B5BAA0EB7B43E002A40E7 /* sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sphere.hpp; sourceTree = "<group>"; };
-		D81B5CBF0EB82EF6002A40E7 /* player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 		D82BFAEC0EBE801200E65BAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D82BFB500EBEE72B00E65BAF /* intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intro.hpp; sourceTree = "<group>"; };
 		D82BFB510EBEE72B00E65BAF /* intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intro.cpp; sourceTree = "<group>"; };
@@ -123,8 +120,6 @@
 		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
 		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
-		D84C29A50ED0F2540000DE73 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy.cpp; sourceTree = "<group>"; };
-		D84C29A60ED0F2540000DE73 /* enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = enemy.hpp; sourceTree = "<group>"; };
 		D84C2A030ED1F8360000DE73 /* exhaust.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = exhaust.hpp; sourceTree = "<group>"; };
 		D84C2A040ED1F8360000DE73 /* exhaust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exhaust.cpp; sourceTree = "<group>"; };
 		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
@@ -134,9 +129,6 @@
 		D86F03310EC4C274004F03F8 /* demo.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo.board; sourceTree = "<group>"; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
-		D86F03350EC4C292004F03F8 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
-		D8B2721F0F09D319001844D6 /* sphere_face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere_face.cpp; sourceTree = "<group>"; };
-		D8B272200F09D319001844D6 /* sphere_face.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sphere_face.hpp; sourceTree = "<group>"; };
 		D8B272290F09D89C001844D6 /* rply.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rply.c; path = rply/rply.c; sourceTree = "<group>"; };
 		D8B2722A0F09D89C001844D6 /* rply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rply.h; path = rply/rply.h; sourceTree = "<group>"; };
 		D8B2723F0F09D99A001844D6 /* mini-asleep.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mini-asleep.ply"; sourceTree = "<group>"; };
@@ -150,11 +142,11 @@
 		D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-panicked.ply"; sourceTree = "<group>"; };
 		D8B2726F0F0A9D1F001844D6 /* player-strained.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-strained.ply"; sourceTree = "<group>"; };
 		D8B272700F0A9D1F001844D6 /* player-stressed.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "player-stressed.ply"; sourceTree = "<group>"; };
+		D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dramatis_personae.cpp; sourceTree = "<group>"; };
+		D8B272C10F0C8A89001844D6 /* dramatis_personae.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dramatis_personae.hpp; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
-		D8F80CED0F071FB7002ACC03 /* mega.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mega.hpp; sourceTree = "<group>"; };
-		D8F80CEE0F071FB7002ACC03 /* mini.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mini.hpp; sourceTree = "<group>"; };
 		D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ply_file.cpp; sourceTree = "<group>"; };
 		D8F80CF00F071FB7002ACC03 /* ply_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ply_file.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,14 +210,12 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */,
+				D8B272C10F0C8A89001844D6 /* dramatis_personae.hpp */,
 				D8B272500F09DDBE001844D6 /* board_loader.mm */,
 				D82BFC860EC1829100E65BAF /* lib_json */,
 				D8B272290F09D89C001844D6 /* rply.c */,
 				D8B2722A0F09D89C001844D6 /* rply.h */,
-				D8B2721F0F09D319001844D6 /* sphere_face.cpp */,
-				D8B272200F09D319001844D6 /* sphere_face.hpp */,
-				D8F80CED0F071FB7002ACC03 /* mega.hpp */,
-				D8F80CEE0F071FB7002ACC03 /* mini.hpp */,
 				D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */,
 				D8F80CF00F071FB7002ACC03 /* ply_file.hpp */,
 				D8F80CE20F05F290002ACC03 /* board_loader.hpp */,
@@ -243,8 +233,6 @@
 				D81B5BA80EB7B43E002A40E7 /* collision.hpp */,
 				D81B5BA90EB7B43E002A40E7 /* sphere.cpp */,
 				D81B5BAA0EB7B43E002A40E7 /* sphere.hpp */,
-				D86F03350EC4C292004F03F8 /* player.cpp */,
-				D81B5CBF0EB82EF6002A40E7 /* player.hpp */,
 				D81A11560EBCD00800283428 /* grid.cpp */,
 				D81A11570EBCD00800283428 /* grid.hpp */,
 				D81A11580EBCD00800283428 /* board.cpp */,
@@ -258,8 +246,6 @@
 				D82BFC530EC0D2AC00E65BAF /* wall.hpp */,
 				D86F03330EC4C292004F03F8 /* serialization.hpp */,
 				D86F03340EC4C292004F03F8 /* serialization.mm */,
-				D84C29A50ED0F2540000DE73 /* enemy.cpp */,
-				D84C29A60ED0F2540000DE73 /* enemy.hpp */,
 				D84C2A030ED1F8360000DE73 /* exhaust.hpp */,
 				D84C2A040ED1F8360000DE73 /* exhaust.cpp */,
 				D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */,
@@ -433,8 +419,6 @@
 				D82BFC930EC1829100E65BAF /* json_value.cpp in Sources */,
 				D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */,
 				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
-				D86F03370EC4C292004F03F8 /* player.cpp in Sources */,
-				D84C29A70ED0F2540000DE73 /* enemy.cpp in Sources */,
 				D84C2A050ED1F8360000DE73 /* exhaust.cpp in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
@@ -445,9 +429,9 @@
 				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
 				D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */,
 				D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */,
-				D8B272210F09D319001844D6 /* sphere_face.cpp in Sources */,
 				D8B2722B0F09D89C001844D6 /* rply.c in Sources */,
 				D8B272510F09DDBE001844D6 /* board_loader.mm in Sources */,
+				D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

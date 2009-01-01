@@ -3,17 +3,16 @@
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
-#include <CoreGraphics/CoreGraphics.h>
 #include <boost/optional.hpp>
 #include <boost/utility.hpp>
 #include <string>
 #include <vector>
-#include "thing.hpp"
+#include "geom.hpp"
 
 namespace battlemints {
 
 CGContextRef make_bitmap_context(unsigned w, unsigned h, void *data);
-CGImageRef   make_image(char const *filename);
+CGImageRef make_image(char const *filename);
 
 struct model : boost::noncopyable {
     GLuint vertex_buffer, element_buffer;
@@ -42,6 +41,24 @@ struct sphere_texture : boost::noncopyable {
 private:
     void _render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color, void *data);
     GLuint _make_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color);
+};
+
+struct sphere_face : boost::noncopyable {
+    static const float PANIC_SPIN_FACTOR, ROTATE_SPAN, ROTATE_FACTOR;
+
+    model *asleep, *normal, *stressed, *strained, *panicked;
+    float panic_spin;
+
+    sphere_face(model *a, model *n, model *se, model *sa, model *p)
+        : asleep(a), normal(n), stressed(se), strained(sa), panicked(p), panic_spin(0.0f) { }
+    ~sphere_face() { delete asleep; delete normal; delete stressed; delete strained; delete panicked; }
+
+    void draw_for_course(vec2 velocity, vec2 accel);
+
+    static sphere_face *from_file_set(std::string const &name);
+
+private:
+    model *_model_for_course(vec2 velocity, vec2 accel);
 };
 
 }

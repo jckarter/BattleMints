@@ -5,9 +5,7 @@
 #include "intro.hpp"
 #include "synth.hpp"
 #include "goal.hpp"
-#include "mini.hpp"
-#include "mega.hpp"
-#include "player.hpp"
+#include "dramatis_personae.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/foreach.hpp>

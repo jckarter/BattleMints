@@ -1,9 +1,7 @@
 #include "serialization.hpp"
-#include "player.hpp"
+#include "dramatis_personae.hpp"
 #include "wall_strip.hpp"
 #include "goal.hpp"
-#include "mini.hpp"
-#include "mega.hpp"
 #include <UIKit/UIKit.h>
 
 namespace battlemints {

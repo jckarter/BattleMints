@@ -2,7 +2,7 @@
 #include "game.hpp"
 #include "thing.hpp"
 #include "sphere.hpp"
-#include "player.hpp"
+#include "dramatis_personae.hpp"
 #include "exhaust.hpp"
 #include "wall.hpp"
 #include "serialization.hpp"
