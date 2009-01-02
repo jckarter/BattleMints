@@ -57,6 +57,11 @@
 		D8B272D20F0C8FFC001844D6 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272D10F0C8FFC001844D6 /* thing.cpp */; };
 		D8B272D70F0C918E001844D6 /* walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272D50F0C918E001844D6 /* walls.cpp */; };
 		D8B272FF0F0D4C32001844D6 /* particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272FD0F0D4C32001844D6 /* particles.cpp */; };
+		D8B273640F0DAED1001844D6 /* mega-asleep.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B2735F0F0DAED1001844D6 /* mega-asleep.ply */; };
+		D8B273650F0DAED1001844D6 /* mega-normal.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273600F0DAED1001844D6 /* mega-normal.ply */; };
+		D8B273660F0DAED1001844D6 /* mega-panicked.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273610F0DAED1001844D6 /* mega-panicked.ply */; };
+		D8B273670F0DAED1001844D6 /* mega-strained.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273620F0DAED1001844D6 /* mega-strained.ply */; };
+		D8B273680F0DAED1001844D6 /* mega-stressed.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273630F0DAED1001844D6 /* mega-stressed.ply */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
@@ -133,6 +138,11 @@
 		D8B272D60F0C918E001844D6 /* walls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = walls.hpp; sourceTree = "<group>"; };
 		D8B272FD0F0D4C32001844D6 /* particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particles.cpp; sourceTree = "<group>"; };
 		D8B272FE0F0D4C32001844D6 /* particles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = particles.hpp; sourceTree = "<group>"; };
+		D8B2735F0F0DAED1001844D6 /* mega-asleep.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-asleep.ply"; sourceTree = "<group>"; };
+		D8B273600F0DAED1001844D6 /* mega-normal.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-normal.ply"; sourceTree = "<group>"; };
+		D8B273610F0DAED1001844D6 /* mega-panicked.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-panicked.ply"; sourceTree = "<group>"; };
+		D8B273620F0DAED1001844D6 /* mega-strained.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-strained.ply"; sourceTree = "<group>"; };
+		D8B273630F0DAED1001844D6 /* mega-stressed.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-stressed.ply"; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
@@ -252,6 +262,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8B2735F0F0DAED1001844D6 /* mega-asleep.ply */,
+				D8B273600F0DAED1001844D6 /* mega-normal.ply */,
+				D8B273610F0DAED1001844D6 /* mega-panicked.ply */,
+				D8B273620F0DAED1001844D6 /* mega-strained.ply */,
+				D8B273630F0DAED1001844D6 /* mega-stressed.ply */,
 				D8B2726C0F0A9D1F001844D6 /* player-asleep.ply */,
 				D8B2726D0F0A9D1F001844D6 /* player-normal.ply */,
 				D8B2726E0F0A9D1F001844D6 /* player-panicked.ply */,
@@ -376,6 +391,11 @@
 				D8B272730F0A9D1F001844D6 /* player-panicked.ply in Resources */,
 				D8B272740F0A9D1F001844D6 /* player-strained.ply in Resources */,
 				D8B272750F0A9D1F001844D6 /* player-stressed.ply in Resources */,
+				D8B273640F0DAED1001844D6 /* mega-asleep.ply in Resources */,
+				D8B273650F0DAED1001844D6 /* mega-normal.ply in Resources */,
+				D8B273660F0DAED1001844D6 /* mega-panicked.ply in Resources */,
+				D8B273670F0DAED1001844D6 /* mega-strained.ply in Resources */,
+				D8B273680F0DAED1001844D6 /* mega-stressed.ply in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +467,7 @@
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1B4010E-EC6D-409E-8C84-5B2B4F478EBA";
-				SDKROOT = iphoneos2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
 		};
