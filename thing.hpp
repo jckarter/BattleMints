@@ -17,6 +17,7 @@ namespace battlemints {
 
 struct sphere;
 struct line;
+struct point;
 
 struct thing : boost::noncopyable {
     vec2 velocity;
@@ -41,7 +42,7 @@ struct thing : boost::noncopyable {
     virtual void collide(thing &o) { }
     virtual void collide_sphere(sphere &s) { }
     virtual void collide_line(line &w) { }
-    virtual void collide_point(thing &p) { }
+    virtual void collide_point(point &p) { }
 
     virtual float collision_time(thing const &o) const
         { return INFINITYF; }
@@ -49,7 +50,7 @@ struct thing : boost::noncopyable {
         { return INFINITYF; }
     virtual float collision_time_line(line const &w) const
         { return INFINITYF; }
-    virtual float collision_time_point(thing const &p) const
+    virtual float collision_time_point(point const &p) const
         { return INFINITYF; }
 
     /* thing-specific reaction to collision */
@@ -88,7 +89,7 @@ struct sphere : thing {
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
     virtual void collide_line(line &w) { collide_sphere_line(*this, w); }
-    virtual void collide_point(thing &p) { collide_sphere_point(*this, p); }
+    virtual void collide_point(point &p) { collide_sphere_point(*this, p); }
 
     virtual float collision_time(thing const &t) const
         { return t.collision_time_sphere(*this); }
@@ -96,7 +97,7 @@ struct sphere : thing {
         { return collision_time_sphere_sphere(*this, s); }
     virtual float collision_time_line(line const &w) const
         { return collision_time_sphere_line(*this, w); }
-    virtual float collision_time_point(thing const &p) const
+    virtual float collision_time_point(point const &p) const
         { return collision_time_sphere_point(*this, p); }
 
     sphere(float m, vec2 ct, float r, float sp)
@@ -125,19 +126,41 @@ struct line : thing {
     virtual void collide(thing &o) { o.collide_line(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_line(s, *this); }
     virtual void collide_line(line &w) { collide_line_line(*this, w); }
-    virtual void collide_point(thing &p) { collide_line_point(*this, p); }
+    virtual void collide_point(point &p) { collide_line_point(*this, p); }
 
     virtual float collision_time(thing const &o) const { return o.collision_time_line(*this); }
     virtual float collision_time_sphere(sphere const &s) const
         { return collision_time_sphere_line(s, *this); }
     virtual float collision_time_line(line const &w) const
         { return collision_time_line_line(*this, w); }
-    virtual float collision_time_point(thing const &p) const
+    virtual float collision_time_point(point const &p) const
         { return collision_time_line_point(*this, p); }
 
     virtual char const * kind() const { return "line"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " a:" << endpoint_a << " b:" << endpoint_b << " n:" << normal; }
+};
+
+struct point : thing {
+    point (vec2 pt) : thing(INFINITYF, pt, 1.0f) { }
+
+    virtual rect collision_box() { return make_rect(center, center); }
+
+    virtual void collide(thing &t) { t.collide_point(*this); }
+    virtual void collide_sphere(sphere &s) { collide_sphere_point(s, *this); }
+    virtual void collide_line(line &w) { collide_line_point(w, *this); }
+    virtual void collide_point(point &p) { collide_point_point(*this, p); }
+
+    virtual float collision_time(thing const &t) const
+        { return t.collision_time_point(*this); }
+    virtual float collision_time_sphere(sphere const &s) const
+        { return collision_time_sphere_point(s, *this); }
+    virtual float collision_time_line(line const &w) const
+        { return collision_time_line_point(w, *this); }
+    virtual float collision_time_point(point const &p) const
+        { return collision_time_point_point(*this, p); }
+
+    virtual char const * kind() const { return "point"; }
 };
 
 }

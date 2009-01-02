@@ -19,19 +19,19 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
 
 // lines and points don't move
 void collide_line_line(line &a, line &b) { }
-void collide_line_point(line &a, thing &b) { }
-void collide_point_point(thing &a, thing &b) { }
+void collide_line_point(line &a, point &b) { }
+void collide_point_point(point &a, point &b) { }
 
 float collision_time_line_line(line const &a, line const &b) { return INFINITYF; }
-float collision_time_line_point(line const &a, thing const &b) { return INFINITYF; }
-float collision_time_point_point(thing const &a, thing const &b) { return INFINITYF; }
+float collision_time_line_point(line const &a, point const &b) { return INFINITYF; }
+float collision_time_point_point(point const &a, point const &b) { return INFINITYF; }
 
 void collide_sphere_line(sphere &a, line &b)
 {
     a.velocity = vreflect(b.normal, a.velocity);
 }
 
-void collide_sphere_point(sphere &a, thing &b)
+void collide_sphere_point(sphere &a, point &b)
 {
     a.velocity = vreflect(vnormalize(a.center - b.center), a.velocity);
 }
@@ -84,7 +84,7 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         return INFINITYF;
 }
 
-float collision_time_sphere_point(sphere const &a, thing const &b)
+float collision_time_sphere_point(sphere const &a, point const &b)
 {
     return _collision_time_points(b.center, a.center, a.velocity, a.radius);
 }

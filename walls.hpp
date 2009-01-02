@@ -27,8 +27,8 @@ struct wall : line {
     virtual char const * kind() const { return "wall"; }
 };
 
-struct wallpost : thing {
-    wallpost(vec2 ct) : thing(INFINITYF, ct, 1.0f) {  }
+struct wallpost : point {
+    wallpost(vec2 ct) : point(ct) {  }
 
     virtual bool does_draws() const { return false; }
     //virtual void draw() {
@@ -41,22 +41,6 @@ struct wallpost : thing {
     //    glDrawArrays(GL_POINTS, 0, 1);
     //}
     //virtual rect visibility_box() { return make_rect(center, center); }
-
-    virtual rect collision_box() { return make_rect(center, center); }
-
-    virtual void collide(thing &t) { t.collide_point(*this); }
-    virtual void collide_sphere(sphere &s) { collide_sphere_point(s, *this); }
-    virtual void collide_line(line &w) { collide_line_point(w, *this); }
-    virtual void collide_point(thing &p) { collide_point_point(*this, p); }
-
-    virtual float collision_time(thing const &t) const
-        { return t.collision_time_point(*this); }
-    virtual float collision_time_sphere(sphere const &s) const
-        { return collision_time_sphere_point(s, *this); }
-    virtual float collision_time_line(line const &w) const
-        { return collision_time_line_point(w, *this); }
-    virtual float collision_time_point(thing const &p) const
-        { return collision_time_point_point(*this, p); }
 
     virtual void on_collision(thing &o) { o.post_damage(); }
 
