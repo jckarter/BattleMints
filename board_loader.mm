@@ -23,6 +23,8 @@ void board_loader::draw()
 void *board_loader::_loader_thread(void *void_thys)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSLog(@"Threaded? %d", [NSThread isMultiThreaded]);
+
     board_loader *thys = (board_loader*)void_thys;
 
     thys->b = board::from_file(thys->name);

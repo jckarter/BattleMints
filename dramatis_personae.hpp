@@ -13,7 +13,7 @@
 namespace battlemints {
 
 struct camera : thing {
-    static const float LEAD_FACTOR, FOLLOW_FACTOR;
+    static const float LEAD_FACTOR, FOLLOW_FACTOR, ACCEL;
 
     thing *target;
 
@@ -102,7 +102,7 @@ struct mini : enemy {
     {
         _push_translate();
         texture.draw();
-        glColor4f(0.0, 0.0, 0.0, 1.0);
+        glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
         face->draw_for_course(velocity, cur_accel);
         glPopMatrix();
     }
@@ -117,13 +117,21 @@ struct mega : enemy {
     static const vec4 COLOR;
 
     static sphere_texture *texture;
+    static sphere_face *face;
 
     mega(vec2 ct)
         : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS) { }
 
     virtual char const * kind() const { return "mega"; }
 
-    virtual void draw() { _push_translate(); texture->draw(); glPopMatrix(); }
+    virtual void draw()
+    {
+        _push_translate();
+        texture->draw();
+        glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
+        face->draw_for_course(velocity, 3.0f*cur_accel);
+        glPopMatrix();
+    }
     virtual void wall_damage() { }
 
     static thing *from_json(Json::Value const &v) { return enemy::from_json<mega>(v); }

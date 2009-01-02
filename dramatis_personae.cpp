@@ -8,7 +8,8 @@ void camera::tick()
 {
     if (target && board::current()->thing_lives(target)) {
         vec2 goal = target->center + target->velocity * LEAD_FACTOR;
-        velocity = (goal - center) * FOLLOW_FACTOR;
+        vec2 goal_velocity = (goal - center) * FOLLOW_FACTOR;
+        velocity += ACCEL * vnormalize(goal_velocity - velocity);
     } else
         target = NULL;
 }
@@ -102,10 +103,12 @@ void mini::global_finish()
 }
 
 sphere_texture *mega::texture = NULL;
+sphere_face *mega::face = NULL;
 
 void mega::global_start()
 {
     texture = new sphere_texture(RADIUS, COLOR);
+    face = sphere_face::from_file_set("mega");
 }
 
 void mega::global_finish()
