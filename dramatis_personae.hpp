@@ -9,6 +9,7 @@
 #include "serialization.hpp"
 #include "drawing.hpp"
 #include "transition.hpp"
+#include <iostream>
 
 namespace battlemints {
 
@@ -43,6 +44,9 @@ struct player : sphere {
     virtual void post_damage() { die(); }
 
     virtual void draw();
+
+    virtual void on_collision(thing &o)
+        { std::cerr << "player collision " << board::current()->tick_count() << "\n"; }
 
     void die() { board::current()->particles_thing()->explode(this); board::restart_with<death_transition>(); }
 
@@ -133,6 +137,7 @@ struct mega : enemy {
         glPopMatrix();
     }
     virtual void wall_damage() { }
+    virtual void post_damage() { }
 
     static thing *from_json(Json::Value const &v) { return enemy::from_json<mega>(v); }
     static void global_start();

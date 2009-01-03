@@ -136,10 +136,10 @@ static inline bool _is_overlapping_time(float f)
 inline void
 board::_find_collision(thing *& a, thing *& b, float &collide_time)
 {
-    for (std::vector< std::set<thing*> >::iterator cell = _collision_grid.cells.begin();
+    for (std::vector<grid::cell>::iterator cell = _collision_grid.cells.begin();
          cell != _collision_grid.cells.end();
          ++cell) {
-        std::set<thing*>::iterator ia, ib;
+        grid::cell::iterator ia, ib;
         for (ia = cell->begin(); ia != cell->end(); ++ia)
             for (ib = ia, ++ib; ib != cell->end(); ++ib) {
                 float pair_time = (*ia)->collision_time(**ib);

@@ -16,7 +16,7 @@ const boost::array<vec2, 4> particles::exhaust = {
 
 void particles::explode(thing *th)
 {
-    static const unsigned SHOCKWAVE_PARTICLES = 25, DEBRIS_PARTICLES = 50;
+    static const unsigned SHOCKWAVE_PARTICLES = 50, DEBRIS_PARTICLES = 50;
 
     if (board::current()->thing_lives(th)) {
         boost::array<vec2, 2*(SHOCKWAVE_PARTICLES + DEBRIS_PARTICLES)> explosion;
@@ -31,8 +31,8 @@ void particles::explode(thing *th)
         while (i < 2*(SHOCKWAVE_PARTICLES + DEBRIS_PARTICLES)) {
             float rho = rand_between(3.0, 7.0);
             float theta = rand_between(0.0, 1.0);
-            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.02));
-            explosion[i++] = polar_vec2(rho*rho, rand_near(theta, 0.02));
+            explosion[i++] = polar_vec2(rand_near(rho*rho, 3.0), theta);
+            explosion[i++] = polar_vec2(rand_near(rho*rho, 3.0), theta);
         }
 
         add_particles(th->center, make_vec2(1.0, 0.0), explosion);

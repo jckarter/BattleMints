@@ -10,6 +10,7 @@
 namespace battlemints {
 
 struct grid : boost::noncopyable {
+    typedef std::vector<thing*> cell;
 
     grid()
         : _origin(ZERO_VEC2), _cell_size_inv(ZERO_VEC2),
@@ -23,8 +24,8 @@ struct grid : boost::noncopyable {
 
     std::set<thing*> things_in_rect(rect r) const;
 
-    std::vector< std::set<thing*> >::iterator cell_for_point(vec2 pt);
-    std::vector< std::set<thing*> >::const_iterator cell_for_point(vec2 pt) const;
+    std::vector<cell>::iterator cell_for_point(vec2 pt);
+    std::vector<cell>::const_iterator cell_for_point(vec2 pt) const;
 
     void _dump(std::ostream &os) const {
         os << "=== === === === ===\n";
@@ -34,7 +35,7 @@ struct grid : boost::noncopyable {
                 os << "{\n";
             }
             os << " [\n";
-            for (std::set<thing*>::const_iterator th = cells[i].begin(); th != cells[i].end(); ++th)
+            for (cell::const_iterator th = cells[i].begin(); th != cells[i].end(); ++th)
                 os << "  " << **th << "\n";
             os << " ]\n";
         }
@@ -53,7 +54,7 @@ private:
     bool _rects_require_movement(rect old_bound, rect new_bound) const;
 
 public:
-    std::vector< std::set<thing*> > cells;
+    std::vector<cell> cells;
 };
 
 }

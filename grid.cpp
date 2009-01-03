@@ -23,7 +23,7 @@ struct _insert {
     inline void
     operator()(FromPointer from, thing *t) const
     {
-        from->insert(t);
+        from->push_back(t);
     }
 };
 
@@ -34,7 +34,7 @@ struct _erase {
     inline void
     operator()(FromPointer from, thing *t) const
     {
-        from->erase(t);
+        from->erase(std::find(from->begin(), from->end(), t));
     }
 };
 
@@ -50,13 +50,13 @@ template <typename T, typename BinaryFunctor>
 inline void
 grid::_for_cells_in_rect(T t, rect bound, BinaryFunctor const &f) const
 {
-    std::vector< std::set<thing*> >::const_iterator start = cell_for_point(bound.low);
-    std::vector< std::set<thing*> >::const_iterator right = cell_for_point(rect_lr(bound));
+    std::vector<cell>::const_iterator start = cell_for_point(bound.low);
+    std::vector<cell>::const_iterator right = cell_for_point(rect_lr(bound));
     unsigned width = right - start;
-    std::vector< std::set<thing*> >::const_iterator end = cell_for_point(bound.high);
+    std::vector<cell>::const_iterator end = cell_for_point(bound.high);
 
-    for (std::vector< std::set<thing*> >::const_iterator y = start; y <= end; y += _pitch)
-        for (std::vector< std::set<thing*> >::const_iterator x = y; x - y <= width; ++x)
+    for (std::vector<cell>::const_iterator y = start; y <= end; y += _pitch)
+        for (std::vector<cell>::const_iterator x = y; x - y <= width; ++x)
             f(x, t);
 }
 
@@ -64,13 +64,13 @@ template <typename T, typename BinaryFunctor>
 inline void
 grid::_for_cells_in_rect(T t, rect bound, BinaryFunctor const &f)
 {
-    std::vector< std::set<thing*> >::iterator start = cell_for_point(bound.low);
-    std::vector< std::set<thing*> >::iterator right = cell_for_point(rect_lr(bound));
+    std::vector<cell>::iterator start = cell_for_point(bound.low);
+    std::vector<cell>::iterator right = cell_for_point(rect_lr(bound));
     unsigned width = right - start;
-    std::vector< std::set<thing*> >::iterator end = cell_for_point(bound.high);
+    std::vector<cell>::iterator end = cell_for_point(bound.high);
 
-    for (std::vector< std::set<thing*> >::iterator y = start; y <= end; y += _pitch)
-        for (std::vector< std::set<thing*> >::iterator x = y; x - y <= width; ++x)
+    for (std::vector<cell>::iterator y = start; y <= end; y += _pitch)
+        for (std::vector<cell>::iterator x = y; x - y <= width; ++x)
             f(x, t);
 }
 
@@ -115,7 +115,7 @@ grid::things_in_rect(rect r) const
     return std::set<thing*>(ret.begin(), ret.end());
 }
 
-std::vector< std::set<thing*> >::iterator
+std::vector<grid::cell>::iterator
 grid::cell_for_point(vec2 pt)
 {
     vec2 coords = (pt - _origin) * _cell_size_inv;
@@ -125,7 +125,7 @@ grid::cell_for_point(vec2 pt)
     return cells.begin() + _pitch * (unsigned)coords.y + (unsigned)coords.x;
 }
 
-std::vector< std::set<thing*> >::const_iterator
+std::vector<grid::cell>::const_iterator
 grid::cell_for_point(vec2 pt) const
 {
     vec2 coords = (pt - _origin) * _cell_size_inv;
