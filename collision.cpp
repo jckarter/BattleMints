@@ -11,10 +11,10 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
     float a_comp = vdot(direction, a.velocity);
     float b_comp = vdot(direction, b.velocity);
     float mass_diff = a.mass - b.mass;
-    float mass_sum_inv = 1/(a.mass + b.mass);
+    float mass_sum_inv = 1.0f/(a.mass + b.mass);
     
-    a_coef = (2*b.mass*b_comp + mass_diff*a_comp) * mass_sum_inv - a_comp;
-    b_coef = (2*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp;
+    a_coef = b.spring * ((2.0f*b.mass*b_comp + mass_diff*a_comp) * mass_sum_inv - a_comp);
+    b_coef = a.spring * ((2.0f*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp);
 }
 
 // lines and points don't move
