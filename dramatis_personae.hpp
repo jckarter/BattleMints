@@ -10,6 +10,7 @@
 #include "drawing.hpp"
 #include "transition.hpp"
 #include <iostream>
+#include <vector>
 
 namespace battlemints {
 
@@ -91,21 +92,23 @@ protected:
 struct mini : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
 
-    static boost::ptr_vector<sphere_texture> textures;
+    static sphere_texture *texture;
     static sphere_face *face;
+    static boost::array<vec4, 6> colors;
 
-    sphere_texture &texture;
+    vec4 color;
 
     mini(vec2 ct)
         : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS),
-          texture(textures[rand() % textures.size()]) { }
+          color(colors[rand() % colors.size()]) { }
 
     virtual char const * kind() const { return "mini"; }
 
     virtual void draw()
     {
         _push_translate();
-        texture.draw();
+        glColor4f(color.x, color.y, color.z, color.w);
+        texture->draw();
         glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
         face->draw_for_course(velocity, cur_accel);
         glPopMatrix();
@@ -131,6 +134,7 @@ struct mega : enemy {
     virtual void draw()
     {
         _push_translate();
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         texture->draw();
         glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
         face->draw_for_course(velocity, 3.0f*cur_accel);

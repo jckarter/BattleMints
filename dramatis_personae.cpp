@@ -25,6 +25,7 @@ inline vec2 player::_cur_accel()
 void player::draw()
 {
     _push_translate();
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     texture->draw();
     glColor4f(0.0, 0.0, 0.0, 1.0);
     face->draw_for_course(velocity, _cur_accel());
@@ -46,7 +47,7 @@ thing * player::from_json(Json::Value const &v)
 void player::global_start()
 {
     texture = new sphere_texture(RADIUS, COLOR);
-    face = sphere_face::from_file_set("player");
+    face = sphere_face::from_file("player");
 }
 
 void player::global_finish()
@@ -82,23 +83,26 @@ void enemy::on_collision(thing &o)
         target = &o;
 }
 
-boost::ptr_vector<sphere_texture> mini::textures(6);
+sphere_texture *mini::texture = NULL;
 sphere_face *mini::face = NULL;
+boost::array<vec4, 6> mini::colors = {
+    make_vec4(1.0, 0.0,  0.0, 1.0),
+    make_vec4(1.0, 0.4,  0.0, 1.0),
+    make_vec4(1.0, 1.0,  0.0, 1.0),
+    make_vec4(0.0, 1.0,  0.0, 1.0),
+    make_vec4(0.3, 0.3,  1.0, 1.0),
+    make_vec4(0.3, 0.24, 0.2, 1.0)
+};
 
 void mini::global_start()
 {
-    face = sphere_face::from_file_set("mini");
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.0,  0.0, 1.0)));
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 0.4,  0.0, 1.0)));
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(1.0, 1.0,  0.0, 1.0)));
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.0, 1.0,  0.0, 1.0)));
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.3, 0.3,  1.0, 1.0)));
-    textures.push_back(new sphere_texture(RADIUS, make_vec4(0.3, 0.24, 0.2, 1.0)));
+    face = sphere_face::from_file("mini");
+    texture = new sphere_texture(RADIUS, make_vec4(1.0f, 1.0f, 1.0f, 1.0f));
 }
 
 void mini::global_finish()
 {
-    textures.clear();
+    delete texture;
     delete face;
 }
 
@@ -108,7 +112,7 @@ sphere_face *mega::face = NULL;
 void mega::global_start()
 {
     texture = new sphere_texture(RADIUS, COLOR);
-    face = sphere_face::from_file_set("mega");
+    face = sphere_face::from_file("mega");
 }
 
 void mega::global_finish()

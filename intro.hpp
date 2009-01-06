@@ -2,6 +2,7 @@
 #define __INTRO_HPP__
 
 #include "controller.hpp"
+#include "drawing.hpp"
 
 namespace battlemints {
 
@@ -16,11 +17,9 @@ struct intro : controller {
     virtual void draw();
 
 private:
-    GLuint _load_splash_texture();
-
     float _intensity() { return (float)_countdown/(float)_peak; }
 
-    GLuint _splash_texture;
+    image_texture *_splash_texture;
     int _countdown, _peak;
 };
 

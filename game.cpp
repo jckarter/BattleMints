@@ -14,7 +14,7 @@ const vec2 ZERO_VEC2 = make_vec2(0.0);
 const vec2 GAME_WINDOW_SIZE = make_vec2(320.0, 480.0);
 const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
-const vec2 board::COLLISION_CELL_SIZE = make_vec2(1.0, 1.0);
+const vec2 board::COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
 const vec2 board::VISIBILITY_CELL_SIZE = make_vec2(4.0, 4.0);
 
 const float camera::LEAD_FACTOR = 15.0f;

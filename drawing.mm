@@ -88,7 +88,7 @@ const boost::array<float, 8> unit_radius_texcoords = {
 sphere_texture::sphere_texture(float radius, vec4 color)
 {
     float border_radius = radius + BORDER_THICKNESS;
-    unsigned pixel_radius = 1 << (unsigned)ilogbf(border_radius * PIXELS_PER_GAME_UNIT) + 1;
+    unsigned pixel_radius = lpot(border_radius * PIXELS_PER_GAME_UNIT);
 
     texture = _make_sphere_texture(radius, border_radius, (unsigned)pixel_radius, color);
 
@@ -96,11 +96,6 @@ sphere_texture::sphere_texture(float radius, vec4 color)
     vertices[2] =  border_radius; vertices[3] = -border_radius;
     vertices[4] = -border_radius; vertices[5] =  border_radius;
     vertices[6] =  border_radius; vertices[7] =  border_radius;
-}
-
-sphere_texture::~sphere_texture()
-{
-    glDeleteTextures(1, &texture);
 }
 
 void sphere_texture::draw() const
@@ -163,12 +158,85 @@ GLuint sphere_texture::_make_sphere_texture(float radius, float border_radius, u
     return texture;
 }
 
+image_texture::image_texture(CGImageRef image)
+{
+    unsigned real_width = CGImageGetWidth(image), real_height = CGImageGetHeight(image),
+             texture_width = lpot(real_width), texture_height = lpot(real_height);
+    std::vector<uint32_t> pixmap(texture_width*texture_height);
+    void *pixmap_data = (void*)&pixmap[0];
+
+    CGContextRef context = make_bitmap_context(texture_width, texture_height, pixmap_data);
+    CGContextDrawImage(context, CGRectMake(0, 0, real_width, real_height), image);
+    CGContextRelease(context);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+        texture_width, texture_height, 0,
+        GL_RGBA, GL_UNSIGNED_BYTE, pixmap_data
+    );
+
+    float far_x = (float)real_width/(float)texture_width,
+          far_y = (float)(texture_height-real_height)/(float)texture_height;
+
+    texcoords[0] = 0.0;   texcoords[1] = 1.0;
+    texcoords[2] = far_x; texcoords[3] = 1.0;
+    texcoords[4] = 0.0;   texcoords[5] = far_y;
+    texcoords[6] = far_x; texcoords[7] = far_y;
+}
+
+image_texture *
+image_texture::from_file(std::string const &name)
+{
+    CGImageRef image = make_image(name.c_str());
+    image_texture *r =  new image_texture(image);
+    CGImageRelease(image);
+    return r;
+}
+
 const float sphere_face::PANIC_SPIN_FACTOR = 5.0f,
             sphere_face::ROTATE_SPAN = 20.0f,
             sphere_face::ROTATE_FACTOR = 25.0f;
 
-inline model *
-sphere_face::_model_for_course(vec2 velocity, vec2 accel)
+GLuint sphere_face::array_buffer;
+
+void sphere_face::global_start()
+{
+    struct {
+        boost::array<float, MESH_VERTICES*3> vertices;
+        boost::array<float, MESH_VERTICES*2> texcoords;
+    } b;
+    static const float HEIGHT = 0.25*M_PI;
+
+    for (unsigned i = 0; i < MESH_RESOLUTION; ++i) {
+        float theta = (float)i/(float)MESH_RESOLUTION;
+        b.vertices[i*6  ] = b.vertices[i*6+3] = fast_sin_2pi(-0.5f + theta);
+        b.vertices[i*6+1] = HEIGHT; b.vertices[i*6+4] = -HEIGHT;
+        b.vertices[i*6+2] = b.vertices[i*6+5] = fast_cos_2pi(-0.5f + theta);
+
+        b.texcoords[i*4  ] = b.texcoords[i*4+2] = theta;
+        b.texcoords[i*4+1] = 1.0f; b.texcoords[i*4+3] = 0.0f;
+    }
+
+    glGenBuffers(1, &array_buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, array_buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(b), &b, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void sphere_face::global_finish()
+{
+    glDeleteBuffers(1, &array_buffer);
+}
+
+inline sphere_face::state
+sphere_face::_state_for_course(vec2 velocity, vec2 accel)
 {
     if (accel == ZERO_VEC2)
         return asleep;
@@ -181,15 +249,23 @@ sphere_face::_model_for_course(vec2 velocity, vec2 accel)
         return speed > ideal ? normal   : stressed;
 }
 
-static inline float _rotation(float magnitude) { return sphere_face::ROTATE_SPAN*(1.0f - 1.0f/(sphere_face::ROTATE_FACTOR*magnitude + 1.0f)); }
+inline float sphere_face::_rotation(float magnitude)
+{
+    return sphere_face::ROTATE_SPAN*(1.0f - 1.0f/(sphere_face::ROTATE_FACTOR*magnitude + 1.0f));
+}
 
 void
 sphere_face::draw_for_course(vec2 velocity, vec2 accel)
 {
+    state st = _state_for_course(velocity, accel);
+    glMatrixMode(GL_TEXTURE);
+    glScalef(1.0f, 0.125f, 1.0f); // XXX Two rows (0.5, 0.25), not one row (1.0, 0.125)
+    glTranslatef(0.0f, (float)st, 0.0f);
+
+    glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
-    model *mod = _model_for_course(velocity, accel);
-    if (mod == panicked) {
+    if (st == panicked) {
         panic_spin += vnorm2(velocity) * PANIC_SPIN_FACTOR;
         glRotatef(panic_spin, 0.0, 1.0, 0.0);
     }
@@ -199,21 +275,18 @@ sphere_face::draw_for_course(vec2 velocity, vec2 accel)
         glRotatef(_rotation(accel.x),  0.0, 1.0, 0.0);
     }
 
-    mod->draw();
+    glEnable(GL_TEXTURE_2D);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindBuffer(GL_ARRAY_BUFFER, array_buffer);
+    glVertexPointer(3, GL_FLOAT, 0, (void*)0);
+    glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*MESH_VERTICES*3));
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, MESH_VERTICES);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    glMatrixMode(GL_TEXTURE);
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
-}
-
-sphere_face *
-sphere_face::from_file_set(std::string const &name)
-{
-    return new sphere_face(
-        model::from_file(name + "-asleep"),
-        model::from_file(name + "-normal"),
-        model::from_file(name + "-stressed"),
-        model::from_file(name + "-strained"),
-        model::from_file(name + "-panicked")
-    );
 }
 
 }

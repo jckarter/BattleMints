@@ -29,12 +29,21 @@ struct model : boost::noncopyable {
 extern const boost::array<float, 8> unit_texcoords;
 extern const boost::array<float, 8> unit_radius_texcoords;
 
-struct sphere_texture : boost::noncopyable {
+struct gl_texture : boost::noncopyable {
     GLuint texture;
+    gl_texture() : texture(0) { }
+    gl_texture(GLuint t) : texture(t) { }
+    virtual ~gl_texture() { glDeleteTextures(1, &texture); }
+
+    static unsigned lpot(float f) { return 1 << (unsigned)ilogbf(f) + 1; }
+    static unsigned lpot(unsigned i)
+        { i|=--i>>1; i|=i>>2; i|=i>>4; i|=i>>8; i|=i>>16; return i+1; }
+};
+
+struct sphere_texture : gl_texture {
     boost::array<GLfloat, 8> vertices;
 
     sphere_texture(float radius, vec4 color);
-    ~sphere_texture();
 
     void draw() const;
 
@@ -43,22 +52,40 @@ private:
     GLuint _make_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color);
 };
 
+struct image_texture : gl_texture {
+    boost::array<GLfloat, 8> texcoords;
+    
+    image_texture(CGImageRef image);
+
+    static image_texture *from_file(std::string const &name);
+};
+
 struct sphere_face : boost::noncopyable {
     static const float PANIC_SPIN_FACTOR, ROTATE_SPAN, ROTATE_FACTOR;
+    static const unsigned MESH_RESOLUTION = 5;
+    static const unsigned MESH_VERTICES = (MESH_RESOLUTION+1) * 2;
 
-    model *asleep, *normal, *stressed, *strained, *panicked;
+    static GLuint array_buffer;
+
+    enum state { asleep = 0, normal, stressed, strained, panicked };
+
+    image_texture *texture;
     float panic_spin;
 
-    sphere_face(model *a, model *n, model *se, model *sa, model *p)
-        : asleep(a), normal(n), stressed(se), strained(sa), panicked(p), panic_spin(0.0f) { }
-    ~sphere_face() { delete asleep; delete normal; delete stressed; delete strained; delete panicked; }
+    sphere_face(image_texture *t) : texture(t) { }
+    ~sphere_face() { delete texture; }
 
     void draw_for_course(vec2 velocity, vec2 accel);
 
-    static sphere_face *from_file_set(std::string const &name);
+    static void global_start();
+    static void global_finish();
+
+    static sphere_face *from_file(std::string const &name)
+        { return new sphere_face(image_texture::from_file(name + ".png")); }
 
 private:
-    model *_model_for_course(vec2 velocity, vec2 accel);
+    static state _state_for_course(vec2 velocity, vec2 accel);
+    static float _rotation(float magnitude);
 };
 
 }

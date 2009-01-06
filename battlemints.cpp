@@ -1,5 +1,6 @@
 #include "battlemints.h"
 #include "controller.hpp"
+#include "drawing.hpp"
 #include "game.hpp"
 #include "geom.hpp"
 #include "intro.hpp"
@@ -19,6 +20,7 @@ void battlemints_start()
 {
     sranddev();
 
+    sphere_face::global_start(); // must happen first!
     player::global_start();        
     goal::global_start();        
     mini::global_start();
@@ -54,4 +56,5 @@ void battlemints_finish()
     mini::global_finish();
     goal::global_finish();        
     player::global_finish();
+    sphere_face::global_finish();
 }

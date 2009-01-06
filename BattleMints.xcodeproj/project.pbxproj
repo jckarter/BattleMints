@@ -62,6 +62,7 @@
 		D8B273660F0DAED1001844D6 /* mega-panicked.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273610F0DAED1001844D6 /* mega-panicked.ply */; };
 		D8B273670F0DAED1001844D6 /* mega-strained.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273620F0DAED1001844D6 /* mega-strained.ply */; };
 		D8B273680F0DAED1001844D6 /* mega-stressed.ply in Resources */ = {isa = PBXBuildFile; fileRef = D8B273630F0DAED1001844D6 /* mega-stressed.ply */; };
+		D8B2743C0F14195D001844D6 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8B2743B0F14195D001844D6 /* Entitlements.plist */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
 /* End PBXBuildFile section */
@@ -143,6 +144,7 @@
 		D8B273610F0DAED1001844D6 /* mega-panicked.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-panicked.ply"; sourceTree = "<group>"; };
 		D8B273620F0DAED1001844D6 /* mega-strained.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-strained.ply"; sourceTree = "<group>"; };
 		D8B273630F0DAED1001844D6 /* mega-stressed.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mega-stressed.ply"; sourceTree = "<group>"; };
+		D8B2743B0F14195D001844D6 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
 		D8F80CD70F05DC62002ACC03 /* transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transition.hpp; sourceTree = "<group>"; };
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				D8B2743B0F14195D001844D6 /* Entitlements.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				D8B273660F0DAED1001844D6 /* mega-panicked.ply in Resources */,
 				D8B273670F0DAED1001844D6 /* mega-strained.ply in Resources */,
 				D8B273680F0DAED1001844D6 /* mega-stressed.ply in Resources */,
+				D8B2743C0F14195D001844D6 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +468,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					jsoncpp/include,
+					rply,
+					/opt/local/include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1B4010E-EC6D-409E-8C84-5B2B4F478EBA";
@@ -475,14 +484,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joseph Groff";
 				COPY_PHASE_STRIP = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
-				HEADER_SEARCH_PATHS = /opt/local/include;
+				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					jsoncpp/include,
+					rply,
+					/opt/local/include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = BattleMints;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F93013A9-B6C9-42A0-9382-C693EFE708EC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C74B0FFE-B21A-4BA0-810F-01F2FB14479E";
 			};
 			name = Release;
 		};
