@@ -7,13 +7,6 @@
 
 namespace battlemints {
 
-const boost::array<float, 8> intro::texcoords = {
-    0.0,           1.0,
-    320.0 / 512.0, 1.0,
-    0.0,           (512.0-480.0)/512.0,
-    320.0 / 512.0, (512.0-480.0)/512.0
-};
-
 intro::intro()
      : _splash_texture(image_texture::from_file("Default.png")), _countdown(20), _peak(20)
 { }

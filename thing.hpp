@@ -74,6 +74,14 @@ protected:
         glPushMatrix();
         glTranslatef(center.x, center.y, 0.0f);
     }
+
+
+    template<typename Thing>
+    static thing *from_json(Json::Value const &v)
+    {
+        vec2 center = vec2_from_json(v["center"]);
+        return new Enemy(center);
+    }
 #endif
 };
 

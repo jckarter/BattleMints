@@ -9,12 +9,13 @@ namespace battlemints {
 typedef thing *(*thing_reader)(Json::Value const &v);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 5> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 6> _thing_reader_pairs = {
     thing_reader_pair("wall_strip", &wall_strip::from_json),
     thing_reader_pair("player", &player::from_json),
     thing_reader_pair("goal", &goal::from_json),
     thing_reader_pair("mini", &mini::from_json),
-    thing_reader_pair("mega", &mega::from_json)
+    thing_reader_pair("mega", &mega::from_json),
+    thing_reader_pair("bumper", &bumper::from_json)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers

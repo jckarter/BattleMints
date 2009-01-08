@@ -128,7 +128,7 @@ board::_update_2_things(thing *t, thing *u, BinaryFunctor const &f)
 
 static inline bool _is_overlapping_time(float f)
 {
-    f = fabsf(f);
+    f = fast_abs(f);
     return f <= 0.01f
         || f == INFINITYF;
 }

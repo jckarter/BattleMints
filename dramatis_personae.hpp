@@ -46,9 +46,6 @@ struct player : sphere {
 
     virtual void draw();
 
-    virtual void on_collision(thing &o)
-        { std::cerr << "player collision " << board::current()->tick_count() << "\n"; }
-
     void die() { board::current()->particles_thing()->explode(this); board::restart_with<death_transition>(); }
 
     static thing *from_json(Json::Value const &v);
@@ -79,14 +76,6 @@ struct enemy : sphere {
     void die() { board::current()->particles_thing()->explode(this); }
 
     virtual char const * kind() const { return "enemy"; }
-
-protected:
-    template<typename Enemy>
-    static thing *from_json(Json::Value const &v)
-    {
-        vec2 center = vec2_from_json(v["center"]);
-        return new Enemy(center);
-    }
 };
 
 struct mini : enemy {
@@ -104,17 +93,8 @@ struct mini : enemy {
 
     virtual char const * kind() const { return "mini"; }
 
-    virtual void draw()
-    {
-        _push_translate();
-        glColor4f(color.x, color.y, color.z, color.w);
-        texture->draw();
-        glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-        face->draw_for_course(velocity, cur_accel);
-        glPopMatrix();
-    }
-
-    static thing *from_json(Json::Value const &v) { return enemy::from_json<mini>(v); }
+    virtual void draw();
+    static thing *from_json(Json::Value const &v) { return thing::from_json<mini>(v); }
     static void global_start();
     static void global_finish();
 };
@@ -131,23 +111,57 @@ struct mega : enemy {
 
     virtual char const * kind() const { return "mega"; }
 
-    virtual void draw()
-    {
-        _push_translate();
-        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        texture->draw();
-        glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
-        face->draw_for_course(velocity, 3.0f*cur_accel);
-        glPopMatrix();
-    }
+    virtual void draw();
     virtual void wall_damage() { }
     virtual void post_damage() { }
 
-    static thing *from_json(Json::Value const &v) { return enemy::from_json<mega>(v); }
+    static thing *from_json(Json::Value const &v) { return thing::from_json<mega>(v); }
     static void global_start();
     static void global_finish();
 };
 
+struct bumper : sphere {
+    static const float RADIUS, INNER_RADIUS, SPRING, INNER_COLOR, OUTER_COLOR;
+
+    static sphere_texture *inner_texture, *outer_texture;
+
+    bumper(vec2 ct)
+        : sphere(INFINITYF, ct, RADIUS, SPRING) { }
+
+    virtual char const * kind() const { return "bumper"; }
+
+    virtual void draw();
+
+    static thing *from_json(Json::Value const &v) { return thing::from_json<bumper>(v); }
+    static void global_start();
+    static void global_finish();
+};
+
+struct spring : sphere {
+    vec2 home;
+    float factor;
+
+    spring(float m, vec2 ct, float r, float sp, float f)
+        : sphere(m, ct, r, sp), home(ct), factor(f) { }
+
+    virtual char const * kind() const { return "bumper"; }
+
+    virtual void tick();
+};
+
+struct direction_spring : sphere {
+    vec2 home, axis;
+    float axis_factor, perpendicular_factor;
+
+    direction_spring(float m, vec2 ct, float r, float sp, vec2 ax, float af, float pf)
+        : sphere(m, ct, r, sp), home(ct), axis(ax), axis_factor(af), perpendicular_factor(pf) { }
+
+    virtual char const * kind() const { return "direction_spring"; }
+
+    virtual void tick();
+};
+
 }
+
 
 #endif

@@ -27,7 +27,8 @@ void player::draw()
     _push_translate();
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     texture->draw();
-    glColor4f(0.0, 0.0, 0.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glScalef(RADIUS, RADIUS, RADIUS);
     face->draw_for_course(velocity, _cur_accel());
     glPopMatrix();
 }
@@ -106,18 +107,73 @@ void mini::global_finish()
     delete face;
 }
 
+void mini::draw()
+{
+    _push_translate();
+    glColor4f(color.x, color.y, color.z, color.w);
+    texture->draw();
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glScalef(RADIUS, RADIUS, RADIUS);
+    face->draw_for_course(velocity, cur_accel);
+    glPopMatrix();
+}
+
 sphere_texture *mega::texture = NULL;
 sphere_face *mega::face = NULL;
 
 void mega::global_start()
 {
-    texture = new sphere_texture(RADIUS, COLOR);
     face = sphere_face::from_file("mega");
+    texture = new sphere_texture(RADIUS, COLOR);
 }
 
 void mega::global_finish()
 {
     delete texture;
+}
+
+void mega::draw()
+{
+    _push_translate();
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    texture->draw();
+    glScalef(RADIUS, RADIUS, RADIUS);
+    face->draw_for_course(velocity, 3.0f*cur_accel);
+    glPopMatrix();
+}
+
+sphere_texture *bumper::inner_texture = NULL, *bumper::outer_texture = NULL;
+
+void bumper::global_start()
+{
+    inner_texture = new sphere_texture(INNER_RADIUS, INNER_COLOR);
+    outer_texture = new sphere_texture(OUTER_RADIUS, OUTER_COLOR);
+}
+
+void bumper::global_finish()
+{
+    delete inner_texture; delete outer_texture;
+}
+
+void bumper::draw()
+{
+    _push_translate();
+    outer_texture->draw();
+    inner_texture->draw();
+    glPopMatrix();
+}
+
+void spring::tick()
+{
+    velocity += factor * (home - center);
+}
+
+void direction_spring::tick()
+{
+    vec2 distance = home - center;
+    float factor = blend(perpendicular_factor, axis_factor, vdot(vnormalize(distance), axis));
+    velocity += factor * distance;
 }
 
 }

@@ -103,7 +103,6 @@ void sphere_texture::draw() const
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glColor4f(1.0, 1.0, 1.0, 1.0);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)&unit_texcoords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -214,14 +213,14 @@ void sphere_face::global_start()
     } b;
     static const float HEIGHT = 0.25*M_PI;
 
-    for (unsigned i = 0; i < MESH_RESOLUTION; ++i) {
+    for (unsigned i = 0; i <= MESH_RESOLUTION; ++i) {
         float theta = (float)i/(float)MESH_RESOLUTION;
-        b.vertices[i*6  ] = b.vertices[i*6+3] = fast_sin_2pi(-0.5f + theta);
+        b.vertices[i*6  ] = b.vertices[i*6+3] = fast_cos_2pi(-0.25f + 0.5*theta);
         b.vertices[i*6+1] = HEIGHT; b.vertices[i*6+4] = -HEIGHT;
-        b.vertices[i*6+2] = b.vertices[i*6+5] = fast_cos_2pi(-0.5f + theta);
+        b.vertices[i*6+2] = b.vertices[i*6+5] = fast_sin_2pi(-0.25f + 0.5*theta);
 
         b.texcoords[i*4  ] = b.texcoords[i*4+2] = theta;
-        b.texcoords[i*4+1] = 1.0f; b.texcoords[i*4+3] = 0.0f;
+        b.texcoords[i*4+1] = 0.0f; b.texcoords[i*4+3] = 1.0f;
     }
 
     glGenBuffers(1, &array_buffer);
@@ -258,9 +257,12 @@ void
 sphere_face::draw_for_course(vec2 velocity, vec2 accel)
 {
     state st = _state_for_course(velocity, accel);
+    GLfloat col = (GLfloat)(st / 4);
+    GLfloat row = (GLfloat)(st % 4);
+
     glMatrixMode(GL_TEXTURE);
-    glScalef(1.0f, 0.125f, 1.0f); // XXX Two rows (0.5, 0.25), not one row (1.0, 0.125)
-    glTranslatef(0.0f, (float)st, 0.0f);
+    glScalef(0.5f, 0.25f, 1.0f);
+    glTranslatef(col, row, 0.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -277,6 +279,7 @@ sphere_face::draw_for_course(vec2 velocity, vec2 accel)
 
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindTexture(GL_TEXTURE_2D, texture->texture);
     glBindBuffer(GL_ARRAY_BUFFER, array_buffer);
     glVertexPointer(3, GL_FLOAT, 0, (void*)0);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*MESH_VERTICES*3));
