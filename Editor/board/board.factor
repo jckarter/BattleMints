@@ -4,7 +4,7 @@ arrays math math.constants alien.c-types ui.gadgets math.order
 colors opengl locals combinators.short-circuit ui.gestures generalizations
 vectors namespaces ui.tools.inspector ui.gadgets.packs ui
 ui.gadgets.labels ui.gadgets.buttons hashtables classes io.encodings.utf8
-io.files specialized-arrays.double ;
+io.files specialized-arrays.double compiler.utilities ;
 IN: mint-editor.board
 
 : BORDER-THICKNESS 0.004 ;
@@ -35,6 +35,7 @@ TUPLE: (sphere) center ;
 TUPLE: player < (sphere) ;
 TUPLE: mini < (sphere) ;
 TUPLE: mega < (sphere) ;
+TUPLE: bumper < (sphere) ;
 
 ! ! !
 
@@ -53,6 +54,10 @@ M: mini sphere-label drop "m" ;
 M: mega sphere-color drop 0.33 0.13 0.0 1.0 <rgba> ;
 M: mega sphere-radius drop 2.6 ;
 M: mega sphere-label drop "M" ;
+
+M: bumper sphere-color drop 1.0 0.0 0.0 0.5 <rgba> ;
+M: bumper sphere-radius drop 0.5 ;
+M: bumper sphere-label drop "" ;
 
 ! ! !
 
@@ -140,6 +145,7 @@ M: sequence extents
         { "goal"   goal }
         { "mini"   mini }
         { "mega"   mega }
+        { "bumper" bumper }
     } ;
 
 : string>thing-class ( string -- class ) thing-class-names at ;
@@ -152,7 +158,11 @@ TUPLE: handle-base thing # point ;
 TUPLE: center-handle < handle-base ;
 TUPLE: endpoint-a-handle < handle-base ;
 TUPLE: endpoint-b-handle < handle-base ;
-TUPLE: vertex-handle < handle-base ;
+
+TUPLE: wall-handle < handle-base wall# ;
+
+TUPLE: vertex-handle < wall-handle ;
+TUPLE: midpoint-handle < wall-handle ;
 
 GENERIC: handles ( thing -- sequence )
 
@@ -161,8 +171,19 @@ M: handle-base equal?
     [ { [ [ thing>> ] bi@ eq? ] [ [ point>> ] bi@ = ] } 2&& ]
     [ 2drop f ] if ; 
 
+: rotate ( seq -- seq' )
+    1 cut-slice swap append ; inline
+
+: 2map-index ( seq1 seq2 -- seq )
+    prepare-index 3map ; inline
+
+:: wall-handles ( vertex1 vertex2 wall# thing -- sequence )
+    thing wall# 2 *     vertex1                    wall# vertex-handle boa
+    thing wall# 2 * 1 + vertex1 vertex2 v+ 0.5 v*n wall# midpoint-handle boa
+    2array ;
+
 M: wall-strip handles
-    dup vertices>> [ rot vertex-handle boa ] with map-index ;
+    [ vertices>> dup rotate ] keep [ wall-handles ] curry 2map-index concat ;
 
 M: goal handles
     {
@@ -193,7 +214,12 @@ M:: endpoint-b-handle drag-handle ( delta handle thing -- )
     handle [ delta v+ ] change-point drop ;
 
 M:: vertex-handle drag-handle ( delta handle thing -- )
-    handle #>> thing vertices>> [ delta v+ ] change-nth
+    handle wall#>> thing vertices>> [ delta v+ ] change-nth
+    handle [ delta v+ ] change-point drop ;
+
+M:: midpoint-handle drag-handle ( delta handle thing -- )
+    handle wall#>>                                thing vertices>> [ delta v+ ] change-nth
+    handle wall#>> 1+ thing vertices>> length mod thing vertices>> [ delta v+ ] change-nth
     handle [ delta v+ ] change-point drop ;
 
 ! ! !
@@ -268,6 +294,10 @@ M: (sphere) draw
     [ [ center>> ] [ sphere-radius ] [ sphere-color ] tri draw-sphere ]
     [ [ center>> ] [ sphere-label ] bi draw-text-centered ] bi ;
 
+M: bumper draw
+    [ [ center>> ] [ sphere-radius ] [ sphere-color ] tri draw-sphere ]
+    [ center>>  0.4  0.8 1.0 0.0 1.0 <rgba>  draw-sphere ] bi ;
+
 M: handle-base draw
     cr swap point>> first2 handle-radius 0 2 pi * cairo_arc
     cr HANDLE-COLOR cairo_set_source_rgba
@@ -283,7 +313,7 @@ M: handle-base draw
 
 SINGLETONS:
     drag-tool
-    wall-tool goal-tool mini-tool mega-tool
+    wall-tool goal-tool mini-tool mega-tool bumper-tool
     wall-join-tool wall-split-tool
     delete-tool clone-tool ;
 
@@ -347,6 +377,7 @@ M: board-gadget handles
             { goal-tool "goal" }
             { mini-tool "mini" }
             { mega-tool "mega" }
+            { bumper-tool "bumper" }
             { wall-join-tool "join walls" }
             { wall-split-tool "split walls" }
             { clone-tool "clone" }
@@ -481,10 +512,13 @@ board-gadget H{
     { T{ mouse-scroll           } [ dup tool>> board-mouse-scroll ] }
 } set-gestures 
 
-:: spawn-thing ( board thing handle# -- )
+:: (spawn-thing) ( board thing handle# -- )
     thing board things>> push
     handle# thing handles nth board select-handle
     board drag-tool >>tool drop ;
+
+: spawn-thing ( board tool class handle# -- )
+    [ [ drop dup user-space-click-loc ] dip boa ] dip (spawn-thing) ;
 
 M: drag-tool board-button-down
     drop
@@ -501,20 +535,23 @@ M: drag-tool board-drag
     [ relayout-1 ] tri ;
 
 M: wall-tool board-button-down
-    drop dup user-space-click-loc dup 2array >vector f wall-strip boa 1 spawn-thing ;
+    drop dup user-space-click-loc dup 2array >vector f wall-strip boa 1 (spawn-thing) ;
 
 M: goal-tool board-button-down
-    drop dup user-space-click-loc dup "" goal boa 1 spawn-thing ;
+    drop dup user-space-click-loc dup "" goal boa 1 (spawn-thing) ;
 
 M: mini-tool board-button-down
-    drop dup user-space-click-loc mini boa 0 spawn-thing ;
+    mini 0 spawn-thing ;
 
 M: mega-tool board-button-down
-    drop dup user-space-click-loc mega boa 0 spawn-thing ;
+    mega 0 spawn-thing ;
+
+M: bumper-tool board-button-down
+    bumper 0 spawn-thing ;
 
 M: wall-join-tool board-button-down
     drop dup handle-under-cursor [
-        [ #>> ] [ thing>> vertices>> ] bi
+        [ wall#>> ] [ thing>> vertices>> ] bi
         dup length 2 > [ delete-nth ] [ 2drop ] if 
         [ clear-selected-handles ] [ relayout-1 ] bi
     ] [ drop ] if* ;
@@ -524,7 +561,7 @@ M: wall-join-tool board-button-down
 
 M:: wall-split-tool board-button-down ( gadget tool -- )
     gadget handle-under-cursor [
-        [ [ point>> ] [ #>> 1+ ] [ thing>> vertices>> ] tri insert-nth ]
+        [ [ point>> ] [ wall#>> 1+ ] [ thing>> vertices>> ] tri insert-nth ]
         [ [ #>> 1+ ] [ thing>> handles ] bi nth gadget select-handle ] bi
         gadget drag-tool >>tool relayout-1
     ] when* ;
