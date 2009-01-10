@@ -48,7 +48,7 @@ struct player : sphere {
 
     void die() { board::current()->particles_thing()->explode(this); board::restart_with<death_transition>(); }
 
-    static thing *from_json(Json::Value const &v);
+    static thing *from_json(Json::Value const &v) { return thing::from_json<player>(v); }
     static void global_start();
     static void global_finish();
 
@@ -121,12 +121,13 @@ struct mega : enemy {
 };
 
 struct bumper : sphere {
-    static const float RADIUS, INNER_RADIUS, SPRING, INNER_COLOR, OUTER_COLOR;
+    static const float RADIUS, MASS, INNER_RADIUS, SPRING;
+    static const vec4 INNER_COLOR, OUTER_COLOR;
 
     static sphere_texture *inner_texture, *outer_texture;
 
     bumper(vec2 ct)
-        : sphere(INFINITYF, ct, RADIUS, SPRING) { }
+        : sphere(MASS, ct, RADIUS, SPRING) { }
 
     virtual char const * kind() const { return "bumper"; }
 

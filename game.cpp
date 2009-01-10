@@ -41,10 +41,11 @@ const float mega::RESPONSIVENESS = 0.9f;
 const vec4 mega::COLOR = make_vec4(0.33, 0.13, 0.0, 1.0);
 
 const float bumper::RADIUS = 0.5f;
+const float bumper::MASS = 10000.0f;
 const float bumper::SPRING = 2.0f;
 const float bumper::INNER_RADIUS = 0.4f;
-const float bumper::INNER_COLOR = make_vec4(0.8f, 1.0f, 0.0f, 1.0f);
-const float bumper::OUTER_COLOR = make_vec4(1.0f, 0.0f, 0.0f, 0.5f);
+const vec4 bumper::INNER_COLOR = make_vec4(0.8f, 1.0f, 0.0f, 1.0f);
+const vec4 bumper::OUTER_COLOR = make_vec4(1.0f, 0.0f, 0.0f, 0.5f);
 
 vec2 controller_state;
 

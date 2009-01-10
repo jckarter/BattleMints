@@ -38,13 +38,6 @@ void player::tick()
     accelerate_with_exhaust(_cur_accel());
 }
 
-thing * player::from_json(Json::Value const &v)
-{
-    vec2 center = vec2_from_json(v["center"]);
-
-    return new player(center);
-}
-
 void player::global_start()
 {
     texture = new sphere_texture(RADIUS, COLOR);
@@ -148,7 +141,7 @@ sphere_texture *bumper::inner_texture = NULL, *bumper::outer_texture = NULL;
 void bumper::global_start()
 {
     inner_texture = new sphere_texture(INNER_RADIUS, INNER_COLOR);
-    outer_texture = new sphere_texture(OUTER_RADIUS, OUTER_COLOR);
+    outer_texture = new sphere_texture(RADIUS, OUTER_COLOR);
 }
 
 void bumper::global_finish()
@@ -159,6 +152,7 @@ void bumper::global_finish()
 void bumper::draw()
 {
     _push_translate();
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     outer_texture->draw();
     inner_texture->draw();
     glPopMatrix();

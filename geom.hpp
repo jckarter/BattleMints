@@ -114,7 +114,7 @@ inline float vsum(vec2 a) { return a.x + a.y; }
 inline float vproduct(vec2 a) { return a.x * a.y; }
 inline float vdot(vec2 a, vec2 b) { return vsum(a * b); }
 inline float vnorm2(vec2 a) { return vdot(a, a); }
-inline float vnorm(vec2 a) { return sqrtf(vnorm(a)); }
+inline float vnorm(vec2 a) { return sqrtf(vnorm2(a)); }
 inline vec2 vnormalize(vec2 a) { return a*abrash_sqrt_r(vnorm2(a)); }
 inline vec2 vclip(vec2 a, float limit)
 {

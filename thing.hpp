@@ -4,6 +4,7 @@
 #include "geom.hpp"
 #include "game.hpp"
 #include "collision.hpp"
+#include "serialization.hpp"
 
 #include <vector>
 #include <boost/array.hpp>
@@ -80,7 +81,7 @@ protected:
     static thing *from_json(Json::Value const &v)
     {
         vec2 center = vec2_from_json(v["center"]);
-        return new Enemy(center);
+        return new Thing(center);
     }
 #endif
 };
