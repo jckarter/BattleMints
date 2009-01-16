@@ -10,12 +10,10 @@
 namespace battlemints {
 
 struct grid : boost::noncopyable {
+    static const unsigned CELL_RESERVE = 16;
+
     typedef std::vector<thing*> cell;
 
-    grid()
-        : _origin(ZERO_VEC2), _cell_size_inv(ZERO_VEC2),
-          _cell_dims(ZERO_VEC2), _pitch(0), cells(0)
-        { }
     grid(rect space, vec2 cell_size);
     
     void add_thing(thing *t, rect bound);

@@ -40,11 +40,15 @@ struct _erase {
 
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
-      _cell_size_inv(1/cell_size),
+      _cell_size_inv(1.0f/cell_size),
       _cell_dims(vceil( (space.high-space.low)*_cell_size_inv ) - make_vec2(1.0,1.0)),
       _pitch((int)ceilf((space.high.x - space.low.x) * _cell_size_inv.x)),
       cells((unsigned)vproduct(vceil((space.high - space.low) * _cell_size_inv)))
-{ }
+{
+    BOOST_FOREACH(cell &c, cells) {
+        c.reserve(CELL_RESERVE);
+    }
+}
 
 template <typename T, typename BinaryFunctor>
 inline void

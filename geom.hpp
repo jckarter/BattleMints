@@ -7,14 +7,6 @@
 
 namespace battlemints {
 
-inline float abrash_sqrt_r(float x)
-{
-    union { float f; int bits; } xx = { x };
-    xx.bits = 0x5f3759df - (xx.bits >> 1);
-    xx.f *= 1.5f - 0.5f*x*xx.f*xx.f;
-    return xx.f;
-}
-
 inline float fast_trunc(float x)
 {
     union { float f; int bits; } xx = { x };
@@ -23,17 +15,10 @@ inline float fast_trunc(float x)
     return xx.f;
 }
 
-inline float fast_abs(float x)
-{
-    union { float f; int bits; } xx = { x };
-    xx.bits &= 0x7fffffff;
-    return xx.f;
-}
-
 inline float fast_cos_2pi(float x)
 {
     float xp = x - 0.5f - floorf(x);
-    return 16.0f*xp*fast_abs(xp) - 8.0f*xp;
+    return 16.0f*xp*fabsf(xp) - 8.0f*xp;
 }
 
 inline float fast_sin_2pi(float x)
@@ -115,11 +100,11 @@ inline float vproduct(vec2 a) { return a.x * a.y; }
 inline float vdot(vec2 a, vec2 b) { return vsum(a * b); }
 inline float vnorm2(vec2 a) { return vdot(a, a); }
 inline float vnorm(vec2 a) { return sqrtf(vnorm2(a)); }
-inline vec2 vnormalize(vec2 a) { return a*abrash_sqrt_r(vnorm2(a)); }
+inline vec2 vnormalize(vec2 a) { return a/vnorm(a); }
 inline vec2 vclip(vec2 a, float limit)
 {
     float norm2 = vnorm2(a), limit2 = limit*limit;
-    return norm2 > limit2 ? limit*a*abrash_sqrt_r(norm2) : a;
+    return norm2 > limit2 ? limit*a/sqrtf(norm2) : a;
 }
 
 inline vec2 vreflect(vec2 normal, vec2 a) { return a - 2.0f*vdot(a, normal)*normal; }
