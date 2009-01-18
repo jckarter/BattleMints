@@ -46,3 +46,4 @@
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
 #include <pthread.h>
+#include <sys/time.h>

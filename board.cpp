@@ -217,9 +217,7 @@ board::tick()
         tick_time -= collide_time;
         ++rounds;
     }
-
-    if (rounds >= 100)
-        std::cerr << "More than 100 collision rounds!\n";
+    //printf("-- rounds: %3u\n", rounds);
 
     BOOST_FOREACH (thing *th, _all_things)
         _update_thing(th, _tick_thing());

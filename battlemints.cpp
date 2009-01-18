@@ -12,6 +12,7 @@
 #include <boost/foreach.hpp>
 #include <cstdlib>
 #include <cstdio>
+#include <sys/time.h>
 
 using namespace battlemints;
 
@@ -33,13 +34,31 @@ void battlemints_start()
 extern "C"
 void battlemints_tick()
 {
+#ifdef BENCHMARK
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+#endif
     controller::tick_current();
+#ifdef BENCHMARK
+    gettimeofday(&end, NULL);
+
+    printf("tick: %10u\n", (int)((end.tv_sec - start.tv_sec)*1000000) + (int)((int)end.tv_usec - (int)start.tv_usec));
+#endif
 }
 
 extern "C"
 void battlemints_draw()
 {
+#ifdef BENCHMARK
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+#endif
     controller::draw_current();
+#ifdef BENCHMARK
+    gettimeofday(&end, NULL);
+
+    printf("draw: %10u\n", (int)((end.tv_sec - start.tv_sec)*1000000) + (int)((int)end.tv_usec - (int)start.tv_usec));
+#endif
 }
 
 extern "C"

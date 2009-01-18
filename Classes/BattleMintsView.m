@@ -131,13 +131,16 @@ static void _report_touch(UIView *view, UITouch *touch)
 
 - (void)startAnimation
 {
-    self.animationTimer = [NSTimer
-        scheduledTimerWithTimeInterval:animationInterval
-        target:self
-        selector:@selector(tick)
-        userInfo:nil
-        repeats:YES
-    ];
+    if (animationInterval != 0.0)
+        self.animationTimer = [NSTimer
+            scheduledTimerWithTimeInterval:animationInterval
+            target:self
+            selector:@selector(tick)
+            userInfo:nil
+            repeats:YES
+        ];
+    else
+        self.animationTimer = nil;
 }
 
 - (void)stopAnimation
