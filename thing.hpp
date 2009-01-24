@@ -23,17 +23,17 @@ struct point;
 struct thing : boost::noncopyable {
     vec2 velocity;
     vec2 center;
+    vec2 prev_center;
     float spring;
     float mass;
 
-    thing(float m, vec2 ct, float sp) : velocity(ZERO_VEC2), center(ct), spring(sp), mass(m) { }
+    thing(float m, vec2 ct, float sp)
+        : velocity(ZERO_VEC2), center(ct), prev_center(ct), spring(sp), mass(m)
+        { }
 
     virtual ~thing() { }
-    virtual rect visibility_box() { return make_rect(0,0,0,0); }
-    virtual rect collision_box() { return make_rect(0,0,0,0); }
     virtual void draw() { }
 
-    virtual bool does_draws() const { return true; }
     virtual bool does_collisions() const { return true; }
     virtual bool can_overlap() const { return false; }
 
@@ -92,9 +92,6 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
 struct sphere : thing {
     float radius;
 
-    virtual rect visibility_box();
-    virtual rect collision_box();
-
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
     virtual void collide_line(line &w) { collide_sphere_line(*this, w); }
@@ -129,9 +126,6 @@ struct line : thing {
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 
-    virtual rect visibility_box();
-    virtual rect collision_box();
-
     virtual void collide(thing &o) { o.collide_line(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_line(s, *this); }
     virtual void collide_line(line &w) { collide_line_line(*this, w); }
@@ -152,8 +146,6 @@ struct line : thing {
 
 struct point : thing {
     point (vec2 pt) : thing(INFINITYF, pt, 1.0f) { }
-
-    virtual rect collision_box() { return make_rect(center, center); }
 
     virtual void collide(thing &t) { t.collide_point(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_point(s, *this); }

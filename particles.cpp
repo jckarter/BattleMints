@@ -5,16 +5,16 @@
 
 namespace battlemints {
 
-const float particles::LIFE_EXPECTANCY_INV = 1.0f/(float)particles::LIFE_EXPECTANCY;
+const float particle_system::LIFE_EXPECTANCY_INV = 1.0f/(float)particle_system::LIFE_EXPECTANCY;
 
-const boost::array<vec2, 4> particles::exhaust = {
+const boost::array<vec2, 4> particle_system::exhaust = {
     make_vec2( 0.0,   3.0),
     make_vec2(-9.0,  24.0),
     make_vec2( 0.0,  -3.0),
     make_vec2(-9.0, -24.0)
 };
 
-void particles::explode(thing *th)
+void particle_system::explode(thing *th)
 {
     static const unsigned SHOCKWAVE_PARTICLES = 25, DEBRIS_PARTICLES = 75;
 
@@ -40,7 +40,7 @@ void particles::explode(thing *th)
     }
 }
 
-void particles::draw()
+void particle_system::draw()
 {
 #if 1
     glDisable(GL_TEXTURE_2D);
@@ -65,7 +65,9 @@ void particles::draw()
 #endif
 }
 
-static inline void _add_vertex_array_ranges(particles::vertex_buffer::array_range const &v, particles::vertex_buffer::array_range const &d)
+static inline void _add_vertex_array_ranges(
+    particle_system::vertex_buffer::array_range const &v,
+    particle_system::vertex_buffer::array_range const &d)
 {
     float *vi = (float*)v.first, *di = (float*)d.first;
     unsigned count = v.second * 2;
@@ -73,7 +75,7 @@ static inline void _add_vertex_array_ranges(particles::vertex_buffer::array_rang
         *vi++ += *di++;
 }
 
-void particles::tick()
+void particle_system::tick()
 {
     if (_ages.empty())
         return;

@@ -15,10 +15,12 @@ struct grid : boost::noncopyable {
     typedef std::vector<thing*> cell;
 
     grid(rect space, vec2 cell_size);
+
+    void _draw() const;
     
-    void add_thing(thing *t, rect bound);
-    void move_thing(thing *t, rect old_bound, rect new_bound);
-    void remove_thing(thing *t, rect bound);
+    void add_thing(thing *t);
+    void move_thing(thing *t);
+    void remove_thing(thing *t);
 
     std::set<thing*> things_in_rect(rect r) const;
 
@@ -40,6 +42,8 @@ struct grid : boost::noncopyable {
         os << "}\n";
     }
 
+    int pitch() const { return _pitch; }
+
 private:
     vec2 _origin, _cell_size_inv, _cell_dims; // members are order dependent
     int _pitch;
@@ -48,8 +52,6 @@ private:
     void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f);
     template <typename T, typename BinaryFunctor>
     void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f) const;
-
-    bool _rects_require_movement(rect old_bound, rect new_bound) const;
 
 public:
     std::vector<cell> cells;

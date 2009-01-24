@@ -14,21 +14,6 @@
 
 namespace battlemints {
 
-struct camera : thing {
-    static const float LEAD_FACTOR, FOLLOW_FACTOR, ACCEL;
-
-    thing *target;
-
-    camera() : thing(0.0f, ZERO_VEC2, 0.0f), target(NULL) { }
-
-    virtual bool does_draws() const { return false; }
-    virtual bool does_collisions() const { return false; }
-
-    virtual void tick();
-
-    void cut_to_target(thing *new_target) { target = new_target; center = new_target->center; }
-};
-
 struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING;
     static const vec4 COLOR;
@@ -46,7 +31,7 @@ struct player : sphere {
 
     virtual void draw();
 
-    void die() { board::current()->particles_thing()->explode(this); board::restart_with<death_transition>(); }
+    void die() { board::current()->particles.explode(this); board::restart_with<death_transition>(); }
 
     static thing *from_json(Json::Value const &v) { return thing::from_json<player>(v); }
     static void global_start();
@@ -73,7 +58,7 @@ struct enemy : sphere {
     virtual void wall_damage() { die(); }
     virtual void post_damage() { die(); }
 
-    void die() { board::current()->particles_thing()->explode(this); }
+    void die() { board::current()->particles.explode(this); }
 
     virtual char const * kind() const { return "enemy"; }
 };

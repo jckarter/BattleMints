@@ -4,6 +4,7 @@
 
 namespace battlemints {
 
+#if 0
 void
 wall_strip::draw()
 {
@@ -15,19 +16,7 @@ wall_strip::draw()
 
     glDrawArrays(closed ? GL_LINE_LOOP : GL_LINE_STRIP, 0, vertices.size());
 }
-
-rect
-wall_strip::_find_bbox()
-{
-    vec2 low = make_vec2(INFINITYF), high = make_vec2(-INFINITYF);
-
-    BOOST_FOREACH (vec2 v, vertices) {
-        low = vmin(v, low);
-        high = vmax(v, high);
-    }
-
-    return make_rect(low, high);
-}
+#endif
 
 void
 wall_strip::_generate_collision_things()

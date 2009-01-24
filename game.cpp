@@ -14,12 +14,11 @@ const vec2 ZERO_VEC2 = make_vec2(0.0);
 const vec2 GAME_WINDOW_SIZE = make_vec2(320.0, 480.0);
 const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
-const vec2 board::COLLISION_CELL_SIZE = make_vec2(4.0, 4.0);
-const vec2 board::VISIBILITY_CELL_SIZE = make_vec2(4.0, 4.0);
+const vec2 board::CELL_SIZE = make_vec2(6.0, 6.0);
 
-const float camera::LEAD_FACTOR = 15.0f;
-const float camera::FOLLOW_FACTOR = 0.1f;
-const float camera::ACCEL = 0.03f;
+const float cambot::LEAD_FACTOR = 15.0f;
+const float cambot::FOLLOW_FACTOR = 0.1f;
+const float cambot::ACCEL = 0.03f;
 
 const float player::ACCEL_SCALE = 0.02f;
 const float player::RADIUS = 0.5f;

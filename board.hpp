@@ -10,17 +10,27 @@
 #include "grid.hpp"
 #include "controller.hpp"
 #include "board_loader.hpp"
+#include "particles.hpp"
 
 namespace battlemints {
 
 struct thing;
-struct particles;
-struct camera;
 
 typedef std::set<thing*> thing_set;
 
+struct cambot {
+    static const float LEAD_FACTOR, FOLLOW_FACTOR, ACCEL;
+
+    thing *target;
+    vec2 center, velocity;
+
+    cambot() : target(NULL), center(ZERO_VEC2), velocity(ZERO_VEC2) { }
+    void tick();
+    void cut_to_target(thing *new_target) { target = new_target; center = new_target->center; }
+};
+
 struct board : controller {
-    static const vec2 COLLISION_CELL_SIZE, VISIBILITY_CELL_SIZE;
+    static const vec2 CELL_SIZE;
 
     std::string name;
 
@@ -30,9 +40,6 @@ struct board : controller {
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
     void remove_thing(thing *t);
     bool thing_lives(thing *t) { return _all_things.find(t) != _all_things.end(); }
-
-    camera *camera_thing() { return _camera_thing; }
-    particles *particles_thing() { return _particles_thing; }
 
     virtual void setup();
     virtual void tick();
@@ -67,10 +74,28 @@ struct board : controller {
 
     unsigned long tick_count() const { return _tick_count; }
 
+    cambot camera;
+    particle_system particles;
+
 private:
-    friend struct _collide_things;
+    void _collide_things(thing *a, thing *b);
+    void _tick_thing(thing *th);
 
     void _draw_background();
+    void _find_collision_in_pair(
+        grid::cell::iterator ia,
+        grid::cell::iterator ib,
+        thing *&a, thing *&b, float &collide_time
+    );
+    void _find_collision_in_same_cell(
+        std::vector<grid::cell>::iterator cell,
+        thing *&a, thing *&b, float &collide_time
+    );
+    void _find_collision_in_adjoining_cells(
+        std::vector<grid::cell>::iterator cell_a,
+        std::vector<grid::cell>::iterator cell_b,
+        thing *&a, thing *&b, float &collide_time
+    );
     void _find_collision(thing *&a, thing *&b, float &collide_time);
     void _move_things(float timeslice);
     void _kill_dying_things();
@@ -84,11 +109,7 @@ private:
     thing_set _all_things;
     thing_set _dying_things;
 
-    camera *_camera_thing;
-    particles *_particles_thing;
-
-    grid _visibility_grid;
-    grid _collision_grid;
+    grid _grid;
 
     typedef std::pair<thing *, thing *> overlap_pair;
     std::set<overlap_pair> _overlaps;

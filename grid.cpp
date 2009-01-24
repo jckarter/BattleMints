@@ -2,6 +2,7 @@
 #include <boost/ref.hpp>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 namespace battlemints {
 
@@ -16,28 +17,6 @@ struct _adjoin {
     }
 };
 
-struct _insert {
-    _insert() {}
-
-    template<typename FromPointer>
-    inline void
-    operator()(FromPointer from, thing *t) const
-    {
-        from->push_back(t);
-    }
-};
-
-struct _erase {
-    _erase() {}
-
-    template<typename FromPointer>
-    inline void
-    operator()(FromPointer from, thing *t) const
-    {
-        from->erase(std::find(from->begin(), from->end(), t));
-    }
-};
-
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
       _cell_size_inv(1.0f/cell_size),
@@ -47,6 +26,37 @@ grid::grid(rect space, vec2 cell_size)
 {
     BOOST_FOREACH(cell &c, cells) {
         c.reserve(CELL_RESERVE);
+    }
+}
+
+void
+grid::_draw() const
+{
+    vec2 cell_size = 1.0f/_cell_size_inv;
+    glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+    boost::array<vec2, 3> cell_vertices = {
+        make_vec2(cell_size.x, 0.0f),
+        make_vec2(0.0f, 0.0f),
+        make_vec2(0.0f, cell_size.y),
+    };
+
+    glDisable(GL_TEXTURE_2D);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, (void*)&cell_vertices[0]);
+
+    float x = _origin.x, y = _origin.y;
+    for (std::vector<cell>::const_iterator i = cells.begin(); i != cells.end(); ++i) {
+        if (i != cells.begin() && (i - cells.begin()) % _pitch == 0) {
+            x = _origin.x;
+            y += cell_size.y;
+        }
+        else
+            x += cell_size.x;
+
+        glPushMatrix();
+        glTranslatef(x, y, 0.0f);
+        glDrawArrays(GL_LINE_STRIP, 0, 3);
+        glPopMatrix();
     }
 }
 
@@ -79,33 +89,27 @@ grid::_for_cells_in_rect(T t, rect bound, BinaryFunctor const &f)
 }
 
 void
-grid::add_thing(thing *t, rect bound)
+grid::add_thing(thing *t)
 {
-    _for_cells_in_rect(t, bound, _insert());
+    cell_for_point(t->center)->push_back(t);
 }
 
 void
-grid::remove_thing(thing *t, rect bound)
+grid::remove_thing(thing *t)
 {
-    _for_cells_in_rect(t, bound, _erase());
-}
-
-// XXX potential bottleneck
-bool
-grid::_rects_require_movement(rect old_bound, rect new_bound) const
-{
-    return old_bound != new_bound && (
-           cell_for_point(old_bound.low)  != cell_for_point(new_bound.low)
-        || cell_for_point(old_bound.high) != cell_for_point(new_bound.high)
-    );
+    std::vector<grid::cell>::iterator c = cell_for_point(t->prev_center);
+    c->erase(std::find(c->begin(), c->end(), t));
 }
 
 void
-grid::move_thing(thing *t, rect old_bound, rect new_bound)
+grid::move_thing(thing *t)
 {
-    if (_rects_require_movement(old_bound, new_bound)) {
-        remove_thing(t, old_bound);
-        add_thing(t, new_bound);
+    std::vector<grid::cell>::iterator old_c = cell_for_point(t->prev_center),
+                                      new_c = cell_for_point(t->center);
+    t->prev_center = t->center;
+    if (old_c != new_c) {
+        old_c->erase(std::find(old_c->begin(), old_c->end(), t));
+        new_c->push_back(t);
     }
 }
 

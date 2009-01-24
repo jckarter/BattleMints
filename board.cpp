@@ -10,19 +10,30 @@
 
 namespace battlemints {
 
+void
+cambot::tick()
+{
+    center += velocity;
+    velocity *= FRICTION;
+    if (target && board::current()->thing_lives(target)) {
+        vec2 goal = target->center + target->velocity * LEAD_FACTOR;
+        vec2 goal_velocity = (goal - center) * FOLLOW_FACTOR;
+        if (goal_velocity != ZERO_VEC2)
+            velocity += ACCEL * vnormalize(goal_velocity - velocity);
+    } else
+        target = NULL;
+}
+
 board *board::_current = NULL;
 
 board::board(std::string const &nm, rect bound)
     : name(nm),
-      _visibility_grid(bound, VISIBILITY_CELL_SIZE),
-      _collision_grid(bound, COLLISION_CELL_SIZE),
+      camera(),
+      particles(),
+      _grid(bound, CELL_SIZE),
       _tick_count(0),
-      _camera_thing(new camera()),
-      _particles_thing(new particles(bound)),
       _overlaps()
 {
-    add_thing(_particles_thing);
-    add_thing(_camera_thing);
 }
 
 void
@@ -71,11 +82,7 @@ void
 board::add_thing(thing *t)
 {
     _all_things.insert(t);
-
-    if (t->does_draws())
-        _visibility_grid.add_thing(t, t->visibility_box());
-    if (t->does_collisions())
-        _collision_grid.add_thing(t, t->collision_box());
+    _grid.add_thing(t);
 }
 
 void
@@ -83,47 +90,7 @@ board::remove_thing(thing *t)
 {
     if (_all_things.find(t) == _all_things.end())
         return;
-
     _dying_things.insert(t);
-}
-
-template<typename UnaryFunctor>
-inline void
-board::_update_thing(thing *t, UnaryFunctor const &f)
-{
-    rect old_visibility = t->visibility_box();
-    rect old_collision  = t->collision_box();
-
-    f(t);
-
-    rect new_visibility = t->visibility_box();
-    rect new_collision  = t->collision_box();
-
-    _visibility_grid.move_thing(t, old_visibility, new_visibility);
-    _collision_grid.move_thing(t, old_collision, new_collision);
-}
-
-template<typename BinaryFunctor>
-inline void
-board::_update_2_things(thing *t, thing *u, BinaryFunctor const &f)
-{
-    rect t_old_visibility = t->visibility_box();
-    rect t_old_collision  = t->collision_box();
-    rect u_old_visibility = u->visibility_box();
-    rect u_old_collision  = u->collision_box();
-
-    f(t, u);
-
-    rect t_new_visibility = t->visibility_box();
-    rect t_new_collision  = t->collision_box();
-    rect u_new_visibility = u->visibility_box();
-    rect u_new_collision  = u->collision_box();
-
-    _visibility_grid.move_thing(t, t_old_visibility, t_new_visibility);
-    _collision_grid.move_thing(t, t_old_collision, t_new_collision);
-
-    _visibility_grid.move_thing(u, u_old_visibility, u_new_visibility);
-    _collision_grid.move_thing(u, u_old_collision, u_new_collision);
 }
 
 static inline bool _is_overlapping_time(float f)
@@ -133,53 +100,94 @@ static inline bool _is_overlapping_time(float f)
         || f == INFINITYF;
 }
 
-inline void
-board::_find_collision(thing *& a, thing *& b, float &collide_time)
+void
+board::_find_collision_in_pair(
+    grid::cell::iterator ia, grid::cell::iterator ib,
+    thing *& a, thing *& b, float &collide_time
+)
 {
-    for (std::vector<grid::cell>::iterator cell = _collision_grid.cells.begin();
-         cell != _collision_grid.cells.end();
-         ++cell) {
-        grid::cell::iterator ia, ib;
-        for (ia = cell->begin(); ia != cell->end(); ++ia)
-            for (ib = ia, ++ib; ib != cell->end(); ++ib) {
-                float pair_time = (*ia)->collision_time(**ib);
-                if (_overlapping(*ia, *ib)) {
-                    if (!_is_overlapping_time(pair_time))
-                        _remove_overlap(*ia, *ib, pair_time);
-                } else if (pair_time >= 0.0 && pair_time < collide_time) {
-                    collide_time = pair_time; a = *ia; b = *ib;
-                }
-            }
+    float pair_time = (*ia)->collision_time(**ib);
+    if (_overlapping(*ia, *ib)) {
+        if (!_is_overlapping_time(pair_time))
+            _remove_overlap(*ia, *ib, pair_time);
+    } else if (pair_time >= 0.0f && pair_time < collide_time) {
+        collide_time = pair_time; a = *ia; b = *ib;
     }
 }
 
-struct _tick_thing {
-    _tick_thing() {}
+void
+board::_find_collision_in_same_cell(
+    std::vector<grid::cell>::iterator cell,
+    thing *& a, thing *& b, float &collide_time
+)
+{
+    grid::cell::iterator ia, ib;
+    for (ia = cell->begin(); ia != cell->end(); ++ia) {
+        if (!(*ia)->does_collisions()) continue;
 
-    inline void
-    operator()(thing *t) const
-    {
-        t->velocity *= FRICTION;
-        t->tick();
+        for (ib = ia, ++ib; ib != cell->end(); ++ib) {
+            if (!(*ib)->does_collisions()) continue;
+            _find_collision_in_pair(ia, ib, a, b, collide_time);
+        }
     }
-};
+}
 
-struct _collide_things {
-    board &bo;
-    _collide_things(board &bb) : bo(bb) {}
+void
+board::_find_collision_in_adjoining_cells(
+    std::vector<grid::cell>::iterator cell_a,
+    std::vector<grid::cell>::iterator cell_b,
+    thing *& a, thing *& b, float &collide_time
+)
+{
+    grid::cell::iterator ia, ib;
+    for (ia = cell_a->begin(); ia != cell_a->end(); ++ia) {
+        if (!(*ia)->does_collisions()) continue;
 
-    inline void
-    operator()(thing *a, thing *b) const
-    {
-        //std::cerr << "collide " << bo.tick_count()
-        //          <<  "\n    [" << *a << "]\n    [" << *b << "]\n";
-        if (a->can_overlap() || b->can_overlap())
-            bo._add_overlap(a, b);
-        else
-            a->collide(*b);
-        a->on_collision(*b);
-        b->on_collision(*a);
+        for (ib = cell_b->begin(); ib != cell_b->end(); ++ib) {
+            if (!(*ib)->does_collisions()) continue;
+            _find_collision_in_pair(ia, ib, a, b, collide_time);
+        }
     }
+}
+
+void
+board::_find_collision(thing *& a, thing *& b, float &collide_time)
+{
+    std::vector<grid::cell>::iterator row, cell, last_row = _grid.cells.end() - _grid.pitch();
+    for (row = cell = _grid.cells.begin(); cell != last_row; row += _grid.pitch(), ++cell) {
+        for (; cell - row < _grid.pitch() - 1; ++cell) {
+            // Middle cell
+            if (cell->empty()) continue;
+            _find_collision_in_same_cell(cell, a, b, collide_time);
+            _find_collision_in_adjoining_cells(cell, cell + 1, a, b, collide_time);
+            _find_collision_in_adjoining_cells(cell, cell + _grid.pitch(), a, b, collide_time);
+            _find_collision_in_adjoining_cells(cell + 1, cell + _grid.pitch(), a, b, collide_time);
+            _find_collision_in_adjoining_cells(cell, cell + _grid.pitch() + 1, a, b, collide_time);
+        }
+        // Right edge cell
+        if (cell->empty()) continue;
+        _find_collision_in_same_cell(cell, a, b, collide_time);
+        _find_collision_in_adjoining_cells(cell, cell + _grid.pitch(), a, b, collide_time);
+    }
+    for (; cell < _grid.cells.end() - 1; ++cell) {
+        // Bottom edge cell
+        if (cell->empty()) continue;
+        _find_collision_in_same_cell(cell, a, b, collide_time);
+        _find_collision_in_adjoining_cells(cell, cell + 1, a, b, collide_time);
+    }
+    // Bottom-right corner cell
+    _find_collision_in_same_cell(cell, a, b, collide_time);
+}
+
+void
+board::_collide_things(thing *a, thing *b)
+{
+    if (a->can_overlap() || b->can_overlap())
+        _add_overlap(a, b);
+    else
+        a->collide(*b);
+    a->on_collision(*b);
+    b->on_collision(*a);
 };
 
 inline void
@@ -187,14 +195,18 @@ board::_kill_dying_things()
 {
     BOOST_FOREACH (thing *th, _dying_things) {
         _all_things.erase(th);
-        if (th->does_draws())
-            _visibility_grid.remove_thing(th, th->visibility_box());
-        if (th->does_collisions())
-            _collision_grid.remove_thing(th, th->collision_box());
-
+        _grid.remove_thing(th);
         delete th;
     }
     _dying_things.clear();
+}
+
+inline void
+board::_tick_thing(thing *t)
+{
+    t->velocity *= FRICTION;
+    t->tick();
+    _grid.move_thing(t);
 }
 
 void
@@ -202,25 +214,29 @@ board::tick()
 {
     _kill_dying_things();
 
-    float tick_time = 1.0;
+    float tick_time = 1.0f;
     int rounds = 0;
 
-    while (tick_time > 0.0 && rounds < 100) {
+    while (tick_time > 0.0f && rounds < 100) {
         thing *a, *b;
         float collide_time = INFINITYF;
 
         _find_collision(a, b, collide_time);
         _move_things(std::min(tick_time, collide_time));
         if (collide_time <= tick_time)
-            _update_2_things(a, b, _collide_things(*this));
+            _collide_things(a, b);
 
         tick_time -= collide_time;
         ++rounds;
     }
-    //printf("-- rounds: %3u\n", rounds);
-
-    BOOST_FOREACH (thing *th, _all_things)
-        _update_thing(th, _tick_thing());
+#ifdef BENCHMARK
+    std::cout << "-- rounds " << rounds << "\n";
+#endif
+    BOOST_FOREACH (thing *th, _all_things) {
+        _tick_thing(th);
+    }
+    camera.tick();
+    particles.tick();
 
     ++_tick_count;
 }
@@ -230,20 +246,25 @@ board::draw()
 {
     _draw_background();
 
-    vec2 cam_center = _camera_thing->center;
+    vec2 cam_center = camera.center;
     rect camera_rect = make_rect(
-        cam_center - GAME_WINDOW_UNIT_SIZE/2,
-        cam_center + GAME_WINDOW_UNIT_SIZE/2
+        cam_center - GAME_WINDOW_UNIT_SIZE/2.0f - CELL_SIZE,
+        cam_center + GAME_WINDOW_UNIT_SIZE/2.0f + CELL_SIZE
     );
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(-cam_center.x, -cam_center.y, 0.0f);
 
-    std::set<thing*> visible_things = _visibility_grid.things_in_rect(camera_rect);
+    particles.draw();
+    std::set<thing*> visible_things = _grid.things_in_rect(camera_rect);
+#ifdef BENCHMARK
+    std::cout << "-- visible " << visible_things.size() << "\n";
+#endif
     BOOST_FOREACH (thing *th, visible_things) {
         th->draw();
     }
+    //_grid._draw();
 }
 
 void
@@ -253,35 +274,14 @@ board::_draw_background()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-struct _move_thing {
-    float timeslice;
-    _move_thing(float t) : timeslice(t) {}
-
-    inline void
-    operator()(thing *t) const
-    {
-        t->center += t->velocity*timeslice;
-    }
-};
-
-struct _stop_thing {
-    _stop_thing() {}
-
-    inline void
-    operator()(thing *t) const
-    {
-        t->velocity = ZERO_VEC2;
-    }
-};
-
 void
 board::_move_things(float timeslice)
 {
     BOOST_FOREACH (thing *th, _all_things) {
         if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
-            _update_thing(th, _move_thing(timeslice));
+            th->center += th->velocity*timeslice;
         else
-            _update_thing(th, _stop_thing());
+            th->velocity = ZERO_VEC2;
     }
 }
 
@@ -303,7 +303,7 @@ board::from_json(std::string const &name, Json::Value const &v)
             thing *t = thing_from_json(tv);
             b->add_thing(t);
             if (tv[1].isMember("camera"))
-                b->camera_thing()->cut_to_target(t);
+                b->camera.cut_to_target(t);
         }
     } catch (...) {
         delete b;

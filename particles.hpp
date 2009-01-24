@@ -1,34 +1,27 @@
 #ifndef __EXHAUST_HPP__
 #define __EXHAUST_HPP__
 
-#include "thing.hpp"
-#include "board.hpp"
 #include <boost/circular_buffer.hpp>
 #include <vector>
+#include "geom.hpp"
 
 namespace battlemints {
 
-struct particles : thing {
+struct thing;
+
+struct particle_system {
     static const unsigned LIFE_EXPECTANCY = 60;
-    static const unsigned PARTICLES = 1600;
+    static const unsigned PARTICLES = 2000;
     static const float LIFE_EXPECTANCY_INV;
 
     static const boost::array<vec2, 4> exhaust;
 
-    rect bounding_box;
-
-    particles(rect bb)
-        : thing(0.0f, ZERO_VEC2, 1.0f), bounding_box(bb),
-          _vertices(PARTICLES), _deltas(PARTICLES), _colors(PARTICLES), _ages(PARTICLES)
+    particle_system()
+        : _vertices(PARTICLES), _deltas(PARTICLES), _colors(PARTICLES), _ages(PARTICLES)
         { }
 
-    virtual bool does_collisions() const { return false; }
-
-    virtual rect visibility_box() { return bounding_box; }
-    virtual void draw();
-    virtual void tick();
-
-    virtual char const * kind() const { return "particles"; }
+    void draw();
+    void tick();
 
     void explode(thing *th);
 
