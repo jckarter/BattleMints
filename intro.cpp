@@ -54,7 +54,7 @@ void
 intro::tick()
 {
     if (_countdown == 0)
-        controller::set_current(board::from_file("demo"));
+        controller::set_current(board::from_file("test"));
     else
         --_countdown;
 }
