@@ -48,16 +48,16 @@ M: powerup thing-rep
 : <use>? ( tag -- ? ) "use" svg-name names-match? ;
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
 : battlemints-<path>? ( tag -- ? )
-    { [ <path>? ] [ "tripwire" battlemints-name swap key? ] } 1&& ;
+    { [ <path>? ] [ "tripwire" battlemints-name attr ] } 1&& ;
 
 GENERIC# (tag>>thing) 1 ( thing tag -- thing )
     
 : (use>thing) ( use-tag -- thing )
-    [ "href" xlink-name swap at href>class new ]
+    [ "href" xlink-name attr href>class new ]
     [ tag-transform >>transform ] bi ;
 
 : (path>thing) ( path-tag -- thing )
-    [ "tripwire" battlemints-name swap at id>class new ]
+    [ "tripwire" battlemints-name attr id>class new ]
     [ tag-d [ p>> ] map >>endpoints ] bi ;
 
 : tag>thing ( tag -- thing )
@@ -70,10 +70,10 @@ GENERIC# (tag>>thing) 1 ( thing tag -- thing )
 M: object (tag>>thing) drop ;
 
 M: goal (tag>>thing)
-    "next-board" battlemints-name swap at >>next-board ;
+    "next-board" battlemints-name attr >>next-board ;
 
 M: powerup (tag>>thing)
-    "powerup-kind" battlemints-name swap at >>powerup-kind ;
+    "powerup-kind" battlemints-name attr >>powerup-kind ;
 
 : children-tags>things ( tag -- things )
     children-tags [ tag>thing ] map ;
@@ -81,14 +81,14 @@ M: powerup (tag>>thing)
 : layer? ( tag -- ? )
     {
         [ "g" svg-name names-match? ]
-        [ "groupmode" inkscape-name swap at "layer" = ]
+        [ "groupmode" inkscape-name attr "layer" = ]
     } 1&& ;
 
 : layers ( body -- layers )
     children-tags [ layer? ] filter ; 
 
 : map-layer ( svg -- layer )
-    body>> layers [ "label" inkscape-name swap at "Map" = ] find nip ;
+    body>> layers [ "label" inkscape-name attr "Map" = ] find nip ;
 
 : svg>things ( svg -- things )
     map-layer children-tags>things ;

@@ -39,15 +39,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="19.71"
-     inkscape:cx="16.588686"
-     inkscape:cy="41.920565"
+     inkscape:cx="5.422685"
+     inkscape:cy="14.661015"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="true"
-     inkscape:window-width="1649"
-     inkscape:window-height="1431"
-     inkscape:window-x="30"
-     inkscape:window-y="31"
+     inkscape:window-width="1655"
+     inkscape:window-height="901"
+     inkscape:window-x="102"
+     inkscape:window-y="152"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -98,7 +98,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:#f4d7ee;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0,1.7763568e-15 L 1.4142,-1.4142 L 3.4142,-1.4142 L 4.8284,1.7763568e-15 L 4.8284,2 L 3.4142,3.4142 L 1.4142,3.4142 L 0,2 L 0,1.7763568e-15 z"
@@ -289,7 +289,7 @@
     <path
        style="fill:#ffaacc;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
        d="M 0,0 L 1.4142,-1.4142 L 3.4142,-1.4142 L 2,0 L 0,0 z"
-       id="rhombus-tile-45"
+       id="tile-rhombus-45"
        sodipodi:nodetypes="ccccc"
        inkscape:label="#path6418" />
   </g>
@@ -297,7 +297,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Palette"
-     style="display:none">
+     style="display:inline">
     <use
        style="display:inline"
        x="0"
@@ -305,15 +305,6 @@
        xlink:href="#mega"
        id="use5276"
        transform="translate(3.6624999,5.6624999)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use5286"
-       transform="translate(7.4125,3.4125)"
        width="1000"
        height="10" />
     <use
@@ -410,9 +401,9 @@
        style="display:inline"
        x="0"
        y="0"
-       xlink:href="#rhombus-tile-45"
+       xlink:href="#tile-rhombus-45"
        id="use6429"
-       transform="translate(23.712783,3.9401503)"
+       transform="translate(23.840519,3.9957178)"
        width="1000"
        height="10" />
     <use
@@ -442,6 +433,15 @@
        y="0"
        x="0"
        style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use5286"
+       transform="translate(7.4125,3.4125)"
+       width="1000"
+       height="10" />
   </g>
   <g
      inkscape:label="Map"
@@ -2041,7 +2041,7 @@
        x="0"
        style="display:inline" />
     <use
-       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,39.08834,-26.765017)"
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,39.139076,-26.765017)"
        height="10"
        width="1000"
        id="use5936"

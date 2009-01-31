@@ -50,87 +50,86 @@ M: arrow (shape-vertices)
         {  0.0  0.5 }
         {  0.5  0.0 }
         {  0.0 -0.5 }
-        {  0.0 -0.3 }
     } ;
 
 M: tile-octagon (shape-vertices)
     drop {
-        {    0.0                        0.0              }
-        { $[     2.0 sqrt         ] $[      2.0 sqrt   ] }
-        { $[ 2.0 2.0 sqrt       + ] $[      2.0 sqrt   ] }
-        { $[ 2.0 2.0 sqrt 2.0 * + ]     0.0              }
-        { $[ 2.0 2.0 sqrt 2.0 * + ]    -2.0              }
-        { $[ 2.0 2.0 sqrt       + ] $[ -2.0 2.0 sqrt - ] }
-        { $[     2.0 sqrt         ] $[ -2.0 2.0 sqrt - ] }
-        {    0.0                       -2.0              }
+        {    0.0                       0.0                }
+        { $[     2.0 sqrt         ] $[     2.0 sqrt neg ] }
+        { $[ 2.0 2.0 sqrt       + ] $[     2.0 sqrt neg ] }
+        { $[ 2.0 2.0 sqrt 2.0 * + ]    0.0                }
+        { $[ 2.0 2.0 sqrt 2.0 * + ]    2.0                }
+        { $[ 2.0 2.0 sqrt       + ] $[ 2.0 2.0 sqrt +   ] }
+        { $[     2.0 sqrt         ] $[ 2.0 2.0 sqrt +   ] }
+        {    0.0                       2.0                }
     } ;
 
 M: tile-hexagon-90 (shape-vertices)
     drop {
         {    0.0                       0.0            }
-        { $[     2.0 sqrt         ] $[ 2.0 sqrt     ] }
-        { $[ 2.0 2.0 sqrt       + ] $[ 2.0 sqrt     ] }
-        { $[ 2.0 2.0 sqrt 2.0 * + ]    0.0            }
-        { $[ 2.0 2.0 sqrt       + ] $[ 2.0 sqrt neg ] }
         { $[     2.0 sqrt         ] $[ 2.0 sqrt neg ] }
+        { $[ 2.0 2.0 sqrt       + ] $[ 2.0 sqrt neg ] }
+        { $[ 2.0 2.0 sqrt 2.0 * + ]    0.0            }
+        { $[ 2.0 2.0 sqrt       + ] $[ 2.0 sqrt     ] }
+        { $[     2.0 sqrt         ] $[ 2.0 sqrt     ] }
     } ;
 
 M: tile-hexagon (shape-vertices)
     drop {
         {    0.0    0.0            }
-        {    1.0 $[ 3.0 sqrt     ] }
-        {    3.0 $[ 3.0 sqrt     ] }
-        {    4.0    0.0            }
-        {    3.0 $[ 3.0 sqrt neg ] }
         {    1.0 $[ 3.0 sqrt neg ] }
+        {    3.0 $[ 3.0 sqrt neg ] }
+        {    4.0    0.0            }
+        {    3.0 $[ 3.0 sqrt     ] }
+        {    1.0 $[ 3.0 sqrt     ] }
     } ;
 
 M: tile-trapezoid (shape-vertices)
     drop {
-        {    0.0    0.0        }
-        {    1.0 $[ 3.0 sqrt ] }
-        {    3.0 $[ 3.0 sqrt ] }
-        {    4.0    0.0        }
-        {    2.0    0.0        }
+        {    0.0    0.0            }
+        {    1.0 $[ 3.0 sqrt neg ] }
+        {    3.0 $[ 3.0 sqrt neg ] }
+        {    4.0    0.0            }
+        {    2.0    0.0            }
     } ;
 
 M: tile-square (shape-vertices)
     drop {
-        { 0.0 0.0 }
-        { 0.0 2.0 }
-        { 2.0 2.0 }
-        { 2.0 0.0 }
+        { 0.0  0.0 }
+        { 0.0 -2.0 }
+        { 2.0 -2.0 }
+        { 2.0  0.0 }
     } ;
 
 M: tile-rhombus-60 (shape-vertices)
     drop {
-        {    0.0    0.0        }
-        {    1.0 $[ 3.0 sqrt ] }
-        {    3.0 $[ 3.0 sqrt ] }
-        {    2.0    0.0        }
+        {    0.0    0.0            }
+        {    1.0 $[ 3.0 sqrt neg ] }
+        {    3.0 $[ 3.0 sqrt neg ] }
+        {    2.0    0.0            }
     } ;
 
 M: tile-rhombus-45 (shape-vertices)
     drop {
-        {    0.0                 0.0        }
-        { $[     2.0 sqrt   ] $[ 2.0 sqrt ] }
-        { $[ 2.0 2.0 sqrt + ] $[ 2.0 sqrt ] }
-        {    2.0                 0.0        }
+        {    0.0                 0.0            }
+        { $[     2.0 sqrt   ] $[ 2.0 sqrt neg ] }
+        { $[ 2.0 2.0 sqrt + ] $[ 2.0 sqrt neg ] }
+        {    2.0                 0.0            }
     } ;
 
 M: tile-rhombus-30 (shape-vertices)
     drop {
-        { 0.0    0.0              }
-        { 0.0    2.0              }
-        { 1.0 $[ 2.0 3.0 sqrt + ] }
-        { 1.0 $[     3.0 sqrt   ] }
+        { 0.0     0.0                 }
+        { 0.0    -2.0                 }
+        { 1.0 $[ -2.0 3.0 sqrt -    ] }
+        { 1.0 $[      3.0 sqrt neg  ] }
     } ;
 
 M: tile-triangle (shape-vertices)
     drop {
-        {    0.0    0.0        }
-        {    1.0 $[ 3.0 sqrt ] }
-        {    2.0    0.0        }
+        {    0.0    0.0            }
+        {    1.0 $[ 3.0 sqrt neg ] }
+        {    2.0    0.0            }
     } ;
 
 : shape-vertices ( shape -- vertices )

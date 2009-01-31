@@ -1,6 +1,7 @@
 #include "serialization.hpp"
 #include "dramatis_personae.hpp"
 #include "walls.hpp"
+#include "tiles.hpp"
 #include "goal.hpp"
 #include <UIKit/UIKit.h>
 
@@ -9,13 +10,25 @@ namespace battlemints {
 typedef thing *(*thing_reader)(Json::Value const &v);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 6> _thing_reader_pairs = {
-    thing_reader_pair("wall_strip", &wall_strip::from_json),
-    thing_reader_pair("player", &player::from_json),
-    thing_reader_pair("goal", &goal::from_json),
-    thing_reader_pair("mini", &mini::from_json),
-    thing_reader_pair("mega", &mega::from_json),
-    thing_reader_pair("bumper", &bumper::from_json)
+static const boost::array<thing_reader_pair, 18> _thing_reader_pairs = {
+    thing_reader_pair("wall",            &wall::from_json),
+    thing_reader_pair("wallpost",        &wallpost::from_json),
+    thing_reader_pair("player",          &player::from_json),
+    thing_reader_pair("goal",            &goal::from_json),
+    thing_reader_pair("mini",            &mini::from_json),
+    thing_reader_pair("mega",            &mega::from_json),
+    thing_reader_pair("bumper",          &bumper::from_json),
+    thing_reader_pair("powerup",         &powerup::from_json),
+    thing_reader_pair("tile-octagon",    &tile_octagon::from_json),
+    thing_reader_pair("tile-hexagon-90", &tile_hexagon_90::from_json),
+    thing_reader_pair("tile-hexagon",    &tile_hexagon::from_json),
+    thing_reader_pair("tile-trapezoid",  &tile_trapezoid::from_json),
+    thing_reader_pair("tile-square",     &tile_square::from_json),
+    thing_reader_pair("tile-rhombus-60", &tile_rhombus_60::from_json),
+    thing_reader_pair("tile-rhombus-45", &tile_rhombus_45::from_json),
+    thing_reader_pair("tile-rhombus-30", &tile_rhombus_30::from_json),
+    thing_reader_pair("tile-triangle",   &tile_triangle::from_json),
+    thing_reader_pair("arrow",           &arrow::from_json)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers

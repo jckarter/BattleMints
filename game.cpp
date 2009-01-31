@@ -1,6 +1,9 @@
 #include "game.hpp"
 #include "dramatis_personae.hpp"
+#include "tiles.hpp"
+#include <boost/array.hpp>
 #include <limits>
+#include <cmath>
 
 namespace battlemints {
 
@@ -46,7 +49,102 @@ const float bumper::INNER_RADIUS = 0.4f;
 const vec4 bumper::INNER_COLOR = make_vec4(0.8f, 1.0f, 0.0f, 1.0f);
 const vec4 bumper::OUTER_COLOR = make_vec4(1.0f, 0.0f, 0.0f, 0.5f);
 
+const float powerup::SPIN = 0.01f;
+const float powerup::RADIUS = 0.5f;
+const float powerup::MASS = 1000.0f;
+const float powerup::SPRING = 1.0f;
+const vec4 powerup::COLOR = make_vec4(1.0f, 0.86f, 0.0f, 1.0f);
+
 vec2 controller_state;
+
+const vec4 tile_octagon::tile_color    = make_vec4(0.96, 0.84, 0.93, 1.0);
+const vec4 tile_hexagon_90::tile_color = make_vec4(0.78, 0.71, 0.75, 1.0);
+const vec4 tile_hexagon::tile_color    = make_vec4(1.0,  0.96, 0.84, 1.0);
+const vec4 tile_trapezoid::tile_color  = make_vec4(1.0,  0.84, 0.84, 1.0);
+const vec4 tile_square::tile_color     = make_vec4(1.0,  0.90, 0.84, 1.0);
+const vec4 tile_rhombus_60::tile_color = make_vec4(0.84, 0.84, 1.0,  1.0);
+const vec4 tile_rhombus_45::tile_color = make_vec4(1.0,  0.66, 0.8,  1.0);
+const vec4 tile_rhombus_30::tile_color = make_vec4(0.96, 0.89, 0.84, 1.0);
+const vec4 tile_triangle::tile_color   = make_vec4(0.84, 1.0,  0.84, 1.0);
+const vec4 arrow::tile_color           = make_vec4(0.28, 0.24, 0.22, 0.5);
+
+const boost::array<vec2, 8> tile_octagon::tile_vertices = {
+    make_vec2(0.0f,                     0.0f              ),
+    make_vec2(0.0f,                    -2.0f              ),
+    make_vec2(            sqrtf(2.0f),         sqrtf(2.0f)),
+    make_vec2(            sqrtf(2.0f), -2.0f - sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f),         sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f), -2.0f - sqrtf(2.0f)),
+    make_vec2(2.0f + 2.0f*sqrtf(2.0f),  0.0f              ),
+    make_vec2(2.0f + 2.0f*sqrtf(2.0f), -2.0f              ),
+};
+
+const boost::array<vec2, 6> tile_hexagon_90::tile_vertices = {
+    make_vec2(0.0f,                     0.0f       ),
+    make_vec2(            sqrtf(2.0f), -sqrtf(2.0f)),
+    make_vec2(            sqrtf(2.0f),  sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f), -sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f),  sqrtf(2.0f)),
+    make_vec2(2.0f + 2.0f*sqrtf(2.0f),  0.0f       )
+};
+
+const boost::array<vec2, 6> tile_hexagon::tile_vertices = {
+    make_vec2(0.0f,  0.0f      ),
+    make_vec2(1.0f, -sqrtf(3.0)),
+    make_vec2(1.0f,  sqrtf(3.0)),
+    make_vec2(3.0f, -sqrtf(3.0)),
+    make_vec2(3.0f,  sqrtf(3.0)),
+    make_vec2(4.0f,  0.0f      )
+};
+
+const boost::array<vec2, 4> tile_trapezoid::tile_vertices = {
+    make_vec2(0.0f,  0.0f      ),
+    make_vec2(1.0f,  sqrtf(3.0)),
+    make_vec2(4.0f,  0.0f      ),
+    make_vec2(3.0f,  sqrtf(3.0))
+};
+
+const boost::array<vec2, 4> tile_square::tile_vertices = {
+    make_vec2(0.0f,  0.0f),
+    make_vec2(0.0f,  2.0f),
+    make_vec2(2.0f,  0.0f),
+    make_vec2(2.0f,  2.0f)
+};
+
+const boost::array<vec2, 4> tile_rhombus_60::tile_vertices = {
+    make_vec2(0.0f,  0.0f      ),
+    make_vec2(1.0f,  sqrtf(3.0)),
+    make_vec2(2.0f,  0.0f      ),
+    make_vec2(3.0f,  sqrtf(3.0))
+};
+
+const boost::array<vec2, 4> tile_rhombus_45::tile_vertices = {
+    make_vec2(0.0f,                     0.0f       ),
+    make_vec2(            sqrtf(2.0f),  sqrtf(2.0f)),
+    make_vec2(2.0f,                     0.0f       ),
+    make_vec2(2.0f +      sqrtf(2.0f),  sqrtf(2.0f))
+};
+
+const boost::array<vec2, 4> tile_rhombus_30::tile_vertices = {
+    make_vec2(0.0f, 0.0f              ),
+    make_vec2(0.0f, 2.0f              ),
+    make_vec2(1.0f,        sqrtf(3.0f)),
+    make_vec2(1.0f, 2.0f + sqrtf(3.0f))
+};
+
+const boost::array<vec2, 3> tile_triangle::tile_vertices = {
+    make_vec2(0.0f, 0.0f),
+    make_vec2(2.0f, 0.0f),
+    make_vec2(1.0f, sqrtf(3.0f))
+};
+
+const boost::array<vec2, 5> arrow::tile_vertices = {
+    make_vec2(-0.5f,  0.3f),
+    make_vec2(-0.5f, -0.3f),
+    make_vec2( 0.0f,  0.3f),
+    make_vec2( 0.8f, -0.3f),
+    make_vec2( 0.5f,  0.0f),
+};
 
 }
 

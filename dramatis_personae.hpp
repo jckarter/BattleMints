@@ -33,12 +33,34 @@ struct player : sphere {
 
     void die() { board::current()->particles.explode(this); board::restart_with<death_transition>(); }
 
-    static thing *from_json(Json::Value const &v) { return thing::from_json<player>(v); }
+    static thing *from_json(Json::Value const &v) { return sphere::from_json<player>(v); }
     static void global_start();
     static void global_finish();
 
 private:
     vec2 _cur_accel();
+};
+
+struct powerup : sphere {
+    static const float SPIN, RADIUS, MASS, SPRING;
+    static const vec4 COLOR;
+    static sphere_texture *texture;
+
+    std::string powerup_kind;
+    float spin;
+
+    powerup(vec2 center, std::string const &k)
+        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), spin(0.0f) { }
+
+    virtual void tick();
+
+    virtual char const * kind() const { return "powerup"; }
+
+    virtual void draw();
+
+    static thing *from_json(Json::Value const &v);
+    static void global_start();
+    static void global_finish();
 };
 
 struct enemy : sphere {
@@ -79,7 +101,7 @@ struct mini : enemy {
     virtual char const * kind() const { return "mini"; }
 
     virtual void draw();
-    static thing *from_json(Json::Value const &v) { return thing::from_json<mini>(v); }
+    static thing *from_json(Json::Value const &v) { return sphere::from_json<mini>(v); }
     static void global_start();
     static void global_finish();
 };
@@ -100,7 +122,7 @@ struct mega : enemy {
     virtual void wall_damage() { }
     virtual void post_damage() { }
 
-    static thing *from_json(Json::Value const &v) { return thing::from_json<mega>(v); }
+    static thing *from_json(Json::Value const &v) { return sphere::from_json<mega>(v); }
     static void global_start();
     static void global_finish();
 };
@@ -118,7 +140,7 @@ struct bumper : sphere {
 
     virtual void draw();
 
-    static thing *from_json(Json::Value const &v) { return thing::from_json<bumper>(v); }
+    static thing *from_json(Json::Value const &v) { return sphere::from_json<bumper>(v); }
     static void global_start();
     static void global_finish();
 };

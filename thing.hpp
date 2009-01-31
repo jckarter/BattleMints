@@ -75,14 +75,6 @@ protected:
         glPushMatrix();
         glTranslatef(center.x, center.y, 0.0f);
     }
-
-
-    template<typename Thing>
-    static thing *from_json(Json::Value const &v)
-    {
-        vec2 center = vec2_from_json(v["center"]);
-        return new Thing(center);
-    }
 #endif
 };
 
@@ -115,6 +107,14 @@ struct sphere : thing {
 
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);
+
+protected:
+    template<typename Thing>
+    static thing *from_json(Json::Value const &v)
+    {
+        vec2 center = vec2_from_json(v["center"]);
+        return new Thing(center);
+    }
 #endif
 };
 
@@ -142,6 +142,18 @@ struct line : thing {
     virtual char const * kind() const { return "line"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " a:" << endpoint_a << " b:" << endpoint_b << " n:" << normal; }
+
+#ifndef NO_GRAPHICS
+protected:
+    template<typename Thing>
+    static thing *from_json(Json::Value const &v)
+    {
+        vec2 endpoint_a = vec2_from_json(v["endpoint_a"]);
+        vec2 endpoint_b = vec2_from_json(v["endpoint_b"]);
+
+        return new Thing(endpoint_a, endpoint_b);
+    }
+#endif
 };
 
 struct point : thing {
@@ -162,6 +174,16 @@ struct point : thing {
         { return collision_time_point_point(*this, p); }
 
     virtual char const * kind() const { return "point"; }
+
+#ifndef NO_GRAPHICS
+protected:
+    template<typename Thing>
+    static thing *from_json(Json::Value const &v)
+    {
+        vec2 center = vec2_from_json(v["center"]);
+        return new Thing(center);
+    }
+#endif
 };
 
 }

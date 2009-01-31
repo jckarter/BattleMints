@@ -27,6 +27,7 @@ void battlemints_start()
     mini::global_start();
     mega::global_start();
     bumper::global_start();
+    powerup::global_start();
 
     controller::set_current(new intro());
 }
@@ -72,6 +73,7 @@ void battlemints_finish()
 {
     controller::delete_current();
 
+    powerup::global_finish();
     bumper::global_finish();
     mega::global_finish();
     mini::global_finish();

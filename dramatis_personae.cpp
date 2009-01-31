@@ -41,6 +41,39 @@ void player::global_finish()
     texture = NULL; face = NULL;
 }
 
+sphere_texture *powerup::texture = NULL;
+
+void powerup::tick()
+{
+    spin += SPIN;
+}
+
+void powerup::draw()
+{
+    // XXX draw spinning "?"
+    _push_translate();
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    texture->draw();
+    glPopMatrix();    
+}
+
+void powerup::global_start()
+{
+    texture = new sphere_texture(RADIUS, COLOR);
+}
+
+void powerup::global_finish()
+{
+    delete texture;
+}
+
+thing* powerup::from_json(Json::Value const &v)
+{
+    vec2 center = vec2_from_json(v["center"]);
+    std::string kind = v["kind"].asString();
+    return new powerup(center, kind);
+}
+
 void enemy::tick()
 {
     if (cur_accel != ZERO_VEC2)
@@ -143,7 +176,8 @@ void bumper::draw()
 {
     _push_translate();
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-    outer_texture->draw();
+    if (board::current()->tick_count() & 1 != 0) 
+        outer_texture->draw();
     inner_texture->draw();
     glPopMatrix();
 }

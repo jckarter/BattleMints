@@ -3,6 +3,7 @@
 
 #include "thing.hpp"
 #include "collision.hpp"
+#include "serialization.hpp"
 #include <boost/array.hpp>
 
 namespace battlemints {
@@ -23,6 +24,8 @@ struct wall : line {
     }
 
     virtual char const * kind() const { return "wall"; }
+
+    static thing *from_json(Json::Value const &v) { return line::from_json<wall>(v); }
 };
 
 struct wallpost : point {
@@ -41,27 +44,8 @@ struct wallpost : point {
     virtual void on_collision(thing &o) { o.post_damage(); }
 
     virtual char const * kind() const { return "wallpost"; }
-};
 
-struct wall_strip : thing {
-    std::vector<vec2> vertices;
-    bool closed;
-
-    template<typename InputIterator>
-    wall_strip(InputIterator start, InputIterator fin, bool cl)
-        : thing(INFINITYF, ZERO_VEC2, 1.0f), vertices(start, fin), closed(cl) 
-        { }
-
-    virtual bool does_collisions() const { return false; }
-
-    virtual void awaken() { _generate_collision_things(); }
-
-    virtual char const * kind() const { return "wall_strip"; }
-
-    static thing *from_json(Json::Value const &v);
-
-private:
-    void _generate_collision_things();
+    static thing *from_json(Json::Value const &v) { return point::from_json<wallpost>(v); }
 };
 
 }
