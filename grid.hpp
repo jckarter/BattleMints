@@ -22,8 +22,6 @@ struct grid : boost::noncopyable {
     void move_thing(thing *t);
     void remove_thing(thing *t);
 
-    std::set<thing*> things_in_rect(rect r) const;
-
     std::vector<cell>::iterator cell_for_point(vec2 pt);
     std::vector<cell>::const_iterator cell_for_point(vec2 pt) const;
 
@@ -44,14 +42,22 @@ struct grid : boost::noncopyable {
 
     int pitch() const { return _pitch; }
 
+    template <typename UnaryFunctor>
+    void for_cells_in_rect(rect bound, UnaryFunctor const &f)
+    {
+        std::vector<cell>::iterator start = cell_for_point(bound.low);
+        std::vector<cell>::iterator right = cell_for_point(rect_lr(bound));
+        unsigned width = right - start;
+        std::vector<cell>::iterator end = cell_for_point(bound.high);
+
+        for (std::vector<cell>::iterator y = start; y <= end; y += _pitch)
+            for (std::vector<cell>::iterator x = y; x - y <= width; ++x)
+                f(*x);
+    }
+
 private:
     vec2 _origin, _cell_size_inv, _cell_dims; // members are order dependent
     int _pitch;
-
-    template <typename T, typename BinaryFunctor>
-    void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f);
-    template <typename T, typename BinaryFunctor>
-    void _for_cells_in_rect(T t, rect bound, BinaryFunctor const &f) const;
 
 public:
     std::vector<cell> cells;

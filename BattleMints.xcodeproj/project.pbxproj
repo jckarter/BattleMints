@@ -93,6 +93,7 @@
 		D82BFC8A0EC1829100E65BAF /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
 		D82BFC8B0EC1829100E65BAF /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
 		D82BFC8D0EC1829100E65BAF /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		D832C37E0F34DF5D0077C7F3 /* tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tiles.hpp; sourceTree = "<group>"; };
 		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
 		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
 		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D832C37E0F34DF5D0077C7F3 /* tiles.hpp */,
 				D8B272FD0F0D4C32001844D6 /* particles.cpp */,
 				D8B272FE0F0D4C32001844D6 /* particles.hpp */,
 				D8B272D60F0C918E001844D6 /* walls.hpp */,
@@ -372,7 +374,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_FAST_MATH = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;

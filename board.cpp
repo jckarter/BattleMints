@@ -82,6 +82,8 @@ void
 board::add_thing(thing *t)
 {
     _all_things.insert(t);
+    if (t->does_ticks())
+        _ticking_things.insert(t);
     _grid.add_thing(t);
 }
 
@@ -194,6 +196,8 @@ inline void
 board::_kill_dying_things()
 {
     BOOST_FOREACH (thing *th, _dying_things) {
+        if (th->does_ticks())
+            _ticking_things.erase(th);
         _all_things.erase(th);
         _grid.remove_thing(th);
         delete th;
@@ -232,7 +236,7 @@ board::tick()
 #ifdef BENCHMARK
     std::cout << "-- rounds " << rounds << "\n";
 #endif
-    BOOST_FOREACH (thing *th, _all_things) {
+    BOOST_FOREACH (thing *th, _ticking_things) {
         _tick_thing(th);
     }
     camera.tick();
@@ -240,6 +244,17 @@ board::tick()
 
     ++_tick_count;
 }
+
+struct _draw_things_in_cell {
+    _draw_things_in_cell() {}
+
+    void operator()(grid::cell const &c) const
+    {
+        BOOST_FOREACH (thing *th, c) {
+            th->draw();
+        }
+    }
+};
 
 void
 board::draw()
@@ -257,13 +272,7 @@ board::draw()
     glTranslatef(-cam_center.x, -cam_center.y, 0.0f);
 
     particles.draw();
-    std::set<thing*> visible_things = _grid.things_in_rect(camera_rect);
-#ifdef BENCHMARK
-    std::cout << "-- visible " << visible_things.size() << "\n";
-#endif
-    BOOST_FOREACH (thing *th, visible_things) {
-        th->draw();
-    }
+    _grid.for_cells_in_rect(camera_rect, _draw_things_in_cell());
     //_grid._draw();
 }
 

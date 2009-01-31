@@ -34,6 +34,7 @@ struct thing : boost::noncopyable {
     virtual ~thing() { }
     virtual void draw() { }
 
+    virtual bool does_ticks() const { return false; }
     virtual bool does_collisions() const { return true; }
     virtual bool can_overlap() const { return false; }
 
@@ -104,6 +105,8 @@ struct sphere : thing {
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " r:" << radius; }
+
+    virtual bool does_ticks() const { return true; }
 
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);

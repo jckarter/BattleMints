@@ -69,14 +69,14 @@ const vec4 tile_triangle::tile_color   = make_vec4(0.84, 1.0,  0.84, 1.0);
 const vec4 arrow::tile_color           = make_vec4(0.28, 0.24, 0.22, 0.5);
 
 const boost::array<vec2, 8> tile_octagon::tile_vertices = {
+    make_vec2(0.0f,                     2.0f              ),
     make_vec2(0.0f,                     0.0f              ),
-    make_vec2(0.0f,                    -2.0f              ),
-    make_vec2(            sqrtf(2.0f),         sqrtf(2.0f)),
-    make_vec2(            sqrtf(2.0f), -2.0f - sqrtf(2.0f)),
-    make_vec2(2.0f +      sqrtf(2.0f),         sqrtf(2.0f)),
-    make_vec2(2.0f +      sqrtf(2.0f), -2.0f - sqrtf(2.0f)),
-    make_vec2(2.0f + 2.0f*sqrtf(2.0f),  0.0f              ),
+    make_vec2(            sqrtf(2.0f),  2.0f + sqrtf(2.0f)),
+    make_vec2(            sqrtf(2.0f),       - sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f),  2.0f + sqrtf(2.0f)),
+    make_vec2(2.0f +      sqrtf(2.0f),       - sqrtf(2.0f)),
     make_vec2(2.0f + 2.0f*sqrtf(2.0f), -2.0f              ),
+    make_vec2(2.0f + 2.0f*sqrtf(2.0f),  0.0f              ),
 };
 
 const boost::array<vec2, 6> tile_hexagon_90::tile_vertices = {
@@ -99,43 +99,43 @@ const boost::array<vec2, 6> tile_hexagon::tile_vertices = {
 
 const boost::array<vec2, 4> tile_trapezoid::tile_vertices = {
     make_vec2(0.0f,  0.0f      ),
-    make_vec2(1.0f,  sqrtf(3.0)),
+    make_vec2(1.0f, -sqrtf(3.0)),
     make_vec2(4.0f,  0.0f      ),
-    make_vec2(3.0f,  sqrtf(3.0))
+    make_vec2(3.0f, -sqrtf(3.0))
 };
 
 const boost::array<vec2, 4> tile_square::tile_vertices = {
     make_vec2(0.0f,  0.0f),
-    make_vec2(0.0f,  2.0f),
+    make_vec2(0.0f, -2.0f),
     make_vec2(2.0f,  0.0f),
-    make_vec2(2.0f,  2.0f)
+    make_vec2(2.0f, -2.0f)
 };
 
 const boost::array<vec2, 4> tile_rhombus_60::tile_vertices = {
     make_vec2(0.0f,  0.0f      ),
-    make_vec2(1.0f,  sqrtf(3.0)),
+    make_vec2(1.0f, -sqrtf(3.0)),
     make_vec2(2.0f,  0.0f      ),
-    make_vec2(3.0f,  sqrtf(3.0))
+    make_vec2(3.0f, -sqrtf(3.0))
 };
 
 const boost::array<vec2, 4> tile_rhombus_45::tile_vertices = {
-    make_vec2(0.0f,                     0.0f       ),
-    make_vec2(            sqrtf(2.0f),  sqrtf(2.0f)),
-    make_vec2(2.0f,                     0.0f       ),
-    make_vec2(2.0f +      sqrtf(2.0f),  sqrtf(2.0f))
+    make_vec2(0.0f              ,        0.0f ),
+    make_vec2(       sqrtf(2.0f), -sqrtf(2.0f)),
+    make_vec2(2.0f              ,        0.0f ),
+    make_vec2(2.0f + sqrtf(2.0f), -sqrtf(2.0f))
 };
 
 const boost::array<vec2, 4> tile_rhombus_30::tile_vertices = {
-    make_vec2(0.0f, 0.0f              ),
-    make_vec2(0.0f, 2.0f              ),
-    make_vec2(1.0f,        sqrtf(3.0f)),
-    make_vec2(1.0f, 2.0f + sqrtf(3.0f))
+    make_vec2(0.0f,  0.0f              ),
+    make_vec2(0.0f, -2.0f              ),
+    make_vec2(1.0f,        -sqrtf(3.0f)),
+    make_vec2(1.0f, -2.0f - sqrtf(3.0f))
 };
 
 const boost::array<vec2, 3> tile_triangle::tile_vertices = {
-    make_vec2(0.0f, 0.0f),
-    make_vec2(2.0f, 0.0f),
-    make_vec2(1.0f, sqrtf(3.0f))
+    make_vec2(0.0f,  0.0f),
+    make_vec2(1.0f, -sqrtf(3.0f)),
+    make_vec2(2.0f,  0.0f) 
 };
 
 const boost::array<vec2, 5> arrow::tile_vertices = {

@@ -43,13 +43,14 @@ protected:
     {
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
-        glLoadMatrixf(transform);
+        glMultMatrixf(transform);
 
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glColor4f(Tile::tile_color.x, Tile::tile_color.y, Tile::tile_color.z, Tile::tile_color.w);
         glVertexPointer(2, GL_FLOAT, 0, (void*)&Tile::tile_vertices);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, Tile::tile_vertices.static_size);
+        glPopMatrix();
     };
 };
 
@@ -61,6 +62,7 @@ protected:
             : tile(xx, xy, yx, yy, ox, oy) { } \
         static thing *from_json(Json::Value const &v) { return tile::from_json<name>(v); } \
         virtual void draw() { tile::_draw<name>(); } \
+        virtual char const * kind() const { return #name; } \
     }
 
 TILE_STRUCT(tile_octagon,    8);

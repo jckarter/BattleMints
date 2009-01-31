@@ -1,7 +1,8 @@
-USING: accessors arrays assocs classes combinators combinators.short-circuit
-hashtables json.writer kernel literals math math.affine-transforms
-math.functions math.vectors memoize sequences sequences.squish svg words
-xml.data xml.utilities battlemints.things sorting ;
+USING: accessors arrays assocs battlemints.things classes combinators
+combinators.short-circuit hashtables io.encodings.utf8 io.files
+json.writer kernel literals math math.affine-transforms
+math.functions math.vectors memoize sequences sequences.squish
+svg words xml xml.data xml.utilities sorting ;
 IN: battlemints.board-compiler
 
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
@@ -99,7 +100,7 @@ M: powerup (tag>>thing)
 : tile-edges ( tiles -- edges )
     [ shape-vertices vertices>edges ] map concat ;
 
-CONSTANT: tile-edge-precision 1000
+CONSTANT: tile-edge-precision 500
 
 : canonicalize-edge ( edge -- edge' )
     [ tile-edge-precision v*n [ round ] map tile-edge-precision v/n ] map natural-sort ;
@@ -131,4 +132,8 @@ CONSTANT: tile-edge-precision 1000
 
 : svg>board ( svg -- board )
     svg>things dup walls append [ [ thing-rep ] map ] [ board-extents concat ] bi 2array
-    { "things" "extents" } zip-hashtable ;
+    { "things" "bounds" } zip-hashtable ;
+
+: svg-file>board-file ( from-filename to-filename -- )
+    [ file>xml svg>board >json ]
+    [ utf8 set-file-contents ] bi* ;

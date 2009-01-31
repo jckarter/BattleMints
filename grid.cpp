@@ -6,17 +6,6 @@
 
 namespace battlemints {
 
-struct _adjoin {
-    _adjoin() {}
-
-    template<typename FromPointer>
-    inline void
-    operator()(FromPointer from, std::vector<thing*> & to) const
-    {
-        std::copy(from->begin(), from->end(), std::back_inserter(to));
-    }
-};
-
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
       _cell_size_inv(1.0f/cell_size),
@@ -60,34 +49,6 @@ grid::_draw() const
     }
 }
 
-template <typename T, typename BinaryFunctor>
-inline void
-grid::_for_cells_in_rect(T t, rect bound, BinaryFunctor const &f) const
-{
-    std::vector<cell>::const_iterator start = cell_for_point(bound.low);
-    std::vector<cell>::const_iterator right = cell_for_point(rect_lr(bound));
-    unsigned width = right - start;
-    std::vector<cell>::const_iterator end = cell_for_point(bound.high);
-
-    for (std::vector<cell>::const_iterator y = start; y <= end; y += _pitch)
-        for (std::vector<cell>::const_iterator x = y; x - y <= width; ++x)
-            f(x, t);
-}
-
-template <typename T, typename BinaryFunctor>
-inline void
-grid::_for_cells_in_rect(T t, rect bound, BinaryFunctor const &f)
-{
-    std::vector<cell>::iterator start = cell_for_point(bound.low);
-    std::vector<cell>::iterator right = cell_for_point(rect_lr(bound));
-    unsigned width = right - start;
-    std::vector<cell>::iterator end = cell_for_point(bound.high);
-
-    for (std::vector<cell>::iterator y = start; y <= end; y += _pitch)
-        for (std::vector<cell>::iterator x = y; x - y <= width; ++x)
-            f(x, t);
-}
-
 void
 grid::add_thing(thing *t)
 {
@@ -111,16 +72,6 @@ grid::move_thing(thing *t)
         old_c->erase(std::find(old_c->begin(), old_c->end(), t));
         new_c->push_back(t);
     }
-}
-
-std::set<thing*>
-grid::things_in_rect(rect r) const
-{
-    std::vector<thing *> ret;
-
-    _for_cells_in_rect(boost::ref(ret), r, _adjoin());
-
-    return std::set<thing*>(ret.begin(), ret.end());
 }
 
 std::vector<grid::cell>::iterator
