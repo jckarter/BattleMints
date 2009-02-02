@@ -211,16 +211,13 @@ board::_find_collision()
     for (row = cell = _grid.cells.begin(); cell != last_row; row += pitch, ++cell) {
         for (; cell - row < pitch - 1; ++cell)
             // Middle cell
-            if (!cell->things.empty())
-                _find_collision_in_4_cells(cell, cell+1, cell+pitch, cell+pitch+1, c);
+            _find_collision_in_4_cells(cell, cell+1, cell+pitch, cell+pitch+1, c);
         // Right edge cell
-        if (!cell->things.empty())
-            _find_collision_in_2_cells(cell, cell+pitch, c);
+        _find_collision_in_2_cells(cell, cell+pitch, c);
     }
     for (; cell < _grid.cells.end() - 1; ++cell) {
         // Bottom edge cell
-        if (!cell->things.empty())
-            _find_collision_in_2_cells(cell, cell+1, c);
+        _find_collision_in_2_cells(cell, cell+1, c);
     }
     // Bottom-right corner cell
     if (cell->has_dynamic())
