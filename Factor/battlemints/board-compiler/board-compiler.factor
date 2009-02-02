@@ -100,7 +100,7 @@ M: powerup (tag>>thing)
 : tile-edges ( tiles -- edges )
     [ shape-vertices vertices>edges ] map concat ;
 
-CONSTANT: tile-edge-precision 500
+CONSTANT: tile-edge-precision 64
 
 : canonicalize-edge ( edge -- edge' )
     [ tile-edge-precision v*n [ round ] map tile-edge-precision v/n ] map natural-sort ;
