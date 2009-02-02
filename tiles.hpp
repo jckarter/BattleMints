@@ -38,43 +38,47 @@ protected:
         );
     }
 
-    template<typename Tile>
-    void _draw()
+    void _push_transform()
     {
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         glMultMatrixf(transform);
+    }
 
+    template<typename Tile, GLenum Mode>
+    void _draw()
+    {
+        _push_transform();
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glColor4f(Tile::tile_color.x, Tile::tile_color.y, Tile::tile_color.z, Tile::tile_color.w);
         glVertexPointer(2, GL_FLOAT, 0, (void*)&Tile::tile_vertices);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, Tile::tile_vertices.static_size);
+        glDrawArrays(Mode, 0, Tile::tile_vertices.static_size);
         glPopMatrix();
     };
 };
 
-#define TILE_STRUCT(name, vertices) \
+#define TILE_STRUCT(name, vertices, mode) \
     struct name : tile { \
         static const vec4 tile_color; \
         static const boost::array<vec2, vertices> tile_vertices; \
         name(float xx, float xy, float yx, float yy, float ox, float oy) \
             : tile(xx, xy, yx, yy, ox, oy) { } \
         static thing *from_json(Json::Value const &v) { return tile::from_json<name>(v); } \
-        virtual void draw() { tile::_draw<name>(); } \
+        virtual void draw() { tile::_draw<name, mode>(); } \
         virtual char const * kind() const { return #name; } \
     }
 
-TILE_STRUCT(tile_octagon,    8);
-TILE_STRUCT(tile_hexagon_90, 6);
-TILE_STRUCT(tile_hexagon,    6);
-TILE_STRUCT(tile_trapezoid,  4);
-TILE_STRUCT(tile_square,     4);
-TILE_STRUCT(tile_rhombus_60, 4);
-TILE_STRUCT(tile_rhombus_45, 4);
-TILE_STRUCT(tile_rhombus_30, 4);
-TILE_STRUCT(tile_triangle,   3);
-TILE_STRUCT(arrow,           5);
+TILE_STRUCT(tile_octagon,    8, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_hexagon_90, 6, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_hexagon,    6, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_trapezoid,  4, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_square,     4, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_rhombus_60, 4, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_rhombus_45, 4, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_rhombus_30, 4, GL_TRIANGLE_STRIP);
+TILE_STRUCT(tile_triangle,   3, GL_TRIANGLE_STRIP);
+TILE_STRUCT(arrow,           7, GL_TRIANGLE_FAN);
 
 }
 

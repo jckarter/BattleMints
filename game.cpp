@@ -135,16 +135,17 @@ const boost::array<vec2, 4> tile_rhombus_30::tile_vertices = {
 const boost::array<vec2, 3> tile_triangle::tile_vertices = {
     make_vec2(0.0f,  0.0f),
     make_vec2(1.0f, -sqrtf(3.0f)),
-    make_vec2(2.0f,  0.0f) 
+    make_vec2(2.0f,  0.0f)
 };
 
-const boost::array<vec2, 5> arrow::tile_vertices = {
+const boost::array<vec2, 7> arrow::tile_vertices = {
+    make_vec2( 0.5f,  0.0f),
+    make_vec2( 0.0f,  0.5f),
+    make_vec2( 0.0f,  0.3f),
     make_vec2(-0.5f,  0.3f),
     make_vec2(-0.5f, -0.3f),
-    make_vec2( 0.0f,  0.3f),
-    make_vec2( 0.8f, -0.3f),
-    make_vec2( 0.5f,  0.0f),
+    make_vec2( 0.0f, -0.3f),
+    make_vec2( 0.0f, -0.5f) 
 };
 
 }
-
