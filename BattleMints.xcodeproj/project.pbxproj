@@ -443,6 +443,49 @@
 			};
 			name = Release;
 		};
+		D832C3E80F36A9830077C7F3 /* Debug Unoptimized */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					rply,
+					jsoncpp/include,
+					/opt/local/include,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.2;
+			};
+			name = "Debug Unoptimized";
+		};
+		D832C3E90F36A9830077C7F3 /* Debug Unoptimized */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BattleMints_Prefix.pch;
+				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					jsoncpp/include,
+					rply,
+					/opt/local/include,
+				);
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = BattleMints;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A6248A4-DEBA-4D46-BFE5-05BCBFD68EE4";
+				SDKROOT = iphoneos2.0;
+			};
+			name = "Debug Unoptimized";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -450,6 +493,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
+				D832C3E90F36A9830077C7F3 /* Debug Unoptimized */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -459,6 +503,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
+				D832C3E80F36A9830077C7F3 /* Debug Unoptimized */,
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

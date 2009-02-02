@@ -80,23 +80,35 @@ struct board : controller {
 private:
     void _collide_things(thing *a, thing *b);
     void _tick_thing(thing *th);
-
     void _draw_background();
+
+    struct collision {
+        thing *a, *b;
+        float collide_time;
+    };
+
     void _find_collision_in_pair(
-        grid::cell::iterator ia,
-        grid::cell::iterator ib,
-        thing *&a, thing *&b, float &collide_time
+        grid::cell::iterator ia, grid::cell::iterator ib,
+        collision &c
     );
-    void _find_collision_in_same_cell(
-        std::vector<grid::cell>::iterator cell,
-        thing *&a, thing *&b, float &collide_time
+    void _find_collision_in_4_cells(
+        grid::cell_iterator cell_a,
+        grid::cell_iterator cell_b,
+        grid::cell_iterator cell_c,
+        grid::cell_iterator cell_d,
+        collision &c
     );
-    void _find_collision_in_adjoining_cells(
-        std::vector<grid::cell>::iterator cell_a,
-        std::vector<grid::cell>::iterator cell_b,
-        thing *&a, thing *&b, float &collide_time
+    void _find_collision_in_2_cells(
+        grid::cell_iterator cell_a,
+        grid::cell_iterator cell_b,
+        collision &c
     );
-    void _find_collision(thing *&a, thing *&b, float &collide_time);
+    void _find_collision_in_cell(
+        grid::cell_iterator cell,
+        collision &c
+    );
+    collision _find_collision();
+
     void _move_things(float timeslice);
     void _kill_dying_things();
 

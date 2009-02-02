@@ -6,17 +6,35 @@
 
 namespace battlemints {
 
+namespace {
+    struct _sort_static_first {
+        _sort_static_first() {}
+
+        bool operator()(thing const *a, thing const *b) const
+        {
+            return !a->does_ticks() && b->does_ticks();
+        }
+    };
+}
+
+void
+grid::cell::sort_statics()
+{
+    std::sort(things.begin(), things.end(), _sort_static_first());
+    
+    for (dynamic_begin_offset = 0;
+         dynamic_begin_offset < things.size() && !(things[dynamic_begin_offset]->does_ticks());
+         ++dynamic_begin_offset)
+        ;
+}
+
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
       _cell_size_inv(1.0f/cell_size),
       _cell_dims(vceil( (space.high-space.low)*_cell_size_inv ) - make_vec2(1.0,1.0)),
       _pitch((int)ceilf((space.high.x - space.low.x) * _cell_size_inv.x)),
       cells((unsigned)vproduct(vceil((space.high - space.low) * _cell_size_inv)))
-{
-    BOOST_FOREACH(cell &c, cells) {
-        c.reserve(CELL_RESERVE);
-    }
-}
+{ }
 
 void
 grid::_draw() const
@@ -52,14 +70,14 @@ grid::_draw() const
 void
 grid::add_thing(thing *t)
 {
-    cell_for_point(t->center)->push_back(t);
+    cell_for_point(t->center)->things.push_back(t);
 }
 
 void
 grid::remove_thing(thing *t)
 {
     std::vector<grid::cell>::iterator c = cell_for_point(t->prev_center);
-    c->erase(std::find(c->begin(), c->end(), t));
+    c->things.erase(std::find(c->dynamic_begin(), c->things.end(), t));
 }
 
 void
@@ -69,8 +87,8 @@ grid::move_thing(thing *t)
                                       new_c = cell_for_point(t->center);
     t->prev_center = t->center;
     if (old_c != new_c) {
-        old_c->erase(std::find(old_c->begin(), old_c->end(), t));
-        new_c->push_back(t);
+        old_c->things.erase(std::find(old_c->dynamic_begin(), old_c->things.end(), t));
+        new_c->things.push_back(t);
     }
 }
 

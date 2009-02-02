@@ -39,9 +39,11 @@ board::board(std::string const &nm, rect bound)
 void
 board::setup()
 {
+    _grid.sort_statics();
+
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
-    glEnable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
     glEnable(GL_LINE_SMOOTH);
     glEnable(GL_POINT_SMOOTH);
     glDisable(GL_DEPTH_TEST);
@@ -104,81 +106,127 @@ static inline bool _is_overlapping_time(float f)
 
 void
 board::_find_collision_in_pair(
-    grid::cell::iterator ia, grid::cell::iterator ib,
-    thing *& a, thing *& b, float &collide_time
+    grid::cell::iterator ia, grid::cell::iterator ib, collision &c
 )
 {
     float pair_time = (*ia)->collision_time(**ib);
     if (_overlapping(*ia, *ib)) {
         if (!_is_overlapping_time(pair_time))
             _remove_overlap(*ia, *ib, pair_time);
-    } else if (pair_time >= 0.0f && pair_time < collide_time) {
-        collide_time = pair_time; a = *ia; b = *ib;
-    }
+    } else if (pair_time >= 0.0f && pair_time < c.collide_time)
+        c = (collision){*ia, *ib, pair_time};
 }
 
 void
-board::_find_collision_in_same_cell(
-    std::vector<grid::cell>::iterator cell,
-    thing *& a, thing *& b, float &collide_time
+board::_find_collision_in_4_cells(
+    grid::cell_iterator cell_a,
+    grid::cell_iterator cell_b,
+    grid::cell_iterator cell_c,
+    grid::cell_iterator cell_d,
+    collision &c
 )
 {
     grid::cell::iterator ia, ib;
-    for (ia = cell->begin(); ia != cell->end(); ++ia) {
-        if (!(*ia)->does_collisions()) continue;
+    for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
+        for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_b->dynamic_begin(); ib != cell_b->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_c->dynamic_begin(); ib != cell_c->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_d->dynamic_begin(); ib != cell_d->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
 
-        for (ib = ia, ++ib; ib != cell->end(); ++ib) {
-            if (!(*ib)->does_collisions()) continue;
-            _find_collision_in_pair(ia, ib, a, b, collide_time);
-        }
+    for (; ia != cell_a->things.end(); ++ia) {
+        for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_b->things.begin(); ib != cell_b->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_c->things.begin(); ib != cell_c->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_d->things.begin(); ib != cell_d->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
+
+    for (ia = cell_b->things.begin(); ia != cell_b->dynamic_begin(); ++ia) {
+        for (ib = cell_c->dynamic_begin(); ib != cell_c->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
+
+    for (; ia != cell_b->things.end(); ++ia) {
+        for (ib = cell_c->things.begin(); ib != cell_c->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
     }
 }
 
 void
-board::_find_collision_in_adjoining_cells(
-    std::vector<grid::cell>::iterator cell_a,
-    std::vector<grid::cell>::iterator cell_b,
-    thing *& a, thing *& b, float &collide_time
+board::_find_collision_in_2_cells(
+    grid::cell_iterator cell_a,
+    grid::cell_iterator cell_b,
+    collision &c
 )
 {
     grid::cell::iterator ia, ib;
-    for (ia = cell_a->begin(); ia != cell_a->end(); ++ia) {
-        if (!(*ia)->does_collisions()) continue;
+    for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
+        for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_b->dynamic_begin(); ib != cell_b->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
 
-        for (ib = cell_b->begin(); ib != cell_b->end(); ++ib) {
-            if (!(*ib)->does_collisions()) continue;
-            _find_collision_in_pair(ia, ib, a, b, collide_time);
-        }
+    for (; ia != cell_a->things.end(); ++ia) {
+        for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+        for (ib = cell_b->things.begin(); ib != cell_b->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
     }
 }
 
 void
-board::_find_collision(thing *& a, thing *& b, float &collide_time)
+board::_find_collision_in_cell(
+    grid::cell_iterator cell_a,
+    collision &c
+)
 {
-    std::vector<grid::cell>::iterator row, cell, last_row = _grid.cells.end() - _grid.pitch();
-    for (row = cell = _grid.cells.begin(); cell != last_row; row += _grid.pitch(), ++cell) {
-        for (; cell - row < _grid.pitch() - 1; ++cell) {
+    grid::cell::iterator ia, ib;
+    for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
+        for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
+
+    for (; ia != cell_a->things.end(); ++ia) {
+        for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
+            _find_collision_in_pair(ia, ib, c);
+    }
+}
+
+board::collision
+board::_find_collision()
+{
+    collision c = { NULL, NULL, INFINITYF };
+
+    grid::cell_iterator row, cell, last_row = _grid.cells.end() - _grid.pitch();
+    int pitch = _grid.pitch();
+    for (row = cell = _grid.cells.begin(); cell != last_row; row += pitch, ++cell) {
+        for (; cell - row < pitch - 1; ++cell)
             // Middle cell
-            if (cell->empty()) continue;
-            _find_collision_in_same_cell(cell, a, b, collide_time);
-            _find_collision_in_adjoining_cells(cell, cell + 1, a, b, collide_time);
-            _find_collision_in_adjoining_cells(cell, cell + _grid.pitch(), a, b, collide_time);
-            _find_collision_in_adjoining_cells(cell + 1, cell + _grid.pitch(), a, b, collide_time);
-            _find_collision_in_adjoining_cells(cell, cell + _grid.pitch() + 1, a, b, collide_time);
-        }
+            if (!cell->things.empty())
+                _find_collision_in_4_cells(cell, cell+1, cell+pitch, cell+pitch+1, c);
         // Right edge cell
-        if (cell->empty()) continue;
-        _find_collision_in_same_cell(cell, a, b, collide_time);
-        _find_collision_in_adjoining_cells(cell, cell + _grid.pitch(), a, b, collide_time);
+        if (!cell->things.empty())
+            _find_collision_in_2_cells(cell, cell+pitch, c);
     }
     for (; cell < _grid.cells.end() - 1; ++cell) {
         // Bottom edge cell
-        if (cell->empty()) continue;
-        _find_collision_in_same_cell(cell, a, b, collide_time);
-        _find_collision_in_adjoining_cells(cell, cell + 1, a, b, collide_time);
+        if (!cell->things.empty())
+            _find_collision_in_2_cells(cell, cell+1, c);
     }
     // Bottom-right corner cell
-    _find_collision_in_same_cell(cell, a, b, collide_time);
+    if (cell->has_dynamic())
+        _find_collision_in_cell(cell, c);
+
+    return c;
 }
 
 void
@@ -222,15 +270,12 @@ board::tick()
     int rounds = 0;
 
     while (tick_time > 0.0f && rounds < 100) {
-        thing *a, *b;
-        float collide_time = INFINITYF;
+        collision c = _find_collision();
+        _move_things(fmin(tick_time, c.collide_time));
+        if (c.collide_time <= tick_time)
+            _collide_things(c.a, c.b);
 
-        _find_collision(a, b, collide_time);
-        _move_things(std::min(tick_time, collide_time));
-        if (collide_time <= tick_time)
-            _collide_things(a, b);
-
-        tick_time -= collide_time;
+        tick_time -= c.collide_time;
         ++rounds;
     }
 #ifdef BENCHMARK
@@ -250,7 +295,7 @@ struct _draw_things_in_cell {
 
     void operator()(grid::cell const &c) const
     {
-        BOOST_FOREACH (thing *th, c) {
+        BOOST_FOREACH (thing *th, c.things) {
             th->draw();
         }
     }
@@ -273,7 +318,7 @@ board::draw()
 
     particles.draw();
     _grid.for_cells_in_rect(camera_rect, _draw_things_in_cell());
-    //_grid._draw();
+    _grid._draw();
 }
 
 void
@@ -286,7 +331,7 @@ board::_draw_background()
 void
 board::_move_things(float timeslice)
 {
-    BOOST_FOREACH (thing *th, _all_things) {
+    BOOST_FOREACH (thing *th, _ticking_things) {
         if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
             th->center += th->velocity*timeslice;
         else

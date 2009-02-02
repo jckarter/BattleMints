@@ -10,20 +10,43 @@
 namespace battlemints {
 
 struct grid : boost::noncopyable {
-    static const unsigned CELL_RESERVE = 16;
 
-    typedef std::vector<thing*> cell;
+    struct cell {
+        static const unsigned CELL_RESERVE = 16;
+
+        typedef std::vector<thing*>::iterator iterator;
+        typedef std::vector<thing*>::const_iterator const_iterator;
+
+        std::vector<thing*> things;
+        unsigned dynamic_begin_offset;
+
+        cell() : dynamic_begin_offset(0) { things.reserve(CELL_RESERVE); }
+
+        iterator dynamic_begin()
+            { return things.begin() + dynamic_begin_offset; }
+        const_iterator dynamic_begin() const
+            { return things.begin() + dynamic_begin_offset; }
+
+        bool has_dynamic() { return dynamic_begin_offset != things.size(); }
+        
+        void sort_statics();
+    };
+
+    typedef std::vector<cell>::iterator cell_iterator;
+    typedef std::vector<cell>::const_iterator cell_const_iterator;
 
     grid(rect space, vec2 cell_size);
 
     void _draw() const;
     
+    void sort_statics() { BOOST_FOREACH (cell &c, cells) { c.sort_statics(); } }
+
     void add_thing(thing *t);
     void move_thing(thing *t);
     void remove_thing(thing *t);
 
-    std::vector<cell>::iterator cell_for_point(vec2 pt);
-    std::vector<cell>::const_iterator cell_for_point(vec2 pt) const;
+    cell_iterator cell_for_point(vec2 pt);
+    cell_const_iterator cell_for_point(vec2 pt) const;
 
     void _dump(std::ostream &os) const {
         os << "=== === === === ===\n";
@@ -33,7 +56,9 @@ struct grid : boost::noncopyable {
                 os << "{\n";
             }
             os << " [\n";
-            for (cell::const_iterator th = cells[i].begin(); th != cells[i].end(); ++th)
+            for (cell::const_iterator th = cells[i].things.begin();
+                 th != cells[i].things.end();
+                 ++th)
                 os << "  " << **th << "\n";
             os << " ]\n";
         }
