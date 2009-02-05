@@ -12,6 +12,7 @@ struct wall : line {
     wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b) { }
 
     virtual void on_collision(thing &o) { o.wall_damage(); }
+#ifdef DRAW_WALLS
     virtual void draw() {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -22,6 +23,7 @@ struct wall : line {
         glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
         glDrawArrays(GL_LINES, 0, 2);
     }
+#endif
 
     virtual char const * kind() const { return "wall"; }
 
@@ -31,6 +33,7 @@ struct wall : line {
 struct wallpost : point {
     wallpost(vec2 ct) : point(ct) {  }
 
+#ifdef DRAW_WALLS
     virtual void draw() {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -40,6 +43,7 @@ struct wallpost : point {
         glVertexPointer(2, GL_FLOAT, 0, (void*)&center);
         glDrawArrays(GL_POINTS, 0, 1);
     }
+#endif
 
     virtual void on_collision(thing &o) { o.post_damage(); }
 

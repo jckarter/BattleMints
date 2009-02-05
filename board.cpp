@@ -315,7 +315,6 @@ board::draw()
 
     particles.draw();
     _grid.for_cells_in_rect(camera_rect, _draw_things_in_cell());
-    _grid._draw();
 }
 
 void
