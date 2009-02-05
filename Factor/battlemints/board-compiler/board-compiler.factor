@@ -156,16 +156,8 @@ CONSTANT: TILE-EDGE-PRECISION 64
     { 1.0/0.0 1.0/0.0 } { -1.0/0.0 -1.0/0.0 } rot
     [ thing-extents swapd [ vmin ] [ vmax ] 2bi* ] each 2array ;
 
-: extents>rect ( extents -- rect )
-    [ first ] [ first2 swap v- ] bi <rect> ;
-
-: swizzle-tiles ( tiles -- tiles' )
-    dup board-extents extents>rect <quadtree>
-    [ '[ dup shape-center _ set-at ] each ] keep
-    values ;
-
 : shells ( tiles -- shells )
-    swizzle-tiles
+    [ shape-center ] swizzle
     [ 100 <vector> tile-vertices boa ] dip [ make-shell ] map
     swap suffix ;
 

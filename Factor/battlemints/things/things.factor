@@ -1,10 +1,8 @@
 USING: accessors arrays assocs kernel literals math math.affine-transforms
-math.functions math.vectors sequences sets ;
+math.functions math.vectors sequences sets quadtrees ;
 IN: battlemints.things
 
 ! utility words
-: vgreatest ( array -- vmax ) { -1.0/0.0 -1.0/0.0 } [ vmax ] reduce ; 
-: vleast    ( array -- vmax ) {  1.0/0.0  1.0/0.0 } [ vmin ] reduce ; 
 : rotate ( sequence -- equences ) 1 cut-slice prepend ;
 ! end utility words
 
