@@ -28,6 +28,7 @@
 #include <boost/utility.hpp>
 #include <cmath>
 #include <cstdlib>
+#include <cstddef>
 #include <fstream>
 #include <map>
 #include <ostream>

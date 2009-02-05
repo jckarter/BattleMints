@@ -15,6 +15,7 @@
 namespace battlemints {
 
 struct thing;
+struct tile_vertices;
 
 typedef std::set<thing*> thing_set;
 
@@ -76,6 +77,7 @@ struct board : controller {
 
     cambot camera;
     particle_system particles;
+    tile_vertices *tile_vertices_thing;
 
 private:
     void _collide_things(thing *a, thing *b);
