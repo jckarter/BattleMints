@@ -2,7 +2,7 @@ USING: accessors arrays assocs battlemints.things classes combinators
 combinators.short-circuit hashtables io.encodings.utf8 io.files
 json.writer kernel literals math math.affine-transforms fry
 math.functions math.vectors memoize sequences sequences.squish
-svg words xml xml.data xml.utilities sorting quadtrees vectors
+svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
 math.geometry.rect io.pathnames ;
 IN: battlemints.board-compiler
 
