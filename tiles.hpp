@@ -36,17 +36,27 @@ private:
 };
 
 struct tile : thing {
-    GLint vertex_start;
-    GLsizei vertex_length;
+    struct vertex_range {
+        GLint begin;
+        GLsizei size;
 
-    tile(vec2 center, GLint s, GLsizei l)
-        : thing(INFINITYF, center, 1.0f), vertex_start(s), vertex_length(l) { }
+        GLint end() const { return begin + size; }
+
+        vertex_range() {}
+        vertex_range(GLint s, GLsizei l) : begin(s), size(l) {}
+    };
+
+    vertex_range vertices;
+
+    tile(vec2 center, GLint start, GLsizei length)
+        : thing(INFINITYF, center, 1.0f), vertices(start, length) { }
 
     virtual bool does_collisions() const { return false; }
 
     static thing *from_json(Json::Value const &v);
 
-    void draw();
+    virtual renders_with_range renders_with() const
+        { return tile_renderer::instance_null_arg_range; }
 };
 
 }

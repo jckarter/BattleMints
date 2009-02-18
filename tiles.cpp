@@ -86,12 +86,4 @@ tile::from_json(Json::Value const &v)
     return new tile(center, vertex_start, vertex_length);
 }
 
-void
-tile::draw()
-{
-    board::current()->tile_vertices_thing->bind();
-    glDrawArrays(GL_TRIANGLE_FAN, vertex_start, vertex_length);
-    board::current()->tile_vertices_thing->unbind();
-}
-
 }

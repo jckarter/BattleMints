@@ -18,7 +18,7 @@ goal::_color()
 }
 
 void
-goal::draw()
+goal::draw_self() const
 {
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);

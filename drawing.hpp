@@ -43,9 +43,7 @@ struct gl_texture : boost::noncopyable {
 struct sphere_texture : gl_texture {
     boost::array<GLfloat, 8> vertices;
 
-    sphere_texture(float radius, vec4 color);
-
-    void draw() const;
+    sphere_texture(float radius);
 
 private:
     void _render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color, void *data);
@@ -75,17 +73,14 @@ struct sphere_face : boost::noncopyable {
     sphere_face(image_texture *t) : texture(t) { }
     ~sphere_face() { delete texture; }
 
-    void draw_for_course(vec2 velocity, vec2 accel);
-
     static void global_start();
     static void global_finish();
 
     static sphere_face *from_file(std::string const &name)
         { return new sphere_face(image_texture::from_file(name + ".png")); }
 
-private:
-    static state _state_for_course(vec2 velocity, vec2 accel);
-    static float _rotation(float magnitude);
+    static state state_for_course(vec2 velocity, vec2 accel);
+    static float rotation(float magnitude);
 };
 
 }

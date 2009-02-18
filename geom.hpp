@@ -60,6 +60,9 @@ inline vec2 operator/(float n, vec2 v) { return vec2::make(n / v.x, n / v.y); }
 inline vec2 make_vec2(float a, float b) { return vec2::make(a,b); }
 inline vec2 make_vec2(float a) { return vec2::make(a,a); }
 
+#define CONST_VEC2(a, b) ((::battlemints::vec2){ a, b })
+#define CONST_VEC2_SPLAT(a) ((::battlemints::vec2){ a, a })
+
 struct vec4 {
     float x, y, z, w;
 
@@ -81,6 +84,9 @@ inline vec4 operator/(float n, vec4 v) { return vec4::make(n / v.x, n / v.y, n /
 
 inline vec4 make_vec4(float a, float b, float c, float d) { return vec4::make(a, b, c, d); }
 inline vec4 make_vec4(float a) { return vec4::make(a, a, a, a); }
+
+#define CONST_VEC4(a, b, c, d) ((::battlemints::vec4){ a, b, c, d })
+#define CONST_VEC4_SPLAT(a) ((::battlemints::vec4){ a, a, a, a })
 
 inline vec2 vmin(vec2 a, vec2 b)
 {

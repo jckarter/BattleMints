@@ -9,16 +9,19 @@
 #include "serialization.hpp"
 #include "drawing.hpp"
 #include "transition.hpp"
+#include <boost/array.hpp>
 #include <iostream>
 #include <vector>
 
 namespace battlemints {
 
+void global_start_actors();
+
 struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING;
     static const vec4 COLOR;
-    static sphere_texture *texture;
-    static sphere_face *face;
+
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
 
     player(vec2 center) : sphere(MASS, center, RADIUS, SPRING) { }
 
@@ -29,22 +32,24 @@ struct player : sphere {
     virtual void wall_damage() { die(); }
     virtual void post_damage() { die(); }
 
-    virtual void draw();
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color() { return COLOR; }
 
-    void die() { board::current()->particles.explode(this); board::restart_with<death_transition>(); }
+    void die()
+    {
+        board::current()->particles.explode(this);
+        board::restart_with<death_transition>();
+    }
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<player>(v); }
-    static void global_start();
-    static void global_finish();
-
-private:
-    vec2 _cur_accel();
 };
 
 struct powerup : sphere {
     static const float SPIN, RADIUS, MASS, SPRING;
     static const vec4 COLOR;
-    static sphere_texture *texture;
+
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
 
     std::string powerup_kind;
     float spin;
@@ -52,15 +57,15 @@ struct powerup : sphere {
     powerup(vec2 center, std::string const &k)
         : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), spin(0.0f) { }
 
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color() { return COLOR; }
+
     virtual void tick();
 
     virtual char const * kind() const { return "powerup"; }
 
-    virtual void draw();
-
     static thing *from_json(Json::Value const &v);
-    static void global_start();
-    static void global_finish();
 };
 
 struct enemy : sphere {
@@ -68,11 +73,10 @@ struct enemy : sphere {
     float responsiveness;
 
     thing *target;
-    vec2 cur_accel;
 
     enemy(float m, vec2 ct, float r, float sp, float a, float re)
         : sphere(m, ct, r, sp), accel(a), responsiveness(re),
-          target(NULL), cur_accel(ZERO_VEC2) {}
+          target(NULL) {}
 
     virtual void tick();
     virtual void on_collision(thing &o);
@@ -87,10 +91,9 @@ struct enemy : sphere {
 
 struct mini : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
+    static const boost::array<vec4, 6> colors;
 
-    static sphere_texture *texture;
-    static sphere_face *face;
-    static boost::array<vec4, 6> colors;
+    static boost::array<renders_with_pair, 2> renders_with_pairs_template;
 
     vec4 color;
 
@@ -98,19 +101,23 @@ struct mini : enemy {
         : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS),
           color(colors[rand() % colors.size()]) { }
 
+    virtual renders_with_range renders_with() const;
+    virtual vec4 sphere_color() { return color; }
+
     virtual char const * kind() const { return "mini"; }
 
-    virtual void draw();
     static thing *from_json(Json::Value const &v) { return sphere::from_json<mini>(v); }
-    static void global_start();
-    static void global_finish();
 };
 
 struct mega : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
     static const vec4 COLOR;
 
-    static sphere_texture *texture;
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    static const sphere_renderer::sphere sphere;
+    static const sphere_renderer::face face;
+    static const sphere_renderer::pieces pieces;
     static sphere_face *face;
 
     mega(vec2 ct)
@@ -118,31 +125,31 @@ struct mega : enemy {
 
     virtual char const * kind() const { return "mega"; }
 
-    virtual void draw();
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color() { return COLOR; }
+
     virtual void wall_damage() { }
     virtual void post_damage() { }
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<mega>(v); }
-    static void global_start();
-    static void global_finish();
 };
 
 struct bumper : sphere {
     static const float RADIUS, MASS, INNER_RADIUS, SPRING;
     static const vec4 INNER_COLOR, OUTER_COLOR;
 
-    static sphere_texture *inner_texture, *outer_texture;
+    static const boost::array<renders_with_pair, 2> renders_with_pairs_template;
 
     bumper(vec2 ct)
         : sphere(MASS, ct, RADIUS, SPRING) { }
 
     virtual char const * kind() const { return "bumper"; }
 
-    virtual void draw();
+    virtual renders_with_range renders_with() const;
+    virtual vec4 sphere_color();
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<bumper>(v); }
-    static void global_start();
-    static void global_finish();
 };
 
 struct spring : sphere {
@@ -170,6 +177,5 @@ struct direction_spring : sphere {
 };
 
 }
-
 
 #endif

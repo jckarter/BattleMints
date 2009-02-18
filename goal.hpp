@@ -13,7 +13,9 @@ struct goal : tripwire {
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
         : tripwire(pt_a, pt_b), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
-    virtual void draw();
+    virtual renders_with_range renders_with() const
+        { return self_renderer::instance_null_arg_range; }
+    virtual void draw_self() const;
     virtual void tick();
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);

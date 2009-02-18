@@ -13,7 +13,9 @@ struct wall : line {
 
     virtual void on_collision(thing &o) { o.wall_damage(); }
 #ifdef DRAW_WALLS
-    virtual void draw() {
+    virtual renders_with_range renders_with() const
+        { return self_renderer::instance_null_arg_range; }
+    virtual void draw_self() const {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -34,7 +36,9 @@ struct wallpost : point {
     wallpost(vec2 ct) : point(ct) {  }
 
 #ifdef DRAW_WALLS
-    virtual void draw() {
+    virtual renders_with_range renders_with() const
+        { return self_renderer::instance_null_arg_range; }
+    virtual void draw_self() const {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         

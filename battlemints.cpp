@@ -7,6 +7,7 @@
 #include "synth.hpp"
 #include "goal.hpp"
 #include "dramatis_personae.hpp"
+#include "renderers.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/foreach.hpp>
@@ -22,12 +23,8 @@ void battlemints_start()
     sranddev();
 
     sphere_face::global_start(); // must happen first!
-    player::global_start();        
-    goal::global_start();        
-    mini::global_start();
-    mega::global_start();
-    bumper::global_start();
-    powerup::global_start();
+    renderer::global_start(); // must happen second!
+    global_start_actors();
 
     controller::set_current(new intro());
 }
@@ -73,11 +70,6 @@ void battlemints_finish()
 {
     controller::delete_current();
 
-    powerup::global_finish();
-    bumper::global_finish();
-    mega::global_finish();
-    mini::global_finish();
-    goal::global_finish();        
-    player::global_finish();
+    renderer::global_finish();
     sphere_face::global_finish();
 }

@@ -85,12 +85,12 @@ const boost::array<float, 8> unit_radius_texcoords = {
      1.0,  1.0
 };
 
-sphere_texture::sphere_texture(float radius, vec4 color)
+sphere_texture::sphere_texture(float radius)
 {
     float border_radius = radius + BORDER_THICKNESS;
     unsigned pixel_radius = lpot(border_radius * PIXELS_PER_GAME_UNIT);
 
-    texture = _make_sphere_texture(radius, border_radius, (unsigned)pixel_radius, color);
+    texture = _make_sphere_texture(radius, border_radius, (unsigned)pixel_radius);
 
     vertices[0] = -border_radius; vertices[1] = -border_radius;
     vertices[2] =  border_radius; vertices[3] = -border_radius;
@@ -98,17 +98,7 @@ sphere_texture::sphere_texture(float radius, vec4 color)
     vertices[6] =  border_radius; vertices[7] =  border_radius;
 }
 
-void sphere_texture::draw() const
-{
-    glEnable(GL_TEXTURE_2D);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
-    glTexCoordPointer(2, GL_FLOAT, 0, (void*)&unit_texcoords);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-}
-
-void sphere_texture::_render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color, void *data)
+void sphere_texture::_render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, void *data)
 {
     CGContextRef context = make_bitmap_context(pixel_radius*2, pixel_radius*2, data);
 
@@ -119,12 +109,10 @@ void sphere_texture::_render_sphere_texture(float radius, float border_radius, u
 
     CGContextSetLineWidth(context, BORDER_THICKNESS);
 
-    vec4 stroke_color = color*0.75 - make_vec4(0.5);
+    CGContextSetRGBStrokeColor(context, 0.25f, 0.25f, 0.25f, 1.0f);
+    CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
 
-    CGContextSetRGBStrokeColor(context, stroke_color.x, stroke_color.y, stroke_color.z, 1.0);
-    CGContextSetRGBFillColor(context, color.x, color.y, color.z, 1.0);
-
-    CGRect ellipse_rect = CGRectMake(-radius, -radius, radius*2, radius*2);
+    CGRect ellipse_rect = CGRectMake(-radius, -radius, radius*2.0f, radius*2.0f);
 
     CGContextFillEllipseInRect(context, ellipse_rect);
     CGContextStrokeEllipseInRect(context, ellipse_rect);
@@ -132,13 +120,13 @@ void sphere_texture::_render_sphere_texture(float radius, float border_radius, u
     CGContextRelease(context);
 }
 
-GLuint sphere_texture::_make_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color)
+GLuint sphere_texture::_make_sphere_texture(float radius, float border_radius, unsigned pixel_radius)
 {
     std::vector<uint32_t> pixmap((std::vector<uint32_t>::size_type)(pixel_radius*pixel_radius*4));
 
     void *pixmap_data = (void*)&pixmap[0];
 
-    _render_sphere_texture(radius, border_radius, pixel_radius, color, pixmap_data);
+    _render_sphere_texture(radius, border_radius, pixel_radius, pixmap_data);
 
     GLuint texture;
     glGenTextures(1, &texture);
@@ -234,8 +222,8 @@ void sphere_face::global_finish()
     glDeleteBuffers(1, &array_buffer);
 }
 
-inline sphere_face::state
-sphere_face::_state_for_course(vec2 velocity, vec2 accel)
+sphere_face::state
+sphere_face::state_for_course(vec2 velocity, vec2 accel)
 {
     if (accel == ZERO_VEC2)
         return asleep;
@@ -248,48 +236,9 @@ sphere_face::_state_for_course(vec2 velocity, vec2 accel)
         return speed > ideal ? normal   : stressed;
 }
 
-inline float sphere_face::_rotation(float magnitude)
+float sphere_face::rotation(float magnitude)
 {
     return sphere_face::ROTATE_SPAN*(1.0f - 1.0f/(sphere_face::ROTATE_FACTOR*magnitude + 1.0f));
-}
-
-void
-sphere_face::draw_for_course(vec2 velocity, vec2 accel)
-{
-    state st = _state_for_course(velocity, accel);
-    GLfloat col = (GLfloat)(st / 4);
-    GLfloat row = (GLfloat)(st % 4);
-
-    glMatrixMode(GL_TEXTURE);
-    glScalef(0.5f, 0.25f, 1.0f);
-    glTranslatef(col, row, 0.0f);
-
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-
-    if (st == panicked) {
-        panic_spin += vnorm2(velocity) * PANIC_SPIN_FACTOR;
-        glRotatef(panic_spin, 0.0, 1.0, 0.0);
-    }
-    else {
-        panic_spin = 0.0f;
-        glRotatef(_rotation(accel.y), -1.0, 0.0, 0.0);
-        glRotatef(_rotation(accel.x),  0.0, 1.0, 0.0);
-    }
-
-    glEnable(GL_TEXTURE_2D);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glBindTexture(GL_TEXTURE_2D, texture->texture);
-    glBindBuffer(GL_ARRAY_BUFFER, array_buffer);
-    glVertexPointer(3, GL_FLOAT, 0, (void*)0);
-    glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*MESH_VERTICES*3));
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, MESH_VERTICES);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glMatrixMode(GL_TEXTURE);
-    glLoadIdentity();
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
 }
 
 }

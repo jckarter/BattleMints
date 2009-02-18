@@ -4,6 +4,7 @@
 #include "geom.hpp"
 #include "game.hpp"
 #include "collision.hpp"
+#include "renderers.hpp"
 #include "serialization.hpp"
 
 #include <vector>
@@ -12,6 +13,7 @@
 #include <ostream>
 #ifndef NO_GRAPHICS
 #include <OpenGLES/ES1/gl.h>
+#include "drawing.hpp"
 #endif
 
 namespace battlemints {
@@ -32,7 +34,8 @@ struct thing : boost::noncopyable {
         { }
 
     virtual ~thing() { }
-    virtual void draw() { }
+    virtual renders_with_range renders_with() const
+        { return renderer::null_range; }
 
     virtual bool does_ticks() const { return false; }
     virtual bool does_collisions() const { return true; }
@@ -69,6 +72,7 @@ struct thing : boost::noncopyable {
     virtual void awaken() { } // Called when board activates
 
 #ifndef NO_GRAPHICS
+    virtual void draw_self() const { } // only used if renders_with() self_renderer
 protected:
     void _push_translate()
     {
@@ -84,6 +88,7 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
 
 struct sphere : thing {
     float radius;
+    vec2 cur_accel;
 
     virtual void collide(thing &t) { t.collide_sphere(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_sphere(*this, s); }
@@ -100,13 +105,15 @@ struct sphere : thing {
         { return collision_time_sphere_point(*this, p); }
 
     sphere(float m, vec2 ct, float r, float sp)
-        : thing(m, ct, sp), radius(r) { }
+        : thing(m, ct, sp), radius(r), cur_accel(ZERO_VEC2) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " r:" << radius; }
 
     virtual bool does_ticks() const { return true; }
+
+    virtual vec4 sphere_color() = 0;
 
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);

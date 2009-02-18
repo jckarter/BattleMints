@@ -15,12 +15,13 @@ extern const float FRICTION;
 extern const float MOVEMENT_THRESHOLD;
 extern const float INFINITYF;
 extern const vec2 ZERO_VEC2;
+extern const vec4 ZERO_VEC4;
 extern const vec2 GAME_WINDOW_SIZE;
 extern const vec2 GAME_WINDOW_UNIT_SIZE;
 
 extern vec2 controller_state;
 
-static inline float max_speed_for_accel(float accel) { return accel/(1 - FRICTION); }
+inline float max_speed_for_accel(float accel) { return accel/(1 - FRICTION); }
 
 }
 
