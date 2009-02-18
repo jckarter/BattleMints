@@ -34,7 +34,7 @@ struct player : sphere {
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual vec4 sphere_color() { return COLOR; }
+    virtual vec4 sphere_color(float) { return COLOR; }
 
     void die()
     {
@@ -59,7 +59,7 @@ struct powerup : sphere {
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual vec4 sphere_color() { return COLOR; }
+    virtual vec4 sphere_color(float) { return COLOR; }
 
     virtual void tick();
 
@@ -93,7 +93,7 @@ struct mini : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
     static const boost::array<vec4, 6> colors;
 
-    static boost::array<renders_with_pair, 2> renders_with_pairs_template;
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
 
     vec4 color;
 
@@ -101,8 +101,9 @@ struct mini : enemy {
         : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS),
           color(colors[rand() % colors.size()]) { }
 
-    virtual renders_with_range renders_with() const;
-    virtual vec4 sphere_color() { return color; }
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color(float) { return color; }
 
     virtual char const * kind() const { return "mini"; }
 
@@ -127,7 +128,7 @@ struct mega : enemy {
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual vec4 sphere_color() { return COLOR; }
+    virtual vec4 sphere_color(float) { return COLOR; }
 
     virtual void wall_damage() { }
     virtual void post_damage() { }
@@ -147,7 +148,7 @@ struct bumper : sphere {
     virtual char const * kind() const { return "bumper"; }
 
     virtual renders_with_range renders_with() const;
-    virtual vec4 sphere_color();
+    virtual vec4 sphere_color(float radius);
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<bumper>(v); }
 };
