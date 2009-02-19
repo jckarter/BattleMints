@@ -287,13 +287,17 @@ board::tick()
     ++_tick_count;
 }
 
-struct _draw_things_in_cell {
-    _draw_things_in_cell() {}
+struct _sort_things_in_cell {
+    renders_with_map &render_map;
+
+    _sort_things_in_cell(renders_with_map &r) : render_map(r) {}
 
     void operator()(grid::cell const &c) const
     {
         BOOST_FOREACH (thing *th, c.things) {
-            th->draw();
+            renders_with_range rwr = th->renders_with();
+            for (renders_with_pair *rw = rwr.begin(); rw != rwr.end(); ++rw)
+                render_map[*rw].push_back(th);
         }
     }
 };
@@ -314,7 +318,13 @@ board::draw()
     glTranslatef(-cam_center.x, -cam_center.y, 0.0f);
 
     particles.draw();
-    _grid.for_cells_in_rect(camera_rect, _draw_things_in_cell());
+
+    renders_with_map render_map;
+    _grid.for_cells_in_rect(camera_rect, _sort_things_in_cell(render_map));
+
+    BOOST_FOREACH (render_map::value_type const &rwp, render_map) {
+        rwp.first.instance->draw(rwp.second, rwp.first.parameter);
+    }
 }
 
 void

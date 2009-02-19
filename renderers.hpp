@@ -14,6 +14,10 @@ struct thing;
 struct renderer;
 struct renders_with_pair { renderer *instance; parameter param; };
 typedef boost::iterator_range<renders_with_pair*> renders_with_range;
+typedef std::map<renders_with_pair, std::vector<thing*> > renders_with_map;
+
+bool operator<(renders_with_pair const &a, renders_with_pair const &b)
+    { return a.instance->z_index(a.param) < b.instance->z_index(b.param); }
 
 struct renderer : boost::noncopyable {
     typedef void* parameter;
