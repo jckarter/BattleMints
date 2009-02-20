@@ -12,7 +12,7 @@ static const float GOAL_TRIP_STRENGTH_FALLOFF = 0.85f;
 GLuint goal::_goal_texture;
 
 inline vec4
-goal::_color()
+goal::_color() const
 {
     return make_vec4(1.0f - trip_strength, 1.0f - 0.5f*trip_strength*trip_strength, 1.0f - trip_strength, 1.0f);
 }

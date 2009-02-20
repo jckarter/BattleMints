@@ -322,8 +322,8 @@ board::draw()
     renders_with_map render_map;
     _grid.for_cells_in_rect(camera_rect, _sort_things_in_cell(render_map));
 
-    BOOST_FOREACH (render_map::value_type const &rwp, render_map) {
-        rwp.first.instance->draw(rwp.second, rwp.first.parameter);
+    BOOST_FOREACH (renders_with_map::value_type const &rwp, render_map) {
+        rwp.first.instance->draw(rwp.second, rwp.first.param);
     }
 }
 

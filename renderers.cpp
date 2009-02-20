@@ -1,5 +1,7 @@
 #include "renderers.hpp"
 #include "dramatis_personae.hpp"
+#include "tiles.hpp"
+#include <list>
 
 namespace battlemints {
 
@@ -18,12 +20,12 @@ const renders_with_range
                                      &tile_renderer::instance_null_arg + 1),
     self_renderer::instance_null_arg_range
         = boost::make_iterator_range(&self_renderer::instance_null_arg,
-                                     &self_renderer::instance_null_arg + 1),
+                                     &self_renderer::instance_null_arg + 1);
 
 face_renderer::face_id
-    face_renderer::PLAYER_FACE = (face_id)"player",
-    face_renderer::MINI_FACE   = (face_id)"mini",
-    face_renderer::MEGA_FACE   = (face_id)"mega";
+    face_renderer::PLAYER_FACE = (face_renderer::face_id)"player",
+    face_renderer::MINI_FACE   = (face_renderer::face_id)"mini",
+    face_renderer::MEGA_FACE   = (face_renderer::face_id)"mega";
 
 void
 renderer::global_start()
@@ -51,9 +53,9 @@ renderer::global_finish()
 void
 renderer::_prebuild_textures()
 {
-    sphere_renderer::instance->make_face(PLAYER_FACE);
-    sphere_renderer::instance->make_face(MINI_FACE);
-    sphere_renderer::instance->make_face(MEGA_FACE);
+    face_renderer::instance->make_face(face_renderer::PLAYER_FACE);
+    face_renderer::instance->make_face(face_renderer::MINI_FACE);
+    face_renderer::instance->make_face(face_renderer::MEGA_FACE);
 
     sphere_renderer::instance->make_texture(player::RADIUS);
     sphere_renderer::instance->make_texture(mini::RADIUS);
@@ -63,7 +65,7 @@ renderer::_prebuild_textures()
 
 sphere_renderer::~sphere_renderer()
 {
-    BOOST_FOREACH (std::pair<float, sphere_face*> const &p, sphere_face_cache)
+    BOOST_FOREACH (sphere_texture_cache_map::value_type const &p, sphere_texture_cache)
         delete p.second;
 }
 
@@ -76,7 +78,7 @@ sphere_renderer::make_texture(float radius)
 }
 
 void
-sphere_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
+sphere_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     float radius = parameter_as<float>(p);
 
@@ -86,7 +88,7 @@ sphere_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, st->texture);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&st->vertices);
-    glTexCoordPointer(2, GL_FLOAT, 0, (void*)&st->unit_texcoords);
+    glTexCoordPointer(2, GL_FLOAT, 0, (void*)&unit_texcoords);
 
     BOOST_FOREACH (thing *th, things) {
         sphere *sph = static_cast<sphere*>(th);
@@ -102,7 +104,7 @@ sphere_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
 
 face_renderer::~face_renderer()
 {
-    BOOST_FOREACH (std::pair<float, sphere_face*> const &p, sphere_face_cache)
+    BOOST_FOREACH (sphere_face_cache_map::value_type const &p, sphere_face_cache)
         delete p.second;
 }
 
@@ -115,7 +117,7 @@ face_renderer::make_face(face_id face)
 }
 
 void
-face_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
+face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     face_id face = parameter_as<face_id>(p);
 
@@ -126,7 +128,7 @@ face_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
     glBindTexture(GL_TEXTURE_2D, sf->texture->texture);
     glBindBuffer(GL_ARRAY_BUFFER, sphere_face::array_buffer);
     glVertexPointer(3, GL_FLOAT, 0, (void*)0);
-    glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*MESH_VERTICES*3));
+    glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*sphere_face::MESH_VERTICES*3));
 
     glMatrixMode(GL_TEXTURE);
     glScalef(0.5f, 0.25f, 1.0f);
@@ -145,14 +147,9 @@ face_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
         glPushMatrix();
         glTranslatef(sph->center.x, sph->center.y, 0.0f);
         glScalef(sph->radius, sph->radius, sph->radius);
-        if (st == sphere_face::panicked) {
-            panic_spin += vnorm2(velocity) * PANIC_SPIN_FACTOR;
-            glRotatef(panic_spin, 0.0, 1.0, 0.0);
-        }
-        else {
-            panic_spin = 0.0f;
-            glRotatef(sphere_face::rotation(accel.y), -1.0, 0.0, 0.0);
-            glRotatef(sphere_face::rotation(accel.x),  0.0, 1.0, 0.0);
+        if (st != sphere_face::panicked) {
+            glRotatef(sphere_face::rotation(sph->cur_accel.y), -1.0, 0.0, 0.0);
+            glRotatef(sphere_face::rotation(sph->cur_accel.x),  0.0, 1.0, 0.0);
         }
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, sphere_face::MESH_VERTICES);
@@ -182,35 +179,35 @@ namespace {
             endpoint_map::iterator next = endpoints.find(t->vertices.end());
 
             if (prev != endpoints.end() && next != endpoints.end()) {
-                endpoint_map.erase(t->vertices.begin);
-                endpoint_map.erase(t->vertices.end());
+                endpoints.erase(t->vertices.begin);
+                endpoints.erase(t->vertices.end());
 
                 prev->second->size += t->vertices.size + next->second->size;
-                endpoint_map[prev->second->end()] = prev->second;
+                endpoints[prev->second->end()] = prev->second;
                 out_ranges.erase(next->second);
             }
             else if (prev != endpoints.end()) {
-                endpoint_map.erase(t->vertices.begin);
+                endpoints.erase(t->vertices.begin);
                 prev->second->size += t->vertices.size;
-                endpoint_map[t->vertices.end()] = prev->second;
+                endpoints[t->vertices.end()] = prev->second;
             }
             else if (next != endpoints.end()) {
-                endpoint_map.erase(t->vertices.end());
+                endpoints.erase(t->vertices.end());
                 next->second->begin  = t->vertices.begin;
                 next->second->size  += t->vertices.size;
-                endpoint_map[t->vertices.begin] = next->second;
+                endpoints[t->vertices.begin] = next->second;
             }
             else {
                 out_ranges.push_front(t->vertices);
-                endpoint_map[t->vertices.begin] = out_ranges.front();
-                endpoint_map[t->vertices.end()] = out_ranges.front();
+                endpoints[t->vertices.begin] = out_ranges.begin();
+                endpoints[t->vertices.end()] = out_ranges.begin();
             }
         }
     }
 }
 
 void
-tile_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
+tile_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     std::list<tile::vertex_range> ranges;
 
@@ -223,7 +220,7 @@ tile_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
 }
 
 void
-self_renderer::draw(std::vector<thing*> const &things, renderer::parameter p)
+self_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     BOOST_FOREACH (thing *th, things)
         th->draw_self();

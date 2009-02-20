@@ -15,6 +15,7 @@
 #include <vector>
 #include <deque>
 #include <set>
+#include <list>
 #include <algorithm>
 #include <boost/array.hpp>
 #include <boost/circular_buffer.hpp>

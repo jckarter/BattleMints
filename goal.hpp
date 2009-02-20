@@ -31,7 +31,7 @@ private:
     boost::array<vec2, 4> _vertices;
     boost::array<vec2, 4> _texcoords;
 
-    vec4 _color();
+    vec4 _color() const;
 
     static GLuint _goal_texture;
 };

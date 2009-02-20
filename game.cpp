@@ -37,7 +37,7 @@ const float mini::MASS = 0.45f;
 const float mini::SPRING = 1.0f;
 const float mini::RESPONSIVENESS = 0.65f;
 
-boost::array<vec4, 6> mini::colors = {
+const boost::array<vec4, 6> mini::colors = {
     make_vec4(1.0, 0.0,  0.0, 1.0),
     make_vec4(1.0, 0.4,  0.0, 1.0),
     make_vec4(1.0, 1.0,  0.0, 1.0),

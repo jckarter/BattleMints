@@ -116,11 +116,6 @@ struct mega : enemy {
 
     static boost::array<renders_with_pair, 2> renders_with_pairs;
 
-    static const sphere_renderer::sphere sphere;
-    static const sphere_renderer::face face;
-    static const sphere_renderer::pieces pieces;
-    static sphere_face *face;
-
     mega(vec2 ct)
         : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS) { }
 
@@ -140,7 +135,7 @@ struct bumper : sphere {
     static const float RADIUS, MASS, INNER_RADIUS, SPRING;
     static const vec4 INNER_COLOR, OUTER_COLOR;
 
-    static const boost::array<renders_with_pair, 2> renders_with_pairs_template;
+    static boost::array<renders_with_pair, 2> renders_with_pairs_template;
 
     bumper(vec2 ct)
         : sphere(MASS, ct, RADIUS, SPRING) { }

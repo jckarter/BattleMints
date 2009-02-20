@@ -46,8 +46,8 @@ struct sphere_texture : gl_texture {
     sphere_texture(float radius);
 
 private:
-    void _render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color, void *data);
-    GLuint _make_sphere_texture(float radius, float border_radius, unsigned pixel_radius, vec4 color);
+    void _render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, void *data);
+    GLuint _make_sphere_texture(float radius, float border_radius, unsigned pixel_radius);
 };
 
 struct image_texture : gl_texture {
@@ -59,7 +59,7 @@ struct image_texture : gl_texture {
 };
 
 struct sphere_face : boost::noncopyable {
-    static const float PANIC_SPIN_FACTOR, ROTATE_SPAN, ROTATE_FACTOR;
+    static const float ROTATE_SPAN, ROTATE_FACTOR;
     static const unsigned MESH_RESOLUTION = 5;
     static const unsigned MESH_VERTICES = (MESH_RESOLUTION+1) * 2;
 
@@ -68,7 +68,6 @@ struct sphere_face : boost::noncopyable {
     enum state { asleep = 0, normal, stressed, strained, panicked };
 
     image_texture *texture;
-    float panic_spin;
 
     sphere_face(image_texture *t) : texture(t) { }
     ~sphere_face() { delete texture; }

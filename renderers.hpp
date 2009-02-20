@@ -6,41 +6,38 @@
 #include "drawing.hpp"
 #include "game.hpp"
 #include "geom.hpp"
+#include "renderers.hpp"
 
 namespace battlemints {
 
 struct thing;
 
 struct renderer;
-struct renders_with_pair { renderer *instance; parameter param; };
+typedef void* renderer_parameter;
+struct renders_with_pair { renderer *instance; renderer_parameter param; };
 typedef boost::iterator_range<renders_with_pair*> renders_with_range;
 typedef std::map<renders_with_pair, std::vector<thing*> > renders_with_map;
 
-bool operator<(renders_with_pair const &a, renders_with_pair const &b)
-    { return a.instance->z_index(a.param) < b.instance->z_index(b.param); }
-
 struct renderer : boost::noncopyable {
-    typedef void* parameter;
-
     static const renders_with_range null_range;
 
     renderer() {}
     virtual ~renderer() {}
 
-    virtual void draw(std::vector<thing*> const &things, parameter p) = 0;
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p) = 0;
 
     static void global_start();
     static void global_finish();
 
     template <typename T>
-    static T parameter_as(parameter p)
-        { union { parameter p; T t; } x = {p}; return x.t; }
+    static T parameter_as(renderer_parameter p)
+        { union { renderer_parameter p; T t; } x = {p}; return x.t; }
 
     template <typename T>
-    static parameter as_parameter(T t)
-        { union { T t; parameter p; } x = {t}; return x.p; }
+    static renderer_parameter as_parameter(T t)
+        { union { T t; renderer_parameter p; } x = {t}; return x.p; }
 
-    virtual float z_index(parameter p) = 0;
+    virtual float z_index(renderer_parameter p) = 0;
 
 private:
     static void _prebuild_textures();
@@ -54,12 +51,13 @@ struct sphere_renderer : renderer {
 
     sphere_texture *make_texture(float radius);
 
-    virtual void draw(std::vector<thing*> const &things, parameter p);
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
-    virtual float z_index(parameter p) { return 100.0f - parameter_as<float>(p); }
+    virtual float z_index(renderer_parameter p) { return 100.0f - parameter_as<float>(p); }
 
 private:
-    boost::unordered_map<float, sphere_texture*> sphere_texture_cache;
+    typedef boost::unordered_map<float, sphere_texture*> sphere_texture_cache_map;
+    sphere_texture_cache_map sphere_texture_cache;
 };
 
 struct face_renderer : renderer {
@@ -73,12 +71,13 @@ struct face_renderer : renderer {
 
     sphere_face *make_face(face_id radius);
 
-    virtual void draw(std::vector<thing*> const &things, parameter p);
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
-    virtual float z_index(parameter p) { return 200.0f; }
+    virtual float z_index(renderer_parameter p) { return 200.0f; }
 
 private:
-    boost::unordered_map<char const *, sphere_face*> sphere_face_cache;
+    typedef boost::unordered_map<face_id, sphere_face*> sphere_face_cache_map;
+    sphere_face_cache_map sphere_face_cache;
 };
 
 struct tile_renderer : renderer {
@@ -88,9 +87,9 @@ struct tile_renderer : renderer {
 
     tile_renderer() {}
 
-    virtual void draw(std::vector<thing*> const &things, parameter p);
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
-    virtual float z_index(parameter p) { return 300.0f; }
+    virtual float z_index(renderer_parameter p) { return 300.0f; }
 };
 
 struct self_renderer : renderer {
@@ -100,10 +99,13 @@ struct self_renderer : renderer {
 
     self_renderer() {}
 
-    virtual void draw(std::vector<thing*> const &things, parameter p);
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
-    virtual float z_index(parameter p) { return 0.0f; }
+    virtual float z_index(renderer_parameter p) { return 0.0f; }
 };
+
+inline bool operator<(renders_with_pair const &a, renders_with_pair const &b)
+    { return a.instance->z_index(a.param) < b.instance->z_index(b.param); }
 
 }
 
