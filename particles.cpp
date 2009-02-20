@@ -77,15 +77,15 @@ static inline void _add_vertex_array_ranges(
 
 void particle_system::tick()
 {
-    if (_ages.empty())
-        return;
-
-    while (_ages.front() >= LIFE_EXPECTANCY) {
+    while (!_ages.empty() && _ages.front() >= LIFE_EXPECTANCY) {
         _vertices.pop_front();
         _deltas.pop_front();
         _colors.pop_front();
         _ages.pop_front();
     }
+
+    if (_ages.empty())
+        return;
 
     _add_vertex_array_ranges(_vertices.array_one(), _deltas.array_one());
     _add_vertex_array_ranges(_vertices.array_two(), _deltas.array_two());

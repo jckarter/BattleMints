@@ -21,7 +21,6 @@ struct tripwire : line {
     virtual void on_collision(thing &o) {
         if (can_trip(o)) {
             on_trip(o);
-//            board::current()->remove_thing(this);
         }
     }
 
