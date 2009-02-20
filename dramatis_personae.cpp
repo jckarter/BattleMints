@@ -24,12 +24,12 @@ void global_start_actors()
 
     mini::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(mini::RADIUS) },
-        { sphere_renderer::instance, renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_FACE) }
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_FACE) }
     }};
 
     mega::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(mega::RADIUS) },
-        { sphere_renderer::instance, renderer::as_parameter<face_renderer::face_id>(face_renderer::MEGA_FACE) }
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MEGA_FACE) }
     }};
 
     bumper::renders_with_pairs_template = (boost::array<renders_with_pair,2>){{

@@ -105,7 +105,11 @@ struct self_renderer : renderer {
 };
 
 inline bool operator<(renders_with_pair const &a, renders_with_pair const &b)
-    { return a.instance->z_index(a.param) < b.instance->z_index(b.param); }
+{
+    float a_z = a.instance->z_index(a.param), b_z = b.instance->z_index(b.param);
+
+    return a_z == b_z ? a.param < b.param : a_z < b_z;
+}
 
 }
 

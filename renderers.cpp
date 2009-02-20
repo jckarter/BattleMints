@@ -2,6 +2,7 @@
 #include "dramatis_personae.hpp"
 #include "tiles.hpp"
 #include <list>
+#include <iostream>
 
 namespace battlemints {
 
@@ -129,6 +130,7 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
     glBindBuffer(GL_ARRAY_BUFFER, sphere_face::array_buffer);
     glVertexPointer(3, GL_FLOAT, 0, (void*)0);
     glTexCoordPointer(2, GL_FLOAT, 0, (void*)(sizeof(float)*sphere_face::MESH_VERTICES*3));
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
     glMatrixMode(GL_TEXTURE);
     glScalef(0.5f, 0.25f, 1.0f);
@@ -161,6 +163,9 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
         glPopMatrix();
     }
 
+    glMatrixMode(GL_TEXTURE);
+    glLoadIdentity();
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -168,13 +173,17 @@ namespace {
     void join_ranges(std::list<tile::vertex_range> &out_ranges, std::vector<thing*> const &tiles)
     {
         typedef std::list<tile::vertex_range>::iterator range_iter;
+
+#if 0
         typedef boost::unordered_map<GLint, range_iter> endpoint_map;
 
         endpoint_map endpoints;
+#endif
 
         BOOST_FOREACH (thing *th, tiles) {
             tile *t = static_cast<tile*>(th);
 
+#if 0
             endpoint_map::iterator prev = endpoints.find(t->vertices.begin);
             endpoint_map::iterator next = endpoints.find(t->vertices.end());
 
@@ -198,10 +207,13 @@ namespace {
                 endpoints[t->vertices.begin] = next->second;
             }
             else {
+#endif
                 out_ranges.push_front(t->vertices);
+#if 0
                 endpoints[t->vertices.begin] = out_ranges.begin();
                 endpoints[t->vertices.end()] = out_ranges.begin();
             }
+#endif
         }
     }
 }
