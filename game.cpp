@@ -68,7 +68,6 @@ const float powerup::MASS = 1000.0f;
 const float powerup::SPRING = 1.0f;
 const vec4 powerup::COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
 
-
 vec2 controller_state;
 
 }
