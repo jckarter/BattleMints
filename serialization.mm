@@ -43,10 +43,19 @@ thing *thing_from_json(Json::Value const &v)
     std::map<std::string, thing_reader>::const_iterator reader
         = _thing_readers.find(kind);
 
+    thing *th;
     if (reader != _thing_readers.end())
-        return (reader->second)(params);
+        th = (reader->second)(params);
     else
         throw invalid_board_json(std::string("unknown kind of thing \"" + kind + "\""));
+
+    if (params["spawn"].asBool())
+        th = new spawn(th);
+
+    if (params.isMember("label"))
+        th.label = intern(params.asString());
+
+    return th;
 }
 
 static inline NSString *objc_str(std::string const &s)

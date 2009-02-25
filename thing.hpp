@@ -7,9 +7,11 @@
 #include "renderers.hpp"
 #include "serialization.hpp"
 
+#include <string>
 #include <vector>
 #include <boost/array.hpp>
 #include <boost/utility.hpp>
+#include <boost/unordered_set.hpp>
 #include <ostream>
 #ifndef NO_GRAPHICS
 #include <OpenGLES/ES1/gl.h>
@@ -22,15 +24,22 @@ struct sphere;
 struct line;
 struct point;
 
+typedef std::string *symbol;
+
+extern boost::unordered_set<std::string> interned_symbols;
+
+inline symbol intern(std::string const &s) { return &*(interned_symbols.insert(s).first); }
+
 struct thing : boost::noncopyable {
     vec2 velocity;
     vec2 center;
     vec2 prev_center;
     float spring;
     float mass;
+    symbol label;
 
     thing(float m, vec2 ct, float sp)
-        : velocity(ZERO_VEC2), center(ct), prev_center(ct), spring(sp), mass(m)
+        : velocity(ZERO_VEC2), center(ct), prev_center(ct), spring(sp), mass(m), label(NULL)
         { }
 
     virtual ~thing() { }
@@ -70,6 +79,8 @@ struct thing : boost::noncopyable {
              << " v:" << velocity << " c:" << center << " m:" << mass; }
 
     virtual void awaken() { } // Called when board activates
+
+    virtual void trigger() { } // Called when a switch or alarm with the same label is fired
 
 #ifndef NO_GRAPHICS
     virtual void draw_self() const { } // only used if renders_with() self_renderer
@@ -194,6 +205,20 @@ protected:
         return new Thing(center);
     }
 #endif
+};
+
+struct spawn : thing {
+    thing *larva;
+
+    spawn(thing *l) : larva(l) {}
+
+    virtual ~spawn() { if (larva) delete larva; }
+    virtual void trigger()
+    {
+        board::current()->add_thing(larva);
+        board::current()->remove_thing(this);
+        larva = NULL;
+    }
 };
 
 }

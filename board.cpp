@@ -84,6 +84,8 @@ void
 board::add_thing(thing *t)
 {
     _all_things.insert(t);
+    if (t->label)
+        _things_by_label[t->label].insert(t);
     if (t->does_ticks())
         _ticking_things.insert(t);
     _grid.add_thing(t);
@@ -94,6 +96,8 @@ board::remove_thing(thing *t)
 {
     if (_all_things.find(t) == _all_things.end())
         return;
+    if (t->label)
+        _things_by_label[t->label].insert(t);
     _dying_things.insert(t);
 }
 

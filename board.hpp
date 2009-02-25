@@ -2,11 +2,12 @@
 #define __BOARD_HPP__
 
 #include <iostream>
-#include <set>
 #include <string>
 #include <stdexcept>
 #include <json/json.h>
 #include <boost/foreach.hpp>
+#include <boost/unordered_set.hpp>
+#include <boost/unordered_map.hpp>
 #include "grid.hpp"
 #include "controller.hpp"
 #include "board_loader.hpp"
@@ -17,7 +18,7 @@ namespace battlemints {
 struct thing;
 struct tile_vertices;
 
-typedef std::set<thing*> thing_set;
+typedef boost::unordered_set<thing*> thing_set;
 
 struct cambot {
     static const float LEAD_FACTOR, FOLLOW_FACTOR, ACCEL;
@@ -79,6 +80,12 @@ struct board : controller {
     particle_system particles;
     tile_vertices *tile_vertices_thing;
 
+    void fire_trigger(symbol s)
+    {
+        BOOST_FOREACH (thing *th, _things_by_label[s])
+            th->trigger();
+    }
+
 private:
     void _collide_things(thing *a, thing *b);
     void _tick_thing(thing *th);
@@ -123,6 +130,8 @@ private:
     thing_set _all_things;
     thing_set _ticking_things;
     thing_set _dying_things;
+
+    boost::unordered_map<symbol, thing_set> _things_by_label;
 
     grid _grid;
 
