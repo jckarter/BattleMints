@@ -16,7 +16,7 @@ void sphere::accelerate_with_exhaust(vec2 accel)
 {
     velocity += accel;
     board::current()->particles
-        .add_particles(center - vnormalize(accel)*radius, mass*accel, particle_system::exhaust);
+        .add_particles(center - vnormalize(accel)*radius, sphere::EXHAUST_FACTOR*mass*accel, particle_system::exhaust);
 }
 #endif
 

@@ -25,13 +25,15 @@ const float cambot::LEAD_FACTOR = 15.0f;
 const float cambot::FOLLOW_FACTOR = 0.1f;
 const float cambot::ACCEL = 0.03f;
 
-const float player::ACCEL_SCALE = 0.02f;
+const float sphere::EXHAUST_FACTOR = 2.0f;
+
+const float player::ACCEL_SCALE = 0.01f;
 const float player::RADIUS = 0.5f;
 const float player::MASS = 1.0f;
 const float player::SPRING = 1.0f;
 const vec4 player::COLOR = CONST_VEC4(0.5, 0.89, 1.0, 1.0);
 
-const float mini::ACCEL = 0.021f;
+const float mini::ACCEL = 0.011f;
 const float mini::RADIUS = 0.35f;
 const float mini::MASS = 0.45f;
 const float mini::SPRING = 1.0f;
@@ -46,7 +48,7 @@ const boost::array<vec4, 6> mini::colors = {
     make_vec4(0.3, 0.24, 0.2, 1.0)
 };
 
-const float mega::ACCEL = 0.004f;
+const float mega::ACCEL = 0.003f;
 const float mega::RADIUS = 2.6f;
 const float mega::MASS = 15.0f;
 const float mega::SPRING = 1.0f;

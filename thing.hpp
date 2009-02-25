@@ -98,6 +98,8 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
     { th.print(os); return os; }
 
 struct sphere : thing {
+    static float EXHAUST_FACTOR;
+
     float radius;
     vec2 cur_accel;
 
