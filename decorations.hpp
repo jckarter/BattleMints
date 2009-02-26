@@ -27,9 +27,9 @@ struct sign : decoration
         mega_xing,
         narrows,
         spikes,
+        slow,
+        stop,
         blank,
-        blank2,
-        blank3,
         blank4
     };
 

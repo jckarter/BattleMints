@@ -128,5 +128,14 @@ alarm::can_trip(thing &o)
     return dynamic_cast<player*>(&o) != NULL;
 }
 
+thing *
+alarm::from_json(Json::Value const &v)
+{
+    vec2 endpoint_a = vec2_from_json(v["endpoint_a"]);
+    vec2 endpoint_b = vec2_from_json(v["endpoint_b"]);
+
+    return new alarm(endpoint_a, endpoint_b);
+}
+
 }
 
