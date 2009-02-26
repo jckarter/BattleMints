@@ -1,4 +1,4 @@
-#include "goal.hpp"
+#include "tripwire.hpp"
 #include "serialization.hpp"
 #include "dramatis_personae.hpp"
 #include "transition.hpp"
@@ -8,6 +8,8 @@ namespace battlemints {
 
 static const float GOAL_THICKNESS = 0.1f;
 static const float GOAL_TRIP_STRENGTH_FALLOFF = 0.85f;
+
+static boost::array<renders_with_pair, 1> goal::renders_with_pairs;
 
 GLuint goal::_goal_texture;
 
@@ -64,6 +66,10 @@ goal::from_json(Json::Value const &v)
 void
 goal::global_start()
 {
+    renders_with_pairs = (boost::array<renders_with_pair, 1>){{
+        { self_renderer::instance, (renderer_parameter)"goal" } 
+    }};
+
     boost::array<unsigned char, 16> checkerboard_texture = {
         0,   0,   255, 255,
         0,   0,   255, 255,
@@ -107,4 +113,20 @@ goal::_set_up_vertices()
     _texcoords[3] = make_vec2(texture_length, 1.0f);
 }
 
+void
+alarm::on_trip(thing &o)
+{
+    if (label)
+        board::current()->trigger(label);
+    if (!multiple)
+        board::current()->remove_thing(this);
 }
+
+bool
+alarm::can_trip(thing &o)
+{
+    return dynamic_cast<player*>(&o) != NULL;
+}
+
+}
+

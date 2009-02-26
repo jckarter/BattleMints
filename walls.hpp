@@ -14,7 +14,13 @@ struct wall : line {
     virtual void on_collision(thing &o) { o.wall_damage(); }
 #ifdef DRAW_WALLS
     virtual renders_with_range renders_with() const
-        { return self_renderer::instance_null_arg_range; }
+    {
+        static boost::array<renders_with_pair, 1> renders_with_pairs;
+        renders_with_pairs = (boost::array<renders_with_pair, 1>)
+            {{ { self_renderer::instance, (renderer_parameter)"wall" } }};
+        
+        return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end());
+    }
     virtual void draw_self() const {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -37,7 +43,13 @@ struct wallpost : point {
 
 #ifdef DRAW_WALLS
     virtual renders_with_range renders_with() const
-        { return self_renderer::instance_null_arg_range; }
+    {
+        static boost::array<renders_with_pair, 1> renders_with_pairs;
+        renders_with_pairs = (boost::array<renders_with_pair, 1>)
+            {{ { self_renderer::instance, (renderer_parameter)"wallpost" } }};
+        
+        return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end());
+    }
     virtual void draw_self() const {
         glDisable(GL_TEXTURE_2D);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);

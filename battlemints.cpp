@@ -5,7 +5,7 @@
 #include "geom.hpp"
 #include "intro.hpp"
 #include "synth.hpp"
-#include "goal.hpp"
+#include "tripwire.hpp"
 #include "dramatis_personae.hpp"
 #include "renderers.hpp"
 #include <OpenGLES/ES1/gl.h>
@@ -24,7 +24,9 @@ void battlemints_start()
 
     sphere_face::global_start(); // must happen first!
     renderer::global_start(); // must happen second!
+    goal::global_start();
     global_start_actors();
+    global_start_decorations();
 
     controller::set_current(new intro());
 }
@@ -70,6 +72,7 @@ void battlemints_finish()
 {
     controller::delete_current();
 
+    goal::global_finish();
     renderer::global_finish();
     sphere_face::global_finish();
 }

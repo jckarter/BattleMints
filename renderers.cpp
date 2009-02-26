@@ -9,6 +9,7 @@ namespace battlemints {
 sphere_renderer *sphere_renderer::instance = NULL;
 face_renderer *face_renderer::instance = NULL;
 tile_renderer *tile_renderer::instance = NULL;
+decoration_renderer *decoration_renderer::instance = NULL;
 self_renderer *self_renderer::instance = NULL;
 
 renders_with_pair tile_renderer::instance_null_arg, self_renderer::instance_null_arg;
@@ -18,15 +19,15 @@ const renders_with_range
         = boost::make_iterator_range((renders_with_pair*)NULL, (renders_with_pair*)NULL),
     tile_renderer::instance_null_arg_range
         = boost::make_iterator_range(&tile_renderer::instance_null_arg,
-                                     &tile_renderer::instance_null_arg + 1),
-    self_renderer::instance_null_arg_range
-        = boost::make_iterator_range(&self_renderer::instance_null_arg,
-                                     &self_renderer::instance_null_arg + 1);
+                                     &tile_renderer::instance_null_arg + 1);
 
 face_renderer::face_id
     face_renderer::PLAYER_FACE = (face_renderer::face_id)"player",
     face_renderer::MINI_FACE   = (face_renderer::face_id)"mini",
     face_renderer::MEGA_FACE   = (face_renderer::face_id)"mega";
+
+decoration_renderer::decoration_id
+    decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs";
 
 void
 renderer::global_start()
@@ -34,10 +35,10 @@ renderer::global_start()
     sphere_renderer::instance = new sphere_renderer;
     face_renderer::instance = new face_renderer;
     tile_renderer::instance = new tile_renderer;
+    decoration_renderer::instance = new self_renderer;
     self_renderer::instance = new self_renderer;
 
     tile_renderer::instance_null_arg = (renders_with_pair){ tile_renderer::instance, NULL };
-    self_renderer::instance_null_arg = (renders_with_pair){ self_renderer::instance, NULL };
 
     _prebuild_textures();
 }
@@ -49,6 +50,7 @@ renderer::global_finish()
     delete tile_renderer::instance;
     delete face_renderer::instance;
     delete sphere_renderer::instance;
+    delete decoration_renderer::instance;
 }
 
 void
@@ -62,6 +64,8 @@ renderer::_prebuild_textures()
     sphere_renderer::instance->make_texture(mini::RADIUS);
     sphere_renderer::instance->make_texture(mega::RADIUS);
     sphere_renderer::instance->make_texture(bumper::INNER_RADIUS);
+
+    decoration_renderer::instance->make_texture(decoration_renderer::SIGN_DECORATION);
 }
 
 sphere_renderer::~sphere_renderer()
@@ -169,66 +173,51 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-namespace {
-    void join_ranges(std::list<tile::vertex_range> &out_ranges, std::vector<thing*> const &tiles)
-    {
-        typedef std::list<tile::vertex_range>::iterator range_iter;
-
-#if 0
-        typedef boost::unordered_map<GLint, range_iter> endpoint_map;
-
-        endpoint_map endpoints;
-#endif
-
-        BOOST_FOREACH (thing *th, tiles) {
-            tile *t = static_cast<tile*>(th);
-
-#if 0
-            endpoint_map::iterator prev = endpoints.find(t->vertices.begin);
-            endpoint_map::iterator next = endpoints.find(t->vertices.end());
-
-            if (prev != endpoints.end() && next != endpoints.end()) {
-                endpoints.erase(t->vertices.begin);
-                endpoints.erase(t->vertices.end());
-
-                prev->second->size += t->vertices.size + next->second->size;
-                endpoints[prev->second->end()] = prev->second;
-                out_ranges.erase(next->second);
-            }
-            else if (prev != endpoints.end()) {
-                endpoints.erase(t->vertices.begin);
-                prev->second->size += t->vertices.size;
-                endpoints[t->vertices.end()] = prev->second;
-            }
-            else if (next != endpoints.end()) {
-                endpoints.erase(t->vertices.end());
-                next->second->begin  = t->vertices.begin;
-                next->second->size  += t->vertices.size;
-                endpoints[t->vertices.begin] = next->second;
-            }
-            else {
-#endif
-                out_ranges.push_front(t->vertices);
-#if 0
-                endpoints[t->vertices.begin] = out_ranges.begin();
-                endpoints[t->vertices.end()] = out_ranges.begin();
-            }
-#endif
-        }
-    }
-}
-
 void
 tile_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
-    std::list<tile::vertex_range> ranges;
-
-    join_ranges(ranges, things);
-
     board::current()->tile_vertices_thing->bind();
-    BOOST_FOREACH (tile::vertex_range const &r, ranges)
-        glDrawArrays(GL_TRIANGLE_FAN, r.begin, r.size);
+    BOOST_FOREACH (thing *th, ranges) {
+        tile *t = static_cast<tile*>(th);
+        glDrawArrays(GL_TRIANGLE_FAN, t->vertices.begin, t->vertices.size);
+    }
     board::current()->tile_vertices_thing->unbind();
+}
+
+void
+decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
+{
+    decoration_id decoration = parameter_as<decoration_id>(p);
+
+    image_texture *tex = decoration_cache[decoration]; 
+        
+    glEnable(GL_TEXTURE_2D);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindTexture(GL_TEXTURE_2D, tex->texture);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+
+    BOOST_FOREACH (thing *th, things) {
+        decoration *d = static_cast<decoration*>(th);
+        decoration::params params = d->decoration_params();
+
+        glPushMatrix();
+        glTranslatef(d->center.x, d->center.y, 0.0f);
+        glVertexPointer(2, GL_FLOAT, 0, params.vertices);
+        glVertexPointer(2, GL_FLOAT, 0, params.texcoords);
+
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+        glPopMatrix();
+    }
+}
+
+image_texture *
+decoration_renderer::make_texture(decoration_id d)
+{
+    image_texture *decoration = image_texture::from_file((char const *)face);
+    sphere_face_cache[face] = f;
+    return f;
 }
 
 void

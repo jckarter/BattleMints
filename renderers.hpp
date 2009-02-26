@@ -69,7 +69,7 @@ struct face_renderer : renderer {
     face_renderer() {}
     virtual ~face_renderer();
 
-    sphere_face *make_face(face_id radius);
+    sphere_face *make_face(face_id f);
 
     virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
@@ -92,10 +92,26 @@ struct tile_renderer : renderer {
     virtual float z_index(renderer_parameter p) { return 300.0f; }
 };
 
+struct decoration_renderer : renderer {
+    typedef void const *decoration_id;
+    static decoration_id SIGN_DECORATION;
+    static decoration_renderer *instance;
+
+    decoration_renderer() {}
+
+    virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
+
+    virtual float z_index(renderer_parameter p) { return -100.0f; }
+
+    image_texture *make_texture(decoration_id d);
+
+private:
+    typedef boost::unordered_map<decoration_id, image_texture*> decoration_cache_map;
+    decoration_cache_map decoration_cache;
+};
+
 struct self_renderer : renderer {
     static self_renderer *instance;
-    static renders_with_pair instance_null_arg;
-    static const renders_with_range instance_null_arg_range;
 
     self_renderer() {}
 

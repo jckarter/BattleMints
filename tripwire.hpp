@@ -8,7 +8,6 @@
 namespace battlemints {
 
 struct tripwire : line {
-    
     tripwire(vec2 pt_a, vec2 pt_b)
         : line(pt_a, pt_b) { }
 
@@ -32,6 +31,8 @@ struct tripwire : line {
 };
 
 struct goal : tripwire {
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
     std::string next_board;
     float trip_strength;
 
@@ -39,7 +40,7 @@ struct goal : tripwire {
         : tripwire(pt_a, pt_b), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
     virtual renders_with_range renders_with() const
-        { return self_renderer::instance_null_arg_range; }
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual void draw_self() const;
     virtual void tick();
     virtual void on_trip(thing &o);
@@ -59,6 +60,19 @@ private:
     vec4 _color() const;
 
     static GLuint _goal_texture;
+};
+
+struct alarm : tripwire {
+    bool multiple;
+
+    alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b), multiple(false) { }
+        
+    virtual void on_trip(thing &o);
+    virtual void can_trip(thing &o);
+
+    virtual char const * kind() const { return "alarm"; }
+
+    static thing *from_json(Json::Value const &v);
 };
 
 }
