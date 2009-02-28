@@ -27,6 +27,7 @@ void battlemints_start()
     goal::global_start();
     global_start_actors();
     global_start_decorations();
+    global_start_walls();
 
     controller::set_current(new intro());
 }

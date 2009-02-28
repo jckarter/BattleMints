@@ -64,6 +64,7 @@ renderer::_prebuild_textures()
     sphere_renderer::instance->make_texture(mini::RADIUS);
     sphere_renderer::instance->make_texture(mega::RADIUS);
     sphere_renderer::instance->make_texture(bumper::INNER_RADIUS);
+    sphere_renderer::instance->make_texture(switch_spring::RADIUS);
 
     decoration_renderer::instance->make_texture(decoration_renderer::SIGN_DECORATION);
 }
@@ -203,8 +204,8 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
 
         glPushMatrix();
         glTranslatef(d->center.x, d->center.y, 0.0f);
-        glVertexPointer(2, GL_FLOAT, 0, params.vertices);
-        glVertexPointer(2, GL_FLOAT, 0, params.texcoords);
+        glVertexPointer(2, GL_FLOAT, 0, (void*)params.vertices);
+        glTexCoordPointer(2, GL_FLOAT, 0, (void*)params.texcoords);
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 

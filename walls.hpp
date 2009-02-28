@@ -68,6 +68,39 @@ struct wallpost : point {
     static thing *from_json(Json::Value const &v) { return point::from_json<wallpost>(v); }
 };
 
+struct door : wall {
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
+    door(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b) { }
+
+    virtual bool does_ticks() const { return true; }
+
+    virtual renders_with_range renders_with() const 
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    
+    virtual void draw_self() const {
+        glDisable(GL_TEXTURE_2D);
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        
+        glPointSize(3.0f);
+        glColor4f(0.0, 1.0, 0.0, 1.0);
+        glVertexPointer(2, GL_FLOAT, 0, (void*)&center);
+        glDrawArrays(GL_POINTS, 0, 1);
+    }
+
+    virtual void trigger() { board::current()->remove_thing(this); }
+    virtual char const * kind() const { return "door"; }
+
+    static thing *from_json(Json::Value const &v) { return line::from_json<door>(v); }
+};
+
+inline void global_start_walls()
+{
+    door::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
+        { self_renderer::instance, (renderer_parameter)"wall" } 
+    }};
+}
+
 }
 
 #endif

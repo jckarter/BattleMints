@@ -154,10 +154,9 @@ inline float rand_near(float center, float epsilon)
 
 inline float signum(float n)
 {
-    return n <  0.0f ? -1.0f
-         : n == 0.0f ?  0.0f
-         :              1.0f;
-
+    union { float f; int b; } nn = { n };
+    nn.b &= (1<<31); nn.b |= 0x3f800000;
+    return nn.f;
 }
 
 inline vec2 polar_vec2(float rho, float theta)

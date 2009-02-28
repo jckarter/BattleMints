@@ -72,7 +72,7 @@ struct alarm : tripwire {
 
     virtual char const * kind() const { return "alarm"; }
 
-    static thing *from_json(Json::Value const &v);
+    static thing *from_json(Json::Value const &v) { return line::from_json<alarm>(v); }
 };
 
 }

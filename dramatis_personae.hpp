@@ -148,28 +148,36 @@ struct bumper : sphere {
     static thing *from_json(Json::Value const &v) { return sphere::from_json<bumper>(v); }
 };
 
-struct spring : sphere {
-    vec2 home;
-    float factor;
+struct switch_spring : sphere {
+    static const float RADIUS, MASS, SLOT_LENGTH, SPRING_FACTOR;
+    static const vec4 COLOR, TRIGGERED_COLOR, SLOT_COLOR;
+    static const boost::array<vec2, 4> slot_vertices;
+    
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
 
-    spring(float m, vec2 ct, float r, float sp, float f)
-        : sphere(m, ct, r, sp), home(ct), factor(f) { }
-
-    virtual char const * kind() const { return "bumper"; }
-
-    virtual void tick();
-};
-
-struct direction_spring : sphere {
     vec2 home, axis;
-    float axis_factor, perpendicular_factor;
+    float slot_matrix[16];
+    bool triggered;
 
-    direction_spring(float m, vec2 ct, float r, float sp, vec2 ax, float af, float pf)
-        : sphere(m, ct, r, sp), home(ct), axis(ax), axis_factor(af), perpendicular_factor(pf) { }
+    switch_spring(vec2 ct, vec2 ax)
+        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
+          home(ct), axis(ax), triggered(false)
+        { _set_matrix(); }
 
-    virtual char const * kind() const { return "direction_spring"; }
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual void draw_self() const;
 
+    virtual vec4 sphere_color(float) { return triggered ? TRIGGERED_COLOR : COLOR; }
+
+    virtual char const * kind() const { return "switch_spring"; }
+    
     virtual void tick();
+
+    static thing *from_json(Json::Value const &v);
+
+private:
+    void _set_matrix();
 };
 
 }

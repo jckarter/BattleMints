@@ -36,6 +36,11 @@ void global_start_actors()
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::RADIUS) },
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::INNER_RADIUS) }
     }};
+
+    switch_spring::renders_with_pairs_template = (boost::array<renders_with_pair,2>){{
+        { self_renderer::instance,   (renderer_parameter)"switch_spring" },
+        { sphere_renderer::instance, renderer::as_parameter<float>(switch_spring::RADIUS) }
+    }};
 }
 
 void player::tick()
@@ -99,16 +104,65 @@ vec4 bumper::sphere_color(float radius)
         return bumper::INNER_COLOR;
 }
 
-void spring::tick()
+void switch_spring::draw_self() const
 {
-    velocity += factor * (home - center);
+    glDisable(GL_TEXTURE_2D);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glColor4f(SLOT_COLOR.x, SLOT_COLOR.y, SLOT_COLOR.z, SLOT_COLOR.w);
+    glVertexPointer(2, GL_FLOAT, 0, (void*)slot_vertices);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glMultMatrixf(matrix);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glPopMatrix();
 }
 
-void direction_spring::tick()
+void switch_spring::tick()
 {
-    vec2 distance = home - center;
-    float factor = blend(perpendicular_factor, axis_factor, vdot(vnormalize(distance), axis));
-    velocity += factor * distance;
+    vec2 perp_axis = vperp(axis);
+    vec2 disp = position - home;
+    vec2 off_axis = disp * vdot(disp, perp_axis);
+    float on_axis = vdot(disp, axis);
+
+    vec2 slot_accel = -off_axis;
+
+    if (on_axis < -SLOT_LENGTH)
+        slot_accel += (SLOT_LENGTH + on_axis)*axis;
+    else if (on_axis > SLOT_LENGTH)
+        slot_accel -= (on_axis - SLOT_LENGTH)*axis;
+    else
+        slot_accel += axis * signum(on_axis) * (SLOT_LENGTH-fabsf(on_axis)) * SPRING_FACTOR;
+    velocity = axis * vdot(axis, velocity) + slot_accel;
+
+    if (!triggered && on_axis > (0.95f * SLOT_LENGTH)) {
+        triggered = true;
+        if (label)
+            board::current()->fire_trigger(label);
+    }
+}
+
+thing *switch_spring::from_json(Json::Value const &v)
+{
+    vec2 center = vec2_from_json(v["center"]);
+    vec2 axis = vec2_from_json(v["axis"]);
+    return new switch_spring(center, axis);
+}
+
+void switch_spring::_set_matrix()
+{
+    vec2 perp_axis = vperp(axis);
+
+    memset(slot_matrix, 0, 16*sizeof(float));
+    slot_matrix[ 0] = axis.x;
+    slot_matrix[ 1] = axis.y;
+    slot_matrix[ 4] = perp_axis.x;
+    slot_matrix[ 5] = perp_axis.y;
+    slot_matrix[10] = 1.0f;
+    slot_matrix[12] = home.x;
+    slot_matrix[13] = home.y;
+    slot_matrix[15] = 1.0f;
 }
 
 }
