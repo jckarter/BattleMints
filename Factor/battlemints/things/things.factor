@@ -1,18 +1,24 @@
-USING: accessors arrays assocs kernel literals math math.affine-transforms
-math.functions math.vectors sequences sets quadtrees ;
+USING: accessors arrays assocs constructors kernel literals math
+math.affine-transforms math.functions math.vectors sequences sets quadtrees ;
 IN: battlemints.things
 
 ! utility words
 : rotate ( sequence -- equences ) 1 cut-slice prepend ;
 ! end utility words
 
-TUPLE: thing transform ; 
-TUPLE: shape < thing ;
-TUPLE: tile < shape ;
-TUPLE: actor < thing ;
+TUPLE: thing spawn? label ; 
 
-TUPLE: tile-shell vertex-start vertex-length center ;
-TUPLE: tile-vertices vertices ;
+TUPLE: transform-thing < thing transform ;
+
+TUPLE: shape < transform-thing ;
+TUPLE: tile < shape ;
+TUPLE: actor < transform-thing ;
+
+TUPLE: tile-shell < thing vertex-start vertex-length center ;
+TUPLE: tile-vertices < thing vertices ;
+
+CONSTRUCTOR: tile-shell ( vertex-start vertex-length center -- tile-shell ) ;
+CONSTRUCTOR: tile-vertices ( vertices -- tile-vertices ) ;
 
 TUPLE: tile-vertex vertex color ;
 
@@ -34,14 +40,19 @@ TUPLE: bumper < actor ;
 TUPLE: player < actor ;
 TUPLE: powerup < actor powerup-kind ;
 
-TUPLE: line endpoints ;
+TUPLE: line < thing endpoints ;
 
 TUPLE: tripwire < line ;
+TUPLE: alarm < tripwire ;
 TUPLE: goal < tripwire next-board ;
 
 TUPLE: wall < line ;
+TUPLE: door < wall ;
 
-TUPLE: wallpost center ;
+TUPLE: wallpost < thing center ;
+
+TUPLE: switch < transform-thing ;
+TUPLE: sign < transform-thing signface ;
 
 GENERIC: (shape-vertices) ( tile -- vertices )
 
@@ -199,6 +210,9 @@ M: powerup actor-radius drop 0.5 ;
 
 GENERIC: thing-extents ( thing -- min max )
 
+M: object thing-extents
+    transform>> origin>> dup ;
+
 M: shape thing-extents
     shape-vertices [ vleast ] [ vgreatest ] bi ;
 M: actor thing-extents
@@ -212,6 +226,10 @@ M: tile-shell thing-extents
     center>> dup ;
 M: tile-vertices thing-extents
     vertices>> [ vertex>> ] map [ vleast ] [ vgreatest ] bi ;
+
+M: sign thing-extents
+    transform>> origin>> { 0.7 0.7 }
+    [ v- ] [ v+ ] 2bi ;
 
 : vertices>edges ( vertices -- edges )
     dup rotate zip ;

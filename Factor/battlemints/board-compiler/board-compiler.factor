@@ -22,45 +22,60 @@ CONSTANT: dest-path "/Users/joe/Documents/Code/BattleMints"
 : href>class ( href -- word )
     dup first CHAR: # = [ rest id>class ] [ "<use> href must be #id form" throw ] if ;
 
-GENERIC: thing-rep ( thing -- sequence )
+GENERIC: (thing-rep-name) ( thing -- name )
+GENERIC: (thing-rep) ( thing -- assoc )
+
+: v>>k ( assoc v k -- assoc ) pick set-at ;
+
+: common-thing-rep ( assoc thing -- assoc )
+    [ label>> [ "label" v>>k ] when* ]
+    [ spawn?>> [ t "spawn" v>>k ] when ] bi ;
+
+: thing-rep ( thing -- array )
+    [ (thing-rep-name) ] [ (thing-rep) ] [ common-thing-rep ] tri 2array ;
 
 : zip-hashtable ( vs ks -- hashtable ) swap zip >hashtable ;
 
-M: tile-shell thing-rep
-    "tile"
-    swap [ center>> ] [ vertex-start>> ] [ vertex-length>> ] tri 3array
-    { "center" "vertex_start" "vertex_length" } zip-hashtable
-    2array ;
+M: object (thing-rep-name) class name>> ;
+M: tile-shell (thing-rep-name) drop "tile" ;
+M: tile-vertices (thing-rep-name) drop "tile_vertices" ;
 
-M: tile-vertices thing-rep
-    "tile_vertices"
-    swap vertices>> [ [ vertex>> ] [ color>> ] bi 2array ] map
-    "vertices" associate
-    2array ;
+M: tile-shell (thing-rep)
+    [ center>> ] [ vertex-start>> ] [ vertex-length>> ] tri 3array
+    { "center" "vertex_start" "vertex_length" } zip-hashtable ;
 
-M: actor thing-rep
-    [ class name>> ] [ transform>> origin>> "center" associate ] bi 2array ;
+M: tile-vertices (thing-rep)
+    vertices>> [ [ vertex>> ] [ color>> ] bi 2array ] map
+    "vertices" associate ;
 
-M: line thing-rep
-    [ class name>> ] [ endpoints>> { "endpoint_a" "endpoint_b" } zip-hashtable ] bi
-    2array ;
+M: actor (thing-rep)
+    transform>> origin>> "center" associate ;
 
-M: wallpost thing-rep
-    [ class name>> ] [ center>> "center" associate ] bi 2array ;
+M: line (thing-rep)
+    endpoints>> { "endpoint_a" "endpoint_b" } zip-hashtable ;
 
-: thing-rep-associate ( thing-rep v k -- thing-rep ) pick second set-at ;
+M: wallpost (thing-rep)
+    center>> "center" associate ;
 
-M: player thing-rep
+M: sign (thing-rep)
+    [ transform>> origin>> ] [ signface>> ] bi 2array
+    { "center" "signface" } zip-hashtable ;
+
+M: switch (thing-rep)
+    transform>> [ origin>> ] [ axes { 1.0 0.0 } a.v ] bi 2array
+    { "center" "axis" } zip-hashtable ;
+
+M: player (thing-rep)
     call-next-method
-    t "camera" thing-rep-associate ;
+    t "camera" v>>k ;
 
-M: goal thing-rep
+M: goal (thing-rep)
     [ call-next-method ] keep
-    next-board>> "next_board" thing-rep-associate ;
+    next-board>> "next_board" v>>k ;
 
-M: powerup thing-rep
+M: powerup (thing-rep)
     [ call-next-method ] keep
-    powerup-kind>> "kind" thing-rep-associate ;
+    powerup-kind>> "kind" v>>k ;
 
 : <use>? ( tag -- ? ) "use" svg-name names-match? ;
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
@@ -78,11 +93,18 @@ GENERIC# (tag>>thing) 1 ( thing tag -- thing )
     [ tag-d [ p>> ] map >>endpoints ] bi ;
 
 : tag>thing ( tag -- thing )
-    dup {
-        { [ dup <use>? ] [ (use>thing) ] }
-        { [ dup battlemints-<path>? ] [ (path>thing) ] }
-        [ drop f ]
-    } cond swap (tag>>thing) ;
+    {
+        [
+            {
+                { [ dup <use>? ] [ (use>thing) ] }
+                { [ dup battlemints-<path>? ] [ (path>thing) ] }
+                [ drop f ]
+            } cond 
+        ]
+        [ (tag>>thing) ]
+        [ "label" battlemints-name attr >>label ]
+        [ "spawn" battlemints-name attr >boolean >>spawn? ]
+    } cleave ;
 
 M: object (tag>>thing) drop ;
 
@@ -132,10 +154,12 @@ CONSTANT: TILE-EDGE-PRECISION 64
     edge-counts [ nip 1 = ] assoc-filter keys ;
 
 : edge>wall ( edge -- wall )
-    wall boa ;
+    wall new
+        swap >>endpoints ;
 
 : vertex>wallpost ( vertex -- wallpost )
-    wallpost boa ;
+    wallpost new
+        swap >>center ;
 
 : walls ( tiles -- walls )
     [ tile? ] filter
@@ -150,7 +174,7 @@ CONSTANT: TILE-EDGE-PRECISION 64
 : make-shell ( vertices tile -- vertices shell )
     [ shape-vertices [ canonicalize-point ] map ]
     [ shape-color push-vertices ]
-    [ shape-center ] tri tile-shell boa ;
+    [ shape-center ] tri <tile-shell> ;
 
 : board-extents ( things -- extents )
     { 1.0/0.0 1.0/0.0 } { -1.0/0.0 -1.0/0.0 } rot
@@ -158,7 +182,7 @@ CONSTANT: TILE-EDGE-PRECISION 64
 
 : shells ( tiles -- shells )
     [ shape-center ] swizzle
-    [ 100 <vector> tile-vertices boa ] dip [ make-shell ] map
+    [ 100 <vector> <tile-vertices> ] dip [ make-shell ] map
     swap suffix ;
 
 : process-things ( things -- things' )
