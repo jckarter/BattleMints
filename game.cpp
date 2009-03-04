@@ -68,6 +68,23 @@ const float powerup::MASS = 1000.0f;
 const float powerup::SPRING = 1.0f;
 const vec4 powerup::COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
 
+const float switch_spring::RADIUS = 0.2f;
+const float switch_spring::MASS = 0.2f;
+const float switch_spring::SLOT_LENGTH = 0.5f;
+const float switch_spring::SLOT_WIDTH = 0.05f;
+const float switch_spring::SPRING_FACTOR = 1.0f;
+
+const vec4 switch_spring::COLOR = CONST_VEC4(0.89f, 0.87f, 0.86f, 1.0f);
+const vec4 switch_spring::TRIGGERED_COLOR = CONST_VEC4(0.69f, 1.00f, 0.66f, 1.0f);
+const vec4 switch_spring::SLOT_COLOR = CONST_VEC4(0.43f, 0.36f, 0.33f, 1.0f);
+
+const boost::array<vec2, 4> switch_spring::slot_vertices = {
+    make_vec2(-SLOT_LENGTH, -SLOT_WIDTH),
+    make_vec2( SLOT_LENGTH, -SLOT_WIDTH),
+    make_vec2(-SLOT_LENGTH,  SLOT_WIDTH),
+    make_vec2( SLOT_LENGTH,  SLOT_WIDTH)
+};
+
 vec2 controller_state;
 
 }
