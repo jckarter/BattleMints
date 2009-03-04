@@ -88,7 +88,7 @@ struct door : wall {
         glDrawArrays(GL_POINTS, 0, 1);
     }
 
-    virtual void trigger() { board::current()->remove_thing(this); }
+    virtual void trigger(thing *scapegoat) { board::current()->remove_thing(this); }
     virtual char const * kind() const { return "door"; }
 
     static thing *from_json(Json::Value const &v) { return line::from_json<door>(v); }

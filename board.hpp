@@ -80,10 +80,10 @@ struct board : controller {
     particle_system particles;
     tile_vertices *tile_vertices_thing;
 
-    void fire_trigger(symbol s)
+    void fire_trigger(symbol s, thing *scapegoat)
     {
         BOOST_FOREACH (thing *th, _things_by_label[s])
-            th->trigger();
+            th->trigger(scapegoat);
     }
 
 private:

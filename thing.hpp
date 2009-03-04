@@ -80,7 +80,7 @@ struct thing : boost::noncopyable {
 
     virtual void awaken() { } // Called when board activates
 
-    virtual void trigger() { } // Called when a switch or alarm with the same label is fired
+    virtual void trigger(thing *scapegoat) { } // Called when a switch or alarm with the same label is fired
 
 #ifndef NO_GRAPHICS
     virtual void draw_self() const { } // only used if renders_with() self_renderer
@@ -215,7 +215,7 @@ struct spawn : thing {
     spawn(thing *l) : larva(l) {}
 
     virtual ~spawn() { if (larva) delete larva; }
-    virtual void trigger()
+    virtual void trigger(thing *scapegoat)
     {
         board::current()->add_thing(larva);
         board::current()->remove_thing(this);

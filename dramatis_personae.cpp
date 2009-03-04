@@ -88,6 +88,12 @@ void enemy::on_collision(thing &o)
         target = &o;
 }
 
+void enemy::trigger(thing *scapegoat)
+{
+    if (!target)
+        target = scapegoat;
+}
+
 renders_with_range bumper::renders_with() const
 {
     return boost::make_iterator_range(
@@ -119,6 +125,11 @@ void switch_spring::draw_self() const
     glPopMatrix();
 }
 
+void switch_spring::on_collision(thing &o)
+{
+    last_touch = &o;
+}
+
 void switch_spring::tick()
 {
     vec2 perp_axis = vperp(axis);
@@ -139,7 +150,7 @@ void switch_spring::tick()
     if (!triggered && on_axis > (0.95f * SLOT_LENGTH)) {
         triggered = true;
         if (label)
-            board::current()->fire_trigger(label);
+            board::current()->fire_trigger(label, last_touch);
     }
 }
 

@@ -117,7 +117,7 @@ void
 alarm::on_trip(thing &o)
 {
     if (label)
-        board::current()->trigger(label);
+        board::current()->fire_trigger(label, &o);
     if (!multiple)
         board::current()->remove_thing(this);
 }

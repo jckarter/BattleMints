@@ -86,6 +86,8 @@ struct enemy : sphere {
 
     void die() { board::current()->particles.explode(this); }
 
+    virtual void trigger(thing *scapegoat);
+
     virtual char const * kind() const { return "enemy"; }
 };
 
@@ -158,10 +160,12 @@ struct switch_spring : sphere {
     vec2 home, axis;
     float slot_matrix[16];
     bool triggered;
+    thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
         : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
-          home(ct), axis(ax), triggered(false)
+          home(ct), axis(ax), triggered(false),
+          last_touch(NULL);
         { _set_matrix(); }
 
     virtual renders_with_range renders_with() const
@@ -173,6 +177,7 @@ struct switch_spring : sphere {
     virtual char const * kind() const { return "switch_spring"; }
     
     virtual void tick();
+    virtual void on_collision(thing &o);
 
     static thing *from_json(Json::Value const &v);
 
