@@ -14,13 +14,13 @@ boost::array<renders_with_pair, 1> sign::renders_with_pairs;
 namespace {
 
 boost::array< std::pair<std::string, sign::signface>, 7 > signface_names_array = {{
-    { "mini_xing", sign::mini_xing },
-    { "mega_xing", sign::mega_xing },
-    { "narrows",   sign::narrows   },
-    { "spikes",    sign::spikes    },
-    { "slow",      sign::slow      },
-    { "stop",      sign::stop      },
-    { "blank",     sign::blank     },
+    std::make_pair("mini_xing", sign::mini_xing),
+    std::make_pair("mega_xing", sign::mega_xing),
+    std::make_pair("narrows",   sign::narrows  ),
+    std::make_pair("spikes",    sign::spikes   ),
+    std::make_pair("slow",      sign::slow     ),
+    std::make_pair("stop",      sign::stop     ),
+    std::make_pair("blank",     sign::blank    )
 }};
 
 }
@@ -36,13 +36,13 @@ void global_start_decorations()
 
 decoration::params sign::decoration_params()
 {
-    return (params){ (void*)vertices, (void*)texcoords };
+    return (params){ (void*)&vertices, (void*)&texcoords };
 }
 
 thing *sign::from_json(Json::Value const &v)
 {
     vec2 center = vec2_from_json(v["center"]);
-    signface face = signface_names[v["signface"]];
+    signface face = signface_names[v["signface"].asString()];
 
     return new sign(center, face);
 }

@@ -151,7 +151,7 @@ struct bumper : sphere {
 };
 
 struct switch_spring : sphere {
-    static const float RADIUS, MASS, SLOT_LENGTH, SPRING_FACTOR;
+    static const float RADIUS, MASS, SLOT_LENGTH, SLOT_WIDTH, SPRING_FACTOR;
     static const vec4 COLOR, TRIGGERED_COLOR, SLOT_COLOR;
     static const boost::array<vec2, 4> slot_vertices;
     
@@ -165,7 +165,7 @@ struct switch_spring : sphere {
     switch_spring(vec2 ct, vec2 ax)
         : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
           home(ct), axis(ax), triggered(false),
-          last_touch(NULL);
+          last_touch(NULL)
         { _set_matrix(); }
 
     virtual renders_with_range renders_with() const
@@ -183,6 +183,20 @@ struct switch_spring : sphere {
 
 private:
     void _set_matrix();
+};
+
+struct spawn : thing {
+    thing *larva;
+
+    spawn(thing *l) : thing(0.0f, l->center, 0.0f), larva(l) {}
+
+    virtual ~spawn() { if (larva) delete larva; }
+    virtual void trigger(thing *scapegoat)
+    {
+        board::current()->add_thing(larva);
+        board::current()->remove_thing(this);
+        larva = NULL;
+    }
 };
 
 }

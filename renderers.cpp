@@ -1,6 +1,7 @@
 #include "renderers.hpp"
 #include "dramatis_personae.hpp"
 #include "tiles.hpp"
+#include "decorations.hpp"
 #include <list>
 #include <iostream>
 
@@ -12,7 +13,7 @@ tile_renderer *tile_renderer::instance = NULL;
 decoration_renderer *decoration_renderer::instance = NULL;
 self_renderer *self_renderer::instance = NULL;
 
-renders_with_pair tile_renderer::instance_null_arg, self_renderer::instance_null_arg;
+renders_with_pair tile_renderer::instance_null_arg;
 
 const renders_with_range
     renderer::null_range
@@ -35,7 +36,7 @@ renderer::global_start()
     sphere_renderer::instance = new sphere_renderer;
     face_renderer::instance = new face_renderer;
     tile_renderer::instance = new tile_renderer;
-    decoration_renderer::instance = new self_renderer;
+    decoration_renderer::instance = new decoration_renderer;
     self_renderer::instance = new self_renderer;
 
     tile_renderer::instance_null_arg = (renders_with_pair){ tile_renderer::instance, NULL };
@@ -178,7 +179,7 @@ void
 tile_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     board::current()->tile_vertices_thing->bind();
-    BOOST_FOREACH (thing *th, ranges) {
+    BOOST_FOREACH (thing *th, things) {
         tile *t = static_cast<tile*>(th);
         glDrawArrays(GL_TRIANGLE_FAN, t->vertices.begin, t->vertices.size);
     }
@@ -188,9 +189,9 @@ tile_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 void
 decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
-    decoration_id decoration = parameter_as<decoration_id>(p);
+    decoration_id deco = parameter_as<decoration_id>(p);
 
-    image_texture *tex = decoration_cache[decoration]; 
+    image_texture *tex = decoration_cache[deco]; 
         
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -216,9 +217,9 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
 image_texture *
 decoration_renderer::make_texture(decoration_id d)
 {
-    image_texture *decoration = image_texture::from_file((char const *)face);
-    sphere_face_cache[face] = f;
-    return f;
+    image_texture *deco = image_texture::from_file((char const *)d);
+    decoration_cache[d] = deco;
+    return deco;
 }
 
 void

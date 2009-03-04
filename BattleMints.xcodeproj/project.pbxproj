@@ -17,7 +17,6 @@
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		D8040BFE0F3A583400EE5D8B /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8040BFD0F3A583400EE5D8B /* tiles.cpp */; };
 		D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */; };
-		D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122D780EE4EEF700A0AD25 /* goal.cpp */; };
 		D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8122E7B0EE9C5AC00A0AD25 /* game.cpp */; };
 		D81A115A0EBCD00800283428 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11560EBCD00800283428 /* grid.cpp */; };
 		D81A115B0EBCD00800283428 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D81A11580EBCD00800283428 /* board.cpp */; };
@@ -49,6 +48,9 @@
 		D8EA4CA20F4DB71E0077124F /* renderers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8EA4CA00F4DB71E0077124F /* renderers.cpp */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */; };
+		D8FA4F1C0F5F195200FC3C4F /* decorations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F190F5F195200FC3C4F /* decorations.cpp */; };
+		D8FA4F1D0F5F195200FC3C4F /* tripwire.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */; };
+		D8FA4F500F5F359E00FC3C4F /* walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,8 +71,6 @@
 		D8122CE80EE10BD400A0AD25 /* sound_effects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_effects.hpp; sourceTree = "<group>"; };
 		D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_effects.cpp; sourceTree = "<group>"; };
 		D8122D770EE4EEF700A0AD25 /* tripwire.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tripwire.hpp; sourceTree = "<group>"; };
-		D8122D780EE4EEF700A0AD25 /* goal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = goal.cpp; sourceTree = "<group>"; };
-		D8122D790EE4EEF700A0AD25 /* goal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = goal.hpp; sourceTree = "<group>"; };
 		D8122DED0EE9C0AC00A0AD25 /* synthtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = synthtest.cpp; sourceTree = "<group>"; };
 		D8122E7B0EE9C5AC00A0AD25 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		D81A11560EBCD00800283428 /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
@@ -125,6 +125,10 @@
 		D8F80CE20F05F290002ACC03 /* board_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board_loader.hpp; sourceTree = "<group>"; };
 		D8F80CEF0F071FB7002ACC03 /* ply_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ply_file.cpp; sourceTree = "<group>"; };
 		D8F80CF00F071FB7002ACC03 /* ply_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ply_file.hpp; sourceTree = "<group>"; };
+		D8FA4F190F5F195200FC3C4F /* decorations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decorations.cpp; sourceTree = "<group>"; };
+		D8FA4F1A0F5F195200FC3C4F /* decorations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decorations.hpp; sourceTree = "<group>"; };
+		D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tripwire.cpp; sourceTree = "<group>"; };
+		D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = walls.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +183,10 @@
 		29B97315FDCFA39411CA2CEA /* BattleMints */ = {
 			isa = PBXGroup;
 			children = (
+				D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */,
+				D8FA4F190F5F195200FC3C4F /* decorations.cpp */,
+				D8FA4F1A0F5F195200FC3C4F /* decorations.hpp */,
+				D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */,
 				D8EA4CA00F4DB71E0077124F /* renderers.cpp */,
 				D8EA4CA10F4DB71E0077124F /* renderers.hpp */,
 				D8040BFD0F3A583400EE5D8B /* tiles.cpp */,
@@ -226,8 +234,6 @@
 				D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */,
 				D84C2A870EDD20760000DE73 /* synth.hpp */,
 				D8122D770EE4EEF700A0AD25 /* tripwire.hpp */,
-				D8122D780EE4EEF700A0AD25 /* goal.cpp */,
-				D8122D790EE4EEF700A0AD25 /* goal.hpp */,
 			);
 			name = BattleMints;
 			sourceTree = "<group>";
@@ -358,7 +364,6 @@
 				D86F03360EC4C292004F03F8 /* serialization.mm in Sources */,
 				D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */,
 				D8122CEA0EE10BD400A0AD25 /* sound_effects.cpp in Sources */,
-				D8122D7C0EE4EEF700A0AD25 /* goal.cpp in Sources */,
 				D8122E7C0EE9C5AC00A0AD25 /* game.cpp in Sources */,
 				D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */,
 				D8F80CF10F071FB7002ACC03 /* ply_file.cpp in Sources */,
@@ -369,6 +374,9 @@
 				D8B272FF0F0D4C32001844D6 /* particles.cpp in Sources */,
 				D8040BFE0F3A583400EE5D8B /* tiles.cpp in Sources */,
 				D8EA4CA20F4DB71E0077124F /* renderers.cpp in Sources */,
+				D8FA4F1C0F5F195200FC3C4F /* decorations.cpp in Sources */,
+				D8FA4F1D0F5F195200FC3C4F /* tripwire.cpp in Sources */,
+				D8FA4F500F5F359E00FC3C4F /* walls.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

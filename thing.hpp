@@ -24,7 +24,7 @@ struct sphere;
 struct line;
 struct point;
 
-typedef std::string *symbol;
+typedef std::string const *symbol;
 
 extern boost::unordered_set<std::string> interned_symbols;
 
@@ -98,7 +98,7 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
     { th.print(os); return os; }
 
 struct sphere : thing {
-    static float EXHAUST_FACTOR;
+    static const float EXHAUST_FACTOR;
 
     float radius;
     vec2 cur_accel;
@@ -207,20 +207,6 @@ protected:
         return new Thing(center);
     }
 #endif
-};
-
-struct spawn : thing {
-    thing *larva;
-
-    spawn(thing *l) : larva(l) {}
-
-    virtual ~spawn() { if (larva) delete larva; }
-    virtual void trigger(thing *scapegoat)
-    {
-        board::current()->add_thing(larva);
-        board::current()->remove_thing(this);
-        larva = NULL;
-    }
 };
 
 }

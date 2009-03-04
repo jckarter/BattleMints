@@ -3,6 +3,7 @@
 #include "walls.hpp"
 #include "tiles.hpp"
 #include "tripwire.hpp"
+#include "decorations.hpp"
 #include <UIKit/UIKit.h>
 
 namespace battlemints {
@@ -52,11 +53,11 @@ thing *thing_from_json(Json::Value const &v)
     else
         throw invalid_board_json(std::string("unknown kind of thing \"" + kind + "\""));
 
-    if (params["spawn"].asBool())
+    if (params.isMember("spawn") && params["spawn"].asBool())
         th = new spawn(th);
 
     if (params.isMember("label"))
-        th.label = intern(params.asString());
+        th->label = intern(params.asString());
 
     return th;
 }

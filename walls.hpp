@@ -4,6 +4,7 @@
 #include "thing.hpp"
 #include "collision.hpp"
 #include "serialization.hpp"
+#include "board.hpp"
 #include <boost/array.hpp>
 
 namespace battlemints {
@@ -71,7 +72,7 @@ struct wallpost : point {
 struct door : wall {
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
-    door(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b) { }
+    door(vec2 pt_a, vec2 pt_b) : wall(pt_a, pt_b) { }
 
     virtual bool does_ticks() const { return true; }
 
@@ -94,12 +95,7 @@ struct door : wall {
     static thing *from_json(Json::Value const &v) { return line::from_json<door>(v); }
 };
 
-inline void global_start_walls()
-{
-    door::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
-        { self_renderer::instance, (renderer_parameter)"wall" } 
-    }};
-}
+void global_start_walls();
 
 }
 

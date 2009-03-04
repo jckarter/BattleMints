@@ -68,7 +68,7 @@ struct alarm : tripwire {
     alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b), multiple(false) { }
         
     virtual void on_trip(thing &o);
-    virtual void can_trip(thing &o);
+    virtual bool can_trip(thing &o);
 
     virtual char const * kind() const { return "alarm"; }
 

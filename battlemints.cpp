@@ -1,5 +1,6 @@
 #include "battlemints.h"
 #include "controller.hpp"
+#include "decorations.hpp"
 #include "drawing.hpp"
 #include "game.hpp"
 #include "geom.hpp"
@@ -8,6 +9,7 @@
 #include "tripwire.hpp"
 #include "dramatis_personae.hpp"
 #include "renderers.hpp"
+#include "walls.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <boost/foreach.hpp>

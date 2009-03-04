@@ -9,6 +9,7 @@ boost::array<renders_with_pair, 2> player::renders_with_pairs;
 boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
+boost::array<renders_with_pair, 2> switch_spring::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
 
 void global_start_actors()
@@ -37,7 +38,7 @@ void global_start_actors()
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::INNER_RADIUS) }
     }};
 
-    switch_spring::renders_with_pairs_template = (boost::array<renders_with_pair,2>){{
+    switch_spring::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { self_renderer::instance,   (renderer_parameter)"switch_spring" },
         { sphere_renderer::instance, renderer::as_parameter<float>(switch_spring::RADIUS) }
     }};
@@ -116,11 +117,11 @@ void switch_spring::draw_self() const
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glColor4f(SLOT_COLOR.x, SLOT_COLOR.y, SLOT_COLOR.z, SLOT_COLOR.w);
-    glVertexPointer(2, GL_FLOAT, 0, (void*)slot_vertices);
+    glVertexPointer(2, GL_FLOAT, 0, (void*)&slot_vertices);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glMultMatrixf(matrix);
+    glMultMatrixf(slot_matrix);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glPopMatrix();
 }
@@ -133,7 +134,7 @@ void switch_spring::on_collision(thing &o)
 void switch_spring::tick()
 {
     vec2 perp_axis = vperp(axis);
-    vec2 disp = position - home;
+    vec2 disp = center - home;
     vec2 off_axis = disp * vdot(disp, perp_axis);
     float on_axis = vdot(disp, axis);
 

@@ -9,7 +9,7 @@ namespace battlemints {
 static const float GOAL_THICKNESS = 0.1f;
 static const float GOAL_TRIP_STRENGTH_FALLOFF = 0.85f;
 
-static boost::array<renders_with_pair, 1> goal::renders_with_pairs;
+boost::array<renders_with_pair, 1> goal::renders_with_pairs;
 
 GLuint goal::_goal_texture;
 
