@@ -11,7 +11,7 @@ namespace battlemints {
 typedef thing *(*thing_reader)(Json::Value const &v);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 13> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 14> _thing_reader_pairs = {
     thing_reader_pair("wall",            &wall::from_json),
     thing_reader_pair("wallpost",        &wallpost::from_json),
     thing_reader_pair("player",          &player::from_json),
@@ -24,7 +24,8 @@ static const boost::array<thing_reader_pair, 13> _thing_reader_pairs = {
     thing_reader_pair("tile",            &tile::from_json),
     thing_reader_pair("tile_vertices",   &tile_vertices::from_json),
     thing_reader_pair("sign",            &sign::from_json),
-    thing_reader_pair("switch",          &switch_spring::from_json)
+    thing_reader_pair("switch",          &switch_spring::from_json),
+    thing_reader_pair("door",            &door::from_json)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers
@@ -56,8 +57,8 @@ thing *thing_from_json(Json::Value const &v)
     if (params.isMember("spawn") && params["spawn"].asBool())
         th = new spawn(th);
 
-    if (params.isMember("label"))
-        th->label = intern(params.asString());
+    if (params.isMember("label") && params["label"].isString())
+        th->label = intern(params["label"].asString());
 
     return th;
 }
