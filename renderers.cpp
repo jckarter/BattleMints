@@ -28,7 +28,7 @@ face_renderer::face_id
     face_renderer::MEGA_FACE   = (face_renderer::face_id)"mega";
 
 decoration_renderer::decoration_id
-    decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs";
+    decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs.png";
 
 void
 renderer::global_start()
@@ -196,7 +196,7 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, tex->texture);
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
     glMatrixMode(GL_MODELVIEW);
 
     BOOST_FOREACH (thing *th, things) {

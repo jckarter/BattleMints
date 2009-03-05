@@ -42,10 +42,10 @@ struct sign : decoration
     sign(vec2 center, signface s) : decoration(center)
     {
         texcoords = (boost::array<vec2, 4>){
-            make_vec2(0.125f*s,          0.0f),
-            make_vec2(0.125f*s + 0.125f, 0.0f),
             make_vec2(0.125f*s,          1.0f),
             make_vec2(0.125f*s + 0.125f, 1.0f),
+            make_vec2(0.125f*s,          0.0f),
+            make_vec2(0.125f*s + 0.125f, 0.0f),
         };
     }
 

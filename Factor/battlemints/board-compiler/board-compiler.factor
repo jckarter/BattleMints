@@ -16,6 +16,9 @@ CONSTANT: dest-path "/Users/joe/Documents/Code/BattleMints"
 : source-file ( filename -- path ) source-path prepend-path ;
 : dest-file ( filename -- path ) dest-path prepend-path ;
 
+: board ( basename -- source dest )
+    [ ".svg" append source-file ] [ ".board" append dest-file ] bi ;
+
 : id>class ( id -- word )
     "battlemints.things" lookup ;
 
@@ -113,6 +116,9 @@ M: goal (tag>>thing)
 
 M: powerup (tag>>thing)
     "powerup-kind" battlemints-name attr >>powerup-kind ;
+
+M: sign (tag>>thing)
+    "signface" battlemints-name attr >>signface ;
 
 : children-tags>things ( tag -- things )
     children-tags [ tag>thing ] map ;

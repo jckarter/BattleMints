@@ -2,6 +2,7 @@
 #include "dramatis_personae.hpp"
 #include "renderers.hpp"
 #include "tiles.hpp"
+#include "walls.hpp"
 #include <boost/array.hpp>
 #include <limits>
 #include <cmath>
