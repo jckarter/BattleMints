@@ -33,8 +33,6 @@
 		D82BFC950EC1829100E65BAF /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFC8D0EC1829100E65BAF /* json_writer.cpp */; };
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
-		D84E39A20F33DE350002888D /* test.board in Resources */ = {isa = PBXBuildFile; fileRef = D84E39A10F33DE350002888D /* test.board */; };
-		D86F03320EC4C274004F03F8 /* demo.board in Resources */ = {isa = PBXBuildFile; fileRef = D86F03310EC4C274004F03F8 /* demo.board */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
 		D8B2722B0F09D89C001844D6 /* rply.c in Sources */ = {isa = PBXBuildFile; fileRef = D8B272290F09D89C001844D6 /* rply.c */; };
 		D8B272510F09DDBE001844D6 /* board_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B272500F09DDBE001844D6 /* board_loader.mm */; };
@@ -51,6 +49,9 @@
 		D8FA4F1C0F5F195200FC3C4F /* decorations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F190F5F195200FC3C4F /* decorations.cpp */; };
 		D8FA4F1D0F5F195200FC3C4F /* tripwire.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */; };
 		D8FA4F500F5F359E00FC3C4F /* walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */; };
+		D8FA4F5C0F5F404000FC3C4F /* hub.board in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4F5A0F5F404000FC3C4F /* hub.board */; };
+		D8FA4F5D0F5F404000FC3C4F /* level1.board in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4F5B0F5F404000FC3C4F /* level1.board */; };
+		D8FA4FD70F5F7A5500FC3C4F /* signs.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4FD60F5F7A5500FC3C4F /* signs.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,8 +102,6 @@
 		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
 		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
 		D84C2AB10EDD24180000DE73 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		D84E39A10F33DE350002888D /* test.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.board; sourceTree = "<group>"; };
-		D86F03310EC4C274004F03F8 /* demo.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = demo.board; sourceTree = "<group>"; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
 		D8B272290F09D89C001844D6 /* rply.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rply.c; path = rply/rply.c; sourceTree = "<group>"; };
@@ -129,6 +128,9 @@
 		D8FA4F1A0F5F195200FC3C4F /* decorations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decorations.hpp; sourceTree = "<group>"; };
 		D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tripwire.cpp; sourceTree = "<group>"; };
 		D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = walls.cpp; sourceTree = "<group>"; };
+		D8FA4F5A0F5F404000FC3C4F /* hub.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hub.board; sourceTree = "<group>"; };
+		D8FA4F5B0F5F404000FC3C4F /* level1.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.board; sourceTree = "<group>"; };
+		D8FA4FD60F5F7A5500FC3C4F /* signs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signs.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,11 +243,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D84E39A10F33DE350002888D /* test.board */,
+				D8FA4FD60F5F7A5500FC3C4F /* signs.png */,
+				D8FA4F5A0F5F404000FC3C4F /* hub.board */,
+				D8FA4F5B0F5F404000FC3C4F /* level1.board */,
 				D8B274F60F148797001844D6 /* mega.png */,
 				D8B274DE0F145DF1001844D6 /* mini.png */,
 				D8B2744C0F142B5E001844D6 /* player.png */,
-				D86F03310EC4C274004F03F8 /* demo.board */,
 				D82BFAEC0EBE801200E65BAF /* Default.png */,
 				D81B5A3D0EB52192002A40E7 /* BattleMintsIcon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -332,12 +335,13 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				D81B5A3E0EB52192002A40E7 /* BattleMintsIcon.png in Resources */,
 				D82BFAED0EBE801200E65BAF /* Default.png in Resources */,
-				D86F03320EC4C274004F03F8 /* demo.board in Resources */,
 				D8B2743C0F14195D001844D6 /* Entitlements.plist in Resources */,
 				D8B2744D0F142B5E001844D6 /* player.png in Resources */,
 				D8B274DF0F145DF1001844D6 /* mini.png in Resources */,
 				D8B274F70F148797001844D6 /* mega.png in Resources */,
-				D84E39A20F33DE350002888D /* test.board in Resources */,
+				D8FA4F5C0F5F404000FC3C4F /* hub.board in Resources */,
+				D8FA4F5D0F5F404000FC3C4F /* level1.board in Resources */,
+				D8FA4FD70F5F7A5500FC3C4F /* signs.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
