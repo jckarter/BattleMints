@@ -187,9 +187,6 @@ image_texture::from_file(std::string const &name)
     return r;
 }
 
-const float sphere_face::ROTATE_SPAN = 20.0f,
-            sphere_face::ROTATE_FACTOR = 25.0f;
-
 GLuint sphere_face::array_buffer;
 
 void sphere_face::global_start()

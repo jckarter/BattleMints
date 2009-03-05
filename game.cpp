@@ -19,6 +19,9 @@ const vec4 ZERO_VEC4 = CONST_VEC4_SPLAT(0.0);
 const vec2 GAME_WINDOW_SIZE = CONST_VEC2(320.0, 480.0);
 const vec2 GAME_WINDOW_UNIT_SIZE = CONST_VEC2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
+const float sphere_face::ROTATE_SPAN = 20.0f,
+            sphere_face::ROTATE_FACTOR = 40.0f;
+
 const vec2 board::CELL_SIZE = CONST_VEC2(6.0, 6.0);
 
 const float cambot::LEAD_FACTOR = 15.0f;
@@ -27,13 +30,13 @@ const float cambot::ACCEL = 0.03f;
 
 const float sphere::EXHAUST_FACTOR = 2.0f;
 
-const float player::ACCEL_SCALE = 0.01f;
+const float player::ACCEL_SCALE = 0.014f;
 const float player::RADIUS = 0.5f;
 const float player::MASS = 1.0f;
 const float player::SPRING = 1.0f;
 const vec4 player::COLOR = CONST_VEC4(0.5, 0.89, 1.0, 1.0);
 
-const float mini::ACCEL = 0.011f;
+const float mini::ACCEL = 0.015f;
 const float mini::RADIUS = 0.35f;
 const float mini::MASS = 0.45f;
 const float mini::SPRING = 1.0f;
@@ -48,7 +51,7 @@ const boost::array<vec4, 6> mini::colors = {
     make_vec4(0.3, 0.24, 0.2, 1.0)
 };
 
-const float mega::ACCEL = 0.003f;
+const float mega::ACCEL = 0.004f;
 const float mega::RADIUS = 2.6f;
 const float mega::MASS = 15.0f;
 const float mega::SPRING = 1.0f;
@@ -77,6 +80,8 @@ const float switch_spring::SPRING_FACTOR = 1.0f;
 const vec4 switch_spring::COLOR = CONST_VEC4(0.89f, 0.87f, 0.86f, 1.0f);
 const vec4 switch_spring::TRIGGERED_COLOR = CONST_VEC4(0.69f, 1.00f, 0.66f, 1.0f);
 const vec4 switch_spring::SLOT_COLOR = CONST_VEC4(0.43f, 0.36f, 0.33f, 1.0f);
+
+const vec4 door::COLOR = CONST_VEC4(0.28f, 0.22f, 0.22f, 1.0f);
 
 const boost::array<vec2, 4> switch_spring::slot_vertices = {
     make_vec2(-SLOT_LENGTH, -SLOT_WIDTH),
