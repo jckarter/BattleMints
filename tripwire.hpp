@@ -66,6 +66,8 @@ struct alarm : tripwire {
     bool multiple;
 
     alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b), multiple(false) { }
+
+    virtual bool does_ticks() const { return true; }
         
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);

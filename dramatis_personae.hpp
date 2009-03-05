@@ -190,6 +190,8 @@ struct spawn : thing {
 
     spawn(thing *l) : thing(0.0f, l->center, 0.0f), larva(l) {}
 
+    virtual bool does_ticks() const { return true; }
+
     virtual ~spawn() { if (larva) delete larva; }
     virtual void trigger(thing *scapegoat)
     {
