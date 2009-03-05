@@ -15,7 +15,10 @@
    inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="signs.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/Users/joe/Documents/Code/BattleMints/signs.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
   <defs
      id="defs3274">
     <inkscape:perspective
@@ -37,7 +40,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.5193805"
-     inkscape:cx="135.23964"
+     inkscape:cx="158.62925"
      inkscape:cy="10.347933"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -47,8 +50,8 @@
      inkscape:snap-nodes="false"
      inkscape:window-width="1913"
      inkscape:window-height="1196"
-     inkscape:window-x="102"
-     inkscape:window-y="75">
+     inkscape:window-x="268"
+     inkscape:window-y="346">
     <inkscape:grid
        type="xygrid"
        id="grid3282"
@@ -250,5 +253,16 @@
          x="164.09416"
          id="tspan4284"
          sodipodi:role="line">STOP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Zapfino;-inkscape-font-specification:Zapfino Italic"
+       x="41.758759"
+       y="76.684532"
+       id="text4316"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4318"
+         x="41.758759"
+         y="76.684532" /></text>
   </g>
 </svg>
