@@ -135,20 +135,21 @@ void switch_spring::tick()
 {
     vec2 perp_axis = vperp(axis);
     vec2 disp = center - home;
-    vec2 off_axis = disp * vdot(disp, perp_axis);
-    float on_axis = vdot(disp, axis);
 
-    vec2 slot_accel = -off_axis;
+    float axis_pos = vdot(disp, axis);
+    float spring = 0.0f;
 
-    if (on_axis < -SLOT_LENGTH)
-        slot_accel += (SLOT_LENGTH + on_axis)*axis;
-    else if (on_axis > SLOT_LENGTH)
-        slot_accel -= (on_axis - SLOT_LENGTH)*axis;
-    else
-        slot_accel += axis * signum(on_axis) * (SLOT_LENGTH-fabsf(on_axis)) * SPRING_FACTOR;
-    velocity = axis * vdot(axis, velocity) + slot_accel;
+    if (axis_pos < -SLOT_LENGTH)
+        spring = (-SLOT_LENGTH - axis_pos);
+    else if (axis_pos > SLOT_LENGTH)
+        spring = ( SLOT_LENGTH - axis_pos);
 
-    if (!triggered && on_axis > (0.95f * SLOT_LENGTH)) {
+    spring += signum(axis_pos) * (SLOT_LENGTH - fabsf(axis_pos)) * SPRING_FACTOR;
+
+    vec2 axis_return = -perp_axis * vdot(disp + velocity, perp_axis);
+    velocity += axis_return + spring * axis;
+
+    if (!triggered && axis_pos > (0.95f * SLOT_LENGTH)) {
         triggered = true;
         if (label)
             board::current()->fire_trigger(label, last_touch);

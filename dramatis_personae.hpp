@@ -163,7 +163,7 @@ struct switch_spring : sphere {
     thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
-        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
+        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 1.0f),
           home(ct), axis(ax), triggered(false),
           last_touch(NULL)
         { _set_matrix(); }
@@ -197,6 +197,7 @@ struct spawn : thing {
     {
         board::current()->add_thing(larva);
         board::current()->remove_thing(this);
+        larva->trigger(scapegoat);
         larva = NULL;
     }
 };

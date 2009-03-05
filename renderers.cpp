@@ -196,8 +196,8 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, tex->texture);
-    glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
     glMatrixMode(GL_MODELVIEW);
+    glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 
     BOOST_FOREACH (thing *th, things) {
         decoration *d = static_cast<decoration*>(th);
