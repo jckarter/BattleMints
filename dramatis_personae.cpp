@@ -5,7 +5,7 @@
 
 namespace battlemints {
 
-boost::array<renders_with_pair, 2> player::renders_with_pairs;
+boost::array<renders_with_pair, 3> player::renders_with_pairs_template;
 boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
@@ -14,7 +14,8 @@ boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
 
 void global_start_actors()
 {
-    player::renders_with_pairs = (boost::array<renders_with_pair,2>){{
+    player::renders_with_pairs_template = (boost::array<renders_with_pair,3>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(player::SHIELD_RADIUS) },
         { sphere_renderer::instance, renderer::as_parameter<float>(player::RADIUS) },
         { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::PLAYER_FACE) }
     }};
@@ -44,16 +45,66 @@ void global_start_actors()
     }};
 }
 
+renders_with_range player::renders_with() const
+{
+    return boost::make_iterator_range(
+        renders_with_pairs_template.begin() + (!shielded || (board::current()->tick_count() & 1)),
+        renders_with_pairs_template.end()
+    );
+}
+
 void player::tick()
 {
+    if (grace_period > 0)
+        --grace_period;
     cur_accel = vclip(controller_state, 1.0) * make_vec2(ACCEL_SCALE); 
     if (cur_accel != ZERO_VEC2)
         accelerate_with_exhaust(cur_accel);
 }
 
+void player::lose_shield()
+{
+    shielded = false;
+    radius = RADIUS;
+    spring = SPRING;
+    board::current()->particles.explode(this, false);
+    grace_period = GRACE_PERIOD;
+}
+
+void player::gain_shield()
+{
+    shielded = true;
+    radius = SHIELD_RADIUS;
+    spring = SHIELD_SPRING;
+}
+
+void player::die()
+{
+    board::current()->particles.explode(this, true);
+    board::restart_with<death_transition>();
+}
+
+void player::damage()
+{
+    if (shielded)
+        lose_shield();
+    else if (grace_period == 0)
+        die();
+}
+
 void powerup::tick()
 {
     spin += SPIN;
+}
+
+void powerup::on_collision(thing &o)
+{
+    player *p = dynamic_cast<player*>(&o);
+    if (p) {
+        p->gain_shield();
+        if (!multiple)
+            board::current()->remove_thing(this);
+    }
 }
 
 thing* powerup::from_json(Json::Value const &v)

@@ -145,7 +145,7 @@ struct line : thing {
     vec2 endpoint_a, endpoint_b, normal;
 
     line(vec2 pt_a, vec2 pt_b)
-        : thing(INFINITYF, (pt_a+pt_b)/2, 1.0f),
+        : thing(INFINITYF, (pt_a+pt_b)/2, 0.0f),
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 
@@ -180,7 +180,7 @@ protected:
 };
 
 struct point : thing {
-    point (vec2 pt) : thing(INFINITYF, pt, 1.0f) { }
+    point (vec2 pt) : thing(INFINITYF, pt, 0.0f) { }
 
     virtual void collide(thing &t) { t.collide_point(*this); }
     virtual void collide_sphere(sphere &s) { collide_sphere_point(s, *this); }

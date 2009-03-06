@@ -34,13 +34,16 @@ const float sphere::EXHAUST_FACTOR = 2.0f;
 const float player::ACCEL_SCALE = 0.014f;
 const float player::RADIUS = 0.5f;
 const float player::MASS = 1.0f;
-const float player::SPRING = 1.0f;
-const vec4 player::COLOR = CONST_VEC4(0.5, 0.89, 1.0, 1.0);
+const float player::SPRING = 0.0f;
+const vec4  player::COLOR = CONST_VEC4(0.5f, 0.89f, 1.0f, 1.0f);
+const float player::SHIELD_RADIUS = 0.6f;
+const float player::SHIELD_SPRING = 0.3f;
+const vec4  player::SHIELD_COLOR = CONST_VEC4(1.0f, 0.25f, 0.5f, 0.5f);
 
 const float mini::ACCEL = 0.015f;
 const float mini::RADIUS = 0.35f;
 const float mini::MASS = 0.45f;
-const float mini::SPRING = 1.0f;
+const float mini::SPRING = 0.0f;
 const float mini::RESPONSIVENESS = 0.65f;
 
 const boost::array<vec4, 6> mini::colors = {
@@ -55,28 +58,28 @@ const boost::array<vec4, 6> mini::colors = {
 const float mega::ACCEL = 0.004f;
 const float mega::RADIUS = 2.6f;
 const float mega::MASS = 15.0f;
-const float mega::SPRING = 1.0f;
+const float mega::SPRING = 0.0f;
 const float mega::RESPONSIVENESS = 0.9f;
-const vec4 mega::COLOR = CONST_VEC4(0.33, 0.13, 0.0, 1.0);
+const vec4  mega::COLOR = CONST_VEC4(0.33, 0.13, 0.0, 1.0);
 
 const float bumper::RADIUS = 0.5f;
 const float bumper::MASS = 10000.0f;
-const float bumper::SPRING = 2.0f;
+const float bumper::SPRING = 0.20f;
 const float bumper::INNER_RADIUS = 0.4f;
-const vec4 bumper::INNER_COLOR = CONST_VEC4(0.8f, 1.0f, 0.0f, 1.0f);
-const vec4 bumper::OUTER_COLOR = CONST_VEC4(1.0f, 0.0f, 0.0f, 0.5f);
+const vec4  bumper::INNER_COLOR = CONST_VEC4(0.8f, 1.0f, 0.0f, 1.0f);
+const vec4  bumper::OUTER_COLOR = CONST_VEC4(1.0f, 0.0f, 0.0f, 0.5f);
 
 const float powerup::SPIN = 0.01f;
 const float powerup::RADIUS = 0.5f;
 const float powerup::MASS = 1000.0f;
-const float powerup::SPRING = 1.0f;
-const vec4 powerup::COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
+const float powerup::SPRING = 0.0f;
+const vec4  powerup::COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
 
 const float switch_spring::RADIUS = 0.2f;
 const float switch_spring::MASS = 0.1f;
 const float switch_spring::SLOT_LENGTH = 0.5f;
 const float switch_spring::SLOT_WIDTH = 0.05f;
-const float switch_spring::SPRING_FACTOR = 0.2f;
+const float switch_spring::SPRING_FACTOR = 0.4f;
 
 const vec4 switch_spring::COLOR = CONST_VEC4(0.89f, 0.87f, 0.86f, 1.0f);
 const vec4 switch_spring::TRIGGERED_COLOR = CONST_VEC4(0.69f, 1.00f, 0.66f, 1.0f);

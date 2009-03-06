@@ -18,29 +18,31 @@ namespace battlemints {
 void global_start_actors();
 
 struct player : sphere {
-    static const float ACCEL_SCALE, RADIUS, MASS, SPRING;
-    static const vec4 COLOR;
+    static const float ACCEL_SCALE, RADIUS, MASS, SHIELD_RADIUS, SHIELD_SPRING, SPRING;
+    static const vec4 COLOR, SHIELD_COLOR;
 
-    static boost::array<renders_with_pair, 2> renders_with_pairs;
+    static boost::array<renders_with_pair, 3> renders_with_pairs_template;
 
-    player(vec2 center) : sphere(MASS, center, RADIUS, SPRING) { }
+    bool shielded;
+    int grace_period;
+
+    player(vec2 center)
+        : sphere(MASS, center, RADIUS, SPRING), shielded(false), grace_period(0) { }
 
     virtual void tick();
 
     virtual char const * kind() const { return "player"; }
 
-    virtual void wall_damage() { die(); }
-    virtual void post_damage() { die(); }
+    virtual void wall_damage() { damage(); }
+    virtual void post_damage() { damage(); }
 
-    virtual renders_with_range renders_with() const
-        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual vec4 sphere_color(float) { return COLOR; }
+    virtual renders_with_range renders_with() const;
+    virtual vec4 sphere_color(float r) { return r == SHIELD_RADIUS ? SHIELD_COLOR : COLOR; }
 
-    void die()
-    {
-        board::current()->particles.explode(this);
-        board::restart_with<death_transition>();
-    }
+    void damage();
+    void die();
+    void lose_shield();
+    void gain_shield();
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<player>(v); }
 };
@@ -53,15 +55,17 @@ struct powerup : sphere {
 
     std::string powerup_kind;
     float spin;
+    bool multiple;
 
     powerup(vec2 center, std::string const &k)
-        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), spin(0.0f) { }
+        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), spin(0.0f), multiple(true) { }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual vec4 sphere_color(float) { return COLOR; }
 
     virtual void tick();
+    virtual void on_collision(thing &o);
 
     virtual char const * kind() const { return "powerup"; }
 
@@ -84,7 +88,7 @@ struct enemy : sphere {
     virtual void wall_damage() { die(); }
     virtual void post_damage() { die(); }
 
-    void die() { board::current()->particles.explode(this); }
+    void die() { board::current()->particles.explode(this, true); }
 
     virtual void trigger(thing *scapegoat);
 
@@ -163,7 +167,7 @@ struct switch_spring : sphere {
     thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
-        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 1.0f),
+        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
           home(ct), axis(ax), triggered(false),
           last_touch(NULL)
         { _set_matrix(); }

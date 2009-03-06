@@ -14,7 +14,7 @@ const boost::array<vec2, 4> particle_system::exhaust = {
     make_vec2(-9.0, -24.0)
 };
 
-void particle_system::explode(thing *th)
+void particle_system::explode(thing *th, bool kill)
 {
     static const unsigned SHOCKWAVE_PARTICLES = 25, DEBRIS_PARTICLES = 75;
 
@@ -36,7 +36,8 @@ void particle_system::explode(thing *th)
 
         add_particles(th->center, make_vec2(1.0, 0.0), explosion);
 
-        board::current()->remove_thing(th);
+        if (kill)
+            board::current()->remove_thing(th);
     }
 }
 

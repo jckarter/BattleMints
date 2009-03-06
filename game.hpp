@@ -19,6 +19,8 @@ extern const vec4 ZERO_VEC4;
 extern const vec2 GAME_WINDOW_SIZE;
 extern const vec2 GAME_WINDOW_UNIT_SIZE;
 
+const int GRACE_PERIOD = 30;
+
 extern vec2 controller_state;
 
 inline float max_speed_for_accel(float accel) { return accel/(1.0f - FRICTION); }

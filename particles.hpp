@@ -23,7 +23,7 @@ struct particle_system {
     void draw();
     void tick();
 
-    void explode(thing *th);
+    void explode(thing *th, bool kill);
 
     static vec4 color(unsigned age)
     {
