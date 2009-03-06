@@ -39,7 +39,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="26.191928"
+     inkscape:cx="13.235542"
      inkscape:cy="38.963089"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -553,7 +553,7 @@
        width="1000"
        height="10" />
     <use
-       transform="matrix(0,-1,1,0,23.627601,-25.817614)"
+       transform="matrix(0,-1,1,0,23.627601,-25.258074)"
        height="10"
        width="1000"
        id="use4691"
@@ -2323,7 +2323,7 @@
        style="display:inline"
        height="10"
        width="1000"
-       transform="translate(12.65224,-25.953524)"
+       transform="translate(14.05109,-24.764501)"
        id="use5204"
        xlink:href="#sign"
        y="0"
@@ -2800,6 +2800,26 @@
        xlink:href="#mini"
        y="0"
        x="0"
+       style="display:inline" />
+    <use
+       battlemints:signface="mega_xing"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6430"
+       transform="translate(55.213558,-25.184156)"
+       width="1000"
+       height="10"
+       style="display:inline" />
+    <use
+       battlemints:signface="stop"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6433"
+       transform="translate(23.627601,-27.031828)"
+       width="1000"
+       height="10"
        style="display:inline" />
   </g>
 </svg>
