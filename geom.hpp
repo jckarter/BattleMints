@@ -25,7 +25,7 @@ inline float fast_sin_2pi(float x)
     { return fast_cos_2pi(0.25f - x); }
 
 template<typename V, typename N>
-inline N blend(V zero, V one, N factor)
+inline V blend(V zero, V one, N factor)
     { return zero + factor*(one - zero); }
 
 struct vec2 {

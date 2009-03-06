@@ -48,21 +48,21 @@ struct player : sphere {
 };
 
 struct powerup : sphere {
-    static const float SPIN, RADIUS, MASS, SPRING;
-    static const vec4 COLOR;
+    static const float RADIUS, MASS, SPRING;
+    static const vec4 CHARGED_COLOR, DEAD_COLOR, PULSE_COLOR;
+    static const int CHARGE_TIME = 300;
 
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
     std::string powerup_kind;
-    float spin;
-    bool multiple;
+    unsigned charge_time;
 
     powerup(vec2 center, std::string const &k)
-        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), spin(0.0f), multiple(true) { }
+        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), charge_time(0) { }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual vec4 sphere_color(float) { return COLOR; }
+    virtual vec4 sphere_color(float);
 
     virtual void tick();
     virtual void on_collision(thing &o);

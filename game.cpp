@@ -38,7 +38,7 @@ const float player::SPRING = 0.0f;
 const vec4  player::COLOR = CONST_VEC4(0.5f, 0.89f, 1.0f, 1.0f);
 const float player::SHIELD_RADIUS = 0.6f;
 const float player::SHIELD_SPRING = 0.3f;
-const vec4  player::SHIELD_COLOR = CONST_VEC4(1.0f, 0.25f, 0.5f, 0.5f);
+const vec4  player::SHIELD_COLOR = CONST_VEC4(1.0f, 0.25f, 0.5f, 0.75f);
 
 const float mini::ACCEL = 0.015f;
 const float mini::RADIUS = 0.35f;
@@ -69,11 +69,12 @@ const float bumper::INNER_RADIUS = 0.4f;
 const vec4  bumper::INNER_COLOR = CONST_VEC4(0.8f, 1.0f, 0.0f, 1.0f);
 const vec4  bumper::OUTER_COLOR = CONST_VEC4(1.0f, 0.0f, 0.0f, 0.5f);
 
-const float powerup::SPIN = 0.01f;
 const float powerup::RADIUS = 0.5f;
-const float powerup::MASS = 1000.0f;
+const float powerup::MASS = 10000.0f;
 const float powerup::SPRING = 0.0f;
-const vec4  powerup::COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
+const vec4  powerup::CHARGED_COLOR = CONST_VEC4(1.0f, 0.86f, 0.0f, 1.0f);
+const vec4  powerup::PULSE_COLOR = CONST_VEC4(1.0f, 0.5f, 0.25f, 1.0f);
+const vec4  powerup::DEAD_COLOR = CONST_VEC4(0.57f, 0.54f, 0.44f, 1.0f);
 
 const float switch_spring::RADIUS = 0.2f;
 const float switch_spring::MASS = 0.1f;

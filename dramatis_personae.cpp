@@ -92,18 +92,32 @@ void player::damage()
         die();
 }
 
+vec4 powerup::sphere_color(float)
+{
+    if (charge_time > 0)
+        return DEAD_COLOR;
+    else {
+        return blend(
+            CHARGED_COLOR, PULSE_COLOR,
+            fast_sin_2pi((float)(board::current()->tick_count() & 127) * (1.0f/128.0f))
+        );
+    }
+}
+
 void powerup::tick()
 {
-    spin += SPIN;
+    if (charge_time > 0)
+        --charge_time;
 }
 
 void powerup::on_collision(thing &o)
 {
-    player *p = dynamic_cast<player*>(&o);
-    if (p) {
-        p->gain_shield();
-        if (!multiple)
-            board::current()->remove_thing(this);
+    if (charge_time == 0) {
+        player *p = dynamic_cast<player*>(&o);
+        if (p) {
+            p->gain_shield();
+            charge_time = CHARGE_TIME;
+        }
     }
 }
 
