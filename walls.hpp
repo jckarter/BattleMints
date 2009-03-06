@@ -72,31 +72,30 @@ struct wallpost : point {
 struct door : wall {
     static const vec4 COLOR;
     static boost::array<renders_with_pair, 1> renders_with_pairs;
+    static const unsigned NUM_CLUMPS = 3;
 
-    boost::array<vec2, 2> vertices;
+    struct {
+        boost::array<vec2, 2> beam;
+        boost::array<vec2, NUM_CLUMPS> clumps;
+    } vertices;
+    boost::array<vec2, NUM_CLUMPS> clump_velocities;
+    boost::array<int, NUM_CLUMPS> clump_lives;
 
-    door(vec2 pt_a, vec2 pt_b) : wall(pt_a, pt_b)
-        { vertices = (boost::array<vec2, 2>){ pt_a, pt_b }; }
-
+    door(vec2 pt_a, vec2 pt_b);
     virtual bool does_ticks() const { return true; }
+    virtual void tick();
 
     virtual renders_with_range renders_with() const 
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
 
-    virtual void draw_self() const {
-        glDisable(GL_TEXTURE_2D);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-        glPointSize(3.0f);
-        glColor4f(COLOR.x, COLOR.y, COLOR.z, COLOR.w);
-        glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
-        glDrawArrays(GL_LINES, 0, 2);
-    }
-
+    virtual void draw_self() const;
     virtual void trigger(thing *scapegoat) { board::current()->remove_thing(this); }
     virtual char const * kind() const { return "door"; }
 
     static thing *from_json(Json::Value const &v) { return line::from_json<door>(v); }
+
+private:
+    void _reset_clump(unsigned i);
 };
 
 void global_start_walls();
