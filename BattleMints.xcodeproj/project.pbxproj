@@ -34,6 +34,7 @@
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
+		D8A2F3FB0F609A8700583C9A /* tail.board in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F3FA0F609A8700583C9A /* tail.board */; };
 		D8B2722B0F09D89C001844D6 /* rply.c in Sources */ = {isa = PBXBuildFile; fileRef = D8B272290F09D89C001844D6 /* rply.c */; };
 		D8B272510F09DDBE001844D6 /* board_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B272500F09DDBE001844D6 /* board_loader.mm */; };
 		D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */; };
@@ -104,6 +105,7 @@
 		D84C2AB10EDD24180000DE73 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
+		D8A2F3FA0F609A8700583C9A /* tail.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tail.board; sourceTree = "<group>"; };
 		D8B272290F09D89C001844D6 /* rply.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rply.c; path = rply/rply.c; sourceTree = "<group>"; };
 		D8B2722A0F09D89C001844D6 /* rply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rply.h; path = rply/rply.h; sourceTree = "<group>"; };
 		D8B272500F09DDBE001844D6 /* board_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = board_loader.mm; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8A2F3FA0F609A8700583C9A /* tail.board */,
 				D8FA4FD60F5F7A5500FC3C4F /* signs.png */,
 				D8FA4F5A0F5F404000FC3C4F /* hub.board */,
 				D8FA4F5B0F5F404000FC3C4F /* level1.board */,
@@ -342,6 +345,7 @@
 				D8FA4F5C0F5F404000FC3C4F /* hub.board in Resources */,
 				D8FA4F5D0F5F404000FC3C4F /* level1.board in Resources */,
 				D8FA4FD70F5F7A5500FC3C4F /* signs.png in Resources */,
+				D8A2F3FB0F609A8700583C9A /* tail.board in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

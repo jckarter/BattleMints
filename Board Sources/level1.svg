@@ -38,16 +38,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.333041"
-     inkscape:cx="30.118945"
-     inkscape:cy="29.674717"
+     inkscape:zoom="14.297458"
+     inkscape:cx="26.191928"
+     inkscape:cy="38.963089"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1580"
-     inkscape:window-height="1195"
-     inkscape:window-x="797"
-     inkscape:window-y="125"
+     inkscape:window-width="1290"
+     inkscape:window-height="904"
+     inkscape:window-x="852"
+     inkscape:window-y="41"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -58,7 +58,7 @@
        type="xygrid"
        id="grid4667"
        visible="true"
-       enabled="true"
+       enabled="false"
        spacingx="0.1px"
        empspacing="10"
        spacingy="0.1px"
@@ -642,7 +642,7 @@
        id="path4725"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="level2" />
+       battlemints:next-board="tail" />
     <use
        height="10"
        width="1000"
@@ -951,7 +951,7 @@
        width="1000"
        height="10" />
     <use
-       transform="translate(72.658389,-7.907783)"
+       transform="translate(71.319549,-6.8459444)"
        height="10"
        width="1000"
        id="use4863"
@@ -1985,7 +1985,7 @@
        inkscape:transform-center-x="0.55714535"
        inkscape:transform-center-y="-0.88562185" />
     <use
-       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,9.190333,-28.27081)"
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,8.6363302,-28.039976)"
        height="10"
        width="1000"
        id="use5208"
@@ -2323,7 +2323,7 @@
        style="display:inline"
        height="10"
        width="1000"
-       transform="translate(6.4658758,-29.092873)"
+       transform="translate(12.65224,-25.953524)"
        id="use5204"
        xlink:href="#sign"
        y="0"
@@ -2377,15 +2377,6 @@
        transform="matrix(6.6354066e-2,0.9977961,0.9977961,-6.6354066e-2,-2.6358458,-23.810684)"
        id="use4189"
        xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       transform="matrix(0.4799467,0.8772977,-0.8772977,0.4799467,23.510488,-16.165038)"
-       height="10"
-       width="1000"
-       id="use4320"
-       xlink:href="#switch"
        y="0"
        x="0"
        style="display:inline" />
@@ -2693,5 +2684,122 @@
        width="1000"
        height="10"
        inkscape:transform-center-x="-0.23773566" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use5987"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,67.061298,-10.462194)"
+       width="1000"
+       height="10"
+       battlemints:label="rightswitchroom" />
+    <use
+       battlemints:label="rightswitchroom"
+       height="10"
+       width="1000"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,68.287801,-12.041969)"
+       id="use5989"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use5991"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,69.514303,-13.621745)"
+       width="1000"
+       height="10"
+       battlemints:label="rightswitchroom" />
+    <use
+       battlemints:label="rightswitchroom"
+       height="10"
+       width="1000"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,70.740806,-15.20152)"
+       id="use5993"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       battlemints:label="rightswitchroom"
+       height="10"
+       width="1000"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,66.322628,-12.462194)"
+       id="use5995"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use5997"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,67.549131,-14.041969)"
+       width="1000"
+       height="10"
+       battlemints:label="rightswitchroom" />
+    <use
+       battlemints:label="rightswitchroom"
+       height="10"
+       width="1000"
+       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,68.775633,-15.621745)"
+       id="use5999"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <path
+       battlemints:label="lefthall"
+       sodipodi:nodetypes="cc"
+       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 9.1788012,-22.28066 L 13.257765,-30.474341"
+       id="path6414"
+       battlemints:tripwire="alarm" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use6418"
+       transform="translate(1.7094776,-30.180276)"
+       width="1000"
+       height="10"
+       battlemints:label="lefthall" />
+    <use
+       battlemints:label="lefthall"
+       height="10"
+       width="1000"
+       transform="translate(1.7094776,-32.180276)"
+       id="use6424"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use6426"
+       transform="translate(1.7094776,-34.180276)"
+       width="1000"
+       height="10"
+       battlemints:label="lefthall" />
+    <use
+       battlemints:label="lefthall"
+       height="10"
+       width="1000"
+       transform="translate(3.7094776,-32.180276)"
+       id="use6428"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline" />
   </g>
 </svg>
