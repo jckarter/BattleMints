@@ -21,6 +21,32 @@
    inkscape:export-ydpi="180">
   <defs
      id="defs3274">
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutM"
+       style="overflow:visible">
+      <path
+         id="path7391"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutS"
+       style="overflow:visible">
+      <path
+         id="path7394"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.2)" />
+    </marker>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -40,18 +66,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.5193805"
-     inkscape:cx="158.62925"
-     inkscape:cy="10.347933"
+     inkscape:cx="206.70502"
+     inkscape:cy="-0.29124133"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:snap-global="false"
+     inkscape:snap-global="true"
      inkscape:snap-bbox="true"
-     inkscape:snap-nodes="false"
-     inkscape:window-width="1913"
-     inkscape:window-height="1196"
-     inkscape:window-x="268"
-     inkscape:window-y="346">
+     inkscape:snap-nodes="true"
+     inkscape:window-width="1394"
+     inkscape:window-height="856"
+     inkscape:window-x="0"
+     inkscape:window-y="22">
     <inkscape:grid
        type="xygrid"
        id="grid3282"
@@ -204,7 +230,7 @@
          sodipodi:role="line">XING</tspan></text>
     <path
        id="path4180"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.80413592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.804;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 74.783343,23.005407 L 74.783343,17.933373 L 78.839704,12.861341 L 78.839704,7.7893065 M 84.138886,23.005407 L 84.138886,7.7893065"
        sodipodi:nodetypes="cccccc" />
     <path
@@ -264,5 +290,15 @@
          id="tspan4318"
          x="41.758759"
          y="76.684532" /></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutM);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 214.26598,22.13299 L 214.26598,18.13299 C 214.26598,14.1433 212.38866,12.13299 208.26598,12.13299 L 204.26598,12.13299"
+       id="path7240"
+       sodipodi:nodetypes="cccc" />
+    <path
+       sodipodi:nodetypes="cccc"
+       id="path9060"
+       d="M 234.23505,22.18299 L 234.23505,18.18299 C 234.23505,14.1933 236.11237,12.18299 240.23505,12.18299 L 244.23505,12.18299"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#TriangleOutM);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>
