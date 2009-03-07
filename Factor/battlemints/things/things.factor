@@ -214,18 +214,18 @@ M: object thing-extents
     transform>> origin>> dup ;
 
 M: shape thing-extents
-    shape-vertices [ vleast ] [ vgreatest ] bi ;
+    shape-vertices [ vinfimum ] [ vsupremum ] bi ;
 M: actor thing-extents
     [ transform>> origin>> ] [ actor-radius dup 2array ] bi
     [ v- ] [ v+ ] 2bi ;
 M: line thing-extents
-    endpoints>> [ vleast ] [ vgreatest ] bi ;
+    endpoints>> [ vinfimum ] [ vsupremum ] bi ;
 M: wallpost thing-extents
     center>> dup ;
 M: tile-shell thing-extents
     center>> dup ;
 M: tile-vertices thing-extents
-    vertices>> [ vertex>> ] map [ vleast ] [ vgreatest ] bi ;
+    vertices>> [ vertex>> ] map [ vinfimum ] [ vsupremum ] bi ;
 
 M: sign thing-extents
     transform>> origin>> { 0.7 0.7 }

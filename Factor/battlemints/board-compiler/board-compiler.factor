@@ -3,7 +3,7 @@ combinators.short-circuit hashtables io.encodings.utf8 io.files
 json.writer kernel literals math math.affine-transforms fry
 math.functions math.vectors memoize sequences sequences.squish
 svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
-math.geometry.rect io.pathnames ;
+math.rectangles io.pathnames ;
 IN: battlemints.board-compiler
 
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
