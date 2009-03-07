@@ -39,15 +39,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="13.235542"
-     inkscape:cy="38.963089"
+     inkscape:cx="28.812005"
+     inkscape:cy="30.392703"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1290"
      inkscape:window-height="904"
-     inkscape:window-x="852"
-     inkscape:window-y="41"
+     inkscape:window-x="804"
+     inkscape:window-y="389"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -618,7 +618,7 @@
     <path
        battlemints:tripwire="alarm"
        id="path4719"
-       d="M 31.035259,-18.28061 L 28.845816,-27.474341"
+       d="M 34.499285,-20.280654 L 32.309842,-29.474385"
        style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
        sodipodi:nodetypes="cc"
        battlemints:label="righthall" />
@@ -642,7 +642,7 @@
        id="path4725"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="tail" />
+       battlemints:next-board="hub" />
     <use
        height="10"
        width="1000"
@@ -814,16 +814,6 @@
        y="0"
        x="0"
        style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use4813"
-       transform="translate(42.780327,-32.141465)"
-       width="1000"
-       height="10"
-       battlemints:label="righthall" />
     <use
        style="display:inline"
        x="0"
@@ -1468,37 +1458,7 @@
        battlemints:label="righthall"
        height="10"
        width="1000"
-       transform="translate(44.780327,-32.141465)"
-       id="use5017"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use5019"
-       transform="translate(46.780327,-32.141465)"
-       width="1000"
-       height="10"
-       battlemints:label="righthall" />
-    <use
-       battlemints:label="righthall"
-       height="10"
-       width="1000"
-       transform="translate(48.780327,-32.141465)"
-       id="use5021"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       battlemints:label="righthall"
-       height="10"
-       width="1000"
-       transform="translate(43.672596,-30.141465)"
+       transform="translate(43.742539,-31.6802)"
        id="use5023"
        xlink:href="#mini"
        y="0"
@@ -1510,7 +1470,7 @@
        y="0"
        xlink:href="#mini"
        id="use5025"
-       transform="translate(45.672596,-30.141465)"
+       transform="translate(45.742539,-31.6802)"
        width="1000"
        height="10"
        battlemints:label="righthall" />
@@ -1518,7 +1478,7 @@
        battlemints:label="righthall"
        height="10"
        width="1000"
-       transform="translate(47.672596,-30.141465)"
+       transform="translate(47.742539,-31.6802)"
        id="use5027"
        xlink:href="#mini"
        y="0"
@@ -1530,7 +1490,7 @@
        y="0"
        xlink:href="#mini"
        id="use5029"
-       transform="translate(44.617351,-28.193951)"
+       transform="translate(44.687294,-29.732686)"
        width="1000"
        height="10"
        battlemints:label="righthall" />
@@ -1538,7 +1498,7 @@
        battlemints:label="righthall"
        height="10"
        width="1000"
-       transform="translate(46.617351,-28.193951)"
+       transform="translate(46.687294,-29.732686)"
        id="use5031"
        xlink:href="#mini"
        y="0"
@@ -1550,7 +1510,7 @@
        y="0"
        xlink:href="#mini"
        id="use5033"
-       transform="translate(45.625627,-26.409414)"
+       transform="translate(45.69557,-27.948149)"
        width="1000"
        height="10"
        battlemints:label="righthall" />
@@ -2361,16 +2321,16 @@
        inkscape:transform-center-x="0.92370201"
        inkscape:transform-center-y="1.7922383" />
     <use
-       inkscape:transform-center-x="0.02778563"
+       inkscape:transform-center-x="-0.14841654"
        height="10"
        width="1000"
-       transform="matrix(0.783595,-0.621272,-0.621272,-0.783595,-9.0261482,-32.535555)"
+       transform="matrix(0.2271512,-0.9738595,-0.9738595,-0.2271512,-8.8770649,-33.24837)"
        id="use5293"
        xlink:href="#tile-triangle"
        y="0"
        x="0"
        style="display:inline"
-       inkscape:transform-center-y="-0.34767636" />
+       inkscape:transform-center-y="-0.45212813" />
     <use
        height="10"
        width="1000"

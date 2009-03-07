@@ -46,8 +46,8 @@
      showgrid="true"
      inkscape:window-width="1194"
      inkscape:window-height="703"
-     inkscape:window-x="61"
-     inkscape:window-y="78"
+     inkscape:window-x="484"
+     inkscape:window-y="271"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -519,36 +519,9 @@
     <use
        height="10"
        width="1000"
-       transform="translate(23.012839,-12.962906)"
+       transform="translate(22.754515,-12.962906)"
        id="use5913"
        xlink:href="#player"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(16.642784,-16.477863)"
-       id="use5917"
-       xlink:href="#tile-rhombus-45"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-45"
-       id="use5919"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,20.056994,-17.89208)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(18.056984,-17.892063)"
-       id="use5921"
-       xlink:href="#tile-rhombus-60"
        y="0"
        x="0"
        style="display:inline" />
@@ -752,15 +725,6 @@
        style="display:inline"
        x="0"
        y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use5909"
-       transform="matrix(0.258819,0.9659258,0.9659258,-0.258819,21.988836,-18.409701)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
        xlink:href="#tile-triangle"
        id="use5911"
        transform="matrix(1,0,0,-1,16.642784,-16.477863)"
@@ -775,5 +739,21 @@
        y="0"
        x="0"
        style="display:inline" />
+    <path
+       battlemints:next-board="level2"
+       sodipodi:nodetypes="cc"
+       battlemints:tripwire="goal"
+       id="path6521"
+       d="M 18.642838,-16.477825 L 21.988836,-18.409701"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#arrow"
+       id="use6523"
+       width="1000"
+       height="10"
+       transform="matrix(-0.5,-0.8660254,-0.8660254,0.5,21.46005,-15.649443)" />
   </g>
 </svg>
