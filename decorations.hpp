@@ -29,8 +29,8 @@ struct sign : decoration
         spikes,
         slow,
         stop,
-        blank,
-        blank4
+        leftarrow,
+        rightarrow
     };
 
     static const boost::array<vec2, 4> vertices;

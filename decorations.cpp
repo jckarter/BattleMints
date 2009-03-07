@@ -13,14 +13,15 @@ boost::array<renders_with_pair, 1> sign::renders_with_pairs;
 
 namespace {
 
-boost::array< std::pair<std::string, sign::signface>, 7 > signface_names_array = {{
-    std::make_pair("mini_xing", sign::mini_xing),
-    std::make_pair("mega_xing", sign::mega_xing),
-    std::make_pair("narrows",   sign::narrows  ),
-    std::make_pair("spikes",    sign::spikes   ),
-    std::make_pair("slow",      sign::slow     ),
-    std::make_pair("stop",      sign::stop     ),
-    std::make_pair("blank",     sign::blank    )
+boost::array< std::pair<std::string, sign::signface>, 8 > signface_names_array = {{
+    std::make_pair("mini_xing",  sign::mini_xing ),
+    std::make_pair("mega_xing",  sign::mega_xing ),
+    std::make_pair("narrows",    sign::narrows   ),
+    std::make_pair("spikes",     sign::spikes    ),
+    std::make_pair("slow",       sign::slow      ),
+    std::make_pair("stop",       sign::stop      ),
+    std::make_pair("leftarrow",  sign::leftarrow ),
+    std::make_pair("rightarrow", sign::rightarrow),
 }};
 
 }
