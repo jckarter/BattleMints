@@ -136,13 +136,14 @@ private:
     grid _grid;
 
     typedef std::pair<thing *, thing *> overlap_pair;
-    boost::unordered_set<overlap_pair> _overlaps;
+    std::vector<overlap_pair> _overlaps;
     bool _overlapping(thing *a, thing *b)
-        { return _overlaps.find(std::make_pair(a,b)) != _overlaps.end(); }
+        { return std::find(_overlaps.begin(), _overlaps.end(), std::make_pair(a,b))
+            != _overlaps.end(); }
     void _add_overlap(thing *a, thing *b)
-        { _overlaps.insert(std::make_pair(a,b)); }
+        { _overlaps.push_back(std::make_pair(a,b)); }
     void _remove_overlap(thing *a, thing *b, float f)
-        { _overlaps.erase(std::make_pair(a,b)); }
+        { _overlaps.erase(std::find(_overlaps.begin(), _overlaps.end(), std::make_pair(a,b))); }
 
     unsigned long _tick_count;
 
