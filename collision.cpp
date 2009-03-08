@@ -17,15 +17,6 @@ void transfer_momentum(thing const &a, thing const &b, vec2 &direction, float &a
     b_coef = ((2.0f*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp) + a.spring/sqrtf(b.mass);
 }
 
-// lines and points don't move
-void collide_line_line(line &a, line &b) { }
-void collide_line_point(line &a, point &b) { }
-void collide_point_point(point &a, point &b) { }
-
-float collision_time_line_line(line const &a, line const &b) { return INFINITYF; }
-float collision_time_line_point(line const &a, point const &b) { return INFINITYF; }
-float collision_time_point_point(point const &a, point const &b) { return INFINITYF; }
-
 void collide_sphere_line(sphere &a, line &b)
 {
     a.velocity = vreflect(b.normal, a.velocity);
@@ -94,6 +85,47 @@ float collision_time_sphere_sphere(sphere const &a, sphere const &b)
     return _collision_time_points(
         a.center, b.center, b.velocity - a.velocity, a.radius + b.radius
     );
+}
+
+void thing::collide(thing &o)
+{
+    switch (flags | (o.flags<<1)) {
+    case SPHERE_SPHERE:
+        collide_sphere_sphere(*static_cast<sphere*>(this), *static_cast<sphere*>(&o));
+        break;
+    case SPHERE_LINE:
+        collide_sphere_line(*static_cast<sphere*>(this), *static_cast<line*>(&o));
+        break;
+    case SPHERE_POINT:
+        collide_sphere_point(*static_cast<sphere*>(this), *static_cast<point*>(&o));
+        break;
+    case LINE_SPHERE:
+        collide_sphere_line(*static_cast<sphere*>(&o), *static_cast<line*>(this));
+        break;
+    case POINT_SPHERE:
+        collide_sphere_point(*static_cast<sphere*>(&o), *static_cast<point*>(this));
+        break;
+    default:
+        break;
+    }
+}
+
+float thing::collision_time(thing const &o) const
+{
+    switch (flags | (o.flags<<1)) {
+    case SPHERE_SPHERE:
+        return collision_time_sphere_sphere(*static_cast<sphere const *>(this), *static_cast<sphere const *>(&o));
+    case SPHERE_LINE:
+        return collision_time_sphere_line(*static_cast<sphere const *>(this), *static_cast<line const *>(&o));
+    case SPHERE_POINT:
+        return collision_time_sphere_point(*static_cast<sphere const *>(this), *static_cast<point const *>(&o));
+    case LINE_SPHERE:
+        return collision_time_sphere_line(*static_cast<sphere const *>(&o), *static_cast<line const *>(this));
+    case POINT_SPHERE:
+        return collision_time_sphere_point(*static_cast<sphere const *>(&o), *static_cast<point const *>(this));
+    default:
+        return INFINITYF;
+    }
 }
 
 }

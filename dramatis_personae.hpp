@@ -192,7 +192,7 @@ private:
 struct spawn : thing {
     thing *larva;
 
-    spawn(thing *l) : thing(0.0f, l->center, 0.0f), larva(l) {}
+    spawn(thing *l) : thing(0.0f, l->center, 0.0f, NO_COLLISION), larva(l) {}
 
     virtual bool does_ticks() const { return true; }
 
