@@ -136,7 +136,7 @@ private:
     grid _grid;
 
     typedef std::pair<thing *, thing *> overlap_pair;
-    std::set<overlap_pair> _overlaps;
+    boost::unordered_set<overlap_pair> _overlaps;
     bool _overlapping(thing *a, thing *b)
         { return _overlaps.find(std::make_pair(a,b)) != _overlaps.end(); }
     void _add_overlap(thing *a, thing *b)
