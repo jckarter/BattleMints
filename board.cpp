@@ -101,11 +101,13 @@ board::remove_thing(thing *t)
     _dying_things.insert(t);
 }
 
-static inline bool _is_overlapping_time(float f)
-{
-    f = fabsf(f);
-    return f <= 0.01f
-        || f == INFINITYF;
+namespace {
+    inline bool _is_overlapping_time(float f)
+    {
+        f = fabsf(f);
+        return f <= 0.01f
+            || f == INFINITYF;
+    }
 }
 
 void

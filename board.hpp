@@ -138,8 +138,9 @@ private:
     typedef std::pair<thing *, thing *> overlap_pair;
     std::vector<overlap_pair> _overlaps;
     bool _overlapping(thing *a, thing *b)
-        { return std::find(_overlaps.begin(), _overlaps.end(), std::make_pair(a,b))
-            != _overlaps.end(); }
+        { return !_overlaps.empty()
+            && std::find(_overlaps.begin(), _overlaps.end(), std::make_pair(a,b))
+               != _overlaps.end(); }
     void _add_overlap(thing *a, thing *b)
         { _overlaps.push_back(std::make_pair(a,b)); }
     void _remove_overlap(thing *a, thing *b, float f)
