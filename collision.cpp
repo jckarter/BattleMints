@@ -93,24 +93,28 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         "fnegslo s24, s24\n\t" // {s24-5} = normal = signum(side) * a.radius * b.normal
         "fldmias %[a_center], {s16-s17}\n\t"
         "fadds   s16, s16, s24\n\t" // {s16-7} = near_pt = a.center + normal
-        "fnegs   s14, s8\n\t"
-        "fcpys   s28, s15\n\t"
-        "fnegslo s28, s28\n\t" // {s28-9} = vel_perp = signum(side) * vperp(a.velocity)
+        "fcpys   s5, s8\n\t"
+        "fnegs   s4, s9\n\t" // {s4-5} = vel_perp = vperp(a.velocity)
 
         "fldmias %[b_endpoint_a], {s12-s15}\n\t"
         "fsubs   s12, s12, s16\n\t" // {s12-3} = dist_a = b.endpoint_a - near_pt
-        "fmuls   s10, s12, s28\n\t"
+        "fmuls   s10, s4, s12\n\t"
         "fsubs   s14, s14, s16\n\t"
-        "fmuls   s14, s14, s28\n\t"
+        "fmuls   s14, s4, s14\n\t"
         "fadds   s0, s10, s11\n\t" // s0 = cos_a = vdot(dist_a, vel_perp)
         "fadds   s1, s14, s15\n\t" // s1 = cos_b = vdot(dist_b, vel_perp)
+
+        "fmuls   s0, s0, s1\n\t"
         "fcmpzs  s0\n\t"
         "fmstat\n\t"
-        "blt     1f\n\t"
-        "fcmpzs  s1\n\t"
-        "fmstat\n\t"
-        "bhi     1f\n\t"
+        "blo     1f\n\t"
 
+        // return infinity
+        "mov     r0, #0xFF000000\n\t"
+        "mov     r0, r0, lsr #1\n\t"
+        "b       2f\n\t"
+
+        "1:\n\t"
         // return result
         "fmuls   s12, s12, s24\n\t"
         "fmuls   s8, s8, s24\n\t"
@@ -118,12 +122,6 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         "fadds   s1, s8, s9\n\t"
         "fdivs   s0, s0, s1\n\t" // s0 = result = vdot(dist_a, normal)/vdot(a.velocity, normal)
         "fmrs    r0, s0\n\t"
-        "b       2f\n\t"
-
-        // return infinity
-        "1:\n\t"
-        "mov     r0, #0xFF000000\n\t"
-        "mov     r0, r0, lsr #1\n\t"
 
         "2:\n\t"
         // reset vector size to 1 (scalar)
