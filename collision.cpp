@@ -106,6 +106,12 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         "fmuls   s0, s0, s1\n\t"
         "fcmpzs  s0\n\t"
         "fmstat\n\t"
+
+        // reset vector size to 1 (scalar)
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "fmxr fpscr, r1\n\t"
+
         "blo     1f\n\t"
 
         // return infinity
@@ -115,18 +121,14 @@ float collision_time_sphere_line(sphere const &a, line const &b)
 
         "1:\n\t"
         // return result
-        "fmuls   s12, s12, s24\n\t"
-        "fmuls   s8, s8, s24\n\t"
-        "fadds   s0, s12, s13\n\t"
-        "fadds   s1, s8, s9\n\t"
+        "fmuls   s0, s12, s24\n\t"
+        "fmacs   s0, s13, s25\n\t"
+        "fmuls   s1, s8, s24\n\t"
+        "fmacs   s1, s9, s25\n\t"
         "fdivs   s0, s0, s1\n\t" // s0 = result = vdot(dist_a, normal)/vdot(a.velocity, normal)
         "fmrs    r0, s0\n\t"
 
         "2:\n\t"
-        // reset vector size to 1 (scalar)
-        "fmrx r1, fpscr\n\t"
-        "bic  r1, r1, #0x00370000\n\t"
-        "fmxr fpscr, r1\n\t"
         :
         : [a_velocity] "r" (&a.velocity),
           [a_center] "r" (&a.center),
