@@ -37,42 +37,109 @@ void collide_sphere_sphere(sphere &a, sphere &b)
     b.velocity += b_coef*direction;
 }
 
-static inline float _collision_time_points(vec2 pt_a, vec2 pt_b, vec2 velocity, float radius)
-{
-    vec2 distance = pt_a - pt_b;
-    float distance2 = vnorm2(distance);
-    float radius2 = radius*radius;
-    float spread = vdot(velocity, distance);
+namespace {
+    float _collision_time_points(vec2 pt_a, vec2 pt_b, vec2 velocity, float radius)
+    {
+        vec2 distance = pt_a - pt_b;
+        float distance2 = vnorm2(distance);
+        float radius2 = radius*radius;
+        float spread = vdot(velocity, distance);
 
-    if (spread > 0.0 && distance2 <= radius2)
-        return 0.0;
+        if (spread > 0.0 && distance2 <= radius2)
+            return 0.0;
 
-    float speed2 = vnorm2(velocity);
+        float speed2 = vnorm2(velocity);
 
-    return (spread - sqrtf(spread*spread - speed2*(distance2 - radius2))) / speed2;
-}
-
-static inline float _collision_time_point_line(vec2 pt, vec2 line_pt, vec2 normal, vec2 velocity)
-{
-    return vdot(line_pt - pt, normal)/vdot(velocity, normal);
+        return (spread - sqrtf(spread*spread - speed2*(distance2 - radius2))) / speed2;
+    }
 }
 
 float collision_time_sphere_line(sphere const &a, line const &b)
 {
+#ifndef __arm__
     float side = signum(vdot(a.velocity, b.normal));
 
     vec2 normal = side * b.normal * a.radius;
     vec2 near_pt = a.center + normal;
 
     vec2 vel_perp = side * vperp(a.velocity);
-    float cos_a = vdot((b.endpoint_a - near_pt), vel_perp);
-    float cos_b = vdot((b.endpoint_b - near_pt), vel_perp);
+    vec2 dist_a = b.endpoint_a - near_pt;
+    vec2 dist_b = b.endpoint_b - near_pt;
+    float cos_a = vdot(dist_a, vel_perp);
+    float cos_b = vdot(dist_b, vel_perp);
 
     if (cos_a >= 0.0 && cos_b <= 0.0)
-        return /*(vdot(b.endpoint_a - near_pt, normal) * vdot(b.endpoint_a - a.center, normal) < 0)
-            ? 0.0 :*/ _collision_time_point_line(near_pt, b.endpoint_a, b.normal, a.velocity);
+        return vdot(dist_a, normal)/vdot(a.velocity, normal);
     else
         return INFINITYF;
+#else
+#warning "omg asm"
+    __asm__ volatile (
+        // set vector size to 2
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "orr  r1, r1, #0x00010000\n\t"
+        "fmxr fpscr, r1\n\t"
+
+        // do our biz
+        "fldmias %[a_velocity], {s8-s9}\n\t" // {s8-9} = a.velocity
+        "fldmias %[b_normal], {s24-s25}\n\t" // {s24-5} = b.normal
+        "fmuls   s16, s8, s24\n\t"
+        "fadds   s0, s16, s17\n\t" // s0 = side = vdot(a.velocity, b.normal) = 1
+        "fcmpzs  s0\n\t"
+        "fmstat\n\t" // cc = signum(side) = !lo
+        "flds    s0, [%[a_radius]]\n\t"
+        "fmuls   s24, s24, s0\n\t"
+        "fnegslo s24, s24\n\t" // {s24-5} = normal = signum(side) * a.radius * b.normal
+        "fldmias %[a_center], {s16-s17}\n\t"
+        "fadds   s16, s16, s24\n\t" // {s16-7} = near_pt = a.center + normal
+        "fnegs   s14, s8\n\t"
+        "fcpys   s28, s15\n\t"
+        "fnegslo s28, s28\n\t" // {s28-9} = vel_perp = signum(side) * vperp(a.velocity)
+
+        "fldmias %[b_endpoint_a], {s12-s15}\n\t"
+        "fsubs   s12, s12, s16\n\t" // {s12-3} = dist_a = b.endpoint_a - near_pt
+        "fmuls   s10, s12, s28\n\t"
+        "fsubs   s14, s14, s16\n\t"
+        "fmuls   s14, s14, s28\n\t"
+        "fadds   s0, s10, s11\n\t" // s0 = cos_a = vdot(dist_a, vel_perp)
+        "fadds   s1, s14, s15\n\t" // s1 = cos_b = vdot(dist_b, vel_perp)
+        "fcmpzs  s0\n\t"
+        "fmstat\n\t"
+        "blt     1f\n\t"
+        "fcmpzs  s1\n\t"
+        "fmstat\n\t"
+        "bhi     1f\n\t"
+
+        // return result
+        "fmuls   s12, s12, s24\n\t"
+        "fmuls   s8, s8, s24\n\t"
+        "fadds   s0, s12, s13\n\t"
+        "fadds   s1, s8, s9\n\t"
+        "fdivs   s0, s0, s1\n\t" // s0 = result = vdot(dist_a, normal)/vdot(a.velocity, normal)
+        "fmrs    r0, s0\n\t"
+        "b       2f\n\t"
+
+        // return infinity
+        "1:\n\t"
+        "mov     r0, #0xFF000000\n\t"
+        "mov     r0, r0, lsr #1\n\t"
+
+        "2:\n\t"
+        // reset vector size to 1 (scalar)
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "fmxr fpscr, r1\n\t"
+        :
+        : [a_velocity] "r" (&a.velocity),
+          [a_center] "r" (&a.center),
+          [a_radius] "r" (&a.radius),
+          [b_endpoint_a] "r" (&b.endpoint_a),
+          [b_endpoint_b] "r" (&b.endpoint_b),
+          [b_normal] "r" (&b.normal)
+        : "r0", "r1", "cc"
+    );
+#endif
 }
 
 float collision_time_sphere_point(sphere const &a, point const &b)

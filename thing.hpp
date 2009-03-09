@@ -112,7 +112,7 @@ struct sphere : thing {
 
     virtual bool does_ticks() const { return true; }
 
-    virtual vec4 sphere_color(float radius) = 0;
+    virtual vec4 sphere_color(float radius) { return CONST_VEC4_SPLAT(0.0f); }
 
 #ifndef NO_GRAPHICS
     void accelerate_with_exhaust(vec2 accel);
