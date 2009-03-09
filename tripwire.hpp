@@ -8,15 +8,13 @@
 namespace battlemints {
 
 struct tripwire : line {
-    tripwire(vec2 pt_a, vec2 pt_b)
-        : line(pt_a, pt_b) { }
+    tripwire(vec2 pt_a, vec2 pt_b, int flags)
+        : line(pt_a, pt_b, CAN_OVERLAP | flags) { }
 
     /* no physical collision */
     virtual void collide(thing &o) { }
     virtual void collide_sphere(sphere &o) { }
     virtual void collide_line(line &o) { }
-
-    virtual bool can_overlap() const { return true; }
 
     virtual void on_collision(thing &o) {
         if (can_trip(o)) {
@@ -37,7 +35,7 @@ struct goal : tripwire {
     float trip_strength;
 
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
-        : tripwire(pt_a, pt_b), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
+        : tripwire(pt_a, pt_b, 0), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
@@ -65,10 +63,8 @@ private:
 struct alarm : tripwire {
     bool multiple;
 
-    alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b), multiple(false) { }
+    alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b, DOES_TICKS), multiple(false) { }
 
-    virtual bool does_ticks() const { return true; }
-        
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
 

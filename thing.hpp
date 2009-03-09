@@ -32,10 +32,14 @@ inline symbol intern(std::string const &s) { return &*(interned_symbols.insert(s
 
 struct thing : boost::noncopyable {
     enum flag_values {
-        SPHERE = 1, LINE = 4, POINT = 16,
+        // collision
+        COLLISION_MASK = 0xFF,
+        SPHERE = 1, LINE = 4, POINT = 16, NO_COLLISION = 64,
         SPHERE_SPHERE = 3, SPHERE_LINE = 9, SPHERE_POINT = 31,
         LINE_SPHERE = 6, POINT_SPHERE = 18,
-        NO_COLLISION = (1<<30)
+        // misc
+        DOES_TICKS = 256,
+        CAN_OVERLAP = 512
     };
     
     vec2 velocity;
@@ -43,10 +47,10 @@ struct thing : boost::noncopyable {
     vec2 prev_center;
     float spring;
     float mass;
-    const flag_values flags;
+    const int flags;
     symbol label;
 
-    thing(float m, vec2 ct, float sp, flag_values f)
+    thing(float m, vec2 ct, float sp, int f)
         : velocity(ZERO_VEC2), center(ct), prev_center(ct), spring(sp), mass(m),
           flags(f), label(NULL)
         { }
@@ -57,8 +61,8 @@ struct thing : boost::noncopyable {
     virtual renders_with_range renders_with() const
         { return renderer::null_range; }
 
-    virtual bool does_ticks() const { return false; }
-    virtual bool can_overlap() const { return false; }
+    bool does_ticks() const { return flags & DOES_TICKS; }
+    bool can_overlap() const { return flags & CAN_OVERLAP; }
 
     virtual void tick() { }
 
@@ -104,13 +108,11 @@ struct sphere : thing {
     vec2 cur_accel;
 
     sphere(float m, vec2 ct, float r, float sp)
-        : thing(m, ct, sp, SPHERE), radius(r), cur_accel(ZERO_VEC2) { }
+        : thing(m, ct, sp, SPHERE | DOES_TICKS), radius(r), cur_accel(ZERO_VEC2) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " r:" << radius; }
-
-    virtual bool does_ticks() const { return true; }
 
     virtual vec4 sphere_color(float radius) { return CONST_VEC4_SPLAT(0.0f); }
 
@@ -132,6 +134,11 @@ struct line : thing {
 
     line(vec2 pt_a, vec2 pt_b)
         : thing(INFINITYF, (pt_a+pt_b)/2, 0.0f, LINE),
+          endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
+        { }
+
+    line(vec2 pt_a, vec2 pt_b, int flags)
+        : thing(INFINITYF, (pt_a+pt_b)/2, 0.0f, LINE | flags),
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 

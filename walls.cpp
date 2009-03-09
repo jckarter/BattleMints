@@ -25,7 +25,7 @@ void door::draw_self() const
     glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glPointSize(4.0f);
+    glPointSize(2.0f);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&vertices);
     glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
     glDrawArrays(GL_POINTS, 0, 2);
@@ -33,6 +33,7 @@ void door::draw_self() const
 
     if (board::current()->tick_count() & 1)
         glDrawArrays(GL_LINES, 0, 2);
+    glColor4f(CLUMP_COLOR.x, CLUMP_COLOR.y, CLUMP_COLOR.z, CLUMP_COLOR.w);
     glDrawArrays(GL_POINTS, 2, NUM_CLUMPS);
 }
 
@@ -49,7 +50,7 @@ void door::tick()
 }
 
 door::door(vec2 pt_a, vec2 pt_b)
-    : wall(pt_a, pt_b)
+    : wall(pt_a, pt_b, DOES_TICKS)
 {
     vertices.beam = (boost::array<vec2, 2>){ pt_a, pt_b };
     for (unsigned i = 0; i < NUM_CLUMPS; ++i)

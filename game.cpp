@@ -86,6 +86,7 @@ const vec4 switch_spring::COLOR = CONST_VEC4(0.89f, 0.87f, 0.86f, 1.0f);
 const vec4 switch_spring::TRIGGERED_COLOR = CONST_VEC4(0.69f, 1.00f, 0.66f, 1.0f);
 const vec4 switch_spring::SLOT_COLOR = CONST_VEC4(0.43f, 0.36f, 0.33f, 1.0f);
 
+const vec4 door::CLUMP_COLOR = CONST_VEC4(1.0f, 0.88f, 0.88f, 1.0f);
 const vec4 door::COLOR = CONST_VEC4(1.0f, 0.66f, 0.66f, 1.0f);
 
 const boost::array<vec2, 4> switch_spring::slot_vertices = {

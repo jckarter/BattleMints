@@ -38,7 +38,7 @@ void collide_sphere_sphere(sphere &a, sphere &b)
 }
 
 namespace {
-    float _collision_time_points(vec2 pt_a, vec2 pt_b, vec2 velocity, float radius)
+    float _collision_time_points(vec2 const &pt_a, vec2 const &pt_b, vec2 const &velocity, float radius)
     {
         vec2 distance = pt_a - pt_b;
         float distance2 = vnorm2(distance);
@@ -73,7 +73,6 @@ float collision_time_sphere_line(sphere const &a, line const &b)
     else
         return INFINITYF;
 #else
-#warning "omg asm"
     __asm__ volatile (
         // set vector size to 2
         "fmrx r1, fpscr\n\t"
@@ -154,7 +153,7 @@ float collision_time_sphere_sphere(sphere const &a, sphere const &b)
 
 void thing::collide(thing &o)
 {
-    switch (flags | (o.flags<<1)) {
+    switch ((flags | (o.flags<<1)) & 0xFF) {
     case SPHERE_SPHERE:
         collide_sphere_sphere(*static_cast<sphere*>(this), *static_cast<sphere*>(&o));
         break;
@@ -177,7 +176,7 @@ void thing::collide(thing &o)
 
 float thing::collision_time(thing const &o) const
 {
-    switch (flags | (o.flags<<1)) {
+    switch ((flags | (o.flags<<1)) & 0xFF) {
     case SPHERE_SPHERE:
         return collision_time_sphere_sphere(*static_cast<sphere const *>(this), *static_cast<sphere const *>(&o));
     case SPHERE_LINE:

@@ -10,7 +10,8 @@
 namespace battlemints {
 
 struct wall : line {
-    wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b) { }
+    wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b, 0) { }
+    wall(vec2 pt_a, vec2 pt_b, flag_values flags) : line(pt_a, pt_b, flags) { }
 
     virtual void on_collision(thing &o) { o.wall_damage(); }
 #ifdef DRAW_WALLS
@@ -70,7 +71,7 @@ struct wallpost : point {
 };
 
 struct door : wall {
-    static const vec4 COLOR;
+    static const vec4 CLUMP_COLOR, COLOR;
     static boost::array<renders_with_pair, 1> renders_with_pairs;
     static const unsigned NUM_CLUMPS = 3;
 
@@ -82,7 +83,6 @@ struct door : wall {
     boost::array<int, NUM_CLUMPS> clump_lives;
 
     door(vec2 pt_a, vec2 pt_b);
-    virtual bool does_ticks() const { return true; }
     virtual void tick();
 
     virtual renders_with_range renders_with() const 

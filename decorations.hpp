@@ -16,7 +16,6 @@ struct decoration : thing
     decoration(vec2 center) : thing(0.0f, center, 0.0f, NO_COLLISION) {}
 
     virtual params decoration_params() = 0;
-    virtual bool does_ticks() { return false; }
 };
 
 struct sign : decoration
