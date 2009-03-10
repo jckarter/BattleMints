@@ -116,7 +116,7 @@ private:
         grid::cell_iterator cell,
         collision &c
     );
-    collision _find_collision(float &tick_time);
+    collision _find_collision();
 
     void _move_things(float timeslice);
     void _kill_dying_things();

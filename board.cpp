@@ -251,12 +251,9 @@ board::_find_collision_in_cell_vfp2(
 }
 
 board::collision
-board::_find_collision(float &tick_time)
+board::_find_collision()
 {
     collision c = { NULL, NULL, INFINITYF };
-
-    // tick_time's gonna get clobbered. save it in an ARM register
-    union { float f; int i; } tick_time_backup = { tick_time };
 
     vfp_length_2();
 
@@ -278,8 +275,6 @@ board::_find_collision(float &tick_time)
         _find_collision_in_cell_vfp2(cell, c);
 
     vfp_length_1();
-
-    tick_time = tick_time_backup.f;
 
     return c;
 }
@@ -314,35 +309,6 @@ board::_tick_thing(thing *t)
     t->velocity *= FRICTION;
     t->tick();
     _grid.move_thing(t);
-}
-
-void
-board::tick()
-{
-    _kill_dying_things();
-
-    float tick_time = 1.0f; // volatile because _find_collision() clobbers VFP
-    int rounds = 0;
-
-    while (tick_time > 0.0f && rounds < 100) {
-        collision c = _find_collision(tick_time);
-        _move_things(fminf(tick_time, c.collide_time));
-        if (c.collide_time <= tick_time)
-            _collide_things(c.a, c.b);
-
-        tick_time -= c.collide_time;
-        ++rounds;
-    }
-#ifdef BENCHMARK
-    std::cout << "-- rounds " << rounds << "\n";
-#endif
-    BOOST_FOREACH (thing *th, _ticking_things) {
-        _tick_thing(th);
-    }
-    camera.tick();
-    particles.tick();
-
-    ++_tick_count;
 }
 
 struct _sort_things_in_cell {
@@ -449,6 +415,38 @@ board::from_file(std::string const &name)
         std::cerr << "Reading board " << name << " failed: ...\n";
         return NULL;
     }
+}
+
+// s7 isn't clobbered by find_collision, so force tick_time to be kept there
+register float tick_time __asm__ ("s7");
+
+void
+board::tick()
+{
+    _kill_dying_things();
+
+    tick_time = 1.0f;
+    int rounds = 0;
+
+    while (tick_time > 0.0f && rounds < 100) {
+        collision c = _find_collision();
+        _move_things(tick_time < c.collide_time ? tick_time : c.collide_time);
+        if (c.collide_time <= tick_time)
+            _collide_things(c.a, c.b);
+
+        tick_time -= c.collide_time;
+        ++rounds;
+    }
+#ifdef BENCHMARK
+    std::cout << "-- rounds " << rounds << "\n";
+#endif
+    BOOST_FOREACH (thing *th, _ticking_things) {
+        _tick_thing(th);
+    }
+    camera.tick();
+    particles.tick();
+
+    ++_tick_count;
 }
 
 }
