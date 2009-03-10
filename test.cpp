@@ -12,9 +12,9 @@ extern "C" void _dumpvfps(void)
 extern "C"
 void _dumpvfps(void)
 {
-    float regs[32];
+    vfp_preserve_buf regs;
 
-    __asm__ volatile ("fstmias %[regs], {s0-s31}\n\t" : : [regs] "r" (regs));
+    vfp_preserve(regs);
 
     printf(
         "s0  = %10g s1  = %10g s2  = %10g s3  = %10g\n"
@@ -25,15 +25,17 @@ void _dumpvfps(void)
         "s20 = %10g s21 = %10g s22 = %10g s23 = %10g\n"
         "s24 = %10g s25 = %10g s26 = %10g s27 = %10g\n"
         "s28 = %10g s29 = %10g s30 = %10g s31 = %10g\n",
-        regs[ 0], regs[ 1], regs[ 2], regs[ 3],
-        regs[ 4], regs[ 5], regs[ 6], regs[ 7],
-        regs[ 8], regs[ 9], regs[10], regs[11],
-        regs[12], regs[13], regs[14], regs[15],
-        regs[16], regs[17], regs[18], regs[19],
-        regs[20], regs[21], regs[22], regs[23],
-        regs[24], regs[25], regs[26], regs[27],
-        regs[28], regs[29], regs[30], regs[31]
+        regs.s[ 0], regs.s[ 1], regs.s[ 2], regs.s[ 3],
+        regs.s[ 4], regs.s[ 5], regs.s[ 6], regs.s[ 7],
+        regs.s[ 8], regs.s[ 9], regs.s[10], regs.s[11],
+        regs.s[12], regs.s[13], regs.s[14], regs.s[15],
+        regs.s[16], regs.s[17], regs.s[18], regs.s[19],
+        regs.s[20], regs.s[21], regs.s[22], regs.s[23],
+        regs.s[24], regs.s[25], regs.s[26], regs.s[27],
+        regs.s[28], regs.s[29], regs.s[30], regs.s[31]
     );
+
+    vfp_restore(regs);
 }
 #endif
 
@@ -68,9 +70,11 @@ test_sphere_line()
         new line(make_vec2(-1.0, -1.0), make_vec2(1.0, 1.0))
     };
     
-    for (sphere **s = spheres.begin(); s != spheres.end(); ++s)
-        for (line **l = lines.begin(); l != lines.end(); ++l)
-            std::cout << collision_time_sphere_line(**s, **l) << "\n";
+    //for (sphere **s = spheres.begin(); s != spheres.end(); ++s)
+    //    for (line **l = lines.begin(); l != lines.end(); ++l)
+    //        std::cout << collision_time_sphere_line(**s, **l) << "\n";
+
+
 
     struct timeval start, end;
     gettimeofday(&start, NULL);

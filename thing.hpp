@@ -69,7 +69,8 @@ struct thing : boost::noncopyable {
     /* handle physical results of collision */
     void collide(thing &o);
 
-    float collision_time(thing const &o) const;
+    // returns collision time in s0
+    void collision_time_vfp2_r(thing const &o) const;
 
     /* thing-specific reaction to collision */
     virtual void on_collision(thing &o) { }

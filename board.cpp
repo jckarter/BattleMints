@@ -102,29 +102,72 @@ board::remove_thing(thing *t)
 }
 
 namespace {
-    inline bool _is_overlapping_time(float f)
+    bool _is_not_overlapping_time_vfp2()
     {
-        f = fabsf(f);
-        return f <= 0.01f
-            || f == INFINITYF;
+        bool r;
+
+        __asm__ (
+            "mov     %[r], #0\n\t"
+            "fmrs    r1, s0\n\t"
+
+            "bic     r1, r1, #0x80000000\n\t"
+            "teq     r1, %[infinity]\n\t"
+            "beq     1f\n\t"
+
+            "cmp     r1, %[threshold]\n\t"
+            "movgt   %[r], #1\n\t"
+
+            "1:\n\t"
+
+            : [r] "+r" (r)
+            : [infinity] "r" (INFINITYF), [threshold] "r" (0.01f)
+            : "cc", "r1"
+        );
+        return r;
+    }
+
+    bool _is_collision_time_vfp2(float collide_time)
+    {
+        bool r;
+
+        __asm__ (
+            "mov     %[r], #0\n\t"
+            "fmrs    r1, s0\n\t"
+
+            "tst     r1, #0x80000000\n\t"
+            "bne     1f\n\t"
+
+            "cmp     r1, %[collide_time]\n\t"
+            "movlt   %[r], #1\n\t"
+
+            "1:\n\t"
+            : [r] "+r" (r)
+            : [collide_time] "r" (collide_time)
+            : "cc", "r1"
+        );
+        return r;
     }
 }
 
 void
-board::_find_collision_in_pair(
+board::_find_collision_in_pair_vfp2(
     grid::cell::iterator ia, grid::cell::iterator ib, collision &c
 )
 {
-    float pair_time = (*ia)->collision_time(**ib);
-    if (_overlapping(*ia, *ib)) {
-        if (!_is_overlapping_time(pair_time))
-            _remove_overlap(*ia, *ib, pair_time);
-    } else if (pair_time >= 0.0f && pair_time < c.collide_time)
-        c = (collision){*ia, *ib, pair_time};
+    (*ia)->collision_time_vfp2_r(**ib);
+
+    thing *a = *ia, *b = *ib;
+
+    if (_overlapping(a, b)) {
+        if (_is_not_overlapping_time_vfp2())
+            _remove_overlap(a, b);
+    } else if (_is_collision_time_vfp2(c.collide_time)) {
+        c = (collision){a, b, vfp_s0()};
+    }
 }
 
 void
-board::_find_collision_in_4_cells(
+board::_find_collision_in_4_cells_vfp2(
     grid::cell_iterator cell_a,
     grid::cell_iterator cell_b,
     grid::cell_iterator cell_c,
@@ -135,39 +178,39 @@ board::_find_collision_in_4_cells(
     grid::cell::iterator ia, ib;
     for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
         for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_b->dynamic_begin(); ib != cell_b->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_c->dynamic_begin(); ib != cell_c->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_d->dynamic_begin(); ib != cell_d->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 
     for (; ia != cell_a->things.end(); ++ia) {
         for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_b->things.begin(); ib != cell_b->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_c->things.begin(); ib != cell_c->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_d->things.begin(); ib != cell_d->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 
     for (ia = cell_b->things.begin(); ia != cell_b->dynamic_begin(); ++ia) {
         for (ib = cell_c->dynamic_begin(); ib != cell_c->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 
     for (; ia != cell_b->things.end(); ++ia) {
         for (ib = cell_c->things.begin(); ib != cell_c->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 }
 
 void
-board::_find_collision_in_2_cells(
+board::_find_collision_in_2_cells_vfp2(
     grid::cell_iterator cell_a,
     grid::cell_iterator cell_b,
     collision &c
@@ -176,21 +219,21 @@ board::_find_collision_in_2_cells(
     grid::cell::iterator ia, ib;
     for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
         for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_b->dynamic_begin(); ib != cell_b->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 
     for (; ia != cell_a->things.end(); ++ia) {
         for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
         for (ib = cell_b->things.begin(); ib != cell_b->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 }
 
 void
-board::_find_collision_in_cell(
+board::_find_collision_in_cell_vfp2(
     grid::cell_iterator cell_a,
     collision &c
 )
@@ -198,36 +241,45 @@ board::_find_collision_in_cell(
     grid::cell::iterator ia, ib;
     for (ia = cell_a->things.begin(); ia != cell_a->dynamic_begin(); ++ia) {
         for (ib = cell_a->dynamic_begin(); ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 
     for (; ia != cell_a->things.end(); ++ia) {
         for (ib = ia + 1; ib != cell_a->things.end(); ++ib)
-            _find_collision_in_pair(ia, ib, c);
+            _find_collision_in_pair_vfp2(ia, ib, c);
     }
 }
 
 board::collision
-board::_find_collision()
+board::_find_collision(float &tick_time)
 {
     collision c = { NULL, NULL, INFINITYF };
+
+    // tick_time's gonna get clobbered. save it in an ARM register
+    union { float f; int i; } tick_time_backup = { tick_time };
+
+    vfp_length_2();
 
     grid::cell_iterator row, cell, last_row = _grid.cells.end() - _grid.pitch();
     int pitch = _grid.pitch();
     for (row = cell = _grid.cells.begin(); cell != last_row; row += pitch, ++cell) {
         for (; cell - row < pitch - 1; ++cell)
             // Middle cell
-            _find_collision_in_4_cells(cell, cell+1, cell+pitch, cell+pitch+1, c);
+            _find_collision_in_4_cells_vfp2(cell, cell+1, cell+pitch, cell+pitch+1, c);
         // Right edge cell
-        _find_collision_in_2_cells(cell, cell+pitch, c);
+        _find_collision_in_2_cells_vfp2(cell, cell+pitch, c);
     }
     for (; cell < _grid.cells.end() - 1; ++cell) {
         // Bottom edge cell
-        _find_collision_in_2_cells(cell, cell+1, c);
+        _find_collision_in_2_cells_vfp2(cell, cell+1, c);
     }
     // Bottom-right corner cell
     if (cell->has_dynamic())
-        _find_collision_in_cell(cell, c);
+        _find_collision_in_cell_vfp2(cell, c);
+
+    vfp_length_1();
+
+    tick_time = tick_time_backup.f;
 
     return c;
 }
@@ -269,12 +321,12 @@ board::tick()
 {
     _kill_dying_things();
 
-    float tick_time = 1.0f;
+    float tick_time = 1.0f; // volatile because _find_collision() clobbers VFP
     int rounds = 0;
 
     while (tick_time > 0.0f && rounds < 100) {
-        collision c = _find_collision();
-        _move_things(fmin(tick_time, c.collide_time));
+        collision c = _find_collision(tick_time);
+        _move_things(fminf(tick_time, c.collide_time));
         if (c.collide_time <= tick_time)
             _collide_things(c.a, c.b);
 

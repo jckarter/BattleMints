@@ -162,6 +162,63 @@ inline float signum(float n)
 inline vec2 polar_vec2(float rho, float theta)
     { return make_vec2(rho*fast_cos_2pi(theta), rho*fast_sin_2pi(theta)); }
 
+inline void vfp_length_4()
+{
+    __asm__ volatile (
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "orr  r1, r1, #0x00030000\n\t"
+        "fmxr fpscr, r1\n\t"
+        : : : "r0", "r1"
+    );
 }
+
+inline void vfp_length_2()
+{
+    __asm__ volatile (
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "orr  r1, r1, #0x00010000\n\t"
+        "fmxr fpscr, r1\n\t"
+        : : : "r0", "r1"
+    );
+}
+
+inline void vfp_length_1()
+{
+    __asm__ volatile (
+        "fmrx r1, fpscr\n\t"
+        "bic  r1, r1, #0x00370000\n\t"
+        "fmxr fpscr, r1\n\t"
+        : : : "r0", "r1"
+    );
+}
+
+inline float vfp_s0()
+{
+    float f;
+    __asm__ ("fmrs %0, s0\n\t" : "=r" (f));
+    return f;
+}
+
+inline void vfp_set_s0(float f)
+{
+    __asm__ volatile ("fmsr s0, %0\n\t" : : "r" (f));
+}
+
+struct vfp_preserve_buf { float s[32]; };
+
+inline void vfp_preserve(vfp_preserve_buf *buf)
+{
+    __asm__ volatile ("fstmias %1, {s0-s31}\n\t" : "=m" (*buf) : "r" (buf));
+}
+
+inline void vfp_restore(vfp_preserve_buf const *buf)
+{
+    __asm__ volatile ("fldmias %1, {s0-s31}\n\t" : : "m" (*buf), "r" (buf));
+}
+
+}
+
 
 #endif

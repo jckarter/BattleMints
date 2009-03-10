@@ -38,8 +38,14 @@ void collide_sphere_sphere(sphere &a, sphere &b)
 }
 
 namespace {
-    float _collision_time_points(vec2 const &pt_a, vec2 const &pt_b, vec2 const &velocity, float radius)
+    // Inputs:
+    // {s8-9}:   pt_a
+    // {s24-25}: pt_b
+    // {s16-7}:  velocity
+    //  s1:      radius
+    void _collision_time_points_vfp2_r()
     {
+#if 0
         vec2 distance = pt_a - pt_b;
         float distance2 = vnorm2(distance);
         float radius2 = radius*radius;
@@ -51,12 +57,41 @@ namespace {
         float speed2 = vnorm2(velocity);
 
         return (spread - sqrtf(spread*spread - speed2*(distance2 - radius2))) / speed2;
+#else
+        __asm__ volatile (
+            "fsubs   s8, s8, s24\n\t" // {s8-9} = distance = pt_a - pt_b
+            "fmuls   s24, s8, s8\n\t"
+            "fadds   s0, s24, s25\n\t" // s0 = distance2 = vnorm2(pt_a - pt_b)
+            "fnmacs  s0, s1, s1\n\t" // s0 = distance2 - radius*radius
+            "fmuls   s24, s8, s16\n\t"
+            "fadds   s2, s24, s25\n\t" // s2 = spread = vdot(velocity, distance)
+            "fcmpzs  s2\n\t"
+            "fmstat\n\t"
+            "ble     1f\n\t"
+            "fcmpzs  s0\n\t"
+            "fmstat\n\t"
+            "bhi     1f\n\t"
+            "fsubs   s0, s0, s0\n\t"
+            "b       2f\n\t"
+            "1:\n\t"
+            "fmuls   s16, s16, s16\n\t"
+            "fadds   s3, s16, s17\n\t" // s3 = speed2 = vnorm2(velocity)
+            "fmuls   s4, s2, s2\n\t"
+            "fnmacs  s4, s0, s3\n\t"
+            "fsqrts  s4, s4\n\t" // s4 = sqrtf(spread*spread - speed2*(distance2 - radius2))
+            "fsubs   s0, s2, s4\n\t"
+            "fdivs   s0, s0, s3\n\t"
+
+            "2:\n\t"
+            : : : "cc"
+        );
+#endif
     }
 }
 
-float collision_time_sphere_line(sphere const &a, line const &b)
+void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
 {
-#ifndef __arm__
+#if 0
     float side = signum(vdot(a.velocity, b.normal));
 
     vec2 normal = side * b.normal * a.radius;
@@ -74,15 +109,8 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         return INFINITYF;
 #else
     __asm__ volatile (
-        // set vector size to 2
-        "fmrx r1, fpscr\n\t"
-        "bic  r1, r1, #0x00370000\n\t"
-        "orr  r1, r1, #0x00010000\n\t"
-        "fmxr fpscr, r1\n\t"
-
-        // do our biz
-        "fldmias %[a_velocity], {s8-s9}\n\t" // {s8-9} = a.velocity
-        "fldmias %[b_normal], {s24-s25}\n\t" // {s24-5} = b.normal
+        "fldd    d4, [%[a_velocity]]\n\t" // {s8-9} = a.velocity
+        "fldd    d12, [%[b_normal]]\n\t" // {s24-5} = b.normal
         "fmuls   s16, s8, s24\n\t"
         "fadds   s0, s16, s17\n\t" // s0 = side = vdot(a.velocity, b.normal) = 1
         "fcmpzs  s0\n\t"
@@ -90,7 +118,7 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         "flds    s0, [%[a_radius]]\n\t"
         "fmuls   s24, s24, s0\n\t"
         "fnegslo s24, s24\n\t" // {s24-5} = normal = signum(side) * a.radius * b.normal
-        "fldmias %[a_center], {s16-s17}\n\t"
+        "fldd    d8, [%[a_center]]\n\t"
         "fadds   s16, s16, s24\n\t" // {s16-7} = near_pt = a.center + normal
         "fcpys   s5, s8\n\t"
         "fnegs   s4, s9\n\t" // {s4-5} = vel_perp = vperp(a.velocity)
@@ -107,26 +135,19 @@ float collision_time_sphere_line(sphere const &a, line const &b)
         "fcmpzs  s0\n\t"
         "fmstat\n\t"
 
-        // reset vector size to 1 (scalar)
-        "fmrx r1, fpscr\n\t"
-        "bic  r1, r1, #0x00370000\n\t"
-        "fmxr fpscr, r1\n\t"
-
         "blo     1f\n\t"
 
         // return infinity
-        "mov     r0, #0xFF000000\n\t"
-        "mov     r0, r0, lsr #1\n\t"
+        "fmsr    s0, %[infinity]\n\t"
         "b       2f\n\t"
 
         "1:\n\t"
         // return result
-        "fmuls   s0, s12, s24\n\t"
-        "fmacs   s0, s13, s25\n\t"
-        "fmuls   s1, s8, s24\n\t"
-        "fmacs   s1, s9, s25\n\t"
+        "fmuls   s12, s12, s24\n\t"
+        "fadds   s0, s12, s13\n\t"
+        "fmuls   s8, s8, s24\n\t"
+        "fadds   s1, s8, s9\n\t"
         "fdivs   s0, s0, s1\n\t" // s0 = result = vdot(dist_a, normal)/vdot(a.velocity, normal)
-        "fmrs    r0, s0\n\t"
 
         "2:\n\t"
         :
@@ -135,22 +156,53 @@ float collision_time_sphere_line(sphere const &a, line const &b)
           [a_radius] "r" (&a.radius),
           [b_endpoint_a] "r" (&b.endpoint_a),
           [b_endpoint_b] "r" (&b.endpoint_b),
-          [b_normal] "r" (&b.normal)
-        : "r0", "r1", "cc"
+          [b_normal] "r" (&b.normal),
+          [infinity] "r" (INFINITYF)
+        : "cc"
     );
 #endif
 }
 
-float collision_time_sphere_point(sphere const &a, point const &b)
+void collision_time_sphere_point_vfp2_r(sphere const &a, point const &b)
 {
-    return _collision_time_points(b.center, a.center, a.velocity, a.radius);
+    // {s8-9}:   pt_a
+    // {s24-25}: pt_b
+    // {s16-7}:  velocity
+    //  s1:      radius
+    __asm__ volatile (
+        "fldd d4, [%[b_center]]\n\t"
+        "fldd d12, [%[a_center]]\n\t"
+        "fldd d8, [%[a_velocity]]\n\t"
+        "flds s1, [%[a_radius]]\n\t"
+        :
+        : [b_center] "r" (&b.center),
+          [a_center] "r" (&a.center),
+          [a_velocity] "r" (&a.velocity),
+          [a_radius] "r" (&a.radius)
+    );
+    _collision_time_points_vfp2_r();
 }
 
-float collision_time_sphere_sphere(sphere const &a, sphere const &b)
+void collision_time_sphere_sphere_vfp2_r(sphere const &a, sphere const &b)
 {
-    return _collision_time_points(
-        a.center, b.center, b.velocity - a.velocity, a.radius + b.radius
+    __asm__ volatile (
+        "fldd  d4, [%[a_center]]\n\t"
+        "fldd  d12, [%[b_center]]\n\t"
+        "fldd  d8, [%[b_velocity]]\n\t"
+        "fldd  d13, [%[a_velocity]]\n\t"
+        "fsubs s16, s16, s26\n\t"
+        "flds  s1, [%[a_radius]]\n\t"
+        "flds  s2, [%[b_radius]]\n\t"
+        "fadds s1, s1, s2\n\t"
+        :
+        : [a_center] "r" (&a.center),
+          [b_center] "r" (&b.center),
+          [b_velocity] "r" (&b.velocity),
+          [a_velocity] "r" (&a.velocity),
+          [a_radius] "r" (&a.radius),
+          [b_radius] "r" (&b.radius)
     );
+    _collision_time_points_vfp2_r();
 }
 
 void thing::collide(thing &o)
@@ -176,21 +228,26 @@ void thing::collide(thing &o)
     }
 }
 
-float thing::collision_time(thing const &o) const
+void thing::collision_time_vfp2_r(thing const &o) const
 {
     switch ((flags | (o.flags<<1)) & 0xFF) {
     case SPHERE_SPHERE:
-        return collision_time_sphere_sphere(*static_cast<sphere const *>(this), *static_cast<sphere const *>(&o));
+        collision_time_sphere_sphere_vfp2_r(*static_cast<sphere const *>(this), *static_cast<sphere const *>(&o));
+        break;
     case SPHERE_LINE:
-        return collision_time_sphere_line(*static_cast<sphere const *>(this), *static_cast<line const *>(&o));
+        collision_time_sphere_line_vfp2_r(*static_cast<sphere const *>(this), *static_cast<line const *>(&o));
+        break;
     case SPHERE_POINT:
-        return collision_time_sphere_point(*static_cast<sphere const *>(this), *static_cast<point const *>(&o));
+        collision_time_sphere_point_vfp2_r(*static_cast<sphere const *>(this), *static_cast<point const *>(&o));
+        break;
     case LINE_SPHERE:
-        return collision_time_sphere_line(*static_cast<sphere const *>(&o), *static_cast<line const *>(this));
+        collision_time_sphere_line_vfp2_r(*static_cast<sphere const *>(&o), *static_cast<line const *>(this));
+        break;
     case POINT_SPHERE:
-        return collision_time_sphere_point(*static_cast<sphere const *>(&o), *static_cast<point const *>(this));
+        collision_time_sphere_point_vfp2_r(*static_cast<sphere const *>(&o), *static_cast<point const *>(this));
+        break;
     default:
-        return INFINITYF;
+        vfp_set_s0(INFINITYF);
     }
 }
 

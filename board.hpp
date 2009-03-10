@@ -96,27 +96,27 @@ private:
         float collide_time;
     };
 
-    void _find_collision_in_pair(
+    void _find_collision_in_pair_vfp2(
         grid::cell::iterator ia, grid::cell::iterator ib,
         collision &c
     );
-    void _find_collision_in_4_cells(
+    void _find_collision_in_4_cells_vfp2(
         grid::cell_iterator cell_a,
         grid::cell_iterator cell_b,
         grid::cell_iterator cell_c,
         grid::cell_iterator cell_d,
         collision &c
     );
-    void _find_collision_in_2_cells(
+    void _find_collision_in_2_cells_vfp2(
         grid::cell_iterator cell_a,
         grid::cell_iterator cell_b,
         collision &c
     );
-    void _find_collision_in_cell(
+    void _find_collision_in_cell_vfp2(
         grid::cell_iterator cell,
         collision &c
     );
-    collision _find_collision();
+    collision _find_collision(float &tick_time);
 
     void _move_things(float timeslice);
     void _kill_dying_things();
@@ -143,7 +143,7 @@ private:
                != _overlaps.end(); }
     void _add_overlap(thing *a, thing *b)
         { _overlaps.push_back(std::make_pair(a,b)); }
-    void _remove_overlap(thing *a, thing *b, float f)
+    void _remove_overlap(thing *a, thing *b)
         { _overlaps.erase(std::find(_overlaps.begin(), _overlaps.end(), std::make_pair(a,b))); }
 
     unsigned long _tick_count;
