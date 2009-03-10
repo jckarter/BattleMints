@@ -18,7 +18,7 @@ namespace battlemints {
 void global_start_actors();
 
 struct player : sphere {
-    static const float ACCEL_SCALE, RADIUS, MASS, SHIELD_RADIUS, SHIELD_SPRING, SPRING;
+    static const float ACCEL_SCALE, RADIUS, MASS, SHIELD_RADIUS, SHIELD_SPRING, SPRING, DAMP;
     static const vec4 COLOR, SHIELD_COLOR;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
@@ -27,7 +27,7 @@ struct player : sphere {
     int grace_period;
 
     player(vec2 center)
-        : sphere(MASS, center, RADIUS, SPRING), shielded(false), grace_period(0) { }
+        : sphere(center, MASS, RADIUS, SPRING, DAMP), shielded(false), grace_period(0) { }
 
     virtual void tick();
 
@@ -48,7 +48,7 @@ struct player : sphere {
 };
 
 struct powerup : sphere {
-    static const float RADIUS, MASS, SPRING;
+    static const float RADIUS, MASS, SPRING, DAMP;
     static const vec4 CHARGED_COLOR, DEAD_COLOR, PULSE_COLOR;
     static const int CHARGE_TIME = 300;
 
@@ -58,7 +58,7 @@ struct powerup : sphere {
     unsigned charge_time;
 
     powerup(vec2 center, std::string const &k)
-        : sphere(MASS, center, RADIUS, SPRING), powerup_kind(k), charge_time(0) { }
+        : sphere(center, MASS, RADIUS, SPRING, DAMP), powerup_kind(k), charge_time(0) { }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
@@ -78,8 +78,8 @@ struct enemy : sphere {
 
     thing *target;
 
-    enemy(float m, vec2 ct, float r, float sp, float a, float re)
-        : sphere(m, ct, r, sp), accel(a), responsiveness(re),
+    enemy(vec2 ct, float m, float r, float sp, float d, float a, float re)
+        : sphere(ct, m, r, sp, d), accel(a), responsiveness(re),
           target(NULL) {}
 
     virtual void tick();
@@ -96,7 +96,7 @@ struct enemy : sphere {
 };
 
 struct mini : enemy {
-    static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
+    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
     static const boost::array<vec4, 6> colors;
 
     static boost::array<renders_with_pair, 2> renders_with_pairs;
@@ -104,7 +104,7 @@ struct mini : enemy {
     vec4 color;
 
     mini(vec2 ct)
-        : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS),
+        : enemy(ct, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS),
           color(colors[rand() % colors.size()]) { }
 
     virtual renders_with_range renders_with() const
@@ -117,13 +117,13 @@ struct mini : enemy {
 };
 
 struct mega : enemy {
-    static const float ACCEL, RADIUS, MASS, SPRING, RESPONSIVENESS;
+    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
     static const vec4 COLOR;
 
     static boost::array<renders_with_pair, 2> renders_with_pairs;
 
     mega(vec2 ct)
-        : enemy(MASS, ct, RADIUS, SPRING, ACCEL, RESPONSIVENESS) { }
+        : enemy(ct, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS) { }
 
     virtual char const * kind() const { return "mega"; }
 
@@ -138,13 +138,13 @@ struct mega : enemy {
 };
 
 struct bumper : sphere {
-    static const float RADIUS, MASS, INNER_RADIUS, SPRING;
+    static const float RADIUS, MASS, INNER_RADIUS, SPRING, DAMP;
     static const vec4 INNER_COLOR, OUTER_COLOR;
 
     static boost::array<renders_with_pair, 2> renders_with_pairs_template;
 
     bumper(vec2 ct)
-        : sphere(MASS, ct, RADIUS, SPRING) { }
+        : sphere(ct, MASS, RADIUS, SPRING, DAMP) { }
 
     virtual char const * kind() const { return "bumper"; }
 
@@ -155,7 +155,7 @@ struct bumper : sphere {
 };
 
 struct switch_spring : sphere {
-    static const float RADIUS, MASS, SLOT_LENGTH, SLOT_WIDTH, SPRING_FACTOR;
+    static const float RADIUS, MASS, SLOT_LENGTH, SLOT_WIDTH, SPRING_FACTOR, DAMP;
     static const vec4 COLOR, TRIGGERED_COLOR, SLOT_COLOR;
     static const boost::array<vec2, 4> slot_vertices;
     
@@ -167,7 +167,7 @@ struct switch_spring : sphere {
     thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
-        : sphere(MASS, ct - ax * SLOT_LENGTH, RADIUS, 0.0f),
+        : sphere(ct - ax * SLOT_LENGTH, MASS, RADIUS, 0.0f, 0.0f),
           home(ct), axis(ax), triggered(false),
           last_touch(NULL)
         { _set_matrix(); }
@@ -192,7 +192,7 @@ private:
 struct spawn : thing {
     thing *larva;
 
-    spawn(thing *l) : thing(0.0f, l->center, 0.0f, NO_COLLISION | DOES_TICKS), larva(l) {}
+    spawn(thing *l) : thing(l->center, NO_COLLISION | DOES_TICKS), larva(l) {}
 
     virtual ~spawn() { if (larva) delete larva; }
     virtual void trigger(thing *scapegoat)

@@ -13,7 +13,7 @@ struct decoration : thing
         void const *vertices, *texcoords;
     };
 
-    decoration(vec2 center) : thing(0.0f, center, 0.0f, NO_COLLISION) {}
+    decoration(vec2 center) : thing(center, NO_COLLISION) {}
 
     virtual params decoration_params() = 0;
 };

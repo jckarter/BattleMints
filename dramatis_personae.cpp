@@ -66,7 +66,7 @@ void player::lose_shield()
 {
     shielded = false;
     radius = RADIUS;
-    spring = SPRING;
+    bounce = SPRING;
     board::current()->particles.explode(this, false);
     grace_period = GRACE_PERIOD;
 }
@@ -75,7 +75,7 @@ void player::gain_shield()
 {
     shielded = true;
     radius = SHIELD_RADIUS;
-    spring = SHIELD_SPRING;
+    bounce = SHIELD_SPRING;
 }
 
 void player::die()

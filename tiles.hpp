@@ -18,7 +18,7 @@ struct tile_vertices : thing {
     GLuint buffer;
 
     tile_vertices()
-        : thing(INFINITYF, ZERO_VEC2, 0.0f, NO_COLLISION), vertices(new std::vector<vertex>), buffer(0)
+        : thing(ZERO_VEC2, NO_COLLISION), vertices(new std::vector<vertex>), buffer(0)
         { }
 
     virtual ~tile_vertices();
@@ -48,7 +48,7 @@ struct tile : thing {
     vertex_range vertices;
 
     tile(vec2 center, GLint start, GLsizei length)
-        : thing(INFINITYF, center, 0.0f, NO_COLLISION), vertices(start, length) { }
+        : thing(center, NO_COLLISION), vertices(start, length) { }
 
     static thing *from_json(Json::Value const &v);
 

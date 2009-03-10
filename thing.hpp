@@ -45,15 +45,11 @@ struct thing : boost::noncopyable {
     vec2 velocity;
     vec2 center;
     vec2 prev_center;
-    float spring;
-    float mass;
     const int flags;
     symbol label;
 
-    thing(float m, vec2 ct, float sp, int f)
-        : velocity(ZERO_VEC2), center(ct), prev_center(ct), spring(sp), mass(m),
-          flags(f), label(NULL)
-        { }
+    thing(vec2 ct, int f)
+        : velocity(ZERO_VEC2), center(ct), prev_center(ct), flags(f), label(NULL) { }
 
     bool does_collisions() const { return flags != NO_COLLISION; }
 
@@ -81,7 +77,7 @@ struct thing : boost::noncopyable {
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const
         { os << kind() << " " << (void*)this
-             << " v:" << velocity << " c:" << center << " m:" << mass; }
+             << " v:" << velocity << " c:" << center; }
 
     virtual void awaken() { } // Called when board activates
 
@@ -105,15 +101,19 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
 struct sphere : thing {
     static const float EXHAUST_FACTOR;
 
+    float mass;
     float radius;
+    float bounce;
+    float damp;
     vec2 cur_accel;
 
-    sphere(float m, vec2 ct, float r, float sp)
-        : thing(m, ct, sp, SPHERE | DOES_TICKS), radius(r), cur_accel(ZERO_VEC2) { }
+    sphere(vec2 ct, float m, float r, float b, float d)
+        : thing(ct, SPHERE | DOES_TICKS), mass(m), radius(r), bounce(b), damp(d),
+          cur_accel(ZERO_VEC2) { }
 
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
-        { thing::print(os); os << " r:" << radius; }
+        { thing::print(os); os << " m:" << mass << " r:" << radius; }
 
     virtual vec4 sphere_color(float radius) { return CONST_VEC4_SPLAT(0.0f); }
 
@@ -134,12 +134,12 @@ struct line : thing {
     vec2 endpoint_a, endpoint_b, normal;
 
     line(vec2 pt_a, vec2 pt_b)
-        : thing(INFINITYF, (pt_a+pt_b)/2, 0.0f, LINE),
+        : thing((pt_a+pt_b)*0.5f, LINE),
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 
     line(vec2 pt_a, vec2 pt_b, int flags)
-        : thing(INFINITYF, (pt_a+pt_b)/2, 0.0f, LINE | flags),
+        : thing((pt_a+pt_b)*0.5f, LINE | flags),
           endpoint_a(pt_a), endpoint_b(pt_b), normal(vperp(vnormalize(endpoint_b - endpoint_a)))
         { }
 
@@ -161,7 +161,7 @@ protected:
 };
 
 struct point : thing {
-    point (vec2 pt) : thing(INFINITYF, pt, 0.0f, POINT) { }
+    point (vec2 pt) : thing(pt, POINT) { }
 
     virtual char const * kind() const { return "point"; }
 
