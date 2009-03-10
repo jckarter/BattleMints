@@ -132,8 +132,15 @@ private:
     thing_set _dying_things;
 
     boost::unordered_map<symbol, thing_set> _things_by_label;
+    renders_with_map _render_map;
 
     grid _grid;
+
+    void _clear_render_map()
+    {
+        for (renders_with_map::iterator i = _render_map.begin(); i != _render_map.end(); ++i)
+            i->second.clear();
+    }
 
     typedef std::pair<thing *, thing *> overlap_pair;
     std::vector<overlap_pair> _overlaps;
