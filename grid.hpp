@@ -42,7 +42,7 @@ struct grid : boost::noncopyable {
     void sort_statics() { BOOST_FOREACH (cell &c, cells) { c.sort_statics(); } }
 
     void add_thing(thing *t);
-    void move_thing(thing *t);
+    bool move_thing(thing *t);
     void remove_thing(thing *t);
 
     cell_iterator cell_for_point(vec2 pt);
@@ -67,17 +67,33 @@ struct grid : boost::noncopyable {
 
     int pitch() const { return _pitch; }
 
-    template <typename UnaryFunctor>
-    void for_cells_in_rect(rect bound, UnaryFunctor const &f)
+    struct cell_area {
+        cell_iterator start, end;
+        unsigned width;
+    };
+
+    cell_area cell_area_for_rect(rect bound)
     {
         std::vector<cell>::iterator start = cell_for_point(bound.low);
         std::vector<cell>::iterator right = cell_for_point(rect_lr(bound));
         unsigned width = right - start;
-        std::vector<cell>::iterator end = cell_for_point(bound.high);
+        std::vector<cell>::iterator end = cell_for_point(rect_ul(bound));
 
-        for (std::vector<cell>::iterator y = start; y <= end; y += _pitch)
-            for (std::vector<cell>::iterator x = y; x - y <= width; ++x)
+        return (cell_area){ start, end, width };
+    }
+
+    template <typename UnaryFunctor>
+    void for_cells_in_cell_area(cell_area a, UnaryFunctor const &f)
+    {
+        for (std::vector<cell>::iterator y = a.start; y <= a.end; y += _pitch)
+            for (std::vector<cell>::iterator x = y; x - y <= a.width; ++x)
                 f(*x);
+    }
+
+    template <typename UnaryFunctor>
+    void for_cells_in_rect(rect bound, UnaryFunctor const &f)
+    {
+        for_cells_in_cell_area(cell_area_for_rect(bound), f);
     }
 
 private:

@@ -24,6 +24,7 @@ const float sphere_face::ROTATE_SPAN = 20.0f,
             sphere_face::ROTATE_FACTOR = 40.0f;
 
 const vec2 board::CELL_SIZE = CONST_VEC2(6.0, 6.0);
+const float board::LIVE_RADIUS = 30.0;
 
 const float cambot::LEAD_FACTOR = 15.0f;
 const float cambot::FOLLOW_FACTOR = 0.1f;

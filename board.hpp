@@ -33,6 +33,7 @@ struct cambot {
 
 struct board : controller {
     static const vec2 CELL_SIZE;
+    static const float LIVE_RADIUS;
 
     std::string name;
 
@@ -88,8 +89,9 @@ struct board : controller {
 
 private:
     void _collide_things(thing *a, thing *b);
-    void _tick_thing(thing *th);
     void _draw_background();
+
+    friend struct _tick_things;
 
     struct collision {
         thing *a, *b;
@@ -116,9 +118,8 @@ private:
         grid::cell_iterator cell,
         collision &c
     );
-    collision _find_collision();
+    collision _find_collision(grid::cell_area live_area);
 
-    void _move_things(float timeslice);
     void _kill_dying_things();
 
     template<typename UnaryFunctor>
@@ -128,7 +129,6 @@ private:
     void _update_2_things(thing *t, thing *u, BinaryFunctor const &f);
 
     thing_set _all_things;
-    thing_set _ticking_things;
     thing_set _dying_things;
 
     boost::unordered_map<symbol, thing_set> _things_by_label;

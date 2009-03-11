@@ -86,8 +86,6 @@ board::add_thing(thing *t)
     _all_things.insert(t);
     if (t->label)
         _things_by_label[t->label].insert(t);
-    if (t->does_ticks())
-        _ticking_things.insert(t);
     _grid.add_thing(t);
 }
 
@@ -251,22 +249,22 @@ board::_find_collision_in_cell_vfp2(
 }
 
 board::collision
-board::_find_collision()
+board::_find_collision(grid::cell_area live_area)
 {
     collision c = { NULL, NULL, INFINITYF };
 
     vfp_length_2();
 
-    grid::cell_iterator row, cell, last_row = _grid.cells.end() - _grid.pitch();
+    grid::cell_iterator row, cell;
     int pitch = _grid.pitch();
-    for (row = cell = _grid.cells.begin(); cell != last_row; row += pitch, ++cell) {
-        for (; cell - row < pitch - 1; ++cell)
+    for (row = live_area.start; row < live_area.end; row += pitch) {
+        for (cell = row; cell - row < live_area.width; ++cell)
             // Middle cell
             _find_collision_in_4_cells_vfp2(cell, cell+1, cell+pitch, cell+pitch+1, c);
         // Right edge cell
         _find_collision_in_2_cells_vfp2(cell, cell+pitch, c);
     }
-    for (; cell < _grid.cells.end() - 1; ++cell) {
+    for (cell = live_area.end; cell - live_area.end < live_area.width; ++cell) {
         // Bottom edge cell
         _find_collision_in_2_cells_vfp2(cell, cell+1, c);
     }
@@ -294,21 +292,11 @@ inline void
 board::_kill_dying_things()
 {
     BOOST_FOREACH (thing *th, _dying_things) {
-        if (th->does_ticks())
-            _ticking_things.erase(th);
         _all_things.erase(th);
         _grid.remove_thing(th);
         delete th;
     }
     _dying_things.clear();
-}
-
-inline void
-board::_tick_thing(thing *t)
-{
-    t->velocity *= FRICTION;
-    t->tick();
-    _grid.move_thing(t);
 }
 
 struct _sort_things_in_cell {
@@ -358,16 +346,42 @@ board::_draw_background()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void
-board::_move_things(float timeslice)
-{
-    BOOST_FOREACH (thing *th, _ticking_things) {
-        if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
-            th->center += th->velocity*timeslice;
-        else
-            th->velocity = ZERO_VEC2;
+struct _move_things {
+    float timeslice;
+
+    _move_things(float t) : timeslice(t) { }
+
+    void operator()(grid::cell &c) const
+    {
+        for (grid::cell::iterator i = c.dynamic_begin(); i != c.things.end(); ++i) {
+            thing *th = *i;
+            if (vnorm2(th->velocity) >= MOVEMENT_THRESHOLD)
+                th->center += th->velocity*timeslice;
+            else
+                th->velocity = ZERO_VEC2;
+        }
     }
-}
+};
+
+struct _tick_things {
+    board *b;
+
+    _tick_things(board *bb) : b(bb) {}
+
+    void operator()(grid::cell &c) const
+    {
+        grid::cell::iterator end = c.things.end();
+        for (grid::cell::iterator i = c.dynamic_begin(); i != end; ) {
+            thing *th = *i;
+            th->velocity *= FRICTION;
+            th->tick();
+            if (b->_grid.move_thing(th))
+                --end;
+            else
+                ++i;
+        }
+    }
+};
 
 board *
 board::from_json(std::string const &name, Json::Value const &v)
@@ -428,9 +442,16 @@ board::tick()
     tick_time = 1.0f;
     int rounds = 0;
 
+    grid::cell_area live_area = _grid.cell_area_for_rect(
+        make_rect(camera.center - make_vec2(LIVE_RADIUS), camera.center + make_vec2(LIVE_RADIUS))
+    );
+
     while (tick_time > 0.0f && rounds < 100) {
-        collision c = _find_collision();
-        _move_things(tick_time < c.collide_time ? tick_time : c.collide_time);
+        collision c = _find_collision(live_area);
+        _grid.for_cells_in_cell_area(
+            live_area,
+            _move_things(tick_time < c.collide_time ? tick_time : c.collide_time)
+        );
         if (c.collide_time <= tick_time)
             _collide_things(c.a, c.b);
 
@@ -440,9 +461,7 @@ board::tick()
 #ifdef BENCHMARK
     std::cout << "-- rounds " << rounds << "\n";
 #endif
-    BOOST_FOREACH (thing *th, _ticking_things) {
-        _tick_thing(th);
-    }
+    _grid.for_cells_in_cell_area(live_area, _tick_things(this));
     camera.tick();
     particles.tick();
 

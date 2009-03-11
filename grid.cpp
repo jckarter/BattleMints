@@ -80,7 +80,7 @@ grid::remove_thing(thing *t)
     c->things.erase(std::find(c->dynamic_begin(), c->things.end(), t));
 }
 
-void
+bool
 grid::move_thing(thing *t)
 {
     std::vector<grid::cell>::iterator old_c = cell_for_point(t->prev_center),
@@ -89,7 +89,9 @@ grid::move_thing(thing *t)
     if (old_c != new_c) {
         old_c->things.erase(std::find(old_c->dynamic_begin(), old_c->things.end(), t));
         new_c->things.push_back(t);
-    }
+        return true;
+    } else
+        return false;
 }
 
 std::vector<grid::cell>::iterator
