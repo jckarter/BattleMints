@@ -36,7 +36,7 @@ struct player : sphere {
 
     player(vec2 center)
         : sphere(center, MASS, RADIUS, SPRING, DAMP), shielded(false), invuln(false),
-          grace_period(0), pellets(0)
+          grace_period(0), pellets(0), pellet_burn(0)
         { }
 
     virtual void tick();

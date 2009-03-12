@@ -67,8 +67,20 @@ void player::tick()
     if (grace_period > 0)
         --grace_period;
     cur_accel = vclip(controller_state, 1.0) * make_vec2(ACCEL_SCALE); 
+
     if (cur_accel != ZERO_VEC2)
         accelerate_with_exhaust(cur_accel);
+
+    if (pellet_burn > 0) {
+        --pellet_burn;
+        if (pellet_burn == 0) {
+            pellet_burn = INVULN_PELLET_BURN;
+            --pellets;
+        }
+    }
+
+    if (invuln && pellets == 0)
+        lose_invuln();
 }
 
 void player::update_stats()
@@ -122,6 +134,8 @@ void player::gain_invuln()
 {
     invuln = true;
     update_stats();
+    pellets = 10;
+    pellet_burn = INVULN_PELLET_BURN;
 }
 
 void player::die()
@@ -163,12 +177,13 @@ void powerup::give_powerup(player *p)
     switch (powerup_kind) {
     case shield:
         p->gain_shield();
+        charge_time = CHARGE_TIME;
         break;
     case invuln:
         p->gain_invuln();
+        board::current()->particles.explode(this, true);
         break;
     }
-    charge_time = CHARGE_TIME;
 }
 
 void powerup::on_collision(thing &o)
