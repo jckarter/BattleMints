@@ -18,16 +18,26 @@ namespace battlemints {
 void global_start_actors();
 
 struct player : sphere {
-    static const float ACCEL_SCALE, RADIUS, MASS, SHIELD_RADIUS, SHIELD_SPRING, SPRING, DAMP;
-    static const vec4 COLOR, SHIELD_COLOR;
+    static const float ACCEL_SCALE, RADIUS, MASS, SPRING, DAMP;
+    static const float SHIELD_RADIUS, SHIELD_SPRING;
+    static const float INVULN_SPRING, INVULN_MASS, INVULN_DAMP;
+    static const vec4 COLOR, SHIELD_COLOR, INVULN_BODY_COLOR;
+
+    static const int INVULN_PELLET_BURN = 60;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
+    static boost::array<renders_with_pair, 3> invuln_renders_with_pairs;
 
-    bool shielded;
+    static const boost::array<vec4, 6> invuln_colors;
+
+    bool shielded, invuln;
     int grace_period;
+    int pellets, pellet_burn;
 
     player(vec2 center)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP), shielded(false), grace_period(0) { }
+        : sphere(center, MASS, RADIUS, SPRING, DAMP), shielded(false), invuln(false),
+          grace_period(0), pellets(0)
+        { }
 
     virtual void tick();
 
@@ -37,27 +47,40 @@ struct player : sphere {
     virtual void post_damage() { damage(); }
 
     virtual renders_with_range renders_with() const;
-    virtual vec4 sphere_color(float r) { return r == SHIELD_RADIUS ? SHIELD_COLOR : COLOR; }
+    virtual vec4 sphere_color(float r);
 
     void damage();
     void die();
     void lose_shield();
     void gain_shield();
+    void lose_invuln();
+    void gain_invuln();
+
+    void update_stats();
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<player>(v); }
 };
 
 struct powerup : sphere {
     static const float RADIUS, MASS, SPRING, DAMP;
-    static const vec4 CHARGED_COLOR, DEAD_COLOR, PULSE_COLOR;
+    static const vec4 CHARGED_COLOR, DEAD_COLOR;
     static const int CHARGE_TIME = 300;
 
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
-    std::string powerup_kind;
-    unsigned charge_time;
+    static const boost::array<vec4, 2> pulse_colors;
 
-    powerup(vec2 center, std::string const &k)
+    enum kind_name {
+        shield = 0,
+        invuln
+    };
+
+    static std::map<std::string, kind_name> kind_names;
+
+    unsigned charge_time;
+    kind_name powerup_kind;
+
+    powerup(vec2 center, kind_name k)
         : sphere(center, MASS, RADIUS, SPRING, DAMP), powerup_kind(k), charge_time(0) { }
 
     virtual renders_with_range renders_with() const
@@ -66,6 +89,8 @@ struct powerup : sphere {
 
     virtual void tick();
     virtual void on_collision(thing &o);
+
+    void give_powerup(player *p);
 
     virtual char const * kind() const { return "powerup"; }
 
@@ -117,7 +142,7 @@ struct mini : enemy {
 };
 
 struct mega : enemy {
-    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
+    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS, DEATH_THRESHOLD2;
     static const vec4 COLOR;
 
     static boost::array<renders_with_pair, 2> renders_with_pairs;
@@ -131,8 +156,10 @@ struct mega : enemy {
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual vec4 sphere_color(float) { return COLOR; }
 
-    virtual void wall_damage() { }
-    virtual void post_damage() { }
+    void damage() { if (vnorm2(velocity) > DEATH_THRESHOLD2) die(); }
+
+    virtual void wall_damage() { damage(); }
+    virtual void post_damage() { damage(); }
 
     static thing *from_json(Json::Value const &v) { return sphere::from_json<mega>(v); }
 };

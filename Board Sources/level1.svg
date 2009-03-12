@@ -39,15 +39,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="28.812005"
+     inkscape:cx="26.014305"
      inkscape:cy="30.392703"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1290"
-     inkscape:window-height="904"
-     inkscape:window-x="804"
-     inkscape:window-y="389"
+     inkscape:window-height="900"
+     inkscape:window-x="23"
+     inkscape:window-y="43"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -948,7 +948,8 @@
        xlink:href="#powerup"
        y="0"
        x="0"
-       style="display:inline" />
+       style="display:inline"
+       battlemints:powerup-kind="shield" />
     <use
        height="10"
        width="1000"
@@ -2035,7 +2036,8 @@
        id="use5230"
        width="1000"
        height="10"
-       transform="translate(-11.577211,-27.559501)" />
+       transform="translate(-11.227498,-27.979156)"
+       battlemints:powerup-kind="invuln" />
     <use
        height="10"
        width="1000"

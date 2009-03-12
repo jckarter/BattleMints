@@ -6,6 +6,7 @@
 namespace battlemints {
 
 boost::array<renders_with_pair, 3> player::renders_with_pairs_template;
+boost::array<renders_with_pair, 3> player::invuln_renders_with_pairs;
 boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
@@ -18,6 +19,12 @@ void global_start_actors()
         { sphere_renderer::instance, renderer::as_parameter<float>(player::SHIELD_RADIUS) },
         { sphere_renderer::instance, renderer::as_parameter<float>(player::RADIUS) },
         { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::PLAYER_FACE) }
+    }};
+
+    player::invuln_renders_with_pairs = (boost::array<renders_with_pair,3>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(player::SHIELD_RADIUS) },
+        { sphere_renderer::instance, renderer::as_parameter<float>(player::RADIUS) },
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::PLAYER_INVULN_FACE) }
     }};
 
     powerup::renders_with_pairs = (boost::array<renders_with_pair,1>){{
@@ -47,10 +54,12 @@ void global_start_actors()
 
 renders_with_range player::renders_with() const
 {
-    return boost::make_iterator_range(
-        renders_with_pairs_template.begin() + (!shielded || (board::current()->tick_count() & 1)),
-        renders_with_pairs_template.end()
-    );
+    return invuln
+        ? boost::make_iterator_range(invuln_renders_with_pairs.begin(), invuln_renders_with_pairs.end())
+        : boost::make_iterator_range(
+              renders_with_pairs_template.begin() + (!shielded || (board::current()->tick_count() & 1)),
+              renders_with_pairs_template.end()
+          );
 }
 
 void player::tick()
@@ -62,20 +71,57 @@ void player::tick()
         accelerate_with_exhaust(cur_accel);
 }
 
+void player::update_stats()
+{
+    if (invuln) {
+        radius = SHIELD_RADIUS;
+        bounce = INVULN_SPRING;
+        mass   = INVULN_MASS;
+        damp   = INVULN_DAMP;
+    } else if (shielded) {
+        radius = SHIELD_RADIUS;
+        bounce = SHIELD_SPRING;
+        mass   = MASS;
+        damp   = DAMP;
+    } else {
+        radius = RADIUS;
+        bounce = SPRING;
+        mass   = MASS;
+        damp   = DAMP;
+    }
+}
+
+vec4 player::sphere_color(float r)
+{
+    return invuln
+        ? (r == SHIELD_RADIUS ? invuln_colors[board::current()->tick_count() % invuln_colors.size()] : INVULN_BODY_COLOR)
+        : (r == SHIELD_RADIUS ? SHIELD_COLOR : COLOR);
+}
+
 void player::lose_shield()
 {
     shielded = false;
-    radius = RADIUS;
-    bounce = SPRING;
     board::current()->particles.explode(this, false);
     grace_period = GRACE_PERIOD;
+    update_stats();
 }
 
 void player::gain_shield()
 {
     shielded = true;
-    radius = SHIELD_RADIUS;
-    bounce = SHIELD_SPRING;
+    update_stats();
+}
+
+void player::lose_invuln()
+{
+    invuln = false;
+    update_stats();
+}
+
+void player::gain_invuln()
+{
+    invuln = true;
+    update_stats();
 }
 
 void player::die()
@@ -86,10 +132,12 @@ void player::die()
 
 void player::damage()
 {
-    if (shielded)
-        lose_shield();
-    else if (grace_period == 0)
-        die();
+    if (!invuln) {
+        if (shielded)
+            lose_shield();
+        else if (grace_period == 0)
+            die();
+    }
 }
 
 vec4 powerup::sphere_color(float)
@@ -98,8 +146,8 @@ vec4 powerup::sphere_color(float)
         return DEAD_COLOR;
     else {
         return blend(
-            CHARGED_COLOR, PULSE_COLOR,
-            fast_sin_2pi((float)(board::current()->tick_count() & 127) * (1.0f/128.0f))
+            CHARGED_COLOR, pulse_colors[powerup_kind],
+            fast_sin_2pi((float)(board::current()->tick_count() & 63) * (1.0f/64.0f))
         );
     }
 }
@@ -110,22 +158,43 @@ void powerup::tick()
         --charge_time;
 }
 
+void powerup::give_powerup(player *p)
+{
+    switch (powerup_kind) {
+    case shield:
+        p->gain_shield();
+        break;
+    case invuln:
+        p->gain_invuln();
+        break;
+    }
+    charge_time = CHARGE_TIME;
+}
+
 void powerup::on_collision(thing &o)
 {
     if (charge_time == 0) {
         player *p = dynamic_cast<player*>(&o);
-        if (p) {
-            p->gain_shield();
-            charge_time = CHARGE_TIME;
-        }
+        if (p) give_powerup(p);
     }
 }
+
+namespace {
+
+boost::array< std::pair<std::string, powerup::kind_name>, 2 > kind_names_array = {{
+    std::make_pair("shield", powerup::shield),
+    std::make_pair("invuln", powerup::invuln)
+}};
+
+}
+
+std::map<std::string, powerup::kind_name> powerup::kind_names(kind_names_array.begin(), kind_names_array.end());
 
 thing* powerup::from_json(Json::Value const &v)
 {
     vec2 center = vec2_from_json(v["center"]);
-    std::string kind = v["kind"].asString();
-    return new powerup(center, kind);
+    powerup::kind_name powerup_kind = kind_names[v["kind"].asString()];
+    return new powerup(center, powerup_kind);
 }
 
 void enemy::tick()

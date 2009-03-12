@@ -23,9 +23,10 @@ const renders_with_range
                                      &tile_renderer::instance_null_arg + 1);
 
 face_renderer::face_id
-    face_renderer::PLAYER_FACE = (face_renderer::face_id)"player",
-    face_renderer::MINI_FACE   = (face_renderer::face_id)"mini",
-    face_renderer::MEGA_FACE   = (face_renderer::face_id)"mega";
+    face_renderer::PLAYER_FACE        = (face_renderer::face_id)"player",
+    face_renderer::PLAYER_INVULN_FACE = (face_renderer::face_id)"player_invuln",
+    face_renderer::MINI_FACE          = (face_renderer::face_id)"mini",
+    face_renderer::MEGA_FACE          = (face_renderer::face_id)"mega";
 
 decoration_renderer::decoration_id
     decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs.png";
@@ -58,6 +59,7 @@ void
 renderer::_prebuild_textures()
 {
     face_renderer::instance->make_face(face_renderer::PLAYER_FACE);
+    face_renderer::instance->make_face(face_renderer::PLAYER_INVULN_FACE);
     face_renderer::instance->make_face(face_renderer::MINI_FACE);
     face_renderer::instance->make_face(face_renderer::MEGA_FACE);
 

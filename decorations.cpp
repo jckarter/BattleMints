@@ -21,7 +21,7 @@ boost::array< std::pair<std::string, sign::signface>, 8 > signface_names_array =
     std::make_pair("slow",       sign::slow      ),
     std::make_pair("stop",       sign::stop      ),
     std::make_pair("leftarrow",  sign::leftarrow ),
-    std::make_pair("rightarrow", sign::rightarrow),
+    std::make_pair("rightarrow", sign::rightarrow)
 }};
 
 }

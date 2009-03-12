@@ -62,7 +62,7 @@ private:
 
 struct face_renderer : renderer {
     typedef void const *face_id;
-    static face_id PLAYER_FACE, MINI_FACE, MEGA_FACE;
+    static face_id PLAYER_FACE, PLAYER_INVULN_FACE, MINI_FACE, MEGA_FACE;
 
     static face_renderer *instance;
 
