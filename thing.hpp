@@ -34,12 +34,13 @@ struct thing : boost::noncopyable {
     enum flag_values {
         // collision
         COLLISION_MASK = 0xFF,
-        SPHERE = 1, LINE = 4, POINT = 16, NO_COLLISION = 64,
-        SPHERE_SPHERE = 3, SPHERE_LINE = 9, SPHERE_POINT = 31,
-        LINE_SPHERE = 6, POINT_SPHERE = 18,
+        SPHERE = 1, LINE = 4, POINT = 0x10, NO_COLLISION = 0x40,
+        SPHERE_SPHERE = 3, SPHERE_LINE = 9, SPHERE_POINT = 0x21,
+        LINE_SPHERE = 6, POINT_SPHERE = 0x12,
         // misc
-        DOES_TICKS = 256,
-        CAN_OVERLAP = 512
+        DOES_TICKS = 0x100,
+        CAN_OVERLAP = 0x200,
+        PLAYER = 0x80000000
     };
     
     vec2 velocity;
@@ -111,6 +112,10 @@ struct sphere : thing {
         : thing(ct, SPHERE | DOES_TICKS), mass(m), radius(r), bounce(b), damp(d),
           cur_accel(ZERO_VEC2) { }
 
+    sphere(vec2 ct, float m, float r, float b, float d, int flags)
+        : thing(ct, SPHERE | DOES_TICKS | flags), mass(m), radius(r), bounce(b), damp(d),
+          cur_accel(ZERO_VEC2) { }
+
     virtual char const * kind() const { return "sphere"; }
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " m:" << mass << " r:" << radius; }
@@ -161,7 +166,9 @@ protected:
 };
 
 struct point : thing {
-    point (vec2 pt) : thing(pt, POINT) { }
+    point(vec2 pt) : thing(pt, POINT) { }
+
+    point(vec2 pt, int flags) : thing(pt, POINT | flags) { } 
 
     virtual char const * kind() const { return "point"; }
 

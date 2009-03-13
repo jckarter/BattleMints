@@ -64,6 +64,7 @@ renderer::_prebuild_textures()
     face_renderer::instance->make_face(face_renderer::MEGA_FACE);
 
     sphere_renderer::instance->make_texture(player::SHIELD_RADIUS);
+    sphere_renderer::instance->make_texture(pellet::RADIUS);
     sphere_renderer::instance->make_texture(player::RADIUS);
     sphere_renderer::instance->make_texture(mini::RADIUS);
     sphere_renderer::instance->make_texture(mega::RADIUS);

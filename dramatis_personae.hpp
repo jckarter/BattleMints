@@ -23,7 +23,7 @@ struct player : sphere {
     static const float INVULN_SPRING, INVULN_MASS, INVULN_DAMP;
     static const vec4 COLOR, SHIELD_COLOR, INVULN_BODY_COLOR;
 
-    static const int INVULN_PELLET_BURN = 60;
+    static const int INVULN_PELLET_BURN = 30;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
     static boost::array<renders_with_pair, 3> invuln_renders_with_pairs;
@@ -35,7 +35,7 @@ struct player : sphere {
     int pellets, pellet_burn;
 
     player(vec2 center)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP), shielded(false), invuln(false),
+        : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER), shielded(false), invuln(false),
           grace_period(0), pellets(0), pellet_burn(0)
         { }
 
@@ -95,6 +95,26 @@ struct powerup : sphere {
     virtual char const * kind() const { return "powerup"; }
 
     static thing *from_json(Json::Value const &v);
+};
+
+struct pellet : point {
+    static const float RADIUS;
+    static const boost::array<vec4, 6> colors;
+
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
+    pellet(vec2 center) : point(center, DOES_TICKS | CAN_OVERLAP) { }
+
+    virtual void on_collision(thing &o)
+    { 
+        if (o.flags & PLAYER) {
+            player *p = static_cast<player*>(&o);
+            ++p->pellets;
+        }
+    }
+
+    virtual vec4 sphere_color(float)
+        { return colors[board::current()->tick_count % colors.size()]; }
 };
 
 struct enemy : sphere {

@@ -38,16 +38,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.333041"
-     inkscape:cx="7.604636"
-     inkscape:cy="16.769227"
+     inkscape:zoom="65.678729"
+     inkscape:cx="13.194717"
+     inkscape:cy="5.7677897"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="true"
-     inkscape:window-width="1006"
-     inkscape:window-height="701"
-     inkscape:window-x="1127"
-     inkscape:window-y="643"
+     inkscape:window-width="1327"
+     inkscape:window-height="882"
+     inkscape:window-x="996"
+     inkscape:window-y="65"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -100,7 +100,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:#f4d7ee;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0,1.7763568e-15 L 1.4142,-1.4142 L 3.4142,-1.4142 L 4.8284,1.7763568e-15 L 4.8284,2 L 3.4142,3.4142 L 1.4142,3.4142 L 0,2 L 0,1.7763568e-15 z"
@@ -325,6 +325,16 @@
        y="-0.49497473"
        ry="0.079423994"
        transform="matrix(0.7071068,0.7071068,-0.7071068,0.7071068,0,0)" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#f4eed7;fill-opacity:1;stroke:#002255;stroke-width:0.045;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="pellet"
+       sodipodi:cx="0"
+       sodipodi:cy="-8.8817842e-16"
+       sodipodi:rx="0.1"
+       sodipodi:ry="0.1"
+       d="M 0.1,-8.8817842e-16 A 0.1,0.1 0 1 1 -0.1,-8.7593195e-16 A 0.1,0.1 0 1 1 0.1,-9.1267136e-16 z"
+       inkscape:label="#path5618" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -508,6 +518,15 @@
        xlink:href="#sign"
        id="use5202"
        transform="translate(11.834644,3.5283412)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use6129"
+       transform="translate(11.8375,5.1625)"
        width="1000"
        height="10" />
   </g>

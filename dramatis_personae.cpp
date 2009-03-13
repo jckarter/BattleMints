@@ -134,7 +134,8 @@ void player::gain_invuln()
 {
     invuln = true;
     update_stats();
-    pellets = 10;
+    if (pellets < 20)
+        pellets = 20;
     pellet_burn = INVULN_PELLET_BURN;
 }
 
@@ -189,8 +190,9 @@ void powerup::give_powerup(player *p)
 void powerup::on_collision(thing &o)
 {
     if (charge_time == 0) {
-        player *p = dynamic_cast<player*>(&o);
-        if (p) give_powerup(p);
+        if (o.flags & PLAYER) {
+            give_powerup(static_cast<player*>(&o));
+        }
     }
 }
 

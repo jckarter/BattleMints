@@ -50,7 +50,7 @@ goal::on_trip(thing &o)
 bool
 goal::can_trip(thing &o)
 {
-    return dynamic_cast<player*>(&o) != NULL;
+    return o.flags & PLAYER;
 }
 
 thing *
@@ -125,7 +125,7 @@ alarm::on_trip(thing &o)
 bool
 alarm::can_trip(thing &o)
 {
-    return dynamic_cast<player*>(&o) != NULL;
+    return o.flags & PLAYER;
 }
 
 }
