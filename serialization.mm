@@ -25,7 +25,7 @@ static const boost::array<thing_reader_pair, 15> _thing_reader_pairs = {
     thing_reader_pair("tile_vertices",   &tile_vertices::from_json),
     thing_reader_pair("sign",            &sign::from_json),
     thing_reader_pair("switch",          &switch_spring::from_json),
-    thing_reader_pair("door",            &door::from_json)
+    thing_reader_pair("door",            &door::from_json),
     thing_reader_pair("pellet",          &pellet::from_json)
 };
 

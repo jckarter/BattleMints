@@ -12,6 +12,7 @@ boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
 boost::array<renders_with_pair, 2> switch_spring::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
+boost::array<renders_with_pair, 1> pellet::renders_with_pairs;
 
 void global_start_actors()
 {
@@ -49,6 +50,10 @@ void global_start_actors()
     switch_spring::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { self_renderer::instance,   (renderer_parameter)"switch_spring" },
         { sphere_renderer::instance, renderer::as_parameter<float>(switch_spring::RADIUS) }
+    }};
+
+    pellet::renders_with_pairs = (boost::array<renders_with_pair,1>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(pellet::RADIUS) }
     }};
 }
 
@@ -193,6 +198,15 @@ void powerup::on_collision(thing &o)
         if (o.flags & PLAYER) {
             give_powerup(static_cast<player*>(&o));
         }
+    }
+}
+
+void pellet::on_collision(thing &o)
+{ 
+    if (o.flags & PLAYER) {
+        player *p = static_cast<player*>(&o);
+        ++p->pellets;
+        board::current()->remove_thing(this);
     }
 }
 

@@ -105,18 +105,15 @@ struct pellet : point {
 
     pellet(vec2 center) : point(center, DOES_TICKS | CAN_OVERLAP) { }
 
-    virtual void on_collision(thing &o)
-    { 
-        if (o.flags & PLAYER) {
-            player *p = static_cast<player*>(&o);
-            ++p->pellets;
-        }
-    }
+    virtual void on_collision(thing &o);
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
 
     virtual vec4 sphere_color(float)
-        { return colors[board::current()->tick_count % colors.size()]; }
+        { return colors[board::current()->tick_count() % colors.size()]; }
 
-    static thing *from_json(Json::Value const &v) { return point::from_json<wallpost>(v); }
+    static thing *from_json(Json::Value const &v) { return point::from_json<pellet>(v); }
 };
 
 struct enemy : sphere {
