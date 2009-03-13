@@ -39,15 +39,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="9.4344816"
-     inkscape:cx="37.104996"
+     inkscape:cx="36.464629"
      inkscape:cy="24.234271"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="765"
-     inkscape:window-x="9"
-     inkscape:window-y="26"
+     inkscape:window-x="151"
+     inkscape:window-y="167"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -340,7 +340,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Palette"
-     style="display:inline">
+     style="display:none">
     <use
        style="display:inline"
        x="0"
@@ -529,6 +529,12 @@
        transform="translate(11.8375,5.1625)"
        width="1000"
        height="10" />
+  </g>
+  <g
+     inkscape:label="Map"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
     <use
        height="10"
        width="1000"
@@ -767,13 +773,13 @@
        battlemints:tripwire="alarm"
        id="path6224"
        d="M 18.636212,-24.843386 L 10.636212,-24.843386"
-       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        battlemints:label="topantechamber" />
     <path
        battlemints:label="bottomantechamber"
        sodipodi:nodetypes="cc"
-       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 18.636123,-17.915134 L 10.636301,-17.915134"
        id="path6226"
        battlemints:tripwire="alarm" />
@@ -1058,7 +1064,7 @@
        battlemints:tripwire="alarm"
        id="path6290"
        d="M 19.636168,-23.111411 L 19.636123,-19.647134"
-       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        battlemints:label="megaroom1" />
     <use
@@ -1822,7 +1828,7 @@
        battlemints:tripwire="alarm"
        id="path6488"
        d="M 54.635945,-14.451334 L 45.636212,-19.647283"
-       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="cc"
        battlemints:label="megaroom2" />
     <use
@@ -2256,7 +2262,7 @@
        width="1000"
        height="10" />
     <path
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        d="M 114.22681,-17.915525 L 113.22712,-23.111297"
        id="path6613"
        battlemints:tripwire="goal"
@@ -2283,9 +2289,4 @@
        height="10"
        battlemints:label="megaroom2" />
   </g>
-  <g
-     inkscape:label="Map"
-     inkscape:groupmode="layer"
-     id="layer1"
-     style="display:inline" />
 </svg>
