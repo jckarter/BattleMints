@@ -115,6 +115,8 @@ struct pellet : point {
 
     virtual vec4 sphere_color(float)
         { return colors[board::current()->tick_count % colors.size()]; }
+
+    static thing *from_json(Json::Value const &v) { return point::from_json<wallpost>(v); }
 };
 
 struct enemy : sphere {

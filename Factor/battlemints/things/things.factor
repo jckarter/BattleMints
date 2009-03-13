@@ -14,6 +14,10 @@ TUPLE: shape < transform-thing ;
 TUPLE: tile < shape ;
 TUPLE: actor < transform-thing ;
 
+TUPLE: point < thing center ;
+
+TUPLE: pellet < actor ;
+
 TUPLE: tile-shell < thing vertex-start vertex-length center ;
 TUPLE: tile-vertices < thing vertices ;
 
@@ -49,7 +53,7 @@ TUPLE: goal < tripwire next-board ;
 TUPLE: wall < line ;
 TUPLE: door < wall ;
 
-TUPLE: wallpost < thing center ;
+TUPLE: wallpost < point ;
 
 TUPLE: switch < transform-thing ;
 TUPLE: sign < transform-thing signface ;
@@ -207,6 +211,7 @@ M: mega actor-radius drop 2.6 ;
 M: bumper actor-radius drop 0.5 ;
 M: player actor-radius drop 0.5 ;
 M: powerup actor-radius drop 0.5 ;
+M: pellet actor-radius drop 0.0 ;
 
 GENERIC: thing-extents ( thing -- min max )
 
@@ -220,7 +225,7 @@ M: actor thing-extents
     [ v- ] [ v+ ] 2bi ;
 M: line thing-extents
     endpoints>> [ vinfimum ] [ vsupremum ] bi ;
-M: wallpost thing-extents
+M: point thing-extents
     center>> dup ;
 M: tile-shell thing-extents
     center>> dup ;

@@ -57,7 +57,7 @@ M: actor (thing-rep)
 M: line (thing-rep)
     endpoints>> { "endpoint_a" "endpoint_b" } zip-hashtable ;
 
-M: wallpost (thing-rep)
+M: point (thing-rep)
     center>> "center" associate ;
 
 M: sign (thing-rep)
