@@ -221,13 +221,6 @@ boost::array< std::pair<std::string, powerup::kind_name>, 2 > kind_names_array =
 
 std::map<std::string, powerup::kind_name> powerup::kind_names(kind_names_array.begin(), kind_names_array.end());
 
-thing* powerup::from_json(Json::Value const &v)
-{
-    vec2 center = vec2_from_json(v["center"]);
-    powerup::kind_name powerup_kind = kind_names[v["kind"].asString()];
-    return new powerup(center, powerup_kind);
-}
-
 void enemy::tick()
 {
     if (cur_accel != ZERO_VEC2)
@@ -319,13 +312,6 @@ void switch_spring::tick()
         if (label)
             board::current()->fire_trigger(label, last_touch);
     }
-}
-
-thing *switch_spring::from_json(Json::Value const &v)
-{
-    vec2 center = vec2_from_json(v["center"]);
-    vec2 axis = vec2_from_json(v["axis"]);
-    return new switch_spring(center, axis);
 }
 
 void switch_spring::_set_matrix()

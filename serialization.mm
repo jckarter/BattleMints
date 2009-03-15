@@ -8,58 +8,46 @@
 
 namespace battlemints {
 
-typedef thing *(*thing_reader)(Json::Value const &v);
+typedef thing *(*thing_reader)(FILE *bin);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
 static const boost::array<thing_reader_pair, 15> _thing_reader_pairs = {
-    thing_reader_pair("wall",            &wall::from_json),
-    thing_reader_pair("wallpost",        &wallpost::from_json),
-    thing_reader_pair("player",          &player::from_json),
-    thing_reader_pair("goal",            &goal::from_json),
-    thing_reader_pair("alarm",           &alarm::from_json),
-    thing_reader_pair("mini",            &mini::from_json),
-    thing_reader_pair("mega",            &mega::from_json),
-    thing_reader_pair("bumper",          &bumper::from_json),
-    thing_reader_pair("powerup",         &powerup::from_json),
-    thing_reader_pair("tile",            &tile::from_json),
-    thing_reader_pair("tile_vertices",   &tile_vertices::from_json),
-    thing_reader_pair("sign",            &sign::from_json),
-    thing_reader_pair("switch",          &switch_spring::from_json),
-    thing_reader_pair("door",            &door::from_json),
-    thing_reader_pair("pellet",          &pellet::from_json)
+    thing_reader_pair("player",          &thing::from_bin<player>),
+    thing_reader_pair("pellet",          &thing::from_bin<pellet>)
+    thing_reader_pair("mini",            &thing::from_bin<mini>),
+    thing_reader_pair("mega",            &thing::from_bin<mega>),
+    thing_reader_pair("bumper",          &thing::from_bin<bumper>),
+    thing_reader_pair("powerup",         &thing::from_bin<powerup>),
+    thing_reader_pair("wall",            &thing::from_bin<wall>),
+    thing_reader_pair("wallpost",        &thing::from_bin<wallpost>),
+    thing_reader_pair("goal",            &thing::from_bin<goal>),
+    thing_reader_pair("alarm",           &thing::from_bin<alarm>),
+    thing_reader_pair("door",            &thing::from_bin<door>),
+    thing_reader_pair("tile",            &thing::from_bin<tile>),
+    thing_reader_pair("tile_vertices",   &thing::from_bin<tile_vertices>),
+    thing_reader_pair("sign",            &thing::from_bin<sign>),
+    thing_reader_pair("switch",          &thing::from_bin<switch_spring>)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers
     (_thing_reader_pairs.begin(), _thing_reader_pairs.end());
 
-typedef thing *(*thing_reader)(Json::Value const &value);
-typedef std::pair<std::string, thing_reader> thing_reader_pair;
-
-thing *thing_from_json(Json::Value const &v)
+thing *thing_from_bin(FILE *bin)
 {
-    if (!v.isArray() && v.size() != 2)
-        throw invalid_board_json("thing value must be an array of 2 elements");
-
-    std::string kind = v[0u].asString();
-    Json::Value params = v[1u];
-
-    if (!params.isObject())
-        throw invalid_board_json("second element of thing value must be an object");
+    std::string kind = pascal_string_from_bin(bin);
+    uint32_t flags = data_from_bin<uint32_t>(bin);
 
     std::map<std::string, thing_reader>::const_iterator reader
         = _thing_readers.find(kind);
 
     thing *th;
     if (reader != _thing_readers.end())
-        th = (reader->second)(params);
+        th = (reader->second)(bin);
     else
-        throw invalid_board_json(std::string("unknown kind of thing \"" + kind + "\""));
+        throw invalid_board("unknown kind of thing \"" + kind + "\"");
 
-    if (params.isMember("spawn") && params["spawn"].asBool())
+    if (flags & serialization::SPAWN)
         th = new spawn(th);
-
-    if (params.isMember("label") && params["label"].isString())
-        th->label = intern(params["label"].asString());
 
     return th;
 }

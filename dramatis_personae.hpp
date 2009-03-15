@@ -58,7 +58,9 @@ struct player : sphere {
 
     void update_stats();
 
-    static thing *from_json(Json::Value const &v) { return sphere::from_json<player>(v); }
+    player(FILE *bin)
+        : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP), shielded(false), invuln(false),
+          grace_period(0), pellets(0), pellet_burn(0) { }
 };
 
 struct powerup : sphere {
@@ -75,12 +77,10 @@ struct powerup : sphere {
         invuln
     };
 
-    static std::map<std::string, kind_name> kind_names;
-
     unsigned charge_time;
-    kind_name powerup_kind;
+    int powerup_kind;
 
-    powerup(vec2 center, kind_name k)
+    powerup(vec2 center, int k)
         : sphere(center, MASS, RADIUS, SPRING, DAMP), powerup_kind(k), charge_time(0) { }
 
     virtual renders_with_range renders_with() const
@@ -94,7 +94,9 @@ struct powerup : sphere {
 
     virtual char const * kind() const { return "powerup"; }
 
-    static thing *from_json(Json::Value const &v);
+    powerup(FILE *bin)
+        : sphere(0, bin, MASS, RADIUS, SPRING, DAMP), charge_time(0)
+        { BATTLEMINTS_READ_SLOTS(*this, powerup_kind, powerup_kind, bin); }
 };
 
 struct pellet : point {
@@ -113,7 +115,7 @@ struct pellet : point {
     virtual vec4 sphere_color(float)
         { return colors[board::current()->tick_count() % colors.size()]; }
 
-    static thing *from_json(Json::Value const &v) { return point::from_json<pellet>(v); }
+    pellet(FILE *bin) : point(DOES_TICKS | CAN_OVERLAP, bin) {}
 };
 
 struct enemy : sphere {
@@ -137,6 +139,11 @@ struct enemy : sphere {
     virtual void trigger(thing *scapegoat);
 
     virtual char const * kind() const { return "enemy"; }
+
+protected:
+    enemy(int flags, FILE *bin, float m, float r, float b, float d, float a, float re)
+        : sphere(flags, bin, m, r, b, d), accel(a), responsiveness(re),
+          target(NULL) {}
 };
 
 struct mini : enemy {
@@ -157,7 +164,9 @@ struct mini : enemy {
 
     virtual char const * kind() const { return "mini"; }
 
-    static thing *from_json(Json::Value const &v) { return sphere::from_json<mini>(v); }
+    mini(FILE *bin)
+        : enemy(0, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS),
+          color(colors[rand() % colors.size()]) { }
 };
 
 struct mega : enemy {
@@ -180,7 +189,8 @@ struct mega : enemy {
     virtual void wall_damage() { damage(); }
     virtual void post_damage() { damage(); }
 
-    static thing *from_json(Json::Value const &v) { return sphere::from_json<mega>(v); }
+    mega(FILE *bin)
+        : enemy(0, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS) { }
 };
 
 struct bumper : sphere {
@@ -197,7 +207,12 @@ struct bumper : sphere {
     virtual renders_with_range renders_with() const;
     virtual vec4 sphere_color(float radius);
 
-    static thing *from_json(Json::Value const &v) { return sphere::from_json<bumper>(v); }
+private:
+    bumper(FILE *bin) : sphere(0) { state_from_bin<bumper>(bin); }
+
+public:
+    static thing *from_bin(FILE *bin)
+        { return new bumper(bin); }
 };
 
 struct switch_spring : sphere {
@@ -207,14 +222,14 @@ struct switch_spring : sphere {
     
     static boost::array<renders_with_pair, 2> renders_with_pairs;
 
-    vec2 home, axis;
+    vec2 axis, home;
     float slot_matrix[16];
     bool triggered;
     thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
         : sphere(ct - ax * SLOT_LENGTH, MASS, RADIUS, 0.0f, 0.0f),
-          home(ct), axis(ax), triggered(false),
+          axis(ax), home(ct), triggered(false),
           last_touch(NULL)
         { _set_matrix(); }
 
@@ -229,7 +244,13 @@ struct switch_spring : sphere {
     virtual void tick();
     virtual void on_collision(thing &o);
 
-    static thing *from_json(Json::Value const &v);
+    switch_spring(FILE *bin)
+        : sphere(0, bin, MASS, RADIUS, 0.0f, 0.0f), triggered(false), last_touch(NULL)
+    {
+        BATTLEMINTS_READ_SLOTS(*this, axis, axis, bin);
+        home = center; center -= axis * SLOT_LENGTH;
+        _set_matrix();
+    }
 
 private:
     void _set_matrix();

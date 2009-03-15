@@ -40,12 +40,4 @@ decoration::params sign::decoration_params()
     return (params){ (void*)&vertices, (void*)&texcoords };
 }
 
-thing *sign::from_json(Json::Value const &v)
-{
-    vec2 center = vec2_from_json(v["center"]);
-    signface face = signface_names[v["signface"].asString()];
-
-    return new sign(center, face);
-}
-
 }

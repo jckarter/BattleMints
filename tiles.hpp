@@ -28,7 +28,13 @@ struct tile_vertices : thing {
     void bind() const;
     void unbind() const;
 
-    static thing *from_json(Json::Value const &v);
+    tile_vertices(FILE *bin)
+        : thing(NO_COLLISION), vertices(NULL)
+    {
+        int length = data_from_bin<int>(bin);
+        vertices = new std::vector<vertex>(length);
+        safe_fread(&(*vertices)[0], sizeof(int), length, bin);
+    }
 
 private:
     static GLuint _buffer_for_vertices(std::vector<vertex> const &v);
@@ -36,13 +42,13 @@ private:
 
 struct tile : thing {
     struct vertex_range {
-        GLint begin;
-        GLsizei size;
+        int begin;
+        int size;
 
-        GLint end() const { return begin + size; }
+        int end() const { return begin + size; }
 
         vertex_range() {}
-        vertex_range(GLint s, GLsizei l) : begin(s), size(l) {}
+        vertex_range(int s, int l) : begin(s), size(l) {}
     };
 
     vertex_range vertices;
@@ -50,10 +56,12 @@ struct tile : thing {
     tile(vec2 center, GLint start, GLsizei length)
         : thing(center, NO_COLLISION), vertices(start, length) { }
 
-    static thing *from_json(Json::Value const &v);
-
     virtual renders_with_range renders_with() const
         { return tile_renderer::instance_null_arg_range; }
+
+    tile(FILE *bin)
+        : thing(NO_COLLISION, bin)
+        { BATTLEMINTS_READ_SLOTS(*this, vertices, vertices, bin); }
 };
 
 }

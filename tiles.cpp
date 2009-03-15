@@ -4,15 +4,6 @@
 
 namespace battlemints {
 
-namespace {
-
-    inline tile_vertices::vertex _vertex_from_json(Json::Value const &v)
-    {
-        return (tile_vertices::vertex){ vec2_from_json(v[0u]), vec4_from_json(v[1u]) };
-    }
-
-}
-
 tile_vertices::~tile_vertices()
 {
     if (buffer != 0)

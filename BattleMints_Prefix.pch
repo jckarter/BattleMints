@@ -1,7 +1,3 @@
-//
-// Prefix header for all source files of the 'BattleMints' target in the 'BattleMints' project
-//
-
 #define __ASSERTMACROS__ // suppress poorly-named macros from AssertMacros.h
 
 #ifdef __OBJC__
@@ -21,6 +17,8 @@
 #include <boost/circular_buffer.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
+#include <boost/function.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/preprocessor.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -30,6 +28,7 @@
 #include <boost/unordered_map.hpp>
 #include <boost/utility.hpp>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
 #include <cstddef>
 #include <fstream>
@@ -40,8 +39,6 @@
 #include <string>
 #include <stdexcept>
 #include <utility>
-
-#include <json/json.h>
 #endif
 
 #include <CoreGraphics/CoreGraphics.h>

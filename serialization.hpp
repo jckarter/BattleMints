@@ -3,41 +3,72 @@
 
 #include <map>
 #include <string>
-#include <json/json.h>
+#include <vector>
 #include <boost/optional.hpp>
+#include <boost/lexical_cast.hpp>
+#include <cstdio>
 #include "geom.hpp"
 
 namespace battlemints {
 
 struct thing;
 
+namespace serialization {
+    enum flags {
+        SPAWN = 1
+    };
+}
+
 boost::optional<std::string> resource_filename(std::string const &name, std::string const &type);
 
-thing *thing_from_json(Json::Value const &v);
+thing *thing_from_bin(FILE *bin);
 
-struct invalid_board_json : std::runtime_error {
-    invalid_board_json(std::string const &s) : std::runtime_error(s) {}
+struct invalid_board : std::runtime_error {
+    invalid_board(std::string const &s) : std::runtime_error(s) {}
 };
 
-inline rect rect_from_json(Json::Value const &v)
+typename<typename T>
+inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
 {
-    if (!v.isArray() && v.size() != 4)
-        throw invalid_board_json("rect value must be an array of 4 elements");
-    return make_rect(v[0u].asDouble(), v[1u].asDouble(), v[2u].asDouble(), v[3u].asDouble());
+    void *vp = (void*)p;
+    size_t count = fread(vp, size, nmemb, stream);
+    while (count != nmemb) {
+        if (ferror(stream) && errno == EINTR) {
+            clearerr(stream);
+            nmemb -= count;
+            vp = (void*)((char*)vp + size * nmemb);
+            count = fread(vp, size, nmemb, stream);
+        }
+        else
+            throw invalid_board(
+                "fread got " + boost::lexical_cast<std::string>(count) + " records but expected "
+                    + boost::lexical_cast<std::string>(size * nmemb) + " records"
+            );
+    }
 }
 
-inline vec2 vec2_from_json(Json::Value const &v)
+inline std::string pascal_string_from_bin(FILE *bin)
 {
-    if (!v.isArray() && v.size() != 2)
-        throw invalid_board_json("vec2 value must be an array of 2 elements");
-    return make_vec2(v[0u].asDouble(), v[1u].asDouble());
+    char length = getc(bin);
+    std::string r(length, '\0');
+    safe_fread(&r[0], length, 1, bin);
+
+    return r;
 }
 
-inline vec4 vec4_from_json(Json::Value const &v)
+template<typename T>
+inline T data_from_bin(FILE *bin)
 {
-    if (!v.isArray() && v.size() != 4)
-        throw invalid_board_json("vec4 value must be an array of 4 elements");
-    return make_vec4(v[0u].asDouble(), v[1u].asDouble(), v[2u].asDouble(), v[3u].asDouble());
+    T r;
+    safe_fread(&r, sizeof(r), 1, bin);
+
+    return r;
+}
+
+template<typename T>
+inline void n_from_bin(FILE *bin, T *into, int n)
+{
+    safe_fread(&r, n*sizeof(r), 1, bin);
 }
 
 }

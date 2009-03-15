@@ -7,6 +7,7 @@
 #include "renderers.hpp"
 #include "serialization.hpp"
 
+#include <cstddef>
 #include <string>
 #include <vector>
 #include <boost/array.hpp>
@@ -24,11 +25,10 @@ struct sphere;
 struct line;
 struct point;
 
-typedef std::string const *symbol;
+typedef int symbol;
 
-extern boost::unordered_set<std::string> interned_symbols;
-
-inline symbol intern(std::string const &s) { return &*(interned_symbols.insert(s).first); }
+#define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
+    (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), stream))
 
 struct thing : boost::noncopyable {
     enum flag_values {
@@ -43,14 +43,14 @@ struct thing : boost::noncopyable {
         PLAYER = 0x80000000
     };
     
+    const int flags;
     vec2 velocity;
     vec2 center;
-    vec2 prev_center;
-    const int flags;
     symbol label;
+    vec2 prev_center;
 
     thing(vec2 ct, int f)
-        : velocity(ZERO_VEC2), center(ct), prev_center(ct), flags(f), label(NULL) { }
+        : flags(f), velocity(ZERO_VEC2), center(ct), label(0), prev_center(ct) { }
 
     bool does_collisions() const { return flags != NO_COLLISION; }
 
@@ -84,6 +84,12 @@ struct thing : boost::noncopyable {
 
     virtual void trigger(thing *scapegoat) { } // Called when a switch or alarm with the same label is fired
 
+    template<typename T>
+    static thing *from_bin(FILE *bin)
+    {
+        return new T(bin);
+    }
+
 #ifndef NO_GRAPHICS
     virtual void draw_self() const { } // only used if renders_with() self_renderer
 protected:
@@ -93,6 +99,14 @@ protected:
         glPushMatrix();
         glTranslatef(center.x, center.y, 0.0f);
     }
+
+    thing(int f)
+        : flags(f), velocity(ZERO_VEC2), center(ZERO_VEC2), label(0), prev_center(ZERO_VEC2)
+        {}
+
+    thing(int f, FILE *bin)
+        : flags(f), velocity(ZERO_VEC2)
+        { BATTLEMINTS_READ_SLOTS(*this, center, label); prev_center = center; }
 #endif
 };
 
@@ -126,12 +140,9 @@ struct sphere : thing {
     void accelerate_with_exhaust(vec2 accel);
 
 protected:
-    template<typename Thing>
-    static thing *from_json(Json::Value const &v)
-    {
-        vec2 center = vec2_from_json(v["center"]);
-        return new Thing(center);
-    }
+    sphere(int flags, FILE *bin, float m, float r, float b, float d)
+        : thing(SPHERE | DOES_TICKS | flags, bin), mass(m), radius(r), bounce(b), damp(d),
+          cur_accel(ZERO_VEC2) {}
 #endif
 };
 
@@ -154,13 +165,11 @@ struct line : thing {
 
 #ifndef NO_GRAPHICS
 protected:
-    template<typename Thing>
-    static thing *from_json(Json::Value const &v)
+    line(int flags, FILE *bin)
+        : thing(LINE | flags, bin)
     {
-        vec2 endpoint_a = vec2_from_json(v["endpoint_a"]);
-        vec2 endpoint_b = vec2_from_json(v["endpoint_b"]);
-
-        return new Thing(endpoint_a, endpoint_b);
+        BATTLEMINTS_READ_SLOTS(*this, endpoint_a, endpoint_b, bin);
+        normal = vperp(vnormalize(endpoint_b - endpoint_a));
     }
 #endif
 };
@@ -174,12 +183,7 @@ struct point : thing {
 
 #ifndef NO_GRAPHICS
 protected:
-    template<typename Thing>
-    static thing *from_json(Json::Value const &v)
-    {
-        vec2 center = vec2_from_json(v["center"]);
-        return new Thing(center);
-    }
+    point(int flags, FILE *bin) : thing(POINT | flags, bin) {}
 #endif
 };
 

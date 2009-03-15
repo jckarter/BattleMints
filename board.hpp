@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-#include <json/json.h>
 #include <boost/foreach.hpp>
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
@@ -48,8 +47,8 @@ struct board : controller {
     virtual void tick();
     virtual void draw();
 
-    static board *make_demo_board();
-    static board *from_json(std::string const &name, Json::Value const &v);
+    static board *from_bin(std::string const &name, FILE *bin);
+
     static board *from_file(std::string const &name);
 
     static board *current() { return _current; }

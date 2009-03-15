@@ -1,4 +1,5 @@
 #include "board.hpp"
+#include "finally.hpp"
 #include "game.hpp"
 #include "thing.hpp"
 #include "dramatis_personae.hpp"
@@ -384,23 +385,16 @@ struct _tick_things {
 };
 
 board *
-board::from_json(std::string const &name, Json::Value const &v)
+board::from_bin(std::string const &name, FILE *bin)
 {
-    if (!v.isObject())
-        throw invalid_board_json("Root of board JSON must be Object");
-
-    rect bounds = rect_from_json(v["bounds"]);
-    Json::Value things = v["things"];
-    if (!things.isArray())
-        throw invalid_board_json("\"things\" field of board JSON must be Array");
+    rect bounds = data_from_bin<rect>(bin);
 
     board *b = new board(name, bounds);
     try {
-        for (unsigned i = 0; i < things.size(); ++i) {
-            Json::Value const &tv = things[i];
-            thing *t = thing_from_json(tv);
+        while (!feof(bin)) {
+            thing *t = thing_from_bin(bin);
             b->add_thing(t);
-            if (tv[1].isMember("camera"))
+            if (t->flags & PLAYER)
                 b->camera.cut_to_target(t);
         }
     } catch (...) {
@@ -414,14 +408,16 @@ board::from_json(std::string const &name, Json::Value const &v)
 board *
 board::from_file(std::string const &name)
 {
-    boost::optional<std::string> path = resource_filename(name, "board");
+    boost::optional<std::string> path = resource_filename(name, "bb");
     try {
-        Json::Value json;
-        {
-            std::ifstream file(path->c_str());
-            file >> json;
-        }
-        return from_json(name, json);
+        FILE *bin = fopen(path->c_str());
+        if (!bin)
+            throw invalid_board("Could not open board " + name);
+
+        finally<FILE*> close_bin(bin, fclose);
+
+        return from_bin(name, bin);
+
     } catch (std::exception const &x) {
         std::cerr << "Reading board " << name << " failed: " << x.what() << "\n";
         return NULL;

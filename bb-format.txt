@@ -1,0 +1,49 @@
+board := extents:vec2 things:thing*
+
+pascal-string := length:uchar text:char{length} 
+
+thing := class:pascal-string properties:thing-properties
+
+thing-properties := normal-thing
+                  | tile-vertices
+
+normal-thing := center:vec2 label:int :class-properties
+
+tile-vertex := center:vec2 color:vec4
+
+tile-vertices := length:int vertices:tile-vertex{length}
+
+class-properties := player
+                  | pellet
+                  | mini
+                  | mega
+                  | bumper
+                  | powerup
+                  | wall
+                  | wallpost
+                  | goal
+                  | alarm
+                  | door
+                  | tile
+                  | sign
+                  | switch
+
+endpoints := endpoint-a:vec2 endpoint-b:vec2
+
+player   := --
+pellet   := --
+mini     := --
+mega     := --
+bumper   := --
+powerup  := kind:int
+wall     := :endpoints
+wallpost := --
+goal     := :endpoints
+alarm    := :endpoints
+
+door     := :endpoints
+
+tile     := start:int length:int
+
+sign     := signface:int
+switch   := axis:vec2
