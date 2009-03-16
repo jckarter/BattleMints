@@ -400,6 +400,8 @@ board::from_bin(std::string const &name, FILE *bin)
         throw;
     }
 
+    b->dump_things();
+
     return b;
 }
 

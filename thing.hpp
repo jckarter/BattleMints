@@ -75,7 +75,7 @@ struct thing : boost::noncopyable {
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const
         { os << kind() << " " << (void*)this
-             << " v:" << velocity << " c:" << center; }
+             << " v:" << velocity << " c:" << center << " l:" << label; }
 
     virtual void awaken() { } // Called when board activates
 
@@ -128,8 +128,6 @@ struct sphere : thing {
           cur_accel(ZERO_VEC2) { }
 
     virtual char const * kind() const { return "sphere"; }
-    virtual void print(std::ostream &os) const
-        { thing::print(os); os << " m:" << mass << " r:" << radius; }
 
     virtual vec4 sphere_color(float radius) { return CONST_VEC4_SPLAT(0.0f); }
 

@@ -56,6 +56,9 @@ struct sign : decoration
         _set_texcoords(face);
     }
 
+    virtual void print(std::ostream &os) const
+        { decoration::print(os); os << " signface:" << texcoords[0].x*8.0f; }
+
 private:
     void _set_texcoords(int face)
     {

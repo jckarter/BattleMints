@@ -97,6 +97,9 @@ struct powerup : sphere {
     powerup(FILE *bin)
         : sphere(0, bin, MASS, RADIUS, SPRING, DAMP), charge_time(0)
         { BATTLEMINTS_READ_SLOTS(*this, powerup_kind, powerup_kind, bin); }
+
+    virtual void print(ostream &os) const
+        { sphere::print(os); os << " kind:" << powerup_kind; }
 };
 
 struct pellet : point {
@@ -251,6 +254,9 @@ struct switch_spring : sphere {
         _set_matrix();
     }
 
+    virtual void print(std::ostream &os) const
+        { thing::print(os); os << " axis:" << axis; }
+
 private:
     void _set_matrix();
 };
@@ -268,6 +274,9 @@ struct spawn : thing {
         larva->trigger(scapegoat);
         larva = NULL;
     }
+
+    virtual void print(std::ostream &os) const
+        { thing::print(os); os << " larva:(" << *larva << ")"; }
 };
 
 }

@@ -69,9 +69,9 @@ struct board : controller {
 
     void dump_things() const
     {
-        std::cerr << "=== ===\n";
+        std::cout << "=== ===\n";
         BOOST_FOREACH (thing *th, _all_things)
-            std::cerr << *th << "\n";
+            std::cout << *th << "\n";
     }
 
     unsigned long tick_count() const { return _tick_count; }
