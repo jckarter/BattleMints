@@ -31,10 +31,7 @@
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
-		D8A2F3FB0F609A8700583C9A /* tail.board in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F3FA0F609A8700583C9A /* tail.board */; };
-		D8A2F4210F62F47A00583C9A /* level2.board in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F4200F62F47A00583C9A /* level2.board */; };
 		D8A2F70D0F68ABA800583C9A /* player_invuln.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F70C0F68ABA800583C9A /* player_invuln.png */; };
-		D8A2F7370F6ACCCE00583C9A /* level3.board in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F7360F6ACCCE00583C9A /* level3.board */; };
 		D8B272510F09DDBE001844D6 /* board_loader.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B272500F09DDBE001844D6 /* board_loader.mm */; };
 		D8B272C20F0C8A89001844D6 /* dramatis_personae.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */; };
 		D8B272D20F0C8FFC001844D6 /* thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B272D10F0C8FFC001844D6 /* thing.cpp */; };
@@ -48,8 +45,6 @@
 		D8FA4F1C0F5F195200FC3C4F /* decorations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F190F5F195200FC3C4F /* decorations.cpp */; };
 		D8FA4F1D0F5F195200FC3C4F /* tripwire.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */; };
 		D8FA4F500F5F359E00FC3C4F /* walls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */; };
-		D8FA4F5C0F5F404000FC3C4F /* hub.board in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4F5A0F5F404000FC3C4F /* hub.board */; };
-		D8FA4F5D0F5F404000FC3C4F /* level1.board in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4F5B0F5F404000FC3C4F /* level1.board */; };
 		D8FA4FD70F5F7A5500FC3C4F /* signs.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FA4FD60F5F7A5500FC3C4F /* signs.png */; };
 /* End PBXBuildFile section */
 
@@ -100,10 +95,7 @@
 		D84C2AB10EDD24180000DE73 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
-		D8A2F3FA0F609A8700583C9A /* tail.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tail.board; sourceTree = "<group>"; };
-		D8A2F4200F62F47A00583C9A /* level2.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.board; sourceTree = "<group>"; };
 		D8A2F70C0F68ABA800583C9A /* player_invuln.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_invuln.png; sourceTree = "<group>"; };
-		D8A2F7360F6ACCCE00583C9A /* level3.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.board; sourceTree = "<group>"; };
 		D8B272500F09DDBE001844D6 /* board_loader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = board_loader.mm; sourceTree = "<group>"; };
 		D8B272C00F0C8A89001844D6 /* dramatis_personae.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dramatis_personae.cpp; sourceTree = "<group>"; };
 		D8B272C10F0C8A89001844D6 /* dramatis_personae.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dramatis_personae.hpp; sourceTree = "<group>"; };
@@ -124,8 +116,6 @@
 		D8FA4F1A0F5F195200FC3C4F /* decorations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decorations.hpp; sourceTree = "<group>"; };
 		D8FA4F1B0F5F195200FC3C4F /* tripwire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tripwire.cpp; sourceTree = "<group>"; };
 		D8FA4F4F0F5F359E00FC3C4F /* walls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = walls.cpp; sourceTree = "<group>"; };
-		D8FA4F5A0F5F404000FC3C4F /* hub.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hub.board; sourceTree = "<group>"; };
-		D8FA4F5B0F5F404000FC3C4F /* level1.board */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.board; sourceTree = "<group>"; };
 		D8FA4FD60F5F7A5500FC3C4F /* signs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signs.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,13 +224,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D8A2F7360F6ACCCE00583C9A /* level3.board */,
 				D8A2F70C0F68ABA800583C9A /* player_invuln.png */,
-				D8A2F4200F62F47A00583C9A /* level2.board */,
-				D8A2F3FA0F609A8700583C9A /* tail.board */,
 				D8FA4FD60F5F7A5500FC3C4F /* signs.png */,
-				D8FA4F5A0F5F404000FC3C4F /* hub.board */,
-				D8FA4F5B0F5F404000FC3C4F /* level1.board */,
 				D8B274F60F148797001844D6 /* mega.png */,
 				D8B274DE0F145DF1001844D6 /* mini.png */,
 				D8B2744C0F142B5E001844D6 /* player.png */,
@@ -323,13 +308,8 @@
 				D8B2744D0F142B5E001844D6 /* player.png in Resources */,
 				D8B274DF0F145DF1001844D6 /* mini.png in Resources */,
 				D8B274F70F148797001844D6 /* mega.png in Resources */,
-				D8FA4F5C0F5F404000FC3C4F /* hub.board in Resources */,
-				D8FA4F5D0F5F404000FC3C4F /* level1.board in Resources */,
 				D8FA4FD70F5F7A5500FC3C4F /* signs.png in Resources */,
-				D8A2F3FB0F609A8700583C9A /* tail.board in Resources */,
-				D8A2F4210F62F47A00583C9A /* level2.board in Resources */,
 				D8A2F70D0F68ABA800583C9A /* player_invuln.png in Resources */,
-				D8A2F7370F6ACCCE00583C9A /* level3.board in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
