@@ -56,7 +56,7 @@ struct goal : tripwire {
         : tripwire(DOES_TICKS, bin), next_board(pascal_string_from_bin(bin)), trip_strength(0.0f)
         { _set_up_vertices(); }
 
-    virtual void print(ostream &os) const
+    virtual void print(std::ostream &os) const
         { tripwire::print(os); os << " next-board:" << next_board; }
 
 private:
