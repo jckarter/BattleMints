@@ -264,7 +264,9 @@ private:
 struct spawn : thing {
     thing *larva;
 
-    spawn(thing *l) : thing(l->center, NO_COLLISION | DOES_TICKS), larva(l) {}
+    spawn(thing *l)
+        : thing(l->center, NO_COLLISION | DOES_TICKS), larva(l)
+        { label = larva->label; }
 
     virtual ~spawn() { if (larva) delete larva; }
     virtual void trigger(thing *scapegoat)
