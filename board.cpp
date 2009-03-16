@@ -106,17 +106,15 @@ namespace {
         bool r;
 
         __asm__ (
-            "mov     %[r], #0\n\t"
             "fmrs    r1, s0\n\t"
 
             "bic     r1, r1, #0x80000000\n\t"
             "teq     r1, %[infinity]\n\t"
-            "beq     1f\n\t"
+            "moveq   %[r], #0\n\t"
+            "movne   %[r], #1\n\t"
 
             "cmp     r1, %[threshold]\n\t"
-            "movgt   %[r], #1\n\t"
-
-            "1:\n\t"
+            "movle   %[r], #0\n\t"
 
             : [r] "+r" (r)
             : [infinity] "r" (INFINITYF), [threshold] "r" (0.01f)
@@ -130,14 +128,14 @@ namespace {
         bool r;
 
         __asm__ (
-            "mov     %[r], #0\n\t"
             "fmrs    r1, s0\n\t"
 
             "tst     r1, #0x80000000\n\t"
-            "bne     1f\n\t"
+            "moveq   %[r], #1\n\t"
+            "movne   %[r], #0\n\t"
 
             "cmp     r1, %[collide_time]\n\t"
-            "movlt   %[r], #1\n\t"
+            "movge   %[r], #0\n\t"
 
             "1:\n\t"
             : [r] "+r" (r)
