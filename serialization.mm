@@ -34,17 +34,20 @@ static const std::map<std::string, thing_reader> _thing_readers
 
 thing *thing_from_bin(FILE *bin)
 {
-    std::string kind = pascal_string_from_bin(bin);
+    boost::optional<std::string> kind = pascal_string_from_bin(bin);
+    if (!kind)
+        return NULL;
+
     uint32_t flags = data_from_bin<uint32_t>(bin);
 
     std::map<std::string, thing_reader>::const_iterator reader
-        = _thing_readers.find(kind);
+        = _thing_readers.find(*kind);
 
     thing *th;
     if (reader != _thing_readers.end())
         th = (reader->second)(bin);
     else
-        throw invalid_board("unknown kind of thing \"" + kind + "\"");
+        throw invalid_board("unknown kind of thing \"" + *kind + "\"");
 
     if (flags & serialization::SPAWN)
         th = new spawn(th);

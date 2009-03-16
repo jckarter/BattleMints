@@ -53,7 +53,7 @@ struct goal : tripwire {
     static void global_finish();
 
     goal(FILE *bin)
-        : tripwire(DOES_TICKS, bin), next_board(pascal_string_from_bin(bin)), trip_strength(0.0f)
+        : tripwire(DOES_TICKS, bin), next_board(*pascal_string_from_bin(bin)), trip_strength(0.0f)
         { _set_up_vertices(); }
 
     virtual void print(std::ostream &os) const

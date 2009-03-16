@@ -39,7 +39,7 @@ struct wall : line {
 
     wall(FILE *bin) : line(0, bin) {}
 protected:
-    wall(int flags, FILE *bin) : line(0, bin) {}
+    wall(int flags, FILE *bin) : line(flags, bin) {}
 };
 
 struct wallpost : point {

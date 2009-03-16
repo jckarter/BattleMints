@@ -33,7 +33,7 @@ struct tile_vertices : thing {
     {
         int length = data_from_bin<int>(bin);
         vertices = new std::vector<vertex>(length);
-        safe_fread(&(*vertices)[0], sizeof(int), length, bin);
+        safe_fread(&(*vertices)[0], sizeof(vertex), length, bin);
     }
 
 private:

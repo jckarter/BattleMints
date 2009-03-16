@@ -51,9 +51,16 @@ inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
 #define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
     (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), 1, stream))
 
-inline std::string pascal_string_from_bin(FILE *bin)
+inline boost::optional<std::string> pascal_string_from_bin(FILE *bin)
 {
-    char length = getc(bin);
+    int length = getc(bin);
+    while (length == EOF && ferror(bin) && errno == EINTR) {
+        clearerr(bin);
+        length = getc(bin);
+    }
+    if (length == EOF)
+        return boost::optional<std::string>();
+
     std::string r(length, '\0');
     safe_fread(&r[0], length, 1, bin);
 

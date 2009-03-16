@@ -389,8 +389,7 @@ board::from_bin(std::string const &name, FILE *bin)
 
     board *b = new board(name, bounds);
     try {
-        while (!feof(bin)) {
-            thing *t = thing_from_bin(bin);
+        while (thing *t = thing_from_bin(bin)) {
             b->add_thing(t);
             if (t->flags & thing::PLAYER)
                 b->camera.cut_to_target(t);
@@ -399,8 +398,6 @@ board::from_bin(std::string const &name, FILE *bin)
         delete b;
         throw;
     }
-
-    b->dump_things();
 
     return b;
 }
