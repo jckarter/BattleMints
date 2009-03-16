@@ -8,7 +8,7 @@
 namespace battlemints {
 
 struct tripwire : line {
-    tripwire(vec2 pt_a, vec2 pt_b, int flags)
+    tripwire(vec2 pt_a, vec2 pt_b, flag_values flags)
         : line(pt_a, pt_b, CAN_OVERLAP | flags) { }
 
     /* no physical collision */
@@ -26,6 +26,9 @@ struct tripwire : line {
     virtual void on_trip(thing &o) = 0;
 
     virtual char const * kind() const { return "tripwire"; }
+
+protected:
+    tripwire(int flags, FILE *bin) : line(CAN_OVERLAP | flags, bin) { }
 };
 
 struct goal : tripwire {
@@ -35,7 +38,7 @@ struct goal : tripwire {
     float trip_strength;
 
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
-        : tripwire(pt_a, pt_b, 0), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
+        : tripwire(pt_a, pt_b, DOES_TICKS), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
@@ -46,9 +49,12 @@ struct goal : tripwire {
 
     virtual char const * kind() const { return "goal"; }
 
-    static thing *from_json(Json::Value const &v);
     static void global_start();
     static void global_finish();
+
+    goal(FILE *bin)
+        : tripwire(DOES_TICKS, bin), next_board(pascal_string_from_bin(bin)), trip_strength(0.0f)
+        { _set_up_vertices(); }
 
 private:
     void _set_up_vertices();
@@ -70,7 +76,7 @@ struct alarm : tripwire {
 
     virtual char const * kind() const { return "alarm"; }
 
-    static thing *from_json(Json::Value const &v) { return line::from_json<alarm>(v); }
+    alarm(FILE *bin) : tripwire(DOES_TICKS, bin), multiple(false) { }
 };
 
 }

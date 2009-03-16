@@ -53,16 +53,6 @@ goal::can_trip(thing &o)
     return o.flags & PLAYER;
 }
 
-thing *
-goal::from_json(Json::Value const &v)
-{
-    vec2 endpoint_a = vec2_from_json(v["endpoint_a"]);
-    vec2 endpoint_b = vec2_from_json(v["endpoint_b"]);
-    std::string next_board = v["next_board"].asString();
-
-    return new goal(endpoint_a, endpoint_b, next_board);
-}
-
 void
 goal::global_start()
 {

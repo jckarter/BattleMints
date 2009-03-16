@@ -42,20 +42,6 @@ tile_vertices::unbind() const
     glDisableClientState(GL_COLOR_ARRAY);
 }
 
-thing *
-tile_vertices::from_json(Json::Value const &v)
-{
-    tile_vertices *vertices_thing = new tile_vertices;
-
-    Json::Value const &vertices_json = v["vertices"];
-    if (!vertices_json.isArray())
-        throw invalid_board_json("tile_vertices must have a vertices field that is an array");
-    for (int i = 0; i < vertices_json.size(); ++i)
-        vertices_thing->vertices->push_back(_vertex_from_json(vertices_json[i]));
-
-    return vertices_thing;
-}
-
 GLuint
 tile_vertices::_buffer_for_vertices(std::vector<vertex> const &v)
 {
@@ -65,16 +51,6 @@ tile_vertices::_buffer_for_vertices(std::vector<vertex> const &v)
     glBufferData(GL_ARRAY_BUFFER, v.size() * sizeof(vertex), &v[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     return b;
-}
-
-thing *
-tile::from_json(Json::Value const &v)
-{
-    vec2 center = vec2_from_json(v["center"]);
-    GLint vertex_start = v["vertex_start"].asInt();
-    GLsizei vertex_length = v["vertex_length"].asUInt();
-
-    return new tile(center, vertex_start, vertex_length);
 }
 
 }

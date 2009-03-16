@@ -1,7 +1,7 @@
 USING: accessors arrays assocs battlemints.things classes combinators
 combinators.short-circuit hashtables io io.binary
 generalizations io.encodings.binary io.encodings.string io.encodings.utf8 io.files
-json.writer kernel literals math math.affine-transforms namespaces fry
+kernel literals math math.affine-transforms namespaces fry
 math.functions math.vectors memoize method-chains sequences sequences.squish
 svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
 math.rectangles io.pathnames ;

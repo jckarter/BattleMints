@@ -11,7 +11,7 @@ namespace battlemints {
 
 struct wall : line {
     wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b, 0) { }
-    wall(vec2 pt_a, vec2 pt_b, flag_values flags) : line(pt_a, pt_b, flags) { }
+    wall(vec2 pt_a, vec2 pt_b, int flags) : line(pt_a, pt_b, flags) { }
 
     virtual void on_collision(thing &o) { o.wall_damage(); }
 #ifdef DRAW_WALLS
@@ -37,7 +37,9 @@ struct wall : line {
 
     virtual char const * kind() const { return "wall"; }
 
-    static thing *from_json(Json::Value const &v) { return line::from_json<wall>(v); }
+    wall(FILE *bin) : line(0, bin) {}
+protected:
+    wall(int flags, FILE *bin) : line(0, bin) {}
 };
 
 struct wallpost : point {
@@ -67,7 +69,7 @@ struct wallpost : point {
 
     virtual char const * kind() const { return "wallpost"; }
 
-    static thing *from_json(Json::Value const &v) { return point::from_json<wallpost>(v); }
+    wallpost(FILE *bin) : point(0, bin) {}
 };
 
 struct door : wall {
@@ -82,7 +84,7 @@ struct door : wall {
     boost::array<vec2, NUM_CLUMPS> clump_velocities;
     boost::array<int, NUM_CLUMPS> clump_lives;
 
-    door(vec2 pt_a, vec2 pt_b);
+    door(vec2 pt_a, vec2 pt_b) : wall(pt_a, pt_b, DOES_TICKS) { _init_draw(); }
     virtual void tick();
 
     virtual renders_with_range renders_with() const 
@@ -92,9 +94,10 @@ struct door : wall {
     virtual void trigger(thing *scapegoat) { board::current()->remove_thing(this); }
     virtual char const * kind() const { return "door"; }
 
-    static thing *from_json(Json::Value const &v) { return line::from_json<door>(v); }
+    door(FILE *bin) : wall(DOES_TICKS, bin) { _init_draw(); }
 
 private:
+    void _init_draw();
     void _reset_clump(unsigned i);
 };
 

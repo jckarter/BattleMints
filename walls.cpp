@@ -49,12 +49,16 @@ void door::tick()
         *vi++ += *di++;
 }
 
-door::door(vec2 pt_a, vec2 pt_b)
-    : wall(pt_a, pt_b, DOES_TICKS)
+void door::_init_draw()
 {
     vertices.beam = (boost::array<vec2, 2>){ pt_a, pt_b };
     for (unsigned i = 0; i < NUM_CLUMPS; ++i)
         _reset_clump(i);
+}
+
+door::door(vec2 pt_a, vec2 pt_b)
+    : wall(pt_a, pt_b, DOES_TICKS)
+{
 }
 
 }
