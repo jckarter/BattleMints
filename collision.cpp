@@ -135,13 +135,10 @@ void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
         "fcmpzs  s0\n\t"
         "fmstat\n\t"
 
-        "blo     1f\n\t"
-
         // return infinity
-        "fmsr    s0, %[infinity]\n\t"
-        "b       2f\n\t"
+        "fmsrhs  s0, %[infinity]\n\t"
+        "bhs     1f\n\t"
 
-        "1:\n\t"
         // return result
         "fmuls   s12, s12, s24\n\t"
         "fadds   s0, s12, s13\n\t"
@@ -149,7 +146,7 @@ void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
         "fadds   s1, s8, s9\n\t"
         "fdivs   s0, s0, s1\n\t" // s0 = result = vdot(dist_a, normal)/vdot(a.velocity, normal)
 
-        "2:\n\t"
+        "1:\n\t"
         :
         : [a_velocity] "r" (&a.velocity),
           [a_center] "r" (&a.center),
