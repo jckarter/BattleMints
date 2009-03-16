@@ -207,8 +207,7 @@ struct bumper : sphere {
     virtual renders_with_range renders_with() const;
     virtual vec4 sphere_color(float radius);
 
-private:
-    bumper(FILE *bin) : sphere(0) { state_from_bin<bumper>(bin); }
+    bumper(FILE *bin) : sphere(0, bin, MASS, RADIUS, SPRING, DAMP) { }
 
 public:
     static thing *from_bin(FILE *bin)

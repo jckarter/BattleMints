@@ -7,6 +7,7 @@
 #include <boost/optional.hpp>
 #include <boost/lexical_cast.hpp>
 #include <cstdio>
+#include <sys/errno.h>
 #include "geom.hpp"
 
 namespace battlemints {
@@ -27,7 +28,7 @@ struct invalid_board : std::runtime_error {
     invalid_board(std::string const &s) : std::runtime_error(s) {}
 };
 
-typename<typename T>
+template<typename T>
 inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
 {
     void *vp = (void*)p;
@@ -46,6 +47,9 @@ inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
             );
     }
 }
+
+#define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
+    (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), 1, stream))
 
 inline std::string pascal_string_from_bin(FILE *bin)
 {
@@ -68,7 +72,7 @@ inline T data_from_bin(FILE *bin)
 template<typename T>
 inline void n_from_bin(FILE *bin, T *into, int n)
 {
-    safe_fread(&r, n*sizeof(r), 1, bin);
+    safe_fread((void*)into, sizeof(*into), n, bin);
 }
 
 }

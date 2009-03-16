@@ -394,7 +394,7 @@ board::from_bin(std::string const &name, FILE *bin)
         while (!feof(bin)) {
             thing *t = thing_from_bin(bin);
             b->add_thing(t);
-            if (t->flags & PLAYER)
+            if (t->flags & thing::PLAYER)
                 b->camera.cut_to_target(t);
         }
     } catch (...) {
@@ -410,7 +410,7 @@ board::from_file(std::string const &name)
 {
     boost::optional<std::string> path = resource_filename(name, "bb");
     try {
-        FILE *bin = fopen(path->c_str());
+        FILE *bin = fopen(path->c_str(), "rb");
         if (!bin)
             throw invalid_board("Could not open board " + name);
 

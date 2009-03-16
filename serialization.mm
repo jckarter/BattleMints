@@ -13,7 +13,7 @@ typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
 static const boost::array<thing_reader_pair, 15> _thing_reader_pairs = {
     thing_reader_pair("player",          &thing::from_bin<player>),
-    thing_reader_pair("pellet",          &thing::from_bin<pellet>)
+    thing_reader_pair("pellet",          &thing::from_bin<pellet>),
     thing_reader_pair("mini",            &thing::from_bin<mini>),
     thing_reader_pair("mega",            &thing::from_bin<mega>),
     thing_reader_pair("bumper",          &thing::from_bin<bumper>),

@@ -27,9 +27,6 @@ struct point;
 
 typedef int symbol;
 
-#define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
-    (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), stream))
-
 struct thing : boost::noncopyable {
     enum flag_values {
         // collision
@@ -106,7 +103,7 @@ protected:
 
     thing(int f, FILE *bin)
         : flags(f), velocity(ZERO_VEC2)
-        { BATTLEMINTS_READ_SLOTS(*this, center, label); prev_center = center; }
+        { BATTLEMINTS_READ_SLOTS(*this, center, label, bin); prev_center = center; }
 #endif
 };
 

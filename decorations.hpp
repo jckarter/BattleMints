@@ -60,10 +60,10 @@ private:
     void _set_texcoords(int face)
     {
         texcoords = (boost::array<vec2, 4>){
-            make_vec2(0.125f*s,          1.0f),
-            make_vec2(0.125f*s + 0.125f, 1.0f),
-            make_vec2(0.125f*s,          0.0f),
-            make_vec2(0.125f*s + 0.125f, 0.0f),
+            make_vec2(0.125f*face,          1.0f),
+            make_vec2(0.125f*face + 0.125f, 1.0f),
+            make_vec2(0.125f*face,          0.0f),
+            make_vec2(0.125f*face + 0.125f, 0.0f),
         };
     }
 };

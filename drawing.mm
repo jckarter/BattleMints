@@ -1,6 +1,5 @@
 #include "drawing.hpp"
 #include "game.hpp"
-#include "ply_file.hpp"
 #include <UIKit/UIKit.h>
 #include <CoreGraphics/CoreGraphics.h>
 
@@ -23,52 +22,6 @@ CGImageRef make_image(char const *filename)
     CGImageRef ret = [ui_image CGImage];
     CGImageRetain(ret);
     return ret;
-}
-
-model::model(std::vector<GLfloat> const &vertices, std::vector<GLushort> const &elements)
-    : num_vertices(vertices.size()), num_elements(elements.size())
-{
-    glGenBuffers(1, &vertex_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-    glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glGenBuffers(1, &element_buffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, num_elements * sizeof(GLushort), &elements[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-model::~model()
-{
-    glDeleteBuffers(1, &vertex_buffer);
-    glDeleteBuffers(1, &element_buffer);
-}
-
-void
-model::draw() const
-{
-    glDisable(GL_TEXTURE_2D);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-    glVertexPointer(3, GL_FLOAT, 0, (void*)0);
-    glDrawElements(GL_TRIANGLES, num_elements, GL_UNSIGNED_SHORT, (void*)0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-model *
-model::from_file(std::string const &name)
-{
-    std::vector<GLfloat> vertices;
-    std::vector<GLushort> elements;
-
-    if (read_ply(name, vertices, elements))
-        return new model(vertices, elements);
-    else
-        return NULL;
 }
 
 const boost::array<float, 8> unit_texcoords = {
