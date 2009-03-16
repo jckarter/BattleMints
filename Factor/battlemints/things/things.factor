@@ -1,5 +1,6 @@
-USING: accessors arrays assocs constructors kernel literals math
-math.affine-transforms math.functions math.vectors sequences sets quadtrees ;
+USING: accessors arrays assocs constructors fry generic generic.parser
+kernel literals math math.affine-transforms math.functions math.vectors
+sequences sets quadtrees words ;
 IN: battlemints.things
 
 ! utility words
@@ -14,14 +15,14 @@ TUPLE: shape < transform-thing ;
 TUPLE: tile < shape ;
 TUPLE: actor < transform-thing ;
 
-TUPLE: point < thing center ;
+TUPLE: point < transform-thing ;
 
 TUPLE: pellet < actor ;
 
-TUPLE: tile-shell < thing vertex-start vertex-length center ;
+TUPLE: tile-shell < transform-thing vertex-start vertex-length ;
 TUPLE: tile-vertices < thing vertices ;
 
-CONSTRUCTOR: tile-shell ( vertex-start vertex-length center -- tile-shell ) ;
+CONSTRUCTOR: tile-shell ( vertex-start vertex-length transform -- tile-shell ) ;
 CONSTRUCTOR: tile-vertices ( vertices -- tile-vertices ) ;
 
 TUPLE: tile-vertex vertex color ;
@@ -44,7 +45,7 @@ TUPLE: bumper < actor ;
 TUPLE: player < actor ;
 TUPLE: powerup < actor powerup-kind ;
 
-TUPLE: line < thing endpoints ;
+TUPLE: line < transform-thing endpoints ;
 
 TUPLE: tripwire < line ;
 TUPLE: alarm < tripwire ;
@@ -226,9 +227,9 @@ M: actor thing-extents
 M: line thing-extents
     endpoints>> [ vinfimum ] [ vsupremum ] bi ;
 M: point thing-extents
-    center>> dup ;
+    transform>> origin>> dup ;
 M: tile-shell thing-extents
-    center>> dup ;
+    transform>> origin>> dup ;
 M: tile-vertices thing-extents
     vertices>> [ vertex>> ] map [ vinfimum ] [ vsupremum ] bi ;
 

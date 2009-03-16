@@ -2,7 +2,7 @@ board := extents:vec2 things:thing*
 
 pascal-string := length:uchar text:char{length} 
 
-thing := class:pascal-string properties:thing-properties
+thing := class:pascal-string metaflags:int properties:thing-properties
 
 thing-properties := normal-thing
                   | tile-vertices
@@ -38,7 +38,7 @@ bumper   := --
 powerup  := kind:int
 wall     := :endpoints
 wallpost := --
-goal     := :endpoints
+goal     := :endpoints next-board:pascal-string
 alarm    := :endpoints
 
 door     := :endpoints

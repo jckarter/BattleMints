@@ -210,17 +210,6 @@ void pellet::on_collision(thing &o)
     }
 }
 
-namespace {
-
-boost::array< std::pair<std::string, powerup::kind_name>, 2 > kind_names_array = {{
-    std::make_pair("shield", powerup::shield),
-    std::make_pair("invuln", powerup::invuln)
-}};
-
-}
-
-std::map<std::string, powerup::kind_name> powerup::kind_names(kind_names_array.begin(), kind_names_array.end());
-
 void enemy::tick()
 {
     if (cur_accel != ZERO_VEC2)

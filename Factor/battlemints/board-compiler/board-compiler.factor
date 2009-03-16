@@ -1,10 +1,22 @@
 USING: accessors arrays assocs battlemints.things classes combinators
-combinators.short-circuit hashtables io.encodings.utf8 io.files
-json.writer kernel literals math math.affine-transforms fry
-math.functions math.vectors memoize sequences sequences.squish
+combinators.short-circuit hashtables io io.binary
+generalizations io.encodings.binary io.encodings.string io.encodings.utf8 io.files
+json.writer kernel literals math math.affine-transforms namespaces fry
+math.functions math.vectors memoize method-chains sequences sequences.squish
 svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
 math.rectangles io.pathnames ;
 IN: battlemints.board-compiler
+
+! utility
+: write-int ( n -- )
+    4 >le write ;
+: write-pascal-string ( string -- )
+    utf8 encode [ length write1 ] [ write ] bi ;
+: write-vec2 ( sequence -- )
+    first2 [ float>bits write-int ] bi@ ;
+: write-vec4 ( sequence -- )
+    first4 [ float>bits write-int ] 4 napply ;
+! end utility
 
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
 
@@ -13,11 +25,37 @@ CONSTANT: map-layer-label "Map"
 CONSTANT: source-path "/Users/joe/Documents/Code/BattleMints/Board Sources"
 CONSTANT: dest-path "/Users/joe/Documents/Code/BattleMints"
 
+CONSTANT: powerup-kinds H{
+        { "shield" 0 }
+        { "invuln" 1 }
+    }
+
+ERROR: bad-powerup-kind-error kind ;
+
+CONSTANT: signfaces H{
+        { "mini_xing"  0 }
+        { "mega_xing"  1 }
+        { "narrows"    2 }
+        { "spikes"     3 }
+        { "slow"       4 }
+        { "stop"       5 }
+        { "leftarrow"  6 }
+        { "rightarrow" 7 }
+    }
+
+ERROR: bad-signface-error kind ;
+
+SYMBOL: labels
+
+: >label ( string -- int )
+    [ labels get ?at [ ] [ labels get assoc-size 1+ [ swap labels get set-at ] keep ] if ]
+    [ 0 ] if* ;
+
 : source-file ( filename -- path ) source-path prepend-path ;
 : dest-file ( filename -- path ) dest-path prepend-path ;
 
-: board ( basename -- source dest )
-    [ ".svg" append source-file ] [ ".board" append dest-file ] bi ;
+: bb ( basename -- source dest )
+    [ ".svg" append source-file ] [ ".bb" append dest-file ] bi ;
 
 : id>class ( id -- word )
     "battlemints.things" lookup ;
@@ -25,60 +63,47 @@ CONSTANT: dest-path "/Users/joe/Documents/Code/BattleMints"
 : href>class ( href -- word )
     dup first CHAR: # = [ rest id>class ] [ "<use> href must be #id form" throw ] if ;
 
-GENERIC: (thing-rep-name) ( thing -- name )
-GENERIC: (thing-rep) ( thing -- assoc )
+GENERIC: thing-written-name ( thing -- name )
+GENERIC: (write-thing) ( thing -- )
 
-: v>>k ( assoc v k -- assoc ) pick set-at ;
+: thing-metaflags ( thing -- int )
+    spawn?>> [ 1 ] [ 0 ] if ;
 
-: common-thing-rep ( assoc thing -- assoc )
-    [ label>> [ "label" v>>k ] when* ]
-    [ spawn?>> [ t "spawn" v>>k ] when ] bi ;
+: write-thing ( thing -- )
+    [ thing-written-name write-pascal-string ]
+    [ thing-metaflags write-int ]
+    [ (write-thing) ] tri ;
 
-: thing-rep ( thing -- array )
-    [ (thing-rep-name) ] [ (thing-rep) ] [ common-thing-rep ] tri 2array ;
+M: object thing-written-name class name>> ;
+M: tile-shell thing-written-name drop "tile" ;
+M: tile-vertices thing-written-name drop "tile_vertices" ;
 
-: zip-hashtable ( vs ks -- hashtable ) swap zip >hashtable ;
+M: tile-vertices (write-thing)
+    vertices>>
+    [ length>> write-int ]
+    [ [ [ vertex>> write-vec2 ] [ color>> write-vec4 ] bi ] each ] bi ;
 
-M: object (thing-rep-name) class name>> ;
-M: tile-shell (thing-rep-name) drop "tile" ;
-M: tile-vertices (thing-rep-name) drop "tile_vertices" ;
+M: transform-thing (write-thing)
+    [ transform>> origin>> write-vec2 ]
+    [ label>> >label write-int ] bi ;
 
-M: tile-shell (thing-rep)
-    [ center>> ] [ vertex-start>> ] [ vertex-length>> ] tri 3array
-    { "center" "vertex_start" "vertex_length" } zip-hashtable ;
+AFTER: line (write-thing)
+    endpoints>> first2 [ write-vec2 ] bi@ ;
 
-M: tile-vertices (thing-rep)
-    vertices>> [ [ vertex>> ] [ color>> ] bi 2array ] map
-    "vertices" associate ;
+AFTER: goal (write-thing)
+    next-board>> write-pascal-string ;
 
-M: actor (thing-rep)
-    transform>> origin>> "center" associate ;
+AFTER: tile-shell (write-thing)
+    [ vertex-start>> write-int ] [ vertex-length>> write-int ] bi ;
 
-M: line (thing-rep)
-    endpoints>> { "endpoint_a" "endpoint_b" } zip-hashtable ;
+AFTER: powerup (write-thing)
+    powerup-kind>> powerup-kinds ?at [ bad-powerup-kind-error ] unless write-int ;
 
-M: point (thing-rep)
-    center>> "center" associate ;
+AFTER: sign (write-thing)
+    signface>> signfaces ?at [ bad-signface-error ] unless write-int ;
 
-M: sign (thing-rep)
-    [ transform>> origin>> ] [ signface>> ] bi 2array
-    { "center" "signface" } zip-hashtable ;
-
-M: switch (thing-rep)
-    transform>> [ origin>> ] [ axes { 1.0 0.0 } a.v ] bi 2array
-    { "center" "axis" } zip-hashtable ;
-
-M: player (thing-rep)
-    call-next-method
-    t "camera" v>>k ;
-
-M: goal (thing-rep)
-    [ call-next-method ] keep
-    next-board>> "next_board" v>>k ;
-
-M: powerup (thing-rep)
-    [ call-next-method ] keep
-    powerup-kind>> "kind" v>>k ;
+AFTER: switch (write-thing)
+    transform>> axes { 1.0 0.0 } a.v write-vec2 ;
 
 : <use>? ( tag -- ? ) "use" svg-name names-match? ;
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
@@ -91,9 +116,12 @@ GENERIC# (tag>>thing) 1 ( thing tag -- thing )
     [ "href" xlink-name attr href>class new ]
     [ tag-transform >>transform ] bi ;
 
+: endpoints-center ( endpoints -- center )
+    [ { 0.0 0.0 } [ v+ ] reduce ] [ length v/n ] bi ;
+
 : (path>thing) ( path-tag -- thing )
     [ "tripwire" battlemints-name attr id>class new ]
-    [ tag-d [ p>> ] map >>endpoints ] bi ;
+    [ tag-d [ p>> ] map [ >>endpoints ] [ endpoints-center <translation> >>transform ] bi ] bi ;
 
 : tag>thing ( tag -- thing )
     {
@@ -161,11 +189,11 @@ CONSTANT: TILE-EDGE-PRECISION 64
 
 : edge>wall ( edge -- wall )
     wall new
-        swap >>endpoints ;
+        swap [ >>endpoints ] [ endpoints-center <translation> >>transform ] bi ;
 
 : vertex>wallpost ( vertex -- wallpost )
     wallpost new
-        swap >>center ;
+        swap <translation> >>transform ;
 
 : walls ( tiles -- walls )
     [ tile? ] filter
@@ -180,7 +208,7 @@ CONSTANT: TILE-EDGE-PRECISION 64
 : make-shell ( vertices tile -- vertices shell )
     [ shape-vertices [ canonicalize-point ] map ]
     [ shape-color push-vertices ]
-    [ shape-center ] tri <tile-shell> ;
+    [ shape-center <translation> ] tri <tile-shell> ;
 
 : board-extents ( things -- extents )
     { 1.0/0.0 1.0/0.0 } { -1.0/0.0 -1.0/0.0 } rot
@@ -195,12 +223,18 @@ CONSTANT: TILE-EDGE-PRECISION 64
     [ shape? ] partition
     [ [ walls ] [ shells ] bi ] dip 3append ;
 
+TUPLE: board things bounds ;
+C: <board> board
+
+: write-board ( board -- )
+    H{ } clone labels [
+        [ bounds>> first2 [ write-vec2 ] bi@ ]
+        [ things>> [ write-thing ] each ] bi
+    ] with-variable ;
+
 : svg>board ( svg -- board )
-    svg>things process-things
-    [ [ thing-rep ] map ] [ board-extents concat ] bi 2array
-    { "things" "bounds" } zip-hashtable ;
+    svg>things process-things dup board-extents <board> ;
 
 : svg-file>board-file ( from-filename to-filename -- )
-    [ file>xml svg>board >json ]
-    [ utf8 set-file-contents ] bi* ;
-
+    [ file>xml svg>board ]
+    [ binary [ write-board ] with-file-writer ] bi* ;
