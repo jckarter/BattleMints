@@ -180,6 +180,11 @@ static void _report_touch(UIView *view, UITouch *touch)
     battlemints_input(0, 0.0, 0.0, 0);
 }
 
+- (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    battlemints_input(0, 0.0, 0.0, 0);
+}
+
 - (void)dealloc
 {
     [self stopAnimation];
