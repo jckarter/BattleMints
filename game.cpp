@@ -97,12 +97,12 @@ const vec4  powerup::DEAD_COLOR = CONST_VEC4(0.65f, 0.64f, 0.60f, 1.0f);
 
 const float pellet::RADIUS = 0.1f;
 const boost::array<vec4, 6> pellet::colors = {
-    make_vec4(1.0f, 0.0f, 0.0f, 0.25f),
-    make_vec4(0.0f, 1.0f, 0.0f, 0.25f),
-    make_vec4(1.0f, 1.0f, 0.0f, 0.25f),
-    make_vec4(0.0f, 0.0f, 1.0f, 0.25f),
-    make_vec4(1.0f, 0.0f, 1.0f, 0.25f),
-    make_vec4(0.0f, 1.0f, 1.0f, 0.25f)
+    make_vec4(1.0f, 0.0f, 0.0f, 0.50f),
+    make_vec4(0.0f, 1.0f, 0.0f, 0.50f),
+    make_vec4(1.0f, 1.0f, 0.0f, 0.50f),
+    make_vec4(0.0f, 0.0f, 1.0f, 0.50f),
+    make_vec4(1.0f, 0.0f, 1.0f, 0.50f),
+    make_vec4(0.0f, 1.0f, 1.0f, 0.50f)
 };
 
 const boost::array<vec4, 2> powerup::pulse_colors = {
