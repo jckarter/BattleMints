@@ -111,17 +111,30 @@ AFTER: switch (write-thing)
     { [ <path>? ] [ "tripwire" battlemints-name attr ] } 1&& ;
 
 GENERIC# (tag>>thing) 1 ( thing tag -- thing )
+
+CONSTANT: svg>game-transform T{ affine-transform f
+        { 1.0  0.0 }
+        { 0.0 -1.0 }
+        { 0.0  0.0 }
+    }
+
+: svg-a>game-a ( affine-transform -- affine-transform' )
+    svg>game-transform swap a.
+    [ x>> ] [ y>> -1.0 v*n ] [ origin>> ] tri <affine-transform> ;
+
+: svg-v>game-v ( vector -- vector' )
+    T{ affine-transform f { 1.0 0.0 } { 0.0 -1.0 } { 0.0 0.0 } } swap a.v ;
     
 : (use>thing) ( use-tag -- thing )
     [ "href" xlink-name attr href>class new ]
-    [ tag-transform >>transform ] bi ;
+    [ tag-transform svg-a>game-a >>transform ] bi ;
 
 : endpoints-center ( endpoints -- center )
     [ { 0.0 0.0 } [ v+ ] reduce ] [ length v/n ] bi ;
 
 : (path>thing) ( path-tag -- thing )
     [ "tripwire" battlemints-name attr id>class new ]
-    [ tag-d [ p>> ] map [ >>endpoints ] [ endpoints-center <translation> >>transform ] bi ] bi ;
+    [ tag-d [ p>> svg-v>game-v ] map [ >>endpoints ] [ endpoints-center <translation> >>transform ] bi ] bi ;
 
 : tag>thing ( tag -- thing )
     {
