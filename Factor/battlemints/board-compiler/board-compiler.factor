@@ -133,8 +133,11 @@ CONSTANT: svg>game-transform T{ affine-transform f
     [ { 0.0 0.0 } [ v+ ] reduce ] [ length v/n ] bi ;
 
 : (path>thing) ( path-tag -- thing )
-    [ "tripwire" battlemints-name attr id>class new ]
-    [ tag-d [ p>> svg-v>game-v ] map [ >>endpoints ] [ endpoints-center <translation> >>transform ] bi ] bi ;
+    [ "tripwire" battlemints-name attr id>class new ] [
+        tag-d [ p>> svg-v>game-v ] map
+        [ >>endpoints ]
+        [ endpoints-center <translation> >>transform ] bi
+    ] bi ;
 
 : tag>thing ( tag -- thing )
     {
