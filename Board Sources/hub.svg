@@ -46,8 +46,8 @@
      showgrid="true"
      inkscape:window-width="1194"
      inkscape:window-height="703"
-     inkscape:window-x="607"
-     inkscape:window-y="124"
+     inkscape:window-x="91"
+     inkscape:window-y="82"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -519,7 +519,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(22.754515,-12.962906)"
+       transform="translate(22.969785,-12.962906)"
        id="use5913"
        xlink:href="#player"
        y="0"
@@ -726,5 +726,14 @@
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
        battlemints:next-board="level3" />
+    <use
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,24.593674,-15.649443)"
+       height="10"
+       width="1000"
+       id="use6619"
+       xlink:href="#arrow"
+       y="0"
+       x="0"
+       style="display:inline" />
   </g>
 </svg>
