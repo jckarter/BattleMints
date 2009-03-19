@@ -84,11 +84,16 @@ void player::tick()
         }
     }
 
+    if (panic_charge > 0)
+        --panic_charge;
+    if (panicked > 0) {
+        --panicked;
+        if (panicked == 0)
+            update_stats();
+    }
+
     if (!invuln && controller_tap_count >= PANIC_TAP_COUNT && panic_charge == 0) {
         panic();
-    } else {
-        panicked = false;
-        update_stats();
     }
 
     if (invuln && pellets == 0)
@@ -97,7 +102,7 @@ void player::tick()
 
 void player::panic()
 {
-    panicked = true;
+    panicked = PANIC_TIME;
     panic_charge = PANIC_CHARGE;
     update_stats();
 }
@@ -122,18 +127,22 @@ void player::update_stats()
             damp   = DAMP;
         }
 
-        if (panicked) {
+        if (panicked > 0) {
             radius = PANIC_RADIUS;
             bounce = PANIC_SPRING;
+            mass   = PANIC_MASS;
         }
     }
 }
 
 vec4 player::sphere_color(float r)
 {
-    return invuln
-        ? (r == SHIELD_RADIUS ? invuln_colors[board::current()->tick_count() % invuln_colors.size()] : INVULN_BODY_COLOR)
-        : (r == SHIELD_RADIUS ? SHIELD_COLOR : COLOR);
+    if (invuln)
+        return (r == SHIELD_RADIUS ? invuln_colors[board::current()->tick_count() % invuln_colors.size()] : INVULN_BODY_COLOR);
+    else if (panicked > 0)
+        return (r == SHIELD_RADIUS ? SHIELD_COLOR : PANIC_COLOR);
+    else
+        return (r == SHIELD_RADIUS ? SHIELD_COLOR : COLOR);
 }
 
 void player::lose_shield()

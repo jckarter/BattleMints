@@ -44,9 +44,11 @@ const vec4  player::SHIELD_COLOR = CONST_VEC4(1.0f, 0.25f, 0.5f, 0.75f);
 const float player::INVULN_SPRING = 1.0f;
 const float player::INVULN_MASS = 100.0f;
 const float player::INVULN_DAMP = 0.0f;
+const vec4  player::INVULN_BODY_COLOR = CONST_VEC4(0.8f, 0.95f, 1.0f, 1.0f);
 const float player::PANIC_SPRING = 0.75f;
 const float player::PANIC_RADIUS = 1.5f;
-const vec4 player::INVULN_BODY_COLOR = CONST_VEC4(0.8f, 0.95f, 1.0f, 1.0f);
+const float player::PANIC_MASS = 50.0f;
+const vec4  player::PANIC_COLOR = CONST_VEC4(1.0f, 0.89f, 1.0f, 1.0f);
 
 const boost::array<vec4, 6> player::invuln_colors = {
     make_vec4(1.0f, 0.0f, 0.0f, 0.75f),
@@ -57,7 +59,7 @@ const boost::array<vec4, 6> player::invuln_colors = {
     make_vec4(0.0f, 1.0f, 1.0f, 0.75f)
 };
 
-const float mini::ACCEL = 0.015f;
+const float mini::ACCEL = 0.013f;
 const float mini::RADIUS = 0.35f;
 const float mini::MASS = 0.4f;
 const float mini::SPRING = 0.005f;
@@ -73,11 +75,11 @@ const boost::array<vec4, 6> mini::colors = {
     make_vec4(0.3, 0.24, 0.2, 1.0)
 };
 
-const float mega::ACCEL = 0.004f;
+const float mega::ACCEL = 0.002f;
 const float mega::RADIUS = 2.6f;
-const float mega::MASS = 15.0f;
+const float mega::MASS = 20.0f;
 const float mega::SPRING = 0.0f;
-const float mega::DAMP = 0.32f;
+const float mega::DAMP = 0.28f;
 const float mega::RESPONSIVENESS = 0.9f;
 const float mega::DEATH_THRESHOLD2 = 0.15f*0.15f;
 const vec4  mega::COLOR = CONST_VEC4(0.33, 0.13, 0.0, 1.0);

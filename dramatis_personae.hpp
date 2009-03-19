@@ -21,23 +21,27 @@ struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING, DAMP;
     static const float SHIELD_RADIUS, SHIELD_SPRING;
     static const float INVULN_SPRING, INVULN_MASS, INVULN_DAMP;
-    static const float PANIC_SPRING, PANIC_RADIUS;
-    static const vec4 COLOR, SHIELD_COLOR, INVULN_BODY_COLOR;
+    static const float PANIC_SPRING, PANIC_MASS, PANIC_RADIUS;
+    static const vec4 COLOR, SHIELD_COLOR, INVULN_BODY_COLOR, PANIC_COLOR;
 
-    static const int INVULN_PELLET_BURN = 30, PANIC_CHARGE = 30*60, PANIC_TAP_COUNT = 5;
+    static const int
+        INVULN_PELLET_BURN = 30,
+        PANIC_CHARGE = 30*60,
+        PANIC_TAP_COUNT = 5,
+        PANIC_TIME = 3;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
     static boost::array<renders_with_pair, 3> invuln_renders_with_pairs;
 
     static const boost::array<vec4, 6> invuln_colors;
 
-    bool shielded, invuln, panicked;
-    int grace_period, panic_charge;
+    bool shielded, invuln;
+    int panicked, grace_period, panic_charge;
     int pellets, pellet_burn;
 
     player(vec2 center)
         : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER),
-          shielded(false), invuln(false), panicked(false),
+          shielded(false), invuln(false), panicked(0),
           grace_period(0), panic_charge(0), pellets(0), pellet_burn(0)
         { }
 
@@ -63,7 +67,7 @@ struct player : sphere {
 
     player(FILE *bin)
         : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP),
-          shielded(false), invuln(false), panicked(false),
+          shielded(false), invuln(false), panicked(0),
           grace_period(0), panic_charge(0), pellets(0), pellet_burn(0) { }
 };
 
