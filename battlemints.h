@@ -10,7 +10,7 @@ void battlemints_start(void);
 void battlemints_tick(void);
 void battlemints_draw(void);
 
-void battlemints_input(int player, float x, float y, int buttons);
+void battlemints_input(float x, float y, int tap_count);
 
 void battlemints_finish(void);
 

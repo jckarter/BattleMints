@@ -21,22 +21,24 @@ struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING, DAMP;
     static const float SHIELD_RADIUS, SHIELD_SPRING;
     static const float INVULN_SPRING, INVULN_MASS, INVULN_DAMP;
+    static const float PANIC_SPRING, PANIC_RADIUS;
     static const vec4 COLOR, SHIELD_COLOR, INVULN_BODY_COLOR;
 
-    static const int INVULN_PELLET_BURN = 30;
+    static const int INVULN_PELLET_BURN = 30, PANIC_CHARGE = 30*60, PANIC_TAP_COUNT = 5;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
     static boost::array<renders_with_pair, 3> invuln_renders_with_pairs;
 
     static const boost::array<vec4, 6> invuln_colors;
 
-    bool shielded, invuln;
-    int grace_period;
+    bool shielded, invuln, panicked;
+    int grace_period, panic_charge;
     int pellets, pellet_burn;
 
     player(vec2 center)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER), shielded(false), invuln(false),
-          grace_period(0), pellets(0), pellet_burn(0)
+        : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER),
+          shielded(false), invuln(false), panicked(false),
+          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0)
         { }
 
     virtual void tick();
@@ -55,12 +57,14 @@ struct player : sphere {
     void gain_shield();
     void lose_invuln();
     void gain_invuln();
+    void panic();
 
     void update_stats();
 
     player(FILE *bin)
-        : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP), shielded(false), invuln(false),
-          grace_period(0), pellets(0), pellet_burn(0) { }
+        : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP),
+          shielded(false), invuln(false), panicked(false),
+          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0) { }
 };
 
 struct powerup : sphere {
@@ -251,6 +255,7 @@ struct switch_spring : sphere {
     {
         BATTLEMINTS_READ_SLOTS(*this, axis, axis, bin);
         home = center; center -= axis * SLOT_LENGTH;
+        prev_center = center;
         _set_matrix();
     }
 
@@ -276,6 +281,8 @@ struct spawn : thing {
         larva->trigger(scapegoat);
         larva = NULL;
     }
+
+    virtual char const * kind() const { return "spawn"; }
 
     virtual void print(std::ostream &os) const
         { thing::print(os); os << " larva:(" << *larva << ")"; }

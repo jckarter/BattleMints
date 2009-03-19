@@ -19,10 +19,11 @@ static void _report_touch(UIView *view, UITouch *touch)
     CGPoint location = [touch locationInView:view];
     CGSize bounds = [view bounds].size;
 
-    battlemints_input(0,
+    battlemints_input(
         (location.x - bounds.width/2)/(bounds.width/4),
         -(location.y - bounds.height/2)/(bounds.height/4),
-    0);
+        [touch tapCount]
+    );
 }
 
 @implementation BattleMintsView
@@ -177,12 +178,12 @@ static void _report_touch(UIView *view, UITouch *touch)
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
-    battlemints_input(0, 0.0, 0.0, 0);
+    battlemints_input(0.0, 0.0, 0);
 }
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
-    battlemints_input(0, 0.0, 0.0, 0);
+    battlemints_input(0.0, 0.0, 0);
 }
 
 - (void)dealloc

@@ -24,6 +24,7 @@ struct tile_vertices : thing {
     virtual ~tile_vertices();
 
     virtual void awaken();
+    virtual char const * kind() const { return "tile_vertices"; }
 
     void bind() const;
     void unbind() const;
@@ -52,6 +53,8 @@ struct tile : thing {
     };
 
     vertex_range vertices;
+
+    virtual char const * kind() const { return "tile"; }
 
     tile(vec2 center, GLint start, GLsizei length)
         : thing(center, NO_COLLISION), vertices(start, length) { }

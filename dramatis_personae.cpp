@@ -84,8 +84,22 @@ void player::tick()
         }
     }
 
+    if (!invuln && controller_tap_count >= PANIC_TAP_COUNT && panic_charge == 0) {
+        panic();
+    } else {
+        panicked = false;
+        update_stats();
+    }
+
     if (invuln && pellets == 0)
         lose_invuln();
+}
+
+void player::panic()
+{
+    panicked = true;
+    panic_charge = PANIC_CHARGE;
+    update_stats();
 }
 
 void player::update_stats()
@@ -95,16 +109,23 @@ void player::update_stats()
         bounce = INVULN_SPRING;
         mass   = INVULN_MASS;
         damp   = INVULN_DAMP;
-    } else if (shielded) {
-        radius = SHIELD_RADIUS;
-        bounce = SHIELD_SPRING;
-        mass   = MASS;
-        damp   = DAMP;
     } else {
-        radius = RADIUS;
-        bounce = SPRING;
-        mass   = MASS;
-        damp   = DAMP;
+        if (shielded) {
+            radius = SHIELD_RADIUS;
+            bounce = SHIELD_SPRING;
+            mass   = MASS;
+            damp   = DAMP;
+        } else {
+            radius = RADIUS;
+            bounce = SPRING;
+            mass   = MASS;
+            damp   = DAMP;
+        }
+
+        if (panicked) {
+            radius = PANIC_RADIUS;
+            bounce = PANIC_SPRING;
+        }
     }
 }
 

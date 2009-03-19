@@ -95,6 +95,7 @@ board::remove_thing(thing *t)
 {
     if (_all_things.find(t) == _all_things.end())
         return;
+
     if (t->label)
         _things_by_label[t->label].insert(t);
     _dying_things.insert(t);

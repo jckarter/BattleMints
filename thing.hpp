@@ -75,7 +75,8 @@ struct thing : boost::noncopyable {
     virtual char const * kind() const { return "thing"; }
     virtual void print(std::ostream &os) const
         { os << kind() << " " << (void*)this
-             << " v:" << velocity << " c:" << center << " l:" << label; }
+             << " v:" << velocity << " c:" << center << " l:" << label
+             << " f:" << std::hex << flags; }
 
     virtual void awaken() { } // Called when board activates
 

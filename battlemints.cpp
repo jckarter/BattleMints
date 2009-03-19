@@ -65,9 +65,10 @@ void battlemints_draw()
 }
 
 extern "C"
-void battlemints_input(int player, float x, float y, int buttons)
+void battlemints_input(float x, float y, int tap_count)
 {
     controller_state = make_vec2(x, y);
+    controller_tap_count = tap_count;
 }
 
 extern "C"
