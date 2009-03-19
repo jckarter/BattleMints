@@ -1,4 +1,4 @@
-board := extents:vec2 things:thing*
+board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} things:thing*
 
 pascal-string := length:uchar text:char{length} 
 

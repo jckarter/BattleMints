@@ -1,10 +1,10 @@
 USING: accessors arrays assocs battlemints.things classes combinators
 combinators.short-circuit hashtables io io.binary
 generalizations io.encodings.binary io.encodings.string io.encodings.utf8 io.files
-kernel literals math math.affine-transforms namespaces fry
+kernel literals math math.affine-transforms namespaces fry math.order
 math.functions math.vectors memoize method-chains sequences sequences.squish
 svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
-math.rectangles io.pathnames ;
+math.rectangles io.pathnames unicode.categories splitting grouping math.parser ;
 IN: battlemints.board-compiler
 
 ! utility
@@ -19,6 +19,9 @@ IN: battlemints.board-compiler
 ! end utility
 
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
+
+CONSTANT: board-format-magic   HEX: BA7713BD
+CONSTANT: board-format-version 1
 
 CONSTANT: map-layer-label "Map"
 
@@ -109,6 +112,33 @@ AFTER: switch (write-thing)
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
 : battlemints-<path>? ( tag -- ? )
     { [ <path>? ] [ "tripwire" battlemints-name attr ] } 1&& ;
+
+: background-tag ( svg -- background-tag )
+    body>> "background-gradient" get-id ;
+
+: parse-style-string ( string -- assoc )
+    ";" split [ ":" split1 [ [ blank? ] trim ] bi@ 2array ] map
+    H{ } assoc-like ;
+
+: parse-color ( html-color -- r g b )
+    "#" ?head [ "invalid color" throw ] unless
+    2 group [ hex> 255.0 /f ] map first3 ;
+
+: stop>color ( stop -- color )
+    "style" svg-name attr parse-style-string
+    [ "stop-color" swap at parse-color ]
+    [ "stop-opacity" swap at string>number >float ] bi 4array ;
+
+: background-gradient ( background-tag -- gradient )
+    "stop" svg-name tags-named 2 head
+    [ [ "offset" svg-name attr ] bi@ <=> ] sort
+    [ stop>color ] map ;
+
+: svg-background ( svg -- gradient )
+    background-tag background-gradient ;
+
+: svg-theme ( svg -- theme )
+    "theme" battlemints-name attr "" or ;
 
 GENERIC# (tag>>thing) 1 ( thing tag -- thing )
 
@@ -239,18 +269,29 @@ CONSTANT: TILE-EDGE-PRECISION 64
     [ shape? ] partition
     [ [ walls ] [ shells ] bi ] dip 3append ;
 
-TUPLE: board things bounds ;
+TUPLE: board things bounds background theme ;
 C: <board> board
 
 : write-board ( board -- )
     H{ } clone labels [
-        [ bounds>> first2 [ write-vec2 ] bi@ ]
-        [ things>> [ write-thing ] each ] bi
+        board-format-magic write-int
+        board-format-version write-int
+        {
+            [ bounds>> first2 [ write-vec2 ] bi@ ]
+            [ theme>> write-pascal-string ]
+            [ background>> first2 [ write-vec4 ] bi@ ]
+            [ things>> [ write-thing ] each ]
+        } cleave
     ] with-variable ;
 
+: svg>board-props ( svg -- background theme )
+    [ svg-background ] [ svg-theme ] bi ;
+
 : svg>board ( svg -- board )
-    svg>things process-things dup board-extents <board> ;
+    [ svg>things process-things dup board-extents ]
+    [ svg>board-props ] bi <board> ;
 
 : svg-file>board-file ( from-filename to-filename -- )
     [ file>xml svg>board ]
     [ binary [ write-board ] with-file-writer ] bi* ;
+

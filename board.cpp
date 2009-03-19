@@ -42,11 +42,8 @@ board::setup()
 {
     _grid.sort_statics();
 
-    glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glDisable(GL_CULL_FACE);
-    glEnable(GL_LINE_SMOOTH);
-    glEnable(GL_POINT_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -61,17 +58,30 @@ board::setup()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glLineWidth(BORDER_THICKNESS * PIXELS_PER_GAME_UNIT);
-
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glColor4f(1.0, 1.0, 1.0, 1.0);
 
     _current = this;
 
+    _setup_background_vertices();
+
     BOOST_FOREACH (thing *th, _all_things)
         th->awaken();
+}
+
+void
+board::_setup_background_vertices()
+{
+    background_vertices[0] = make_vec2(-160.0f*GAME_UNITS_PER_PIXEL, -240.0f*GAME_UNITS_PER_PIXEL);
+    background_vertices[1] = make_vec2( 160.0f*GAME_UNITS_PER_PIXEL, -240.0f*GAME_UNITS_PER_PIXEL);
+    background_vertices[2] = make_vec2(-160.0f*GAME_UNITS_PER_PIXEL,  240.0f*GAME_UNITS_PER_PIXEL);
+    background_vertices[3] = make_vec2( 160.0f*GAME_UNITS_PER_PIXEL,  240.0f*GAME_UNITS_PER_PIXEL);
+
+    background_colors[0] = background_gradient[0];
+    background_colors[1] = background_gradient[0];
+    background_colors[2] = background_gradient[1];
+    background_colors[3] = background_gradient[1];
 }
 
 board::~board()
@@ -321,8 +331,8 @@ board::draw()
 
     vec2 cam_center = camera.center;
     rect camera_rect = make_rect(
-        cam_center - GAME_WINDOW_UNIT_SIZE/2.0f - CELL_SIZE,
-        cam_center + GAME_WINDOW_UNIT_SIZE/2.0f + CELL_SIZE
+        cam_center - GAME_WINDOW_UNIT_SIZE*0.5f - CELL_SIZE,
+        cam_center + GAME_WINDOW_UNIT_SIZE*0.5f + CELL_SIZE
     );
 
     glMatrixMode(GL_MODELVIEW);
@@ -342,8 +352,11 @@ board::draw()
 void
 board::_draw_background()
 {
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, (void*)&background_vertices);
+    glColorPointer(4, GL_FLOAT, 0, (void*)&background_colors);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
 struct _move_things {
@@ -386,9 +399,16 @@ struct _tick_things {
 board *
 board::from_bin(std::string const &name, FILE *bin)
 {
-    rect bounds = data_from_bin<rect>(bin);
+    if (data_from_bin<unsigned>(bin) != BOARD_MAGIC)
+        throw invalid_board("Bad magic");
+    if (data_from_bin<int>(bin) != BOARD_VERSION)
+        throw invalid_board("Wrong version");
 
-    board *b = new board(name, bounds);
+    rect bounds = data_from_bin<rect>(bin);
+    boost::optional<std::string> theme = pascal_string_from_bin(bin);
+    boost::array<vec4, 2> background = data_from_bin< boost::array<vec4, 2> >(bin);
+
+    board *b = new board(name, bounds, theme, background1, background2);
     try {
         while (thing *t = thing_from_bin(bin)) {
             b->add_thing(t);

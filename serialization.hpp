@@ -62,7 +62,9 @@ inline boost::optional<std::string> pascal_string_from_bin(FILE *bin)
         return boost::optional<std::string>();
 
     std::string r(length, '\0');
-    safe_fread(&r[0], length, 1, bin);
+
+    if (length > 0)
+        safe_fread(&r[0], length, 1, bin);
 
     return r;
 }
