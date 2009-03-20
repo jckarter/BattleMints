@@ -60,10 +60,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="5.8708641"
-     inkscape:cy="8.011102"
+     inkscape:cx="64.622567"
+     inkscape:cy="30.392703"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1140"
      inkscape:window-height="820"
@@ -1432,7 +1432,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use5003"
-       transform="matrix(8.5712909e-8,-0.9999999,-0.9999999,-8.5712909e-8,56.891688,-5.8882732)"
+       transform="matrix(8.5712909e-8,-0.9999999,-0.9999999,-8.5712909e-8,56.891642,-5.8882471)"
        width="1000"
        height="10"
        inkscape:transform-center-y="0.56249979" />
@@ -1549,7 +1549,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(57.985916,-9.9259587)"
+       transform="translate(58.755284,-11.114981)"
        id="use5035"
        xlink:href="#mega"
        y="0"
@@ -1601,16 +1601,6 @@
        transform="matrix(-0.8660253,-0.5,-0.5,0.8660253,64.355717,-1.8882903)"
        id="use5045"
        xlink:href="#tile-rhombus-60"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       inkscape:transform-center-y="0.56249979"
-       height="10"
-       width="1000"
-       transform="matrix(8.5712909e-8,-0.9999999,-0.9999999,-8.5712909e-8,56.891688,-5.8882732)"
-       id="use5047"
-       xlink:href="#tile-rhombus-30"
        y="0"
        x="0"
        style="display:inline" />
@@ -2143,17 +2133,6 @@
        height="10"
        battlemints:label="leftswitchalarm" />
     <use
-       battlemints:label="leftswitchalarm"
-       height="10"
-       width="1000"
-       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,-2.5159579,-36.444659)"
-       id="use5260"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="opacity:0.28800001;display:inline"
-       battlemints:spawn="true" />
-    <use
        battlemints:spawn="true"
        style="opacity:0.28800001;display:inline"
        x="0"
@@ -2218,19 +2197,6 @@
        battlemints:label="leftswitchalarm"
        inkscape:transform-center-x="-1.5850443"
        inkscape:transform-center-y="-2.3197433" />
-    <use
-       inkscape:transform-center-y="-2.3197433"
-       inkscape:transform-center-x="-1.5850443"
-       battlemints:label="leftswitchalarm"
-       height="10"
-       width="1000"
-       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,4.9547903,-32.412335)"
-       id="use5272"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="opacity:0.28800001;display:inline"
-       battlemints:spawn="true" />
     <use
        battlemints:spawn="true"
        style="opacity:0.28800001;display:inline"
