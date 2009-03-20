@@ -27,8 +27,10 @@ cambot::tick()
 
 board *board::_current = NULL;
 
-board::board(std::string const &nm, rect bound)
+board::board(std::string const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg)
     : name(nm),
+      theme(thm),
+      background_gradient(bg),
       camera(),
       particles(),
       _grid(bound, CELL_SIZE),
@@ -354,6 +356,8 @@ board::_draw_background()
 {
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
     glVertexPointer(2, GL_FLOAT, 0, (void*)&background_vertices);
     glColorPointer(4, GL_FLOAT, 0, (void*)&background_colors);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -408,7 +412,7 @@ board::from_bin(std::string const &name, FILE *bin)
     boost::optional<std::string> theme = pascal_string_from_bin(bin);
     boost::array<vec4, 2> background = data_from_bin< boost::array<vec4, 2> >(bin);
 
-    board *b = new board(name, bounds, theme, background1, background2);
+    board *b = new board(name, bounds, *theme, background);
     try {
         while (thing *t = thing_from_bin(bin)) {
             b->add_thing(t);

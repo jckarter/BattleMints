@@ -1,3 +1,6 @@
+magic := 0xBA7713BD
+version := 1
+
 board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} things:thing*
 
 pascal-string := length:uchar text:char{length} 
