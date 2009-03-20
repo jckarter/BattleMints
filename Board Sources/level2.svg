@@ -17,9 +17,21 @@
    inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="level2.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   battlemints:theme="idyllic">
   <defs
      id="defs4659">
+    <linearGradient
+       id="background-gradient">
+      <stop
+         style="stop-color:#d7e3f4;stop-opacity:1"
+         offset="0"
+         id="stop9453" />
+      <stop
+         style="stop-color:#0055d4;stop-opacity:1"
+         offset="1"
+         id="stop9455" />
+    </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -27,6 +39,15 @@
        inkscape:vp_z="744.09448 : 526.18109 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
        id="perspective4665" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#background-gradient"
+       id="linearGradient9673"
+       gradientUnits="userSpaceOnUse"
+       x1="0"
+       y1="8.0625"
+       x2="0"
+       y2="-8.0625" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -39,15 +60,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="25.28"
-     inkscape:cx="40.98844"
-     inkscape:cy="94.163391"
+     inkscape:cx="7.4441362"
+     inkscape:cy="10.539973"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:window-width="1232"
      inkscape:window-height="701"
-     inkscape:window-x="3"
-     inkscape:window-y="23"
+     inkscape:window-x="49"
+     inkscape:window-y="51"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -100,7 +121,38 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:none">
+     style="display:inline">
+    <g
+       style="display:inline"
+       id="player"
+       inkscape:label="#g5236">
+      <path
+         id="path5528"
+         d="M -5.333333,-8 L 5.333333,-8 L 5.333333,8 L -5.333333,8 L -5.333333,-8 z"
+         style="fill:url(#linearGradient9673);fill-opacity:1;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:open="true"
+         sodipodi:end="6.2838755"
+         sodipodi:start="0.00069147816"
+         d="M 0.49999988,0.00034573905 A 0.5,0.5 0 1 1 0.49999988,0.00034509638"
+         sodipodi:ry="0.5"
+         sodipodi:rx="0.5"
+         sodipodi:cy="0"
+         sodipodi:cx="0"
+         id="path5230"
+         style="opacity:1;fill:#80e5ff;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <text
+         id="text5232"
+         y="0.30873013"
+         x="-0.2686508"
+         style="font-size:0.89740318px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="0.30873013"
+           x="-0.2686508"
+           id="tspan5234"
+           sodipodi:role="line">P</tspan></text>
+    </g>
     <path
        style="fill:#f4d7ee;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0,1.7763568e-15 L 1.4142,-1.4142 L 3.4142,-1.4142 L 4.8284,1.7763568e-15 L 4.8284,2 L 3.4142,3.4142 L 1.4142,3.4142 L 0,2 L 0,1.7763568e-15 z"
@@ -226,37 +278,6 @@
        d="M 0,0 L 1,-1.732 L 2,0 L 0,0 z"
        id="tile-triangle"
        inkscape:label="#path5302" />
-    <g
-       style="display:inline"
-       id="player"
-       inkscape:label="#g5236">
-      <path
-         sodipodi:open="true"
-         sodipodi:end="6.2838755"
-         sodipodi:start="0.00069147816"
-         d="M 0.49999988,0.00034573905 A 0.5,0.5 0 1 1 0.49999988,0.00034509638"
-         sodipodi:ry="0.5"
-         sodipodi:rx="0.5"
-         sodipodi:cy="0"
-         sodipodi:cx="0"
-         id="path5230"
-         style="opacity:1;fill:#80e5ff;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         sodipodi:type="arc" />
-      <text
-         id="text5232"
-         y="0.30873013"
-         x="-0.2686508"
-         style="font-size:0.89740318px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="0.30873013"
-           x="-0.2686508"
-           id="tspan5234"
-           sodipodi:role="line">P</tspan></text>
-      <path
-         id="path5528"
-         d="M -5.333333,-8 L 5.333333,-8 L 5.333333,8 L -5.333333,8 L -5.333333,-8 z"
-         style="fill:none;fill-opacity:0.17012449;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
-    </g>
     <g
        id="powerup"
        inkscape:label="#g5752">
@@ -516,6 +537,15 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
+    <use
+       height="10"
+       width="1000"
+       transform="translate(24.537661,-18.068453)"
+       id="use6537"
+       xlink:href="#player"
+       y="0"
+       x="0"
+       style="display:inline" />
     <use
        height="10"
        width="1000"
@@ -1527,15 +1557,6 @@
        width="1000"
        id="use6535"
        xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(24.537661,-18.068453)"
-       id="use6537"
-       xlink:href="#player"
        y="0"
        x="0"
        style="display:inline" />

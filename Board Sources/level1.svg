@@ -17,9 +17,21 @@
    inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="level1.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   battlemints:theme="volcanic">
   <defs
      id="defs4659">
+    <linearGradient
+       id="background-gradient">
+      <stop
+         style="stop-color:#aa0000;stop-opacity:1"
+         offset="0"
+         id="stop10509" />
+      <stop
+         style="stop-color:#ffe6d5;stop-opacity:1"
+         offset="1"
+         id="stop10511" />
+    </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -27,6 +39,15 @@
        inkscape:vp_z="744.09448 : 526.18109 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
        id="perspective4665" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#background-gradient"
+       id="linearGradient10623"
+       gradientUnits="userSpaceOnUse"
+       x1="4.1633363e-17"
+       y1="8.0625"
+       x2="4.1633363e-17"
+       y2="-8.0625" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -39,15 +60,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="26.014305"
-     inkscape:cy="30.392703"
+     inkscape:cx="8.6685642"
+     inkscape:cy="19.201903"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
-     inkscape:window-width="1290"
-     inkscape:window-height="900"
-     inkscape:window-x="23"
-     inkscape:window-y="43"
+     inkscape:window-width="1140"
+     inkscape:window-height="820"
+     inkscape:window-x="184"
+     inkscape:window-y="33"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -100,7 +121,39 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:none">
+     style="display:inline">
+    <g
+       style="display:inline"
+       id="player"
+       inkscape:label="#g5236"
+       transform="translate(6.9942503e-2,0)">
+      <path
+         id="path5528"
+         d="M -5.333333,-8 L 5.333333,-8 L 5.333333,8 L -5.333333,8 L -5.333333,-8 z"
+         style="fill:url(#linearGradient10623);fill-opacity:1;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:open="true"
+         sodipodi:end="6.2838755"
+         sodipodi:start="0.00069147816"
+         d="M 0.49999988,0.00034573905 A 0.5,0.5 0 1 1 0.49999988,0.00034509638"
+         sodipodi:ry="0.5"
+         sodipodi:rx="0.5"
+         sodipodi:cy="0"
+         sodipodi:cx="0"
+         id="path5230"
+         style="opacity:1;fill:#80e5ff;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <text
+         id="text5232"
+         y="0.30873013"
+         x="-0.2686508"
+         style="font-size:0.89740318px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="0.30873013"
+           x="-0.2686508"
+           id="tspan5234"
+           sodipodi:role="line">P</tspan></text>
+    </g>
     <path
        style="fill:#f4d7ee;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 0,1.7763568e-15 L 1.4142,-1.4142 L 3.4142,-1.4142 L 4.8284,1.7763568e-15 L 4.8284,2 L 3.4142,3.4142 L 1.4142,3.4142 L 0,2 L 0,1.7763568e-15 z"
@@ -227,37 +280,6 @@
        id="tile-triangle"
        inkscape:label="#path5302" />
     <g
-       style="display:inline"
-       id="player"
-       inkscape:label="#g5236">
-      <path
-         sodipodi:open="true"
-         sodipodi:end="6.2838755"
-         sodipodi:start="0.00069147816"
-         d="M 0.49999988,0.00034573905 A 0.5,0.5 0 1 1 0.49999988,0.00034509638"
-         sodipodi:ry="0.5"
-         sodipodi:rx="0.5"
-         sodipodi:cy="0"
-         sodipodi:cx="0"
-         id="path5230"
-         style="opacity:1;fill:#80e5ff;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         sodipodi:type="arc" />
-      <text
-         id="text5232"
-         y="0.30873013"
-         x="-0.2686508"
-         style="font-size:0.89740318px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="0.30873013"
-           x="-0.2686508"
-           id="tspan5234"
-           sodipodi:role="line">P</tspan></text>
-      <path
-         id="path5528"
-         d="M -5.333333,-8 L 5.333333,-8 L 5.333333,8 L -5.333333,8 L -5.333333,-8 z"
-         style="fill:none;fill-opacity:0.17012449;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
-    </g>
-    <g
        id="powerup"
        inkscape:label="#g5752">
       <path
@@ -346,7 +368,7 @@
        y="0"
        xlink:href="#player"
        id="use5288"
-       transform="translate(7.5625,5.5625)"
+       transform="translate(7.4925575,5.5625)"
        width="1000"
        height="10" />
     <use
@@ -516,6 +538,15 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
+    <use
+       height="10"
+       width="1000"
+       transform="translate(23.526946,-21.202936)"
+       id="use3281"
+       xlink:href="#player"
+       y="0"
+       x="0"
+       style="display:inline" />
     <use
        height="10"
        width="1000"
@@ -2339,15 +2370,6 @@
        transform="matrix(6.6354066e-2,0.9977961,0.9977961,-6.6354066e-2,-2.6358458,-23.810684)"
        id="use4189"
        xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(23.596889,-21.202936)"
-       id="use3281"
-       xlink:href="#player"
        y="0"
        x="0"
        style="display:inline" />
