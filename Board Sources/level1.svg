@@ -60,8 +60,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="8.6685642"
-     inkscape:cy="19.201903"
+     inkscape:cx="5.8708641"
+     inkscape:cy="8.011102"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -121,7 +121,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:inline">
+     style="display:none">
     <g
        style="display:inline"
        id="player"
@@ -1747,17 +1747,6 @@
        sodipodi:nodetypes="cc"
        battlemints:label="rightswitchalarm" />
     <use
-       battlemints:label="rightswitchalarm"
-       height="10"
-       width="1000"
-       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,61.115725,-19.44284)"
-       id="use5139"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="opacity:0.28800001;display:inline"
-       battlemints:spawn="true" />
-    <use
        battlemints:spawn="true"
        style="opacity:0.28800001;display:inline"
        x="0"
@@ -1779,17 +1768,6 @@
        x="0"
        style="opacity:0.28800001;display:inline"
        battlemints:spawn="true" />
-    <use
-       battlemints:spawn="true"
-       style="opacity:0.28800001;display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use5145"
-       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,66.91128,-17.889925)"
-       width="1000"
-       height="10"
-       battlemints:label="rightswitchalarm" />
     <use
        battlemints:label="rightswitchalarm"
        height="10"
@@ -1842,17 +1820,6 @@
        xlink:href="#mini"
        id="use5155"
        transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,65.52687,-16.190324)"
-       width="1000"
-       height="10"
-       battlemints:label="rightswitchalarm" />
-    <use
-       battlemints:spawn="true"
-       style="opacity:0.28800001;display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use5157"
-       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,62.559742,-12.844259)"
        width="1000"
        height="10"
        battlemints:label="rightswitchalarm" />
@@ -2669,16 +2636,6 @@
        height="10"
        inkscape:transform-center-x="-0.23773566" />
     <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mini"
-       id="use5987"
-       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,67.061298,-10.462194)"
-       width="1000"
-       height="10"
-       battlemints:label="rightswitchroom" />
-    <use
        battlemints:label="rightswitchroom"
        height="10"
        width="1000"
@@ -2698,16 +2655,6 @@
        width="1000"
        height="10"
        battlemints:label="rightswitchroom" />
-    <use
-       battlemints:label="rightswitchroom"
-       height="10"
-       width="1000"
-       transform="matrix(0.6132514,-0.7898878,0.7898878,0.6132514,70.740806,-15.20152)"
-       id="use5993"
-       xlink:href="#mini"
-       y="0"
-       x="0"
-       style="display:inline" />
     <use
        battlemints:label="rightswitchroom"
        height="10"
