@@ -8,8 +8,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="450"
-   height="225"
+   width="1000"
+   height="1000"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.46"
@@ -36,25 +36,29 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.89571167"
-     inkscape:cx="132.63471"
-     inkscape:cy="164.44775"
+     inkscape:zoom="1.1215817"
+     inkscape:cx="299.59543"
+     inkscape:cy="800.23636"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      showgrid="true"
      inkscape:snap-global="true"
      inkscape:object-nodes="true"
-     inkscape:window-width="1008"
-     inkscape:window-height="772"
-     inkscape:window-x="398"
-     inkscape:window-y="74">
+     inkscape:window-width="1231"
+     inkscape:window-height="1025"
+     inkscape:window-x="1251"
+     inkscape:window-y="393"
+     inkscape:snap-nodes="false"
+     inkscape:snap-bbox="true"
+     showguides="true"
+     inkscape:guide-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid2385"
        visible="true"
        enabled="true"
-       spacingx="50px"
-       spacingy="50px"
+       spacingx="7.8125px"
+       spacingy="7.8125px"
        empspacing="5" />
     <inkscape:grid
        type="xygrid"
@@ -81,34 +85,45 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer5"
+     inkscape:label="Theme">
     <path
-       style="fill:#ffe6d5;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 9.893615,194.87232 L 9.893615,104.8723 L 55.468085,26.36168 L 55.468085,116.36172 L 9.893615,194.87232 z"
-       id="path2389"
-       sodipodi:nodetypes="ccccc" />
+       inkscape:label="#path5308"
+       id="path13377"
+       d="M 101.5625,749.67192 L 246.09373,499.3438 L 535.15622,499.3438 L 679.6875,749.67192 L 535.15622,1000 L 246.09373,1000 L 101.5625,749.67192 z"
+       style="fill:#280b0b;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
     <path
-       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 118,199.27002 L 163,121.33002 L 253,121.33002 L 298,199.27002 L 118,199.27002 z"
-       id="path2393" />
+       inkscape:label="#path5306"
+       id="path13382"
+       d="M 835.9375,648.4375 L 585.9375,504.09562 L 585.93751,215.41194 L 835.93749,71.070112 L 835.9375,648.4375 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
     <path
-       style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 14.8617,199.90402 L 59.8617,121.964 L 149.8617,121.964 L 104.8617,199.90402 L 14.8617,199.90402 z"
-       id="path2395" />
+       inkscape:label="#path5304"
+       id="path13384"
+       d="M 250,492.1875 L 539.06248,492.1875 L 539.06248,203.125 L 250,203.125 L 250,492.1875 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
     <path
-       style="fill:#00ff00;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 162.3617,113.304 L 207.3617,35.36398 L 252.3617,113.304 L 162.3617,113.304 z"
-       id="path2397" />
+       inkscape:label="#path5298"
+       sodipodi:nodetypes="ccccc"
+       id="path13386"
+       d="M 843.75,648.4375 L 843.75,351.5625 L 992.1875,94.468812 L 992.1875,391.34374 L 843.75,648.4375 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
     <path
-       style="fill:#ff6600;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 63,114.00002 L 63,23.99998 L 153,23.99998 L 153,114.00002 L 63,114.00002 z"
-       id="path2399"
-       sodipodi:nodetypes="ccccc" />
+       inkscape:label="#path5300"
+       id="path13388"
+       d="M 976.5625,749.45174 L 831.90416,1000 L 542.58755,1000 L 687.24584,749.45171 L 976.5625,749.45174 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
     <path
-       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 264,117 L 309,39.05998 L 399,39.05998 L 444,117 L 399,194.94002 L 309,194.94002 L 264,117 z"
-       id="path2401" />
+       inkscape:label="#path5302"
+       id="path13390"
+       d="M 0,144.33123 L 249.9964,1.4108293e-13 L 250,288.6688 L 0,144.33123 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
+    <path
+       inkscape:label="#path6418"
+       sodipodi:nodetypes="ccccc"
+       id="path13392"
+       d="M 251.81378,203.11829 L 454.93221,0.00011562027 L 742.1875,2.7375859e-13 L 539.06926,203.1183 L 251.81378,203.11829 z"
+       style="fill:#280b0b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.95335126;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
   </g>
 </svg>

@@ -21,7 +21,7 @@ IN: battlemints.board-compiler
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
 
 CONSTANT: board-format-magic   HEX: BA7713BD
-CONSTANT: board-format-version 1
+CONSTANT: board-format-version 2
 
 CONSTANT: map-layer-label "Map"
 
@@ -84,7 +84,7 @@ M: tile-vertices thing-written-name drop "tile_vertices" ;
 M: tile-vertices (write-thing)
     vertices>>
     [ length>> write-int ]
-    [ [ [ vertex>> write-vec2 ] [ color>> write-vec4 ] bi ] each ] bi ;
+    [ [ [ vertex>> write-vec2 ] [ texcoord>> write-vec2 ] bi ] each ] bi ;
 
 M: transform-thing (write-thing)
     [ transform>> origin>> write-vec2 ]
@@ -247,13 +247,13 @@ CONSTANT: TILE-EDGE-PRECISION 64
     [ [ edge>wall ] map ] [ edges>vertices [ vertex>wallpost ] map ] bi
     append ;
 
-: push-vertices ( into-vertices vertices color -- into-vertices start length )
-    [ dup vertices>> ] [ ] [ [ tile-vertex boa ] curry map ] tri*
+: push-vertices ( into-vertices vertices texcoords -- into-vertices start length )
+    [ dup vertices>> ] [ ] [ [ tile-vertex boa ] 2map ] tri*
     [ [ length ] bi@ ] [ swap push-all ] 2bi ;
 
 : make-shell ( vertices tile -- vertices shell )
     [ shape-vertices [ canonicalize-point ] map ]
-    [ shape-color push-vertices ]
+    [ shape-texcoords push-vertices ]
     [ shape-center <translation> ] tri <tile-shell> ;
 
 : board-extents ( things -- extents )

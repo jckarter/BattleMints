@@ -131,7 +131,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:none">
+     style="display:inline">
     <g
        style="display:inline"
        id="player"
@@ -371,7 +371,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Palette"
-     style="display:inline">
+     style="display:none">
     <use
        style="display:inline"
        x="0"

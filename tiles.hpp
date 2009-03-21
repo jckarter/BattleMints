@@ -2,6 +2,7 @@
 #define __TILES_HPP__
 
 #include "thing.hpp"
+#include "drawing.hpp"
 #include <vector>
 #include <boost/array.hpp>
 #include <OpenGLES/ES1/gl.h>
@@ -11,14 +12,17 @@ namespace battlemints {
 struct tile_vertices : thing {
     struct vertex {
         vec2 center;
-        vec4 color;
+        vec2 texcoord;
     };
 
     std::vector<vertex> *vertices;
     GLuint buffer;
 
+    image_texture *theme;    
+
     tile_vertices()
-        : thing(ZERO_VEC2, NO_COLLISION), vertices(new std::vector<vertex>), buffer(0)
+        : thing(ZERO_VEC2, NO_COLLISION), vertices(new std::vector<vertex>),
+          buffer(0), theme(NULL)
         { }
 
     virtual ~tile_vertices();
@@ -30,7 +34,7 @@ struct tile_vertices : thing {
     void unbind() const;
 
     tile_vertices(FILE *bin)
-        : thing(NO_COLLISION), vertices(NULL)
+        : thing(NO_COLLISION), vertices(NULL), buffer(0), theme(NULL)
     {
         int length = data_from_bin<int>(bin);
         vertices = new std::vector<vertex>(length);

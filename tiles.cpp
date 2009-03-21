@@ -10,6 +10,8 @@ tile_vertices::~tile_vertices()
         glDeleteBuffers(1, &buffer);
     if (vertices != NULL)
         delete vertices;
+    if (theme != NULL)
+        delete theme;
 }
 
 void
@@ -19,6 +21,8 @@ tile_vertices::awaken()
     delete vertices;
     vertices = NULL;
 
+    theme = image_texture::from_file(board::current()->theme + "-theme.png");
+
     board::current()->tile_vertices_thing = this;
 }
 
@@ -27,19 +31,19 @@ tile_vertices::bind() const
 {
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-    glDisable(GL_TEXTURE_2D);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);    
+    glEnable(GL_TEXTURE_2D);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glBindTexture(GL_TEXTURE_2D, theme->texture);
 
     glVertexPointer(2, GL_FLOAT, sizeof(vertex), (void*)offsetof(vertex, center));
-    glColorPointer(4, GL_FLOAT, sizeof(vertex), (void*)offsetof(vertex, color));
+    glTexCoordPointer(2, GL_FLOAT, sizeof(vertex), (void*)offsetof(vertex, texcoord));
 }
 
 void
 tile_vertices::unbind() const
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glDisableClientState(GL_COLOR_ARRAY);
 }
 
 GLuint

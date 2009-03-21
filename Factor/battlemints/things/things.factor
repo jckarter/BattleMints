@@ -25,7 +25,7 @@ TUPLE: tile-vertices < thing vertices ;
 CONSTRUCTOR: tile-shell ( vertex-start vertex-length transform -- tile-shell ) ;
 CONSTRUCTOR: tile-vertices ( vertices -- tile-vertices ) ;
 
-TUPLE: tile-vertex vertex color ;
+TUPLE: tile-vertex vertex texcoord ;
 
 TUPLE: arrow < shape ;
 
@@ -155,6 +155,100 @@ M: tile-triangle (shape-vertices)
 : shape-vertices ( shape -- vertices )
     [ transform>> ] [ (shape-vertices) ] bi
     [ a.v ] with map ;
+
+GENERIC: shape-texcoords ( shape -- texcoords )
+
+M: arrow shape-texcoords
+    drop {
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+    } ;
+
+M: tile-octagon shape-texcoords
+    drop {
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+    } ;
+
+M: tile-hexagon-90 shape-texcoords
+    drop {
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+        { 0.0 0.0 }
+    } ;
+
+M: tile-hexagon shape-texcoords
+    drop {
+        { 0.1016 0.7497 }
+        { 0.2461 1.0000 }
+        { 0.5352 1.0000 }
+        { 0.6797 0.7497 }
+        { 0.5352 0.4993 }
+        { 0.2461 0.4993 }
+    } ;
+
+M: tile-trapezoid shape-texcoords
+    drop {
+        { 0.8359 0.6484 }
+        { 0.5859 0.5041 }
+        { 0.5859 0.2154 }
+        { 0.8359 0.0711 }
+        { 0.8359 0.3598 }
+    } ;
+
+M: tile-square shape-texcoords
+    drop {
+        { 0.2500 0.4922 }
+        { 0.5391 0.4922 }
+        { 0.5391 0.2031 }
+        { 0.2500 0.4922 }
+    } ;
+
+M: tile-rhombus-60 shape-texcoords
+    drop {
+        { 0.5426 1.0000 }
+        { 0.6872 0.7495 }
+        { 0.9766 0.7495 }
+        { 0.8319 1.0000 }
+    } ;
+
+M: tile-rhombus-45 shape-texcoords
+    drop {
+        { 0.2518 0.2031 }
+        { 0.4549 0.0000 }
+        { 0.7422 0.0000 }
+        { 0.5391 0.2031 }
+    } ;
+
+M: tile-rhombus-30 shape-texcoords
+    drop {
+        { 0.8438 0.6484 }
+        { 0.8438 0.3516 }
+        { 0.9922 0.0945 }
+        { 0.9922 0.3913 }
+    } ;
+
+! M 0,144.33123 L 249.9964,1.4108293e-13 L 250,288.6688 L 0,144.33123 z
+M: tile-triangle shape-texcoords
+    drop {
+        { 0.0000 0.1443 }
+        { 0.2500 0.0000 }
+        { 0.2500 0.2887 }
+    } ;
 
 GENERIC: (shape-center) ( tile -- center )
 
