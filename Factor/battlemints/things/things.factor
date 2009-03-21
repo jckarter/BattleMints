@@ -215,7 +215,7 @@ M: tile-square shape-texcoords
         { 0.2500 0.4922 }
         { 0.5391 0.4922 }
         { 0.5391 0.2031 }
-        { 0.2500 0.4922 }
+        { 0.2500 0.2031 }
     } ;
 
 M: tile-rhombus-60 shape-texcoords

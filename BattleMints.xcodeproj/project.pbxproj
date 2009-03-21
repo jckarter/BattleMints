@@ -28,6 +28,10 @@
 		D82BFB550EBEE72B00E65BAF /* intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB510EBEE72B00E65BAF /* intro.cpp */; };
 		D82BFB560EBEE72B00E65BAF /* drawing.mm in Sources */ = {isa = PBXBuildFile; fileRef = D82BFB520EBEE72B00E65BAF /* drawing.mm */; };
 		D82BFBAD0EBF7AFD00E65BAF /* controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */; };
+		D834D3B20F748A3C00225D1D /* idyllic-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3AE0F748A3C00225D1D /* idyllic-theme.png */; };
+		D834D3B30F748A3C00225D1D /* industrial-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3AF0F748A3C00225D1D /* industrial-theme.png */; };
+		D834D3B40F748A3C00225D1D /* temple-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3B00F748A3C00225D1D /* temple-theme.png */; };
+		D834D3B50F748A3C00225D1D /* volcanic-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3B10F748A3C00225D1D /* volcanic-theme.png */; };
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
@@ -93,6 +97,10 @@
 		D82BFB540EBEE72B00E65BAF /* controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controller.hpp; sourceTree = "<group>"; };
 		D82BFBAC0EBF7AFD00E65BAF /* controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller.cpp; sourceTree = "<group>"; };
 		D832C37E0F34DF5D0077C7F3 /* tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tiles.hpp; sourceTree = "<group>"; };
+		D834D3AE0F748A3C00225D1D /* idyllic-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idyllic-theme.png"; sourceTree = "<group>"; };
+		D834D3AF0F748A3C00225D1D /* industrial-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "industrial-theme.png"; sourceTree = "<group>"; };
+		D834D3B00F748A3C00225D1D /* temple-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temple-theme.png"; sourceTree = "<group>"; };
+		D834D3B10F748A3C00225D1D /* volcanic-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volcanic-theme.png"; sourceTree = "<group>"; };
 		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
 		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
 		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
@@ -236,6 +244,10 @@
 				D8A2F74C0F6EB5AC00583C9A /* level1.bb */,
 				D8A2F74D0F6EB5AC00583C9A /* level2.bb */,
 				D8A2F74E0F6EB5AC00583C9A /* level3.bb */,
+				D834D3AE0F748A3C00225D1D /* idyllic-theme.png */,
+				D834D3AF0F748A3C00225D1D /* industrial-theme.png */,
+				D834D3B00F748A3C00225D1D /* temple-theme.png */,
+				D834D3B10F748A3C00225D1D /* volcanic-theme.png */,
 				D8A2F70C0F68ABA800583C9A /* player_invuln.png */,
 				D8FA4FD60F5F7A5500FC3C4F /* signs.png */,
 				D8B274F60F148797001844D6 /* mega.png */,
@@ -326,6 +338,10 @@
 				D8A2F7500F6EB5AC00583C9A /* level1.bb in Resources */,
 				D8A2F7510F6EB5AC00583C9A /* level2.bb in Resources */,
 				D8A2F7520F6EB5AC00583C9A /* level3.bb in Resources */,
+				D834D3B20F748A3C00225D1D /* idyllic-theme.png in Resources */,
+				D834D3B30F748A3C00225D1D /* industrial-theme.png in Resources */,
+				D834D3B40F748A3C00225D1D /* temple-theme.png in Resources */,
+				D834D3B50F748A3C00225D1D /* volcanic-theme.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

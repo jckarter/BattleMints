@@ -354,6 +354,7 @@ board::draw()
 void
 board::_draw_background()
 {
+    glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glMatrixMode(GL_MODELVIEW);
