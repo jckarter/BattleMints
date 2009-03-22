@@ -28,7 +28,8 @@ struct player : sphere {
         INVULN_PELLET_BURN = 30,
         PANIC_CHARGE = 30*60,
         PANIC_TAP_COUNT = 5,
-        PANIC_TIME = 3;
+        PANIC_TIME = 3,
+        MAX_PELLET_SPILL = 20;
 
     static boost::array<renders_with_pair, 3> renders_with_pairs_template;
     static boost::array<renders_with_pair, 3> invuln_renders_with_pairs;
@@ -62,6 +63,7 @@ struct player : sphere {
     void lose_invuln();
     void gain_invuln();
     void panic();
+    void lose_pellets();
 
     void update_stats();
 
@@ -129,6 +131,29 @@ struct pellet : point {
     pellet(FILE *bin) : point(DOES_TICKS | CAN_OVERLAP, bin) {}
 };
 
+struct loose_pellet : sphere {
+    static const float MASS, SPRING, DAMP, MIN_SPEED, MAX_SPEED;
+
+    static const int LIFETIME = 3*60;
+
+    int lifetime;
+
+    loose_pellet(vec2 center)
+        : sphere(center, MASS, pellet::RADIUS, SPRING, DAMP), lifetime(LIFETIME) { }
+
+    virtual void tick();
+
+    virtual void on_collision(thing &o);
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(pellet::renders_with_pairs.begin(), pellet::renders_with_pairs.end()); }
+
+    virtual vec4 sphere_color(float)
+        { return pellet::colors[board::current()->tick_count() % pellet::colors.size()]; }
+
+    static loose_pellet *spawn(sphere const &from);
+};
+
 struct enemy : sphere {
     float accel;
     float responsiveness;
@@ -145,7 +170,7 @@ struct enemy : sphere {
     virtual void wall_damage() { die(); }
     virtual void post_damage() { die(); }
 
-    void die() { board::current()->particles.explode(this, true); }
+    virtual void die() { board::current()->particles.explode(this, true); }
 
     virtual void trigger(thing *scapegoat);
 
@@ -175,6 +200,8 @@ struct mini : enemy {
 
     virtual char const * kind() const { return "mini"; }
 
+    virtual void die() { loose_pellet::spawn(*this); enemy::die(); }
+
     mini(FILE *bin)
         : enemy(0, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS),
           color(colors[rand() % colors.size()]) { }
@@ -190,6 +217,8 @@ struct mega : enemy {
         : enemy(ct, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS) { }
 
     virtual char const * kind() const { return "mega"; }
+
+    virtual void die() { for (int i = 0; i < 10; ++i) loose_pellet::spawn(*this); enemy::die(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }

@@ -100,6 +100,13 @@ const vec4  powerup::CHARGED_COLOR = make_vec4(1.0f, 0.86f, 0.0f, 1.0f);
 const vec4  powerup::DEAD_COLOR = make_vec4(0.65f, 0.64f, 0.60f, 1.0f);
 
 const float pellet::RADIUS = 0.1f;
+
+const float loose_pellet::MASS = 0.005f;
+const float loose_pellet::SPRING = 0.0f;
+const float loose_pellet::DAMP = 0.0f;
+const float loose_pellet::MIN_SPEED = 0.6f;
+const float loose_pellet::MAX_SPEED = 1.0f;
+
 const boost::array<vec4, 6> pellet::colors = {
     make_vec4(1.0f, 0.0f, 0.0f, 0.50f),
     make_vec4(0.0f, 1.0f, 0.0f, 0.50f),

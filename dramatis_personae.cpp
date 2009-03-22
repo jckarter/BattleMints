@@ -169,8 +169,7 @@ void player::gain_invuln()
 {
     invuln = true;
     update_stats();
-    if (pellets < 20)
-        pellets = 20;
+    pellets += 20;
     pellet_burn = INVULN_PELLET_BURN;
 }
 
@@ -180,13 +179,28 @@ void player::die()
     board::restart_with<death_transition>();
 }
 
+void player::lose_pellets()
+{
+    int spill = pellets < MAX_PELLET_SPILL ? pellets : MAX_PELLET_SPILL;
+    pellets = 0;
+    grace_period = GRACE_PERIOD;
+    board::current()->particles.explode(this, false);
+
+    for (int i = 0; i < spill; ++i)
+        loose_pellet::spawn(*this);
+}
+
 void player::damage()
 {
     if (!invuln) {
         if (shielded)
             lose_shield();
-        else if (grace_period == 0)
-            die();
+        else if (grace_period == 0) {
+            if (pellets > 0)
+                lose_pellets();
+            else 
+                die();
+        }
     }
 }
 
@@ -238,6 +252,38 @@ void pellet::on_collision(thing &o)
         ++p->pellets;
         board::current()->remove_thing(this);
     }
+}
+
+void loose_pellet::tick()
+{
+    --lifetime;
+    if (lifetime == 0)
+        board::current()->remove_thing(this);
+}
+
+void loose_pellet::on_collision(thing &o)
+{
+    if (o.flags & PLAYER) {
+        player *p = static_cast<player*>(&o);
+        if (p->grace_period == 0) {
+            ++p->pellets;
+            board::current()->remove_thing(this);
+        }
+    }
+}
+
+loose_pellet *loose_pellet::spawn(sphere const &from)
+{
+    float speed = rand_between(MIN_SPEED, MAX_SPEED);
+    float theta = rand_between(0.0f, 1.0f);
+    float initial_radius = from.radius + pellet::RADIUS;
+
+    loose_pellet *lp = new loose_pellet(polar_vec2(initial_radius, theta) + from.center);
+    lp->velocity = polar_vec2(speed, theta);
+
+    board::current()->add_thing(lp);
+
+    return lp;
 }
 
 void enemy::tick()
