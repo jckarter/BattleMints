@@ -38,7 +38,7 @@ struct player : sphere {
 
     bool shielded, invuln;
     int panicked, grace_period, panic_charge;
-    int pellets, pellet_burn;
+    int pellets, pellet_burn, pellet_grace_period;
 
     player(vec2 center)
         : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER),
@@ -134,7 +134,7 @@ struct pellet : point {
 struct loose_pellet : sphere {
     static const float MASS, SPRING, DAMP, MIN_SPEED, MAX_SPEED;
 
-    static const int LIFETIME = 3*60;
+    static const int LIFETIME = 5*60;
 
     int lifetime;
 

@@ -71,6 +71,8 @@ void player::tick()
 {
     if (grace_period > 0)
         --grace_period;
+    if (pellet_grace_period > 0)
+        --pellet_grace_period;
     cur_accel = vclip(controller_state, 1.0) * make_vec2(ACCEL_SCALE); 
 
     if (cur_accel != ZERO_VEC2)
@@ -184,6 +186,7 @@ void player::lose_pellets()
     int spill = pellets < MAX_PELLET_SPILL ? pellets : MAX_PELLET_SPILL;
     pellets = 0;
     grace_period = GRACE_PERIOD;
+    pellet_grace_period = GRACE_PERIOD*2;
     board::current()->particles.explode(this, false);
 
     for (int i = 0; i < spill; ++i)
@@ -265,7 +268,7 @@ void loose_pellet::on_collision(thing &o)
 {
     if (o.flags & PLAYER) {
         player *p = static_cast<player*>(&o);
-        if (p->grace_period == 0) {
+        if (p->pellet_grace_period == 0) {
             ++p->pellets;
             board::current()->remove_thing(this);
         }
