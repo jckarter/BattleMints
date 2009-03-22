@@ -60,10 +60,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="25.28"
-     inkscape:cx="7.4441362"
-     inkscape:cy="10.539973"
+     inkscape:cx="34.125307"
+     inkscape:cy="27.528733"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1232"
      inkscape:window-height="701"
@@ -346,12 +346,22 @@
        y="-0.49497473"
        ry="0.079423994"
        transform="matrix(0.7071068,0.7071068,-0.7071068,0.7071068,0,0)" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#f4eed7;fill-opacity:1;stroke:#002255;stroke-width:0.045;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       id="pellet"
+       sodipodi:cx="0"
+       sodipodi:cy="-8.8817842e-16"
+       sodipodi:rx="0.1"
+       sodipodi:ry="0.1"
+       d="M 0.1,-8.8817842e-16 A 0.1,0.1 0 1 1 -0.1,-8.7593195e-16 A 0.1,0.1 0 1 1 0.1,-9.1267136e-16 z"
+       inkscape:label="#path5618" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Palette"
-     style="display:none">
+     style="display:inline">
     <use
        style="display:inline"
        x="0"
@@ -531,6 +541,15 @@
        transform="translate(11.834644,3.5283412)"
        width="1000"
        height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use6129"
+       transform="translate(11.797943,5.341614)"
+       width="1000"
+       height="10" />
   </g>
   <g
      inkscape:label="Map"
@@ -540,7 +559,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(24.537661,-18.068453)"
+       transform="translate(24.616775,-17.949782)"
        id="use6537"
        xlink:href="#player"
        y="0"
@@ -2924,6 +2943,141 @@
        transform="matrix(-0.2588191,0.9659257,-0.9659257,-0.2588191,30.382915,-83.930071)"
        id="use3030"
        xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(24.653956,-19.183703)"
+       id="use8333"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8336"
+       transform="translate(24.653956,-20.789067)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(24.653956,-19.997928)"
+       id="use8338"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8340"
+       transform="matrix(0.9659258,-0.2588189,0.2588189,0.9659258,23.912338,-63.831308)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.9659258,-0.2588189,0.2588189,0.9659258,23.49684,-65.38197)"
+       id="use8342"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8344"
+       transform="matrix(0.9659258,-0.2588189,0.2588189,0.9659258,23.701601,-64.617789)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(21.964083,-67.79921)"
+       id="use8346"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8348"
+       transform="translate(22.359653,-69.483688)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(21.964083,-68.613435)"
+       id="use8350"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8352"
+       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,26.410271,-73.042235)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,27.960933,-72.626737)"
+       id="use8354"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8356"
+       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,27.196752,-72.831497)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.7071067,0.7071068,-0.7071068,-0.7071067,34.212957,-71.02865)"
+       id="use8358"
+       xlink:href="#pellet"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#pellet"
+       id="use8360"
+       transform="matrix(-0.7071067,0.7071068,-0.7071068,-0.7071067,35.348121,-69.893486)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.7071067,0.7071068,-0.7071068,-0.7071067,34.7887,-70.452905)"
+       id="use8362"
+       xlink:href="#pellet"
        y="0"
        x="0"
        style="display:inline" />
