@@ -43,7 +43,7 @@ struct player : sphere {
     player(vec2 center)
         : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER),
           shielded(false), invuln(false), panicked(0),
-          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0)
+          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0), pellet_grace_period(0)
         { }
 
     virtual void tick();
@@ -70,7 +70,8 @@ struct player : sphere {
     player(FILE *bin)
         : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP),
           shielded(false), invuln(false), panicked(0),
-          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0) { }
+          grace_period(0), panic_charge(0), pellets(0), pellet_burn(0), pellet_grace_period(0)
+        { }
 };
 
 struct powerup : sphere {
