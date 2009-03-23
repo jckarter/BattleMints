@@ -40,7 +40,7 @@ void
 grid::_draw() const
 {
     vec2 cell_size = 1.0f/_cell_size_inv;
-    glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+    glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
     boost::array<vec2, 3> cell_vertices = {
         make_vec2(cell_size.x, 0.0f),
         make_vec2(0.0f, 0.0f),

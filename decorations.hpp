@@ -31,7 +31,15 @@ struct sign : decoration
         slow,
         stop,
         leftarrow,
-        rightarrow
+        rightarrow,
+        goalup,
+        goalleft,
+        goaldown,
+        goalright,
+        switchup,
+        switchleft,
+        switchdown,
+        switchright
     };
 
     static const boost::array<vec2, 4> vertices;
@@ -62,11 +70,13 @@ struct sign : decoration
 private:
     void _set_texcoords(int face)
     {
+        int column = face % 8;
+        int row    = face / 8;
         texcoords = (boost::array<vec2, 4>){
-            make_vec2(0.125f*face,          1.0f),
-            make_vec2(0.125f*face + 0.125f, 1.0f),
-            make_vec2(0.125f*face,          0.0f),
-            make_vec2(0.125f*face + 0.125f, 0.0f),
+            make_vec2(0.125f*column,          0.5f*row + 0.5f),
+            make_vec2(0.125f*column + 0.125f, 0.5f*row + 0.5f),
+            make_vec2(0.125f*column,          0.5f*row       ),
+            make_vec2(0.125f*column + 0.125f, 0.5f*row       ),
         };
     }
 };

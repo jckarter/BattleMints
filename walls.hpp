@@ -2,7 +2,6 @@
 #define __WALLS_HPP__
 
 #include "thing.hpp"
-#include "collision.hpp"
 #include "serialization.hpp"
 #include "board.hpp"
 #include <boost/array.hpp>
@@ -10,8 +9,8 @@
 namespace battlemints {
 
 struct wall : line {
-    wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b, 0) { }
-    wall(vec2 pt_a, vec2 pt_b, int flags) : line(pt_a, pt_b, flags) { }
+    wall(vec2 pt_a, vec2 pt_b) : line(pt_a, pt_b, ALL_LAYERS) { }
+    wall(vec2 pt_a, vec2 pt_b, int flags) : line(pt_a, pt_b, flags | ALL_LAYERS) { }
 
     virtual void on_collision(thing &o) { o.wall_damage(); }
 #ifdef DRAW_WALLS
@@ -37,9 +36,9 @@ struct wall : line {
 
     virtual char const * kind() const { return "wall"; }
 
-    wall(FILE *bin) : line(0, bin) {}
+    wall(FILE *bin) : line(ALL_LAYERS, bin) {}
 protected:
-    wall(int flags, FILE *bin) : line(flags, bin) {}
+    wall(int flags, FILE *bin) : line(ALL_LAYERS | flags, bin) {}
 };
 
 struct wallpost : point {
@@ -69,7 +68,7 @@ struct wallpost : point {
 
     virtual char const * kind() const { return "wallpost"; }
 
-    wallpost(FILE *bin) : point(0, bin) {}
+    wallpost(FILE *bin) : point(ALL_LAYERS, bin) {}
 };
 
 struct door : wall {

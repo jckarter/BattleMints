@@ -8,8 +8,8 @@
 namespace battlemints {
 
 struct tripwire : line {
-    tripwire(vec2 pt_a, vec2 pt_b, flag_values flags)
-        : line(pt_a, pt_b, CAN_OVERLAP | flags) { }
+    tripwire(vec2 pt_a, vec2 pt_b, int flags)
+        : line(pt_a, pt_b, CAN_OVERLAP | LAYER_2 | DOES_TICKS | flags) { }
 
     /* no physical collision */
     virtual void collide(thing &o) { }
@@ -28,7 +28,7 @@ struct tripwire : line {
     virtual char const * kind() const { return "tripwire"; }
 
 protected:
-    tripwire(int flags, FILE *bin) : line(CAN_OVERLAP | flags, bin) { }
+    tripwire(int flags, FILE *bin) : line(CAN_OVERLAP | LAYER_2 | DOES_TICKS | flags, bin) { }
 };
 
 struct goal : tripwire {
@@ -38,7 +38,7 @@ struct goal : tripwire {
     float trip_strength;
 
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
-        : tripwire(pt_a, pt_b, DOES_TICKS), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
+        : tripwire(pt_a, pt_b, 0), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
@@ -53,7 +53,7 @@ struct goal : tripwire {
     static void global_finish();
 
     goal(FILE *bin)
-        : tripwire(DOES_TICKS, bin), next_board(*pascal_string_from_bin(bin)), trip_strength(0.0f)
+        : tripwire(0, bin), next_board(*pascal_string_from_bin(bin)), trip_strength(0.0f)
         { _set_up_vertices(); }
 
     virtual void print(std::ostream &os) const
@@ -72,14 +72,14 @@ private:
 struct alarm : tripwire {
     bool multiple;
 
-    alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b, DOES_TICKS), multiple(false) { }
+    alarm(vec2 pt_a, vec2 pt_b) : tripwire(pt_a, pt_b, 0), multiple(false) { }
 
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
 
     virtual char const * kind() const { return "alarm"; }
 
-    alarm(FILE *bin) : tripwire(DOES_TICKS, bin), multiple(false) { }
+    alarm(FILE *bin) : tripwire(0, bin), multiple(false) { }
 };
 
 }

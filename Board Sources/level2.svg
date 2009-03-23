@@ -61,14 +61,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="25.28"
      inkscape:cx="34.125307"
-     inkscape:cy="27.528733"
+     inkscape:cy="104.82654"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1232"
      inkscape:window-height="701"
-     inkscape:window-x="49"
-     inkscape:window-y="51"
+     inkscape:window-x="1239"
+     inkscape:window-y="519"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -674,7 +674,7 @@
        y="0"
        x="0"
        style="display:inline"
-       battlemints:signface="mini_xing" />
+       battlemints:signface="arrowup" />
     <use
        height="10"
        width="1000"
@@ -1571,15 +1571,6 @@
        style="display:inline"
        battlemints:powerup-kind="shield" />
     <use
-       transform="matrix(-0.7071067,0.7071068,-0.7071068,-0.7071067,22.643728,-33.289564)"
-       height="10"
-       width="1000"
-       id="use6535"
-       xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
        style="display:inline"
        x="0"
        y="0"
@@ -1659,15 +1650,6 @@
        y="0"
        x="0"
        style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#arrow"
-       id="use6557"
-       width="1000"
-       height="10"
-       transform="matrix(-8.5712909e-8,-0.9999999,0.9999999,-8.5712909e-8,24.63997,-41.18439)" />
     <use
        height="10"
        width="1000"
@@ -1919,15 +1901,6 @@
        width="1000"
        height="10" />
     <use
-       transform="matrix(-0.2588191,-0.9659257,0.9659257,-0.2588191,24.480903,-62.053955)"
-       height="10"
-       width="1000"
-       id="use6690"
-       xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
        style="display:inline"
        x="0"
        y="0"
@@ -1946,26 +1919,6 @@
        transform="matrix(0.4999999,0.8660254,0.8660254,-0.4999999,30.031006,-67.646042)"
        width="1000"
        height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#arrow"
-       id="use9142"
-       width="1000"
-       height="10"
-       transform="matrix(-0.9999999,8.5712909e-8,-8.5712909e-8,-0.9999999,23.05459,-32.131019)" />
-    <use
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,22.532418,-30.841338)"
-       height="10"
-       width="1000"
-       id="use9144"
-       xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline"
-       inkscape:transform-center-x="-0.45961941"
-       inkscape:transform-center-y="0.45961939" />
     <use
        style="display:inline"
        x="0"
@@ -2164,15 +2117,6 @@
        height="10"
        transform="matrix(8.5712909e-8,-0.9999999,0.9999999,8.5712909e-8,24.642756,-22.232604)" />
     <use
-       transform="matrix(-8.5712909e-8,-0.9999999,0.9999999,-8.5712909e-8,24.640756,-20.189067)"
-       height="10"
-       width="1000"
-       id="use9196"
-       xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
        height="10"
        width="1000"
        transform="matrix(0.4999999,0.8660254,0.8660254,-0.4999999,31.567006,-78.84221)"
@@ -2217,24 +2161,6 @@
        transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,18.83488,-16.253648)"
        width="1000"
        height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#arrow"
-       id="use9873"
-       width="1000"
-       height="10"
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,43.154808,-86.61195)" />
-    <use
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,41.154808,-88.61195)"
-       height="10"
-       width="1000"
-       id="use9879"
-       xlink:href="#arrow"
-       y="0"
-       x="0"
-       style="display:inline" />
     <use
        height="10"
        width="1000"
@@ -3081,5 +3007,45 @@
        y="0"
        x="0"
        style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(24.63997,-60.736187)"
+       id="use11745"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowup" />
+    <use
+       battlemints:signface="mini_xing"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use11751"
+       transform="translate(24.63997,-40.894415)"
+       width="1000"
+       height="10" />
+    <use
+       battlemints:signface="arrowup"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use11753"
+       transform="translate(24.63997,-20.063719)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(47.065667,-82.836145)"
+       id="use13049"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowupleft" />
   </g>
 </svg>

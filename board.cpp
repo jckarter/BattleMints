@@ -164,6 +164,9 @@ board::_find_collision_in_pair_vfp2(
     grid::cell::iterator ia, grid::cell::iterator ib, collision &c
 )
 {
+    if (!(*ia)->can_collide_with(**ib))
+        return;
+
     (*ia)->collision_time_vfp2_r(**ib);
 
     thing *a = *ia, *b = *ib;
@@ -329,6 +332,9 @@ struct _sort_things_in_cell {
 void
 board::draw()
 {
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
     _draw_background();
 
     vec2 cam_center = camera.center;
@@ -337,8 +343,6 @@ board::draw()
         cam_center + GAME_WINDOW_UNIT_SIZE*0.5f + CELL_SIZE
     );
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     glTranslatef(-cam_center.x, -cam_center.y, 0.0f);
 
     particles.draw();
@@ -357,11 +361,10 @@ board::_draw_background()
     glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     glVertexPointer(2, GL_FLOAT, 0, (void*)&background_vertices);
     glColorPointer(4, GL_FLOAT, 0, (void*)&background_colors);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisableClientState(GL_COLOR_ARRAY);
 }
 
 struct _move_things {

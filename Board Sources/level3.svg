@@ -59,16 +59,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.618024"
-     inkscape:cx="22.004339"
-     inkscape:cy="19.567539"
+     inkscape:zoom="23.232521"
+     inkscape:cx="24.721887"
+     inkscape:cy="30.536562"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="765"
-     inkscape:window-x="1064"
-     inkscape:window-y="72"
+     inkscape:window-x="956"
+     inkscape:window-y="209"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -413,186 +413,6 @@
     <use
        height="10"
        width="1000"
-       transform="translate(12.781104,-24.807061)"
-       id="use6238"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6240"
-       transform="translate(13.243056,-25.756036)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(13.705008,-26.705005)"
-       id="use6242"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6244"
-       transform="translate(14.166958,-27.653975)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(14.62891,-28.602952)"
-       id="use6246"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6248"
-       transform="translate(12.537593,-24.32004)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(12.999545,-25.269015)"
-       id="use6250"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6252"
-       transform="translate(13.461497,-26.217984)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(13.923447,-27.166954)"
-       id="use6254"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6256"
-       transform="translate(14.385399,-28.115931)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6258"
-       transform="translate(18.263644,-28.055053)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(18.725596,-29.004028)"
-       id="use6260"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6262"
-       transform="translate(19.187548,-29.952997)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(19.649498,-30.901967)"
-       id="use6264"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6266"
-       transform="translate(20.11145,-31.850944)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(18.020133,-27.568032)"
-       id="use6268"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6270"
-       transform="translate(18.482085,-28.517007)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(18.944037,-29.465976)"
-       id="use6272"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#pellet"
-       id="use6274"
-       transform="translate(19.405987,-30.414946)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(19.867939,-31.363923)"
-       id="use6276"
-       xlink:href="#pellet"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
        transform="translate(18.896452,-21.522816)"
        id="use6278"
        xlink:href="#sign"
@@ -627,16 +447,6 @@
        transform="matrix(1,0,0,-1,22.332797,-9.7602796)"
        width="1000"
        height="10" />
-    <use
-       transform="translate(17.347235,-8.7312159)"
-       height="10"
-       width="1000"
-       id="use6286"
-       xlink:href="#powerup"
-       y="0"
-       x="0"
-       style="display:inline"
-       battlemints:powerup-kind="shield" />
     <use
        battlemints:powerup-kind="invuln"
        style="display:inline"
@@ -1415,7 +1225,7 @@
        battlemints:tripwire="alarm"
        id="path6488"
        d="M 54.635945,-14.451334 L 45.636212,-19.647283"
-       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       style="fill:#002255;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline;fill-opacity:1"
        sodipodi:nodetypes="cc"
        battlemints:label="megaroom2" />
     <use
@@ -1875,6 +1685,56 @@
        width="1000"
        height="10"
        battlemints:label="megaroom2" />
+    <use
+       battlemints:label="topantechamber"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use12381"
+       transform="matrix(-0.2588189,-0.9659258,0.9659258,-0.2588189,18.550908,-32.656699)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.2588189,-0.9659258,0.9659258,-0.2588189,19.488055,-32.496053)"
+       id="use12383"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="topantechamber" />
+    <use
+       battlemints:label="topantechamber"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mini"
+       id="use12385"
+       transform="translate(18.524685,-34.38246)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(18.094319,-33.542046)"
+       id="use12387"
+       xlink:href="#mini"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="topantechamber" />
+    <use
+       battlemints:signface="arrowright"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use12389"
+       transform="translate(16.896452,-21.522816)"
+       width="1000"
+       height="10" />
   </g>
   <g
      inkscape:groupmode="layer"

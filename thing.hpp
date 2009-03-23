@@ -3,7 +3,6 @@
 
 #include "geom.hpp"
 #include "game.hpp"
-#include "collision.hpp"
 #include "renderers.hpp"
 #include "serialization.hpp"
 
@@ -34,9 +33,18 @@ struct thing : boost::noncopyable {
         SPHERE = 1, LINE = 4, POINT = 0x10, NO_COLLISION = 0x40,
         SPHERE_SPHERE = 3, SPHERE_LINE = 9, SPHERE_POINT = 0x21,
         LINE_SPHERE = 6, POINT_SPHERE = 0x12,
+        // collision layers
+        LAYER_MASK = 0xFF00,
+        ALL_LAYERS = 0xFF00,
+        LAYER_0 = 0x100,
+        LAYER_1 = 0x200,
+        LAYER_2 = 0x400,
+        LAYER_3 = 0x800,
         // misc
-        DOES_TICKS = 0x100,
-        CAN_OVERLAP = 0x200,
+        DOES_TICKS = 0x10000,
+        CAN_OVERLAP = 0x20000,
+        MOVES = 0x40000,
+
         PLAYER = 0x80000000
     };
     
@@ -59,6 +67,10 @@ struct thing : boost::noncopyable {
     bool can_overlap() const { return flags & CAN_OVERLAP; }
 
     virtual void tick() { }
+
+    bool can_collide_with(thing const &o) const
+        { return ((flags | o.flags) & MOVES) && (flags & o.flags & LAYER_MASK); }
+    int collision_type(thing const &o) const { return (flags | (o.flags<<1)) & COLLISION_MASK; }
 
     /* handle physical results of collision */
     void collide(thing &o);
@@ -121,11 +133,11 @@ struct sphere : thing {
     vec2 cur_accel;
 
     sphere(vec2 ct, float m, float r, float b, float d)
-        : thing(ct, SPHERE | DOES_TICKS), mass(m), radius(r), bounce(b), damp(d),
+        : thing(ct, SPHERE | DOES_TICKS | MOVES), mass(m), radius(r), bounce(b), damp(d),
           cur_accel(ZERO_VEC2) { }
 
     sphere(vec2 ct, float m, float r, float b, float d, int flags)
-        : thing(ct, SPHERE | DOES_TICKS | flags), mass(m), radius(r), bounce(b), damp(d),
+        : thing(ct, SPHERE | DOES_TICKS | MOVES | flags), mass(m), radius(r), bounce(b), damp(d),
           cur_accel(ZERO_VEC2) { }
 
     virtual char const * kind() const { return "sphere"; }
@@ -137,7 +149,7 @@ struct sphere : thing {
 
 protected:
     sphere(int flags, FILE *bin, float m, float r, float b, float d)
-        : thing(SPHERE | DOES_TICKS | flags, bin), mass(m), radius(r), bounce(b), damp(d),
+        : thing(SPHERE | DOES_TICKS | MOVES | flags, bin), mass(m), radius(r), bounce(b), damp(d),
           cur_accel(ZERO_VEC2) {}
 #endif
 };

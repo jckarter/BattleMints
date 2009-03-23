@@ -88,7 +88,6 @@
 		D81B5AA90EB68108002A40E7 /* thing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thing.hpp; sourceTree = "<group>"; };
 		D81B5AE60EB68693002A40E7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D81B5BA70EB7B43E002A40E7 /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
-		D81B5BA80EB7B43E002A40E7 /* collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collision.hpp; sourceTree = "<group>"; };
 		D82BFAEC0EBE801200E65BAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D82BFB500EBEE72B00E65BAF /* intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intro.hpp; sourceTree = "<group>"; };
 		D82BFB510EBEE72B00E65BAF /* intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intro.cpp; sourceTree = "<group>"; };
@@ -214,7 +213,6 @@
 				D81B5AA90EB68108002A40E7 /* thing.hpp */,
 				D8B272D10F0C8FFC001844D6 /* thing.cpp */,
 				D81B5BA70EB7B43E002A40E7 /* collision.cpp */,
-				D81B5BA80EB7B43E002A40E7 /* collision.hpp */,
 				D81A11560EBCD00800283428 /* grid.cpp */,
 				D81A11570EBCD00800283428 /* grid.hpp */,
 				D81A11580EBCD00800283428 /* board.cpp */,

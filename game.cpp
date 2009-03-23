@@ -23,8 +23,8 @@ const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXE
 const float sphere_face::ROTATE_SPAN = 20.0f,
             sphere_face::ROTATE_FACTOR = 40.0f;
 
-const vec2 board::CELL_SIZE = make_vec2(6.0, 6.0);
-const float board::LIVE_RADIUS = 30.0;
+const vec2 board::CELL_SIZE = make_vec2(5.5, 5.5);
+const float board::LIVE_RADIUS = 15.0;
 
 const float cambot::LEAD_FACTOR = 15.0f;
 const float cambot::FOLLOW_FACTOR = 0.1f;
@@ -107,13 +107,9 @@ const float loose_pellet::DAMP = 0.0f;
 const float loose_pellet::MIN_SPEED = 0.6f;
 const float loose_pellet::MAX_SPEED = 1.0f;
 
-const boost::array<vec4, 6> pellet::colors = {
-    make_vec4(1.0f, 0.0f, 0.0f, 0.50f),
-    make_vec4(0.0f, 1.0f, 0.0f, 0.50f),
-    make_vec4(1.0f, 1.0f, 0.0f, 0.50f),
-    make_vec4(0.0f, 0.0f, 1.0f, 0.50f),
-    make_vec4(1.0f, 0.0f, 1.0f, 0.50f),
-    make_vec4(0.0f, 1.0f, 1.0f, 0.50f)
+const boost::array<vec4, 2> pellet::colors = {
+    make_vec4(0.00f, 0.13f, 0.33f, 0.6f),
+    make_vec4(1.00f, 1.00f, 1.00f, 0.6f),
 };
 
 const boost::array<vec4, 2> powerup::pulse_colors = {

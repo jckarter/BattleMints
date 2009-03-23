@@ -36,14 +36,22 @@ CONSTANT: powerup-kinds H{
 ERROR: bad-powerup-kind-error kind ;
 
 CONSTANT: signfaces H{
-        { "mini_xing"  0 }
-        { "mega_xing"  1 }
-        { "narrows"    2 }
-        { "spikes"     3 }
-        { "slow"       4 }
-        { "stop"       5 }
-        { "leftarrow"  6 }
-        { "rightarrow" 7 }
+        { "mini_xing"       0 }
+        { "mega_xing"       1 }
+        { "narrows"         2 }
+        { "spikes"          3 }
+        { "slow"            4 }
+        { "stop"            5 }
+        { "leftarrow"       6 }
+        { "rightarrow"      7 }
+        { "arrowup"         8 }
+        { "arrowupleft"     9 }
+        { "arrowleft"      10 }
+        { "arrowdownleft"  11 }
+        { "arrowdown"      12 }
+        { "arrowdownright" 13 }
+        { "arrowright"     14 }
+        { "arrowupright"   15 }
     }
 
 ERROR: bad-signface-error kind ;

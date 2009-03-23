@@ -41,7 +41,7 @@ struct player : sphere {
     int pellets, pellet_burn, pellet_grace_period;
 
     player(vec2 center)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER),
+        : sphere(center, MASS, RADIUS, SPRING, DAMP, PLAYER | ALL_LAYERS),
           shielded(false), invuln(false), panicked(0),
           grace_period(0), panic_charge(0), pellets(0), pellet_burn(0), pellet_grace_period(0)
         { }
@@ -68,7 +68,7 @@ struct player : sphere {
     void update_stats();
 
     player(FILE *bin)
-        : sphere(PLAYER, bin, MASS, RADIUS, SPRING, DAMP),
+        : sphere(PLAYER | ALL_LAYERS, bin, MASS, RADIUS, SPRING, DAMP),
           shielded(false), invuln(false), panicked(0),
           grace_period(0), panic_charge(0), pellets(0), pellet_burn(0), pellet_grace_period(0)
         { }
@@ -92,7 +92,7 @@ struct powerup : sphere {
     int powerup_kind;
 
     powerup(vec2 center, int k)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP), powerup_kind(k), charge_time(0) { }
+        : sphere(center, MASS, RADIUS, SPRING, DAMP, LAYER_0), powerup_kind(k), charge_time(0) { }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
@@ -106,7 +106,7 @@ struct powerup : sphere {
     virtual char const * kind() const { return "powerup"; }
 
     powerup(FILE *bin)
-        : sphere(0, bin, MASS, RADIUS, SPRING, DAMP), charge_time(0)
+        : sphere(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP), charge_time(0)
         { BATTLEMINTS_READ_SLOTS(*this, powerup_kind, powerup_kind, bin); }
 
     virtual void print(std::ostream &os) const
@@ -115,11 +115,11 @@ struct powerup : sphere {
 
 struct pellet : point {
     static const float RADIUS;
-    static const boost::array<vec4, 6> colors;
+    static const boost::array<vec4, 2> colors;
 
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
-    pellet(vec2 center) : point(center, DOES_TICKS | CAN_OVERLAP) { }
+    pellet(vec2 center) : point(center, DOES_TICKS | CAN_OVERLAP | LAYER_1) { }
 
     virtual void on_collision(thing &o);
 
@@ -129,7 +129,7 @@ struct pellet : point {
     virtual vec4 sphere_color(float)
         { return colors[board::current()->tick_count() % colors.size()]; }
 
-    pellet(FILE *bin) : point(DOES_TICKS | CAN_OVERLAP, bin) {}
+    pellet(FILE *bin) : point(DOES_TICKS | CAN_OVERLAP | LAYER_1, bin) {}
 };
 
 struct loose_pellet : sphere {
@@ -140,7 +140,7 @@ struct loose_pellet : sphere {
     int lifetime;
 
     loose_pellet(vec2 center)
-        : sphere(center, MASS, pellet::RADIUS, SPRING, DAMP), lifetime(LIFETIME) { }
+        : sphere(center, MASS, pellet::RADIUS, SPRING, DAMP, LAYER_1), lifetime(LIFETIME) { }
 
     virtual void tick();
 
@@ -162,7 +162,7 @@ struct enemy : sphere {
     thing *target;
 
     enemy(vec2 ct, float m, float r, float sp, float d, float a, float re)
-        : sphere(ct, m, r, sp, d), accel(a), responsiveness(re),
+        : sphere(ct, m, r, sp, d, LAYER_0), accel(a), responsiveness(re),
           target(NULL) {}
 
     virtual void tick();
@@ -179,7 +179,7 @@ struct enemy : sphere {
 
 protected:
     enemy(int flags, FILE *bin, float m, float r, float b, float d, float a, float re)
-        : sphere(flags, bin, m, r, b, d), accel(a), responsiveness(re),
+        : sphere(flags | LAYER_0, bin, m, r, b, d), accel(a), responsiveness(re),
           target(NULL) {}
 };
 
@@ -241,14 +241,14 @@ struct bumper : sphere {
     static boost::array<renders_with_pair, 2> renders_with_pairs_template;
 
     bumper(vec2 ct)
-        : sphere(ct, MASS, RADIUS, SPRING, DAMP) { }
+        : sphere(ct, MASS, RADIUS, SPRING, DAMP, LAYER_0) { }
 
     virtual char const * kind() const { return "bumper"; }
 
     virtual renders_with_range renders_with() const;
     virtual vec4 sphere_color(float radius);
 
-    bumper(FILE *bin) : sphere(0, bin, MASS, RADIUS, SPRING, DAMP) { }
+    bumper(FILE *bin) : sphere(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP) { }
 
 public:
     static thing *from_bin(FILE *bin)
@@ -268,7 +268,7 @@ struct switch_spring : sphere {
     thing *last_touch;
 
     switch_spring(vec2 ct, vec2 ax)
-        : sphere(ct - ax * SLOT_LENGTH, MASS, RADIUS, 0.0f, 0.0f),
+        : sphere(ct - ax * SLOT_LENGTH, MASS, RADIUS, 0.0f, 0.0f, LAYER_0),
           axis(ax), home(ct), triggered(false),
           last_touch(NULL)
         { _set_matrix(); }
@@ -285,7 +285,7 @@ struct switch_spring : sphere {
     virtual void on_collision(thing &o);
 
     switch_spring(FILE *bin)
-        : sphere(0, bin, MASS, RADIUS, 0.0f, 0.0f), triggered(false), last_touch(NULL)
+        : sphere(LAYER_0, bin, MASS, RADIUS, 0.0f, 0.0f), triggered(false), last_touch(NULL)
     {
         BATTLEMINTS_READ_SLOTS(*this, axis, axis, bin);
         home = center; center -= axis * SLOT_LENGTH;
