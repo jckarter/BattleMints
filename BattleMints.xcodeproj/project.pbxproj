@@ -32,6 +32,7 @@
 		D834D3B30F748A3C00225D1D /* industrial-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3AF0F748A3C00225D1D /* industrial-theme.png */; };
 		D834D3B40F748A3C00225D1D /* temple-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3B00F748A3C00225D1D /* temple-theme.png */; };
 		D834D3B50F748A3C00225D1D /* volcanic-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D3B10F748A3C00225D1D /* volcanic-theme.png */; };
+		D834D44C0F7891C600225D1D /* system6-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D834D44B0F7891C600225D1D /* system6-theme.png */; };
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
@@ -100,6 +101,7 @@
 		D834D3AF0F748A3C00225D1D /* industrial-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "industrial-theme.png"; sourceTree = "<group>"; };
 		D834D3B00F748A3C00225D1D /* temple-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temple-theme.png"; sourceTree = "<group>"; };
 		D834D3B10F748A3C00225D1D /* volcanic-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volcanic-theme.png"; sourceTree = "<group>"; };
+		D834D44B0F7891C600225D1D /* system6-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "system6-theme.png"; sourceTree = "<group>"; };
 		D84C2A810EDD1FBE0000DE73 /* sound_server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound_server.hpp; sourceTree = "<group>"; };
 		D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound_server.cpp; sourceTree = "<group>"; };
 		D84C2A870EDD20760000DE73 /* synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = synth.hpp; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D834D44B0F7891C600225D1D /* system6-theme.png */,
 				D8A2F74B0F6EB5AC00583C9A /* hub.bb */,
 				D8A2F74C0F6EB5AC00583C9A /* level1.bb */,
 				D8A2F74D0F6EB5AC00583C9A /* level2.bb */,
@@ -340,6 +343,7 @@
 				D834D3B30F748A3C00225D1D /* industrial-theme.png in Resources */,
 				D834D3B40F748A3C00225D1D /* temple-theme.png in Resources */,
 				D834D3B50F748A3C00225D1D /* volcanic-theme.png in Resources */,
+				D834D44C0F7891C600225D1D /* system6-theme.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
