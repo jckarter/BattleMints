@@ -18,17 +18,17 @@
    version="1.0"
    sodipodi:docname="level3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   battlemints:theme="industrial">
+   battlemints:theme="system6">
   <defs
      id="defs4659">
     <linearGradient
        id="background-gradient">
       <stop
-         style="stop-color:#c8beb7;stop-opacity:1"
+         style="stop-color:#999999;stop-opacity:1"
          offset="0"
          id="stop8035" />
       <stop
-         style="stop-color:#f4eed7;stop-opacity:1"
+         style="stop-color:#999999;stop-opacity:1"
          offset="1"
          id="stop8037" />
     </linearGradient>
@@ -60,15 +60,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="23.232521"
-     inkscape:cx="24.721887"
+     inkscape:cx="16.113265"
      inkscape:cy="30.536562"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="765"
-     inkscape:window-x="956"
-     inkscape:window-y="209"
+     inkscape:window-x="132"
+     inkscape:window-y="135"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -1225,7 +1225,7 @@
        battlemints:tripwire="alarm"
        id="path6488"
        d="M 54.635945,-14.451334 L 45.636212,-19.647283"
-       style="fill:#002255;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline;fill-opacity:1"
+       style="fill:#002255;fill-opacity:1;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
        sodipodi:nodetypes="cc"
        battlemints:label="megaroom2" />
     <use

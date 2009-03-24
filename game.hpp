@@ -21,6 +21,9 @@ extern const vec2 GAME_WINDOW_UNIT_SIZE;
 
 const int GRACE_PERIOD = 30;
 
+const int NUM_GOALS = 64;
+const int NUM_COLOR_SWITCHES = 64;
+
 extern vec2 controller_state;
 extern int controller_tap_count;
 
