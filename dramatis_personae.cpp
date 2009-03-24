@@ -78,7 +78,7 @@ void player::tick()
     if (cur_accel != ZERO_VEC2)
         accelerate_with_exhaust(cur_accel);
 
-    if (pellet_burn > 0) {
+    if (invuln && pellet_burn > 0) {
         --pellet_burn;
         if (pellet_burn == 0) {
             pellet_burn = INVULN_PELLET_BURN;
@@ -195,7 +195,7 @@ void player::lose_pellets()
 
 void player::damage()
 {
-    if (!invuln) {
+    if (!invuln && !panicked) {
         if (shielded)
             lose_shield();
         else if (grace_period == 0) {

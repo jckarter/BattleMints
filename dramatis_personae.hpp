@@ -27,7 +27,7 @@ struct player : sphere {
     static const int
         INVULN_PELLET_BURN = 30,
         PANIC_CHARGE = 30*60,
-        PANIC_TAP_COUNT = 5,
+        PANIC_TAP_COUNT = 3,
         PANIC_TIME = 3,
         MAX_PELLET_SPILL = 20;
 
