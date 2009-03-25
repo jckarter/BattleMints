@@ -391,7 +391,6 @@ board::_draw_hud()
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, hud_font->texture);
 
-    glPushMatrix();
     if (player_thing->pellets == 0 && (tick_count() & 4))
         glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
     else
@@ -405,6 +404,10 @@ board::_draw_hud()
 
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+        std::cerr << "board::_draw_hud gl error " << std::hex << error << "\n"; 
 }
 
 struct _move_things {

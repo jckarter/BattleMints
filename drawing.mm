@@ -2,6 +2,7 @@
 #include "game.hpp"
 #include <UIKit/UIKit.h>
 #include <CoreGraphics/CoreGraphics.h>
+#include <iostream>
 
 namespace battlemints {
 
@@ -211,6 +212,11 @@ font::from_file(std::string const &name)
     CGImageRef image = make_image((name + ".png").c_str());
     font *r =  new font(image);
     CGImageRelease(image);
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+        std::cerr << "font::from_file gl error " << std::hex << error << "\n"; 
+
     return r;
 }
 

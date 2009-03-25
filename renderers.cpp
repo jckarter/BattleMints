@@ -169,8 +169,6 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
 
         glMatrixMode(GL_TEXTURE);
         glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
-        glPopMatrix();
     }
 
     glMatrixMode(GL_TEXTURE);
