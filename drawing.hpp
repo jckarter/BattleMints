@@ -82,6 +82,21 @@ struct sphere_face : boost::noncopyable {
     static float rotation(float magnitude);
 };
 
+struct font : image_texture {
+    static const vec2 GLYPH_TEXCOORD_PITCH, GLYPH_TEXCOORD_SIZE;
+    static const vec2 GLYPH_VERTEX_SIZE;
+    static font *from_file(std::string const &name);
+
+    struct vertex {
+        vec2 center;
+        vec2 texcoord;
+    };
+
+    font(CGImageRef image) : image_texture(image) { }
+    
+    static void draw_string(std::string const &s);
+};
+
 }
 
 #endif

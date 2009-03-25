@@ -102,6 +102,11 @@ void player::tick()
         lose_invuln();
 }
 
+void player::awaken()
+{
+    board::current()->player_thing = this;
+}
+
 void player::panic()
 {
     panicked = PANIC_TIME;

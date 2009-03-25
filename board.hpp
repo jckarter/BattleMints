@@ -15,6 +15,7 @@
 namespace battlemints {
 
 struct thing;
+struct player;
 struct tile_vertices;
 
 typedef boost::unordered_set<thing*> thing_set;
@@ -42,6 +43,9 @@ struct board : controller {
 
     boost::array<vec2, 4> background_vertices;
     boost::array<vec4, 4> background_colors;
+
+    font *hud_font;
+    player *player_thing;
 
     board(std::string const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg);
     virtual ~board();
@@ -96,6 +100,7 @@ struct board : controller {
 private:
     void _collide_things(thing *a, thing *b);
     void _draw_background();
+    void _draw_hud();
     void _setup_background_vertices();
 
     friend struct _tick_things;

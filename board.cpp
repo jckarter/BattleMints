@@ -6,6 +6,7 @@
 #include "particles.hpp"
 #include "walls.hpp"
 #include "serialization.hpp"
+#include <boost/lexical_cast.hpp>
 #include <functional>
 #include <iostream>
 
@@ -33,6 +34,7 @@ board::board(std::string const &nm, rect bound, std::string const &thm, boost::a
       background_gradient(bg),
       camera(),
       particles(),
+      hud_font(NULL),
       _grid(bound, CELL_SIZE),
       _tick_count(0),
       _overlaps()
@@ -70,6 +72,8 @@ board::setup()
 
     BOOST_FOREACH (thing *th, _all_things)
         th->awaken();
+
+    hud_font = font::from_file("profont");
 }
 
 void
@@ -353,6 +357,8 @@ board::draw()
     BOOST_FOREACH (renders_with_map::value_type const &rwp, _render_map) {
         rwp.first.instance->draw(rwp.second, rwp.first.param);
     }
+
+    _draw_hud();
 }
 
 void
@@ -365,6 +371,40 @@ board::_draw_background()
     glColorPointer(4, GL_FLOAT, 0, (void*)&background_colors);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glDisableClientState(GL_COLOR_ARRAY);
+}
+
+void
+board::_draw_hud()
+{
+    if (!player_thing || !thing_lives(player_thing))
+        return;
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrthof(-160.0f, 160.0f, -240.0f, 240.0f, -16.0f, 16.0f);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glEnable(GL_TEXTURE_2D);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindTexture(GL_TEXTURE_2D, hud_font->texture);
+
+    glPushMatrix();
+    if (player_thing->pellets == 0 && (tick_count() & 4))
+        glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
+    else
+        glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+
+    glTranslatef(-155.0f, -235.0f, 0.0f);
+    font::draw_string("PELLETS");
+
+    glTranslatef(6.0f*9.0f, 0.0f, 0.0f);
+    font::draw_string(boost::lexical_cast<std::string>(player_thing->pellets));
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
 }
 
 struct _move_things {

@@ -67,6 +67,8 @@ struct player : sphere {
 
     void update_stats();
 
+    void awaken();
+
     player(FILE *bin)
         : sphere(PLAYER | ALL_LAYERS, bin, MASS, RADIUS, SPRING, DAMP),
           shielded(false), invuln(false), panicked(0),
