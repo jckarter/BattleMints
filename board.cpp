@@ -359,6 +359,10 @@ board::draw()
     }
 
     _draw_hud();
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+        std::cerr << "board::draw gl error 0x" << std::hex << error << "\n"; 
 }
 
 void
@@ -396,18 +400,14 @@ board::_draw_hud()
     else
         glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
 
-    glTranslatef(-155.0f, -235.0f, 0.0f);
+    glTranslatef(-150.0f, -235.0f, 0.0f);
     font::draw_string("PELLETS");
 
-    glTranslatef(6.0f*9.0f, 0.0f, 0.0f);
+    glTranslatef(12.0f*9.0f, 0.0f, 0.0f);
     font::draw_string(boost::lexical_cast<std::string>(player_thing->pellets));
 
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-        std::cerr << "board::_draw_hud gl error " << std::hex << error << "\n"; 
 }
 
 struct _move_things {

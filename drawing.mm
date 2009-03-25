@@ -204,7 +204,13 @@ void _glyph_row_col(char c, int &out_row, int &out_col)
 
 const vec2 font::GLYPH_TEXCOORD_PITCH = make_vec2(8.0/128.0, 16.0/128.0),
            font::GLYPH_TEXCOORD_SIZE  = make_vec2(6.0/128.0, 13.0/128.0),
-           font::GLYPH_VERTEX_SIZE    = make_vec2(6.0, 13.0); // XXX
+           font::GLYPH_VERTEX_SIZE    = make_vec2(12.0, 26.0);
+
+font::font(CGImageRef image) : image_texture(image)
+{
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
 
 font *
 font::from_file(std::string const &name)
@@ -213,58 +219,53 @@ font::from_file(std::string const &name)
     font *r =  new font(image);
     CGImageRelease(image);
 
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-        std::cerr << "font::from_file gl error " << std::hex << error << "\n"; 
-
     return r;
 }
 
 void
 font::draw_string(std::string const &s)
 {
-    std::vector<vertex> vertices;
-    std::string::size_type length = s.size() * 4;
-    vertices.reserve(length);
+    std::vector<vertex> vertices(4);
+
+    glVertexPointer(2, GL_FLOAT, sizeof(vertex), (void*)&vertices[0].center);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(vertex), (void*)&vertices[0].texcoord);
+
     int i = 0;
     std::string::const_iterator si = s.begin();
     for (; si != s.end(); ++i, ++si) {
         int row, col;
         _glyph_row_col(*si, row, col);
         
-        vertices.push_back((vertex){
+        vertices[0] = (vertex){
             make_vec2(i  *GLYPH_VERTEX_SIZE.x,   0.0f),
             make_vec2(
                 col*GLYPH_TEXCOORD_PITCH.x,
                 row*GLYPH_TEXCOORD_PITCH.y + GLYPH_TEXCOORD_SIZE.y
             )
-        });
-        vertices.push_back((vertex){
+        };
+        vertices[1] = (vertex){
             make_vec2((i+1)*GLYPH_VERTEX_SIZE.x,   0.0f),
             make_vec2(
                 col*GLYPH_TEXCOORD_PITCH.x + GLYPH_TEXCOORD_SIZE.x,
                 row*GLYPH_TEXCOORD_PITCH.y + GLYPH_TEXCOORD_SIZE.y
             )
-        });
-        vertices.push_back((vertex){
+        };
+        vertices[2] = (vertex){
             make_vec2(i  *GLYPH_VERTEX_SIZE.x,   GLYPH_VERTEX_SIZE.y),
             make_vec2(
                 col*GLYPH_TEXCOORD_PITCH.x,
                 row*GLYPH_TEXCOORD_PITCH.y
             )
-        });
-        vertices.push_back((vertex){
+        };
+        vertices[3] = (vertex){
             make_vec2((i+1)*GLYPH_VERTEX_SIZE.x,   GLYPH_VERTEX_SIZE.y),
             make_vec2(
                 col*GLYPH_TEXCOORD_PITCH.x + GLYPH_TEXCOORD_SIZE.x,
                 row*GLYPH_TEXCOORD_PITCH.y
             )
-        });
+        };
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
-
-    glVertexPointer(2, GL_FLOAT, sizeof(vertex), (void*)&vertices[0].center);
-    glTexCoordPointer(2, GL_FLOAT, sizeof(vertex), (void*)&vertices[0].texcoord);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, length);
 }
 
 }

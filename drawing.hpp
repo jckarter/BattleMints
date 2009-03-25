@@ -92,7 +92,7 @@ struct font : image_texture {
         vec2 texcoord;
     };
 
-    font(CGImageRef image) : image_texture(image) { }
+    font(CGImageRef image);
     
     static void draw_string(std::string const &s);
 };
