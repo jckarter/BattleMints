@@ -136,8 +136,8 @@ image_texture *
 image_texture::from_file(std::string const &name)
 {
     CGImageRef image = make_image(name.c_str());
+    finally<CGImageRef> release_image(image, CGImageRelease);
     image_texture *r =  new image_texture(image);
-    CGImageRelease(image);
     return r;
 }
 
@@ -216,8 +216,8 @@ font *
 font::from_file(std::string const &name)
 {
     CGImageRef image = make_image((name + ".png").c_str());
+    finally<CGImageRef> release_image(image, CGImageRelease);
     font *r =  new font(image);
-    CGImageRelease(image);
 
     return r;
 }

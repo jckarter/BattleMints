@@ -36,6 +36,8 @@ struct goal : tripwire {
 
     std::string next_board;
     float trip_strength;
+    int goal_number;
+    bool achieves_goal;
 
     goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
         : tripwire(pt_a, pt_b, 0), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }

@@ -28,46 +28,21 @@ struct invalid_board : std::runtime_error {
     invalid_board(std::string const &s) : std::runtime_error(s) {}
 };
 
+void _safe_fread(void *p, size_t size, size_t nmemb, FILE *stream);
+void _safe_fwrite(void const *p, size_t size, size_t nmemb, FILE *stream);
+
 template<typename T>
 inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
-{
-    void *vp = (void*)p;
-    size_t count = fread(vp, size, nmemb, stream);
-    while (count != nmemb) {
-        if (ferror(stream) && errno == EINTR) {
-            clearerr(stream);
-            nmemb -= count;
-            vp = (void*)((char*)vp + size * nmemb);
-            count = fread(vp, size, nmemb, stream);
-        }
-        else
-            throw invalid_board(
-                "fread got " + boost::lexical_cast<std::string>(count) + " records but expected "
-                    + boost::lexical_cast<std::string>(size * nmemb) + " records"
-            );
-    }
-}
+    { _safe_fread((void*)p, size, nmemb, stream); }
+
+template<typename T>
+inline void safe_fwrite(T const *p, size_t size, size_t nmemb, FILE *stream)
+    { _safe_fread((void const *)p, size, nmemb, stream); }
 
 #define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
     (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), 1, stream))
 
-inline boost::optional<std::string> pascal_string_from_bin(FILE *bin)
-{
-    int length = getc(bin);
-    while (length == EOF && ferror(bin) && errno == EINTR) {
-        clearerr(bin);
-        length = getc(bin);
-    }
-    if (length == EOF)
-        return boost::optional<std::string>();
-
-    std::string r(length, '\0');
-
-    if (length > 0)
-        safe_fread(&r[0], length, 1, bin);
-
-    return r;
-}
+boost::optional<std::string> pascal_string_from_bin(FILE *bin);
 
 template<typename T>
 inline T data_from_bin(FILE *bin)

@@ -32,6 +32,60 @@ static const boost::array<thing_reader_pair, 15> _thing_reader_pairs = {
 static const std::map<std::string, thing_reader> _thing_readers
     (_thing_reader_pairs.begin(), _thing_reader_pairs.end());
 
+void _safe_fread(void *p, size_t size, size_t nmemb, FILE *stream)
+{
+    size_t count = fread(p, size, nmemb, stream);
+    while (count != nmemb) {
+        if (ferror(stream) && errno == EINTR) {
+            clearerr(stream);
+            nmemb -= count;
+            p = (void*)((char*)p + size * nmemb);
+            count = fread(p, size, nmemb, stream);
+        }
+        else
+            throw invalid_board(
+                "fread got " + boost::lexical_cast<std::string>(count) + " records but expected "
+                    + boost::lexical_cast<std::string>(size * nmemb) + " records"
+            );
+    }
+}
+
+void _safe_fwrite(void const *p, size_t size, size_t nmemb, FILE *stream)
+{
+    size_t count = fwrite(p, size, nmemb, stream);
+    while (count != nmemb) {
+        if (ferror(stream) && errno == EINTR) {
+            clearerr(stream);
+            nmemb -= count;
+            p = (void const *)((char const *)p + size * nmemb);
+            count = fwrite(p, size, nmemb, stream);
+        }
+        else
+            throw invalid_board(
+                "fwrite got " + boost::lexical_cast<std::string>(count) + " records but expected "
+                    + boost::lexical_cast<std::string>(size * nmemb) + " records"
+            );
+    }
+}
+
+boost::optional<std::string> pascal_string_from_bin(FILE *bin)
+{
+    int length = getc(bin);
+    while (length == EOF && ferror(bin) && errno == EINTR) {
+        clearerr(bin);
+        length = getc(bin);
+    }
+    if (length == EOF)
+        return boost::optional<std::string>();
+
+    std::string r(length, '\0');
+
+    if (length > 0)
+        safe_fread(&r[0], length, 1, bin);
+
+    return r;
+}
+
 thing *thing_from_bin(FILE *bin)
 {
     boost::optional<std::string> kind = pascal_string_from_bin(bin);
