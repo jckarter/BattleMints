@@ -1523,7 +1523,9 @@
        id="path9889"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="hub" />
+       battlemints:next-board="hub"
+       battlemints:goal-number="2"
+       battlemints:achieves-goal="true" />
     <use
        height="10"
        width="1000"

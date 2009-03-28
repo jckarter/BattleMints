@@ -58,6 +58,16 @@
        y2="3.4652331"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(2.4434345,-0.1136481)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#background-gradient"
+       id="linearGradient2572"
+       gradientUnits="userSpaceOnUse"
+       x1="0"
+       y1="8.0625"
+       x2="0"
+       y2="-8.0625"
+       gradientTransform="translate(17.302381,19.059884)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -70,8 +80,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="17.59818"
-     inkscape:cx="14.970629"
-     inkscape:cy="7.9244287"
+     inkscape:cx="10.424704"
+     inkscape:cy="3.3785041"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="true"
@@ -136,10 +146,6 @@
        style="display:inline"
        id="player"
        inkscape:label="#g5236">
-      <path
-         id="path5528"
-         d="M -5.333333,-8 L 5.333333,-8 L 5.333333,8 L -5.333333,8 L -5.333333,-8 z"
-         style="fill:url(#linearGradient12633);fill-opacity:1;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
       <path
          sodipodi:open="true"
          sodipodi:end="6.2838755"
@@ -372,6 +378,10 @@
      id="layer3"
      inkscape:label="Palette"
      style="display:inline">
+    <path
+       id="path5528"
+       d="M 11.969048,11.059884 L 22.635714,11.059884 L 22.635714,27.059884 L 11.969048,27.059884 L 11.969048,11.059884 z"
+       style="fill:url(#linearGradient2572);fill-opacity:1;stroke:#ff7b7b;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1" />
     <use
        style="display:inline"
        x="0"

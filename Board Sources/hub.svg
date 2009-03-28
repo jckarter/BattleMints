@@ -633,7 +633,9 @@
        id="path5954"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="level1" />
+       battlemints:next-board="level1"
+       battlemints:achieves-goal="false"
+       battlemints:goal-number="1" />
     <use
        height="10"
        width="1000"
@@ -721,13 +723,17 @@
        battlemints:tripwire="goal"
        id="path6521"
        d="M 18.642838,-16.477825 L 21.988836,-18.409701"
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       battlemints:achieves-goal="false"
+       battlemints:goal-number="2" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
        d="M 27.334809,-16.477889 L 23.988811,-18.409765"
        id="path5330"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="level3" />
+       battlemints:next-board="level3"
+       battlemints:achieves-goal="false"
+       battlemints:goal-number="3" />
   </g>
 </svg>

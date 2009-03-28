@@ -646,7 +646,9 @@
        id="path4725"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
-       battlemints:next-board="hub" />
+       battlemints:next-board="hub"
+       battlemints:achieves-goal="true"
+       battlemints:goal-number="1" />
     <use
        height="10"
        width="1000"
