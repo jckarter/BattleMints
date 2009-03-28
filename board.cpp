@@ -44,6 +44,11 @@ board::board(std::string const &nm, rect bound, std::string const &thm, boost::a
 void
 board::setup()
 {
+    universe::instance.set_current_map(name);
+    universe::instance.current_checkpoint = 0;
+    if (universe::name)
+        universe::instance.save(*universe::name);
+
     _grid.sort_statics();
 
     glEnable(GL_BLEND);

@@ -7,6 +7,9 @@
 
 namespace battlemints {
 
+void global_start_tripwires();
+void global_finish_tripwires();
+
 struct tripwire : line {
     tripwire(vec2 pt_a, vec2 pt_b, int flags)
         : line(pt_a, pt_b, CAN_OVERLAP | LAYER_2 | DOES_TICKS | flags) { }
@@ -35,27 +38,28 @@ struct goal : tripwire {
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
     std::string next_board;
-    float trip_strength;
     int goal_number;
-    bool achieves_goal;
+    int achieves_goal;
 
-    goal(vec2 pt_a, vec2 pt_b, std::string const &nb)
-        : tripwire(pt_a, pt_b, 0), next_board(nb), trip_strength(0.0f) { _set_up_vertices(); }
+    goal(vec2 pt_a, vec2 pt_b, std::string const &nb, int gn, bool ag)
+        : tripwire(pt_a, pt_b, 0), next_board(nb),
+          goal_number(gn), achieves_goal(ag)
+        { _set_up_vertices(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual void draw_self() const;
-    virtual void tick();
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
-
+,b
     virtual char const * kind() const { return "goal"; }
 
     static void global_start();
     static void global_finish();
 
     goal(FILE *bin)
-        : tripwire(0, bin), next_board(*pascal_string_from_bin(bin)), trip_strength(0.0f)
+        : tripwire(0, bin), next_board(*pascal_string_from_bin(bin)),
+          goal_number(data_from_bin<int>(bin)), achieves_goal(data_from_bin<int>(bin))
         { _set_up_vertices(); }
 
     virtual void print(std::ostream &os) const
@@ -66,9 +70,7 @@ private:
     boost::array<vec2, 4> _vertices;
     boost::array<vec2, 4> _texcoords;
 
-    vec4 _color() const;
-
-    static GLuint _goal_texture;
+    static GLuint _goal_texture, _arrow_texture;
 };
 
 struct alarm : tripwire {
@@ -82,6 +84,33 @@ struct alarm : tripwire {
     virtual char const * kind() const { return "alarm"; }
 
     alarm(FILE *bin) : tripwire(0, bin), multiple(false) { }
+};
+
+struct loader : tripwire {
+    static const float TEXT_SCALE;
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
+    std::string universe_name;
+    std::string descriptor;
+    GLfloat matrix[16];
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual void draw_self() const;
+    virtual void on_trip(thing &o);
+    virtual bool can_trip(thing &o);
+,b
+    virtual char const * kind() const { return "loader"; }
+
+    loader(FILE *bin)
+        : tripwire(0, bin), universe_name(*pascal_string_from_bin(bin)),
+          descriptor(_make_descriptor())
+        { _set_matrix(); }
+
+private:
+    std::string _make_descriptor();
+
+    void _set_draw_params();
 };
 
 }

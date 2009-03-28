@@ -114,6 +114,14 @@ static inline NSString *objc_str(std::string const &s)
     return [NSString stringWithUTF8String:s.c_str()];
 }
 
+std::string data_filename(std::string const &name)
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [paths objectAtIndex:0];
+
+    return std::string([[documents stringByAppendingPathComponent:objc_str(name)] UTF8String]);
+}
+
 boost::optional<std::string> resource_filename(std::string const &name, std::string const &type)
 {
     NSString *s = [[NSBundle mainBundle] pathForResource:objc_str(name) ofType:objc_str(type)];

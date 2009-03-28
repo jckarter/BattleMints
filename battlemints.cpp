@@ -9,6 +9,7 @@
 #include "tripwire.hpp"
 #include "dramatis_personae.hpp"
 #include "renderers.hpp"
+#include "universe.hpp"
 #include "walls.hpp"
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
@@ -24,9 +25,12 @@ void battlemints_start()
 {
     sranddev();
 
+    universe::instance.set_default();
+    universe::instance.set_current_map(INITIAL_MAP);
+
     sphere_face::global_start(); // must happen first!
     renderer::global_start(); // must happen second!
-    goal::global_start();
+    global_start_tripwires();
     global_start_actors();
     global_start_decorations();
     global_start_walls();
@@ -76,7 +80,7 @@ void battlemints_finish()
 {
     controller::delete_current();
 
-    goal::global_finish();
+    global_finish_tripwires();
     renderer::global_finish();
     sphere_face::global_finish();
 }

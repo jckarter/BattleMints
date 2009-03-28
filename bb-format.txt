@@ -41,8 +41,9 @@ bumper   := --
 powerup  := kind:int
 wall     := :endpoints
 wallpost := --
-goal     := :endpoints next-board:pascal-string
+goal     := :endpoints next-board:pascal-string goal-number:int achieves-goal:int
 alarm    := :endpoints
+loader   := :endpoints universe-name:pascal-string
 
 door     := :endpoints
 

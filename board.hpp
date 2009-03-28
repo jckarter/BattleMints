@@ -33,7 +33,7 @@ struct cambot {
 
 struct board : controller {
     static const unsigned BOARD_MAGIC = 0xBA7713BD;
-    static const int BOARD_VERSION = 2;
+    static const int BOARD_VERSION = 3;
 
     static const vec2 CELL_SIZE;
     static const float LIVE_RADIUS;

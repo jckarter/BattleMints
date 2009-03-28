@@ -21,6 +21,7 @@ namespace serialization {
 }
 
 boost::optional<std::string> resource_filename(std::string const &name, std::string const &type);
+std::string data_filename(std::string const &name);
 
 thing *thing_from_bin(FILE *bin);
 

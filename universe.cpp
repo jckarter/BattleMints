@@ -8,49 +8,68 @@
 namespace battlemints {
 
 universe universe::instance;
+boost::optional<std::string> universe::name;
+
+std::string universe::filename(std::string const &nm)
+{
+    return data_filename(nm + ".bu");
+}
 
 void universe::set_default()
 {
-    instance.magic = MAGIC;
-    instance.version = VERSION;
-    instance.achieved_goals.reset();
-    instance.flipped_color_switches.reset();
-    instance.set_current_map("hub");
-    instance.current_checkpoint = 0;
+    magic = MAGIC;
+    version = VERSION;
+    saved = false;
+    achieved_goals.reset();
+    flipped_color_switches.reset();
+    set_current_map(NEW_GAME_MAP);
+    current_checkpoint = 0;
 }
 
-void universe::load(std::string const &name)
+void universe::load(std::string const &nm)
 {
-    FILE *f = fopen(name.c_str(), "rb");
+    FILE *f = fopen(filename(nm).c_str(), "rb");
+    if (!f) {
+        set_default();
+        return;
+    }
+
     finally<FILE*> close_f(f, fclose);
 
-    safe_fread(&instance, sizeof(universe), 1, f);
-    if (instance.magic != MAGIC) {
-        std::cerr << "invalid universe magic in " << name << "\n";
+    safe_fread(this, sizeof(universe), 1, f);
+    if (magic != MAGIC) {
+        std::cerr << "invalid universe magic in " << nm << "\n";
         set_default();
-    } else if (instance.version != VERSION) {
-        std::cerr << "invalid universe version in " << name << "\n";
+    } else if (version != VERSION) {
+        std::cerr << "invalid universe version in " << nm << "\n";
         set_default();
     }
 }
 
-void universe::save(std::string const &name)
+void universe::save(std::string const &nm)
 {
-    FILE *f = fopen(name.c_str(), "wb");
+    saved = true;
+
+    FILE *f = fopen(filename(nm).c_str(), "wb");
+    if (!f) {
+        std::cerr << "failed to write universe " << nm << "\n";
+        return;
+    }
+
     finally<FILE*> close_f(f, fclose);
 
-    safe_fwrite(&instance, sizeof(universe), 1, f);
+    safe_fwrite(this, sizeof(universe), 1, f);
 }
 
 void universe::set_current_map(std::string const &s)
 {
     if (s.size() >= MAP_NAME_SIZE-1) {
         std::cerr << "current_map name " << s << " too long\n";
-        strncpy(instance.current_map, s.c_str(), 63);
-        instance.current_map[63] = '\0';
+        strncpy(current_map, s.c_str(), 63);
+        current_map[63] = '\0';
     } else {
-        strcpy(instance.current_map, s.c_str());
-        memset(instance.current_map + s.size(), '\0', MAP_NAME_SIZE - s.size());
+        strcpy(current_map, s.c_str());
+        memset(current_map + s.size(), '\0', MAP_NAME_SIZE - s.size());
     }
 }
 

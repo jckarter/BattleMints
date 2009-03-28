@@ -54,7 +54,7 @@ void
 intro::tick()
 {
     if (_countdown == 0)
-        controller::set_current(board::from_file("hub"));
+        controller::set_current(board::from_file(universe::instance.current_map));
     else
         --_countdown;
 }
