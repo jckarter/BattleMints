@@ -51,7 +51,7 @@ struct goal : tripwire {
     virtual void draw_self() const;
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
-,b
+
     virtual char const * kind() const { return "goal"; }
 
     static void global_start();
@@ -65,12 +65,12 @@ struct goal : tripwire {
     virtual void print(std::ostream &os) const
         { tripwire::print(os); os << " next-board:" << next_board; }
 
+    static GLuint _goal_texture, _arrow_texture;
+
 private:
     void _set_up_vertices();
     boost::array<vec2, 4> _vertices;
     boost::array<vec2, 4> _texcoords;
-
-    static GLuint _goal_texture, _arrow_texture;
 };
 
 struct alarm : tripwire {
@@ -110,7 +110,7 @@ struct loader : tripwire {
 private:
     std::string _make_descriptor();
 
-    void _set_draw_params();
+    void _set_matrix();
 };
 
 }

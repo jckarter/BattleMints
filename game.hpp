@@ -5,8 +5,8 @@
 
 namespace battlemints {
 
-const char *INITIAL_MAP = "start";
-const char *NEW_GAME_MAP = "hub";
+extern const char *INITIAL_MAP;
+extern const char *NEW_GAME_MAP;
 
 struct thing;
 struct controller;

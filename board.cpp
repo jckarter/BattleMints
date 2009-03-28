@@ -6,6 +6,7 @@
 #include "particles.hpp"
 #include "walls.hpp"
 #include "serialization.hpp"
+#include "universe.hpp"
 #include <boost/lexical_cast.hpp>
 #include <functional>
 #include <iostream>

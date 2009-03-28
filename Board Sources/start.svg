@@ -82,11 +82,11 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="14.296868"
-     inkscape:cx="27.856632"
-     inkscape:cy="35.708161"
+     inkscape:zoom="30.663439"
+     inkscape:cx="18.942544"
+     inkscape:cy="31.296629"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="true"
      inkscape:window-width="1267"
      inkscape:window-height="841"
@@ -588,7 +588,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(11.773122,-16.313166)"
+       transform="translate(11.773122,-22.313115)"
        id="use2594"
        xlink:href="#tile-square"
        y="0"
@@ -598,8 +598,8 @@
        battlemints:universe-name="alpha"
        battlemints:tripwire="loader"
        id="path2598"
-       d="M 17.636776,-17.32026 L 13.773122,-17.320273"
-       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 17.636776,-23.310591 L 13.773122,-23.310604"
+       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
        sodipodi:nodetypes="cc" />
     <use
        style="display:inline"
@@ -607,13 +607,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use2600"
-       transform="translate(17.636776,-16.313153)"
+       transform="translate(17.636776,-22.303484)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(15.819445,-24.144664)"
+       transform="translate(15.648831,-27.121324)"
        id="use2602"
        xlink:href="#player"
        y="0"
@@ -622,7 +622,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(23.50043,-16.31314)"
+       transform="translate(23.50043,-22.303471)"
        id="use3394"
        xlink:href="#tile-square"
        y="0"
@@ -634,13 +634,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3398"
-       transform="translate(29.364084,-16.313127)"
+       transform="translate(29.364084,-22.303458)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(35.227738,-16.313115)"
+       transform="translate(35.22774,-22.313011)"
        id="use3400"
        xlink:href="#tile-square"
        y="0"
@@ -648,8 +648,8 @@
        style="display:inline" />
     <path
        sodipodi:nodetypes="cc"
-       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 23.467393,-17.32026 L 19.603739,-17.320273"
+       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 23.467393,-23.310591 L 19.603739,-23.310604"
        id="path3402"
        battlemints:tripwire="loader"
        battlemints:universe-name="beta" />
@@ -657,13 +657,13 @@
        battlemints:universe-name="gamma"
        battlemints:tripwire="loader"
        id="path3404"
-       d="M 29.329985,-17.32026 L 25.466331,-17.320273"
-       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.329985,-23.310591 L 25.466331,-23.310604"
+       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
        sodipodi:nodetypes="cc" />
     <use
        height="10"
        width="1000"
-       transform="translate(12.773122,-12.581166)"
+       transform="translate(12.773122,-18.581115)"
        id="use3406"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -675,7 +675,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3408"
-       transform="matrix(-1,0,0,1,12.773122,-12.581166)"
+       transform="matrix(-1,0,0,1,12.773122,-18.581115)"
        width="1000"
        height="10" />
     <use
@@ -684,13 +684,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3410"
-       transform="translate(18.636776,-12.581153)"
+       transform="translate(18.636776,-18.571484)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,18.636776,-12.581153)"
+       transform="matrix(-1,0,0,1,18.636776,-18.571484)"
        id="use3412"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -699,7 +699,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(24.50043,-12.58114)"
+       transform="translate(24.50043,-18.571471)"
        id="use3414"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -711,7 +711,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3416"
-       transform="matrix(-1,0,0,1,24.50043,-12.58114)"
+       transform="matrix(-1,0,0,1,24.50043,-18.571471)"
        width="1000"
        height="10" />
     <use
@@ -720,13 +720,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3418"
-       transform="translate(30.364084,-12.581127)"
+       transform="translate(30.364084,-18.571458)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,30.364084,-12.581127)"
+       transform="matrix(-1,0,0,1,30.364084,-18.571458)"
        id="use3420"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -738,13 +738,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3422"
-       transform="matrix(1,0,0,-1,12.773122,-12.581089)"
+       transform="matrix(1,0,0,-1,12.773122,-18.581038)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,12.773122,-12.581089)"
+       transform="matrix(-1,0,0,-1,12.773122,-18.581038)"
        id="use3424"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -753,7 +753,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,18.636776,-12.581102)"
+       transform="matrix(1,0,0,-1,18.636776,-18.571433)"
        id="use3426"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -765,7 +765,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3428"
-       transform="matrix(-1,0,0,-1,18.636776,-12.581102)"
+       transform="matrix(-1,0,0,-1,18.636776,-18.571433)"
        width="1000"
        height="10" />
     <use
@@ -774,13 +774,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3430"
-       transform="matrix(1,0,0,-1,24.50043,-12.581115)"
+       transform="matrix(1,0,0,-1,24.50043,-18.571446)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,24.50043,-12.581115)"
+       transform="matrix(-1,0,0,-1,24.50043,-18.571446)"
        id="use3432"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -789,7 +789,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,30.364084,-12.581127)"
+       transform="matrix(1,0,0,-1,30.364084,-18.571458)"
        id="use3434"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -801,7 +801,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3436"
-       transform="matrix(-1,0,0,-1,30.364084,-12.581127)"
+       transform="matrix(-1,0,0,-1,30.364084,-18.571458)"
        width="1000"
        height="10" />
     <use
@@ -810,13 +810,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3438"
-       transform="translate(11.773122,-6.8491658)"
+       transform="translate(11.773122,-12.849115)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(17.636776,-6.849153)"
+       transform="translate(17.636776,-12.839484)"
        id="use3440"
        xlink:href="#tile-square"
        y="0"
@@ -828,13 +828,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3442"
-       transform="translate(23.50043,-6.8491402)"
+       transform="translate(23.50043,-12.839471)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(29.364084,-6.8491274)"
+       transform="translate(29.364084,-12.839458)"
        id="use3444"
        xlink:href="#tile-square"
        y="0"
@@ -842,15 +842,15 @@
        style="display:inline" />
     <path
        sodipodi:nodetypes="cc"
-       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 35.202058,-17.32026 L 31.338404,-17.320273"
+       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 35.202058,-23.310591 L 31.338404,-23.310604"
        id="path3446"
        battlemints:tripwire="loader"
        battlemints:universe-name="delta" />
     <use
        height="10"
        width="1000"
-       transform="translate(36.227738,-12.581115)"
+       transform="translate(36.22774,-18.581011)"
        id="use3448"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -862,7 +862,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3450"
-       transform="matrix(-1,0,0,1,36.227738,-12.581115)"
+       transform="matrix(-1,0,0,1,36.22774,-18.581011)"
        width="1000"
        height="10" />
     <use
@@ -871,13 +871,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3452"
-       transform="matrix(1,0,0,-1,36.227738,-12.581115)"
+       transform="matrix(1,0,0,-1,36.22774,-18.581011)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,36.227738,-12.581115)"
+       transform="matrix(-1,0,0,-1,36.22774,-18.581011)"
        id="use3454"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -889,67 +889,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3456"
-       transform="translate(35.227738,-6.8491146)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-square"
-       id="use3458"
-       transform="translate(9.7731221,-27.777166)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use3460"
-       transform="translate(10.773122,-24.045166)"
+       transform="translate(35.22774,-12.849011)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,10.773122,-24.045166)"
-       id="use3462"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(1,0,0,-1,10.773122,-24.045089)"
-       id="use3464"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use3466"
-       transform="matrix(-1,0,0,-1,10.773122,-24.045089)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(9.7731221,-18.313166)"
-       id="use3468"
-       xlink:href="#tile-square"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-1,0,0,-1,11.773122,-18.313166)"
+       transform="matrix(-1,0,0,-1,11.773122,-24.313115)"
        id="use3470"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -961,13 +907,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3472"
-       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,11.773122,-18.313217)"
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,11.773122,-24.313166)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,11.773078,-18.313141)"
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,11.773078,-24.31309)"
        id="use3474"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1299,72 +1245,18 @@
        width="1000"
        height="10" />
     <use
-       height="10"
-       width="1000"
-       transform="matrix(-1,0,0,1,39.227738,-27.777217)"
-       id="use3550"
-       xlink:href="#tile-square"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-1,0,0,1,38.227739,-24.045217)"
-       id="use3552"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use3554"
-       transform="translate(38.227739,-24.045217)"
-       width="1000"
-       height="10" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use3556"
-       transform="matrix(-1,0,0,-1,38.227739,-24.04514)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(1,0,0,-1,38.227739,-24.04514)"
-       id="use3558"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-square"
-       id="use3560"
-       transform="matrix(-1,0,0,1,39.227738,-18.313217)"
-       width="1000"
-       height="10" />
-    <use
        style="display:inline"
        x="0"
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3562"
-       transform="matrix(1,0,0,-1,37.227738,-18.313217)"
+       transform="matrix(1,0,0,-1,37.22774,-24.313113)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.8660254,-0.5,-0.5,-0.8660254,37.227738,-18.313268)"
+       transform="matrix(0.8660254,-0.5,-0.5,-0.8660254,37.22774,-24.313164)"
        id="use3564"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1376,7 +1268,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3566"
-       transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,37.227782,-18.313192)"
+       transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,37.22774,-24.313113)"
        width="1000"
        height="10" />
     <use
@@ -1403,6 +1295,320 @@
        transform="matrix(0.5,0.8660254,-0.8660254,0.5,37.227782,-29.777293)"
        id="use3572"
        xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(10.773122,-28.045166)"
+       id="use6018"
+       xlink:href="#tile-rhombus-60"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-60"
+       id="use6021"
+       transform="matrix(0.5,0.8660253,-0.8660253,0.5,10.773166,-26.045191)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,10.773122,-28.045166)"
+       id="use6023"
+       xlink:href="#tile-square"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-60"
+       id="use6025"
+       transform="matrix(-0.9999999,8.5712909e-8,-8.5712909e-8,-0.9999999,38.22774,-26.045164)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,38.227694,-28.045141)"
+       id="use6027"
+       xlink:href="#tile-rhombus-60"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-square"
+       id="use6029"
+       transform="matrix(-0.9999999,8.5712909e-8,8.5712909e-8,0.9999999,38.22774,-26.045164)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(15.813323,-20.70247)"
+       id="use6031"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowdown" />
+    <use
+       battlemints:signface="arrowdown"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6034"
+       transform="translate(21.585038,-20.70247)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(27.45459,-20.70247)"
+       id="use6036"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowdown" />
+    <use
+       battlemints:signface="arrowdown"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6038"
+       transform="translate(33.324141,-20.70247)"
+       width="1000"
+       height="10" />
+    <use
+       battlemints:signface="arrowup"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6040"
+       transform="translate(15.813323,-33.485161)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(21.650894,-33.485161)"
+       id="use6042"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowup" />
+    <use
+       battlemints:signface="arrowup"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#sign"
+       id="use6044"
+       transform="translate(27.488465,-33.485161)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(33.456484,-33.485161)"
+       id="use6046"
+       xlink:href="#sign"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:signface="arrowup" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(11.773122,-14.849115)"
+       id="use6048"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6051"
+       transform="translate(17.636776,-14.839433)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(23.50043,-14.839446)"
+       id="use6053"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6055"
+       transform="translate(29.364084,-14.839458)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(35.22774,-14.849011)"
+       id="use6057"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6059"
+       transform="matrix(1,0,0,-1,11.773122,-22.313115)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,17.636776,-22.322797)"
+       id="use6061"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6063"
+       transform="matrix(1,0,0,-1,23.50043,-22.322784)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,29.364084,-22.322772)"
+       id="use6065"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6067"
+       transform="matrix(1,0,0,-1,35.22774,-22.313219)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6069"
+       transform="translate(11.773122,-31.767497)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(17.636776,-31.757815)"
+       id="use6071"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6073"
+       transform="translate(23.50043,-31.757828)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(29.364084,-31.75784)"
+       id="use6075"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6077"
+       transform="translate(35.22774,-31.767393)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,11.773122,-39.231497)"
+       id="use6079"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6081"
+       transform="matrix(1,0,0,-1,17.636776,-39.241179)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,23.50043,-39.241166)"
+       id="use6083"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use6085"
+       transform="matrix(1,0,0,-1,29.364084,-39.241154)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,35.22774,-39.231601)"
+       id="use6087"
+       xlink:href="#tile-triangle"
        y="0"
        x="0"
        style="display:inline" />

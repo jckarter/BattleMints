@@ -2,6 +2,7 @@
 #include "board.hpp"
 #include "game.hpp"
 #include "drawing.hpp"
+#include "universe.hpp"
 #include <CoreGraphics/CoreGraphics.h>
 #include <boost/cstdint.hpp>
 

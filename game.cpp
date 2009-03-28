@@ -9,6 +9,9 @@
 
 namespace battlemints {
 
+const char *INITIAL_MAP = "start";
+const char *NEW_GAME_MAP = "hub";
+
 const float BORDER_THICKNESS = 0.045f;
 const float PIXELS_PER_GAME_UNIT = 30.0f;
 const float GAME_UNITS_PER_PIXEL = 1.0f / PIXELS_PER_GAME_UNIT;

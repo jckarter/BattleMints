@@ -4,14 +4,18 @@
 #include "transition.hpp"
 #include "drawing.hpp"
 #include "board.hpp"
+#include "universe.hpp"
+#include "game.hpp"
 #include <cstdio>
 #include <boost/lexical_cast.hpp>
 
 namespace battlemints {
 
-static const float GOAL_THICKNESS = 0.1f;
+const float GOAL_THICKNESS = 0.1f;
+const float loader::TEXT_SCALE = 1.0f/60.0f;
 
-boost::array<renders_with_pair, 1> goal::renders_with_pairs;
+boost::array<renders_with_pair, 1> goal::renders_with_pairs, loader::renders_with_pairs;
+
 
 GLuint goal::_goal_texture;
 GLuint goal::_arrow_texture;
@@ -27,13 +31,13 @@ global_start_tripwires()
         { self_renderer::instance, (renderer_parameter)"loader" }
     }};
 
-    boost::array<unsigned char, 16> goal::checkerboard_texture = {
+    boost::array<unsigned char, 16> checkerboard_texture = {
         0,   0,   255, 255,
         0,   0,   255, 255,
         255, 255, 0,   0,
         255, 255, 0,   0
     };
-    boost::array<unsigned char, 64> goal::arrows_texture = {
+    boost::array<unsigned char, 64> arrows_texture = {
         0,   0,   0,   255, 255, 0,   0,   0,
         0,   0,   255, 255, 255, 255, 0,   0,
         0,   0,   255, 255, 255, 255, 0,   0,
@@ -55,7 +59,7 @@ global_start_tripwires()
     glTexImage2D(
         GL_TEXTURE_2D, 0, GL_LUMINANCE,
         4, 4, 0,
-        GL_LUMINANCE, GL_UNSIGNED_BYTE, (void*)&goal::checkerboard_texture
+        GL_LUMINANCE, GL_UNSIGNED_BYTE, (void*)&checkerboard_texture
     );
 
     glGenTextures(1, &goal::_arrow_texture);
@@ -69,14 +73,14 @@ global_start_tripwires()
     glTexImage2D(
         GL_TEXTURE_2D, 0, GL_LUMINANCE,
         8, 8, 0,
-        GL_LUMINANCE, GL_UNSIGNED_BYTE, (void*)&goal::arrows_texture
+        GL_LUMINANCE, GL_UNSIGNED_BYTE, (void*)&arrows_texture
     );
 }
 
 void
 global_finish_tripwires()
 {
-    glDeleteTextures(1, &_goal_texture);
+    glDeleteTextures(1, &goal::_goal_texture);
 }
 
 void
@@ -167,7 +171,7 @@ loader::on_trip(thing &o)
     board::change_board_with<goal_transition>(universe::instance.current_map);
 }
 
-void
+bool
 loader::can_trip(thing &o)
 {
     return o.flags & PLAYER;
@@ -184,19 +188,19 @@ loader::_make_descriptor()
     else
         return std::string(temp.current_map)
             + " (" + boost::lexical_cast<std::string>(temp.achieved_goals.count())
-            + " complete)"
+            + " complete)";
 }
 
 void
 loader::_set_matrix()
 {
-    vec2 scaled_y = normal * font::GLYPH_VERTEX_SIZE.y * TEXT_SCALE;
+    vec2 scaled_y = normal * TEXT_SCALE;
     if (scaled_y.y < 0.0f)
         scaled_y = -scaled_y;
 
     vec2 scaled_x = -vperp(scaled_y);
 
-    vec2 offset_center = center - scaled_x * 0.5f * descriptor.size();
+    vec2 offset_center = center - scaled_x * font::GLYPH_VERTEX_SIZE.x * 0.5f * descriptor.size();
 
     memset(matrix, 0, sizeof(matrix));
     matrix[ 0] = scaled_x.x;

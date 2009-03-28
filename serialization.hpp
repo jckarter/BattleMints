@@ -38,7 +38,7 @@ inline void safe_fread(T *p, size_t size, size_t nmemb, FILE *stream)
 
 template<typename T>
 inline void safe_fwrite(T const *p, size_t size, size_t nmemb, FILE *stream)
-    { _safe_fread((void const *)p, size, nmemb, stream); }
+    { _safe_fwrite((void const *)p, size, nmemb, stream); }
 
 #define BATTLEMINTS_READ_SLOTS(object, from_slot, through_slot, stream) \
     (::battlemints::safe_fread(&((object).from_slot), (char*)(&((object).through_slot)+1) - (char*)&((object).from_slot), 1, stream))
