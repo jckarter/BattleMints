@@ -49,7 +49,8 @@ TUPLE: line < transform-thing endpoints ;
 
 TUPLE: tripwire < line ;
 TUPLE: alarm < tripwire ;
-TUPLE: goal < tripwire next-board ;
+TUPLE: goal < tripwire next-board goal-number achieves-goal? ;
+TUPLE: loader < tripwire universe-name ;
 
 TUPLE: wall < line ;
 TUPLE: door < wall ;

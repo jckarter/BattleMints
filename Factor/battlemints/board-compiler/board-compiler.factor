@@ -21,7 +21,7 @@ IN: battlemints.board-compiler
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
 
 CONSTANT: board-format-magic   HEX: BA7713BD
-CONSTANT: board-format-version 2
+CONSTANT: board-format-version 3
 
 CONSTANT: map-layer-label "Map"
 
@@ -102,7 +102,12 @@ AFTER: line (write-thing)
     endpoints>> first2 [ write-vec2 ] bi@ ;
 
 AFTER: goal (write-thing)
-    next-board>> write-pascal-string ;
+    [ next-board>> write-pascal-string ]
+    [ goal-number>> write-int ]
+    [ achieves-goal?>> 1 0 ? write-int ] tri ;
+
+AFTER: loader (write-thing)
+    universe-name>> write-pascal-string ;
 
 AFTER: tile-shell (write-thing)
     [ vertex-start>> write-int ] [ vertex-length>> write-int ] bi ;
@@ -193,8 +198,19 @@ CONSTANT: svg>game-transform T{ affine-transform f
 
 M: object (tag>>thing) drop ;
 
+: string>bool ( string -- bool )
+    {
+        { "true" [ t ] }
+        { "false" [ f ] }
+    } case ;
+
 M: goal (tag>>thing)
-    "next-board" battlemints-name attr >>next-board ;
+    [ "next-board" battlemints-name attr >>next-board ]
+    [ "goal-number" battlemints-name attr string>number >>goal-number ]
+    [ "achieves-goal" battlemints-name attr string>bool >>achieves-goal? ] tri ;
+
+M: loader (tag>>thing)
+    "universe-name" battlemints-name attr >>universe-name ;
 
 M: powerup (tag>>thing)
     "powerup-kind" battlemints-name attr >>powerup-kind ;

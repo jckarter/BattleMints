@@ -82,14 +82,14 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.61"
-     inkscape:cx="25.05555"
-     inkscape:cy="28.253521"
+     inkscape:zoom="14.296868"
+     inkscape:cx="27.856632"
+     inkscape:cy="35.708161"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1175"
-     inkscape:window-height="701"
+     inkscape:window-width="1267"
+     inkscape:window-height="841"
      inkscape:window-x="0"
      inkscape:window-y="22"
      inkscape:snap-global="true"
@@ -573,27 +573,33 @@
        transform="translate(11.8375,5.1625)"
        width="1000"
        height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(9.1151973,-9.1787362)"
-       id="use2594"
-       xlink:href="#tile-square"
-       y="0"
-       x="0"
-       style="display:inline" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        d="M 39.852982,7.7808599 L 39.852982,3.6893204"
        id="path2596"
        battlemints:tripwire="loader"
        battlemints:universe-name="save1" />
+  </g>
+  <g
+     inkscape:label="Map"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <use
+       height="10"
+       width="1000"
+       transform="translate(11.773122,-16.313166)"
+       id="use2594"
+       xlink:href="#tile-square"
+       y="0"
+       x="0"
+       style="display:inline" />
     <path
        battlemints:universe-name="alpha"
        battlemints:tripwire="loader"
        id="path2598"
-       d="M 14.978851,-10.18583 L 11.115197,-10.185843"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 17.636776,-17.32026 L 13.773122,-17.320273"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:nodetypes="cc" />
     <use
        style="display:inline"
@@ -601,13 +607,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use2600"
-       transform="translate(14.978851,-9.1787234)"
+       transform="translate(17.636776,-16.313153)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(13.16152,-17.010234)"
+       transform="translate(15.819445,-24.144664)"
        id="use2602"
        xlink:href="#player"
        y="0"
@@ -616,7 +622,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(20.842505,-9.1787106)"
+       transform="translate(23.50043,-16.31314)"
        id="use3394"
        xlink:href="#tile-square"
        y="0"
@@ -628,13 +634,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3398"
-       transform="translate(26.706159,-9.1786978)"
+       transform="translate(29.364084,-16.313127)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(32.569813,-9.178685)"
+       transform="translate(35.227738,-16.313115)"
        id="use3400"
        xlink:href="#tile-square"
        y="0"
@@ -642,8 +648,8 @@
        style="display:inline" />
     <path
        sodipodi:nodetypes="cc"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 20.809468,-10.18583 L 16.945814,-10.185843"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 23.467393,-17.32026 L 19.603739,-17.320273"
        id="path3402"
        battlemints:tripwire="loader"
        battlemints:universe-name="beta" />
@@ -651,13 +657,13 @@
        battlemints:universe-name="gamma"
        battlemints:tripwire="loader"
        id="path3404"
-       d="M 26.67206,-10.18583 L 22.808406,-10.185843"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.329985,-17.32026 L 25.466331,-17.320273"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:nodetypes="cc" />
     <use
        height="10"
        width="1000"
-       transform="translate(10.115197,-5.4467362)"
+       transform="translate(12.773122,-12.581166)"
        id="use3406"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -669,7 +675,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3408"
-       transform="matrix(-1,0,0,1,10.115197,-5.4467362)"
+       transform="matrix(-1,0,0,1,12.773122,-12.581166)"
        width="1000"
        height="10" />
     <use
@@ -678,13 +684,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3410"
-       transform="translate(15.978851,-5.4467234)"
+       transform="translate(18.636776,-12.581153)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,15.978851,-5.4467234)"
+       transform="matrix(-1,0,0,1,18.636776,-12.581153)"
        id="use3412"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -693,7 +699,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(21.842505,-5.4467106)"
+       transform="translate(24.50043,-12.58114)"
        id="use3414"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -705,7 +711,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3416"
-       transform="matrix(-1,0,0,1,21.842505,-5.4467106)"
+       transform="matrix(-1,0,0,1,24.50043,-12.58114)"
        width="1000"
        height="10" />
     <use
@@ -714,13 +720,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3418"
-       transform="translate(27.706159,-5.4466978)"
+       transform="translate(30.364084,-12.581127)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,27.706159,-5.4466978)"
+       transform="matrix(-1,0,0,1,30.364084,-12.581127)"
        id="use3420"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -732,13 +738,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3422"
-       transform="matrix(1,0,0,-1,10.115197,-5.4466594)"
+       transform="matrix(1,0,0,-1,12.773122,-12.581089)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,10.115197,-5.4466594)"
+       transform="matrix(-1,0,0,-1,12.773122,-12.581089)"
        id="use3424"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -747,7 +753,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,15.978851,-5.4466722)"
+       transform="matrix(1,0,0,-1,18.636776,-12.581102)"
        id="use3426"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -759,7 +765,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3428"
-       transform="matrix(-1,0,0,-1,15.978851,-5.4466722)"
+       transform="matrix(-1,0,0,-1,18.636776,-12.581102)"
        width="1000"
        height="10" />
     <use
@@ -768,13 +774,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3430"
-       transform="matrix(1,0,0,-1,21.842505,-5.446685)"
+       transform="matrix(1,0,0,-1,24.50043,-12.581115)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,21.842505,-5.446685)"
+       transform="matrix(-1,0,0,-1,24.50043,-12.581115)"
        id="use3432"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -783,7 +789,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,27.706159,-5.4466978)"
+       transform="matrix(1,0,0,-1,30.364084,-12.581127)"
        id="use3434"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -795,7 +801,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3436"
-       transform="matrix(-1,0,0,-1,27.706159,-5.4466978)"
+       transform="matrix(-1,0,0,-1,30.364084,-12.581127)"
        width="1000"
        height="10" />
     <use
@@ -804,13 +810,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3438"
-       transform="translate(9.1151973,0.2852638)"
+       transform="translate(11.773122,-6.8491658)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(14.978851,0.2852766)"
+       transform="translate(17.636776,-6.849153)"
        id="use3440"
        xlink:href="#tile-square"
        y="0"
@@ -822,13 +828,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3442"
-       transform="translate(20.842505,0.2852894)"
+       transform="translate(23.50043,-6.8491402)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(26.706159,0.2853022)"
+       transform="translate(29.364084,-6.8491274)"
        id="use3444"
        xlink:href="#tile-square"
        y="0"
@@ -836,15 +842,15 @@
        style="display:inline" />
     <path
        sodipodi:nodetypes="cc"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 32.544133,-10.18583 L 28.680479,-10.185843"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 35.202058,-17.32026 L 31.338404,-17.320273"
        id="path3446"
        battlemints:tripwire="loader"
        battlemints:universe-name="delta" />
     <use
        height="10"
        width="1000"
-       transform="translate(33.569813,-5.446685)"
+       transform="translate(36.227738,-12.581115)"
        id="use3448"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -856,7 +862,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3450"
-       transform="matrix(-1,0,0,1,33.569813,-5.446685)"
+       transform="matrix(-1,0,0,1,36.227738,-12.581115)"
        width="1000"
        height="10" />
     <use
@@ -865,13 +871,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3452"
-       transform="matrix(1,0,0,-1,33.569813,-5.446685)"
+       transform="matrix(1,0,0,-1,36.227738,-12.581115)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,33.569813,-5.446685)"
+       transform="matrix(-1,0,0,-1,36.227738,-12.581115)"
        id="use3454"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -883,7 +889,7 @@
        y="0"
        xlink:href="#tile-square"
        id="use3456"
-       transform="translate(32.569813,0.285315)"
+       transform="translate(35.227738,-6.8491146)"
        width="1000"
        height="10" />
     <use
@@ -892,7 +898,7 @@
        y="0"
        xlink:href="#tile-square"
        id="use3458"
-       transform="translate(7.1151973,-20.642736)"
+       transform="translate(9.7731221,-27.777166)"
        width="1000"
        height="10" />
     <use
@@ -901,13 +907,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3460"
-       transform="translate(8.115197,-16.910736)"
+       transform="translate(10.773122,-24.045166)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,8.115197,-16.910736)"
+       transform="matrix(-1,0,0,1,10.773122,-24.045166)"
        id="use3462"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -916,7 +922,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,8.115197,-16.910659)"
+       transform="matrix(1,0,0,-1,10.773122,-24.045089)"
        id="use3464"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -928,13 +934,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3466"
-       transform="matrix(-1,0,0,-1,8.115197,-16.910659)"
+       transform="matrix(-1,0,0,-1,10.773122,-24.045089)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(7.1151973,-11.178736)"
+       transform="translate(9.7731221,-18.313166)"
        id="use3468"
        xlink:href="#tile-square"
        y="0"
@@ -943,7 +949,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,9.1151973,-11.178736)"
+       transform="matrix(-1,0,0,-1,11.773122,-18.313166)"
        id="use3470"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -955,13 +961,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3472"
-       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,9.1151973,-11.178787)"
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,11.773122,-18.313217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,9.1151533,-11.178711)"
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,11.773078,-18.313141)"
        id="use3474"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -973,20 +979,20 @@
        y="0"
        xlink:href="#tile-square"
        id="use3476"
-       transform="matrix(1,0,0,-1,9.1151976,-24.642736)"
+       transform="matrix(1,0,0,-1,11.773122,-31.777166)"
        width="1000"
        height="10" />
     <path
        sodipodi:nodetypes="cc"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 14.978851,-23.635642 L 11.115197,-23.635629"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 17.636776,-30.770072 L 13.773122,-30.770059"
        id="path3478"
        battlemints:tripwire="loader"
        battlemints:universe-name="epsilon" />
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,14.978851,-24.642749)"
+       transform="matrix(1,0,0,-1,17.636776,-31.777179)"
        id="use3480"
        xlink:href="#tile-square"
        y="0"
@@ -998,13 +1004,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3482"
-       transform="matrix(1,0,0,-1,20.842505,-24.642762)"
+       transform="matrix(1,0,0,-1,23.50043,-31.777192)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,26.706159,-24.642774)"
+       transform="matrix(1,0,0,-1,29.364084,-31.777204)"
        id="use3484"
        xlink:href="#tile-square"
        y="0"
@@ -1016,20 +1022,20 @@
        y="0"
        xlink:href="#tile-square"
        id="use3486"
-       transform="matrix(1,0,0,-1,32.569813,-24.642787)"
+       transform="matrix(1,0,0,-1,35.227738,-31.777217)"
        width="1000"
        height="10" />
     <path
        battlemints:universe-name="zeta"
        battlemints:tripwire="loader"
        id="path3488"
-       d="M 20.809468,-23.635642 L 16.945814,-23.635629"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 23.467393,-30.770072 L 19.603739,-30.770059"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:nodetypes="cc" />
     <path
        sodipodi:nodetypes="cc"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 26.67206,-23.635642 L 22.808406,-23.635629"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.329985,-30.770072 L 25.466331,-30.770059"
        id="path3490"
        battlemints:tripwire="loader"
        battlemints:universe-name="eta" />
@@ -1039,13 +1045,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3492"
-       transform="matrix(1,0,0,-1,10.115197,-28.374736)"
+       transform="matrix(1,0,0,-1,12.773122,-35.509166)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,10.115197,-28.374736)"
+       transform="matrix(-1,0,0,-1,12.773122,-35.509166)"
        id="use3494"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1054,7 +1060,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,15.978851,-28.374749)"
+       transform="matrix(1,0,0,-1,18.636776,-35.509179)"
        id="use3496"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1066,7 +1072,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3498"
-       transform="matrix(-1,0,0,-1,15.978851,-28.374749)"
+       transform="matrix(-1,0,0,-1,18.636776,-35.509179)"
        width="1000"
        height="10" />
     <use
@@ -1075,13 +1081,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3500"
-       transform="matrix(1,0,0,-1,21.842505,-28.374762)"
+       transform="matrix(1,0,0,-1,24.50043,-35.509192)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,21.842505,-28.374762)"
+       transform="matrix(-1,0,0,-1,24.50043,-35.509192)"
        id="use3502"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1090,7 +1096,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,27.706159,-28.374774)"
+       transform="matrix(1,0,0,-1,30.364084,-35.509204)"
        id="use3504"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1102,13 +1108,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3506"
-       transform="matrix(-1,0,0,-1,27.706159,-28.374774)"
+       transform="matrix(-1,0,0,-1,30.364084,-35.509204)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(10.115197,-28.374813)"
+       transform="translate(12.773122,-35.509243)"
        id="use3508"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1120,7 +1126,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3510"
-       transform="matrix(-1,0,0,1,10.115197,-28.374813)"
+       transform="matrix(-1,0,0,1,12.773122,-35.509243)"
        width="1000"
        height="10" />
     <use
@@ -1129,13 +1135,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3512"
-       transform="translate(15.978851,-28.3748)"
+       transform="translate(18.636776,-35.50923)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,15.978851,-28.3748)"
+       transform="matrix(-1,0,0,1,18.636776,-35.50923)"
        id="use3514"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1144,7 +1150,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(21.842505,-28.374787)"
+       transform="translate(24.50043,-35.509217)"
        id="use3516"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1156,7 +1162,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3518"
-       transform="matrix(-1,0,0,1,21.842505,-28.374787)"
+       transform="matrix(-1,0,0,1,24.50043,-35.509217)"
        width="1000"
        height="10" />
     <use
@@ -1165,13 +1171,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3520"
-       transform="translate(27.706159,-28.374774)"
+       transform="translate(30.364084,-35.509204)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,27.706159,-28.374774)"
+       transform="matrix(-1,0,0,1,30.364084,-35.509204)"
        id="use3522"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1180,7 +1186,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,9.1151976,-34.106736)"
+       transform="matrix(1,0,0,-1,11.773122,-41.241166)"
        id="use3524"
        xlink:href="#tile-square"
        y="0"
@@ -1192,13 +1198,13 @@
        y="0"
        xlink:href="#tile-square"
        id="use3526"
-       transform="matrix(1,0,0,-1,14.978851,-34.106749)"
+       transform="matrix(1,0,0,-1,17.636776,-41.241179)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,20.842505,-34.106762)"
+       transform="matrix(1,0,0,-1,23.50043,-41.241192)"
        id="use3528"
        xlink:href="#tile-square"
        y="0"
@@ -1210,15 +1216,15 @@
        y="0"
        xlink:href="#tile-square"
        id="use3530"
-       transform="matrix(1,0,0,-1,26.706159,-34.106774)"
+       transform="matrix(1,0,0,-1,29.364084,-41.241204)"
        width="1000"
        height="10" />
     <path
        battlemints:universe-name="theta"
        battlemints:tripwire="loader"
        id="path3532"
-       d="M 32.544133,-23.635642 L 28.680479,-23.635629"
-       style="fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 35.202058,-30.770072 L 31.338404,-30.770059"
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.20000000000000001, 0.20000000000000001;stroke-dashoffset:0;stroke-opacity:1"
        sodipodi:nodetypes="cc" />
     <use
        style="display:inline"
@@ -1226,13 +1232,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3534"
-       transform="matrix(1,0,0,-1,33.569813,-28.374787)"
+       transform="matrix(1,0,0,-1,36.227738,-35.509217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,33.569813,-28.374787)"
+       transform="matrix(-1,0,0,-1,36.227738,-35.509217)"
        id="use3536"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1241,7 +1247,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(33.569813,-28.374787)"
+       transform="translate(36.227738,-35.509217)"
        id="use3538"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1253,13 +1259,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3540"
-       transform="matrix(-1,0,0,1,33.569813,-28.374787)"
+       transform="matrix(-1,0,0,1,36.227738,-35.509217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,32.569813,-34.106787)"
+       transform="matrix(1,0,0,-1,35.227738,-41.241217)"
        id="use3542"
        xlink:href="#tile-square"
        y="0"
@@ -1271,13 +1277,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3544"
-       transform="matrix(-1,0,0,1,9.1151976,-22.642787)"
+       transform="matrix(-1,0,0,1,11.773122,-29.777217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.8660254,0.5,0.5,0.8660254,9.1151976,-22.642736)"
+       transform="matrix(-0.8660254,0.5,0.5,0.8660254,11.773122,-29.777166)"
        id="use3546"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1289,13 +1295,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3548"
-       transform="matrix(-0.5,0.8660254,0.8660254,0.5,9.1151536,-22.642812)"
+       transform="matrix(-0.5,0.8660254,0.8660254,0.5,11.773078,-29.777242)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,36.569813,-20.642787)"
+       transform="matrix(-1,0,0,1,39.227738,-27.777217)"
        id="use3550"
        xlink:href="#tile-square"
        y="0"
@@ -1304,7 +1310,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,1,35.569814,-16.910787)"
+       transform="matrix(-1,0,0,1,38.227739,-24.045217)"
        id="use3552"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1316,7 +1322,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3554"
-       transform="translate(35.569814,-16.910787)"
+       transform="translate(38.227739,-24.045217)"
        width="1000"
        height="10" />
     <use
@@ -1325,13 +1331,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3556"
-       transform="matrix(-1,0,0,-1,35.569814,-16.91071)"
+       transform="matrix(-1,0,0,-1,38.227739,-24.04514)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(1,0,0,-1,35.569814,-16.91071)"
+       transform="matrix(1,0,0,-1,38.227739,-24.04514)"
        id="use3558"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1343,7 +1349,7 @@
        y="0"
        xlink:href="#tile-square"
        id="use3560"
-       transform="matrix(-1,0,0,1,36.569813,-11.178787)"
+       transform="matrix(-1,0,0,1,39.227738,-18.313217)"
        width="1000"
        height="10" />
     <use
@@ -1352,13 +1358,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3562"
-       transform="matrix(1,0,0,-1,34.569813,-11.178787)"
+       transform="matrix(1,0,0,-1,37.227738,-18.313217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.8660254,-0.5,-0.5,-0.8660254,34.569813,-11.178838)"
+       transform="matrix(0.8660254,-0.5,-0.5,-0.8660254,37.227738,-18.313268)"
        id="use3564"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1370,13 +1376,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3566"
-       transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,34.569857,-11.178762)"
+       transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,37.227782,-18.313192)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(34.569813,-22.642838)"
+       transform="translate(37.227738,-29.777268)"
        id="use3568"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -1388,22 +1394,17 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use3570"
-       transform="matrix(0.8660254,0.5,-0.5,0.8660254,34.569813,-22.642787)"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,37.227738,-29.777217)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.5,0.8660254,-0.8660254,0.5,34.569857,-22.642863)"
+       transform="matrix(0.5,0.8660254,-0.8660254,0.5,37.227782,-29.777293)"
        id="use3572"
        xlink:href="#tile-rhombus-30"
        y="0"
        x="0"
        style="display:inline" />
   </g>
-  <g
-     inkscape:label="Map"
-     inkscape:groupmode="layer"
-     id="layer1"
-     style="display:inline" />
 </svg>
