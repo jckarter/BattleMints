@@ -152,6 +152,8 @@ loader::draw_self() const
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, board::current()->hud_font->texture);
 
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
     font::draw_string(descriptor);
 
     glPopMatrix();

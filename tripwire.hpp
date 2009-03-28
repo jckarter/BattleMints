@@ -99,7 +99,7 @@ struct loader : tripwire {
     virtual void draw_self() const;
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
-,b
+
     virtual char const * kind() const { return "loader"; }
 
     loader(FILE *bin)
