@@ -8,6 +8,7 @@
 #include "game.hpp"
 #include <cstdio>
 #include <boost/lexical_cast.hpp>
+#include <sys/stat.h>
 
 namespace battlemints {
 
@@ -15,7 +16,6 @@ const float GOAL_THICKNESS = 0.1f;
 const float loader::TEXT_SCALE = 1.0f/60.0f;
 
 boost::array<renders_with_pair, 1> goal::renders_with_pairs, loader::renders_with_pairs;
-
 
 GLuint goal::_goal_texture;
 GLuint goal::_arrow_texture;
@@ -38,21 +38,21 @@ global_start_tripwires()
         255, 255, 0,   0
     };
     boost::array<unsigned char, 64> arrows_texture = {
-        0,   0,   0,   255, 255, 0,   0,   0,
-        0,   0,   255, 255, 255, 255, 0,   0,
-        0,   0,   255, 255, 255, 255, 0,   0,
         0,   255, 255, 255, 255, 255, 255, 0,
-        0,   255, 255, 0,   0,   255, 255, 0,
-        255, 255, 255, 0,   0,   255, 255, 255,
-        255, 255, 0,   0,   0,   0,   255, 255,
-        255, 255, 0,   0,   0,   0,   255, 255
+        0,   255, 255, 255, 255, 255, 255, 0,
+        0,   0,   255, 255, 255, 255, 0,   0,
+        0,   0,   255, 255, 255, 255, 0,   0,
+        0,   0,   255, 255, 255, 255, 0,   0,
+        0,   0,   0,   255, 255, 0,   0,   0,  
+        0,   0,   0,   255, 255, 0,   0,   0,  
+        0,   0,   0,   255, 255, 0,   0,   0
     };
 
     glGenTextures(1, &goal::_goal_texture);
     glBindTexture(GL_TEXTURE_2D, goal::_goal_texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -158,7 +158,14 @@ loader::draw_self() const
 
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-    font::draw_string(descriptor);
+    BOOST_FOREACH (std::string const &line, descriptor) {
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        font::draw_string(line);
+        glMatrixMode(GL_MODELVIEW);
+        glPopMatrix();
+        glTranslatef(0.0f, -font::GLYPH_VERTEX_SIZE.y, 0.0f);
+    }
 
     glPopMatrix();
 }
@@ -171,24 +178,47 @@ loader::on_trip(thing &o)
     board::change_board_with<goal_transition>(universe::instance.current_map);
 }
 
+void
+loader::trigger(thing *scapegoat)
+{
+    descriptor.clear();
+    descriptor.push_back("NEW GAME");
+    _set_matrix();
+}
+
 bool
 loader::can_trip(thing &o)
 {
     return o.flags & PLAYER;
 }
 
-std::string
-loader::_make_descriptor()
+void
+loader::_set_descriptor()
 {
     universe temp;
     temp.load(universe_name);
 
     if (!temp.saved)
-        return "NEW GAME";
-    else
-        return std::string(temp.current_map)
-            + " (" + boost::lexical_cast<std::string>(temp.achieved_goals.count())
-            + " complete)";
+        descriptor.push_back("NEW GAME");
+    else {
+        descriptor.push_back(
+            std::string(temp.current_map)
+                + " (" + boost::lexical_cast<std::string>(temp.achieved_goals.count())
+                + " complete)"
+        );
+
+        struct stat s;
+        int err = stat(universe::filename(universe_name).c_str(), &s);
+        if (err == 0) {
+            time_t mtime_secs = s.st_mtimespec.tv_sec;
+            struct tm mtime;
+            localtime_r(&mtime_secs, &mtime);
+
+            char mtime_string[19];
+            strftime(mtime_string, 19, "%Y-%m-%d %H:%M", &mtime);
+            descriptor.push_back(mtime_string);
+        }
+    }
 }
 
 void
@@ -200,7 +230,15 @@ loader::_set_matrix()
 
     vec2 scaled_x = -vperp(scaled_y);
 
-    vec2 offset_center = center - scaled_x * font::GLYPH_VERTEX_SIZE.x * 0.5f * descriptor.size();
+    int size = 0;
+    BOOST_FOREACH (std::string const &line, descriptor) {
+        if (line.size() > size)
+            size = line.size();
+    }
+
+    vec2 offset_center = center
+        - scaled_x * font::GLYPH_VERTEX_SIZE.x * 0.5f * size
+        + scaled_y * font::GLYPH_VERTEX_SIZE.y * 0.5f * (descriptor.size()-1);
 
     memset(matrix, 0, sizeof(matrix));
     matrix[ 0] = scaled_x.x;

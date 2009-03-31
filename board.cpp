@@ -29,9 +29,10 @@ cambot::tick()
 
 board *board::_current = NULL;
 
-board::board(std::string const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg)
+board::board(std::string const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg, int f)
     : name(nm),
       theme(thm),
+      flags(f),
       background_gradient(bg),
       camera(),
       particles(),
@@ -386,7 +387,7 @@ board::_draw_background()
 void
 board::_draw_hud()
 {
-    if (!player_thing || !thing_lives(player_thing))
+    if (flags & SAFE || !player_thing || !thing_lives(player_thing))
         return;
 
     glMatrixMode(GL_PROJECTION);
@@ -406,7 +407,7 @@ board::_draw_hud()
     else
         glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
 
-    glTranslatef(-150.0f, -235.0f, 0.0f);
+    glTranslatef(-150.0f, 200.0f, 0.0f);
     font::draw_string("PELLETS");
 
     glTranslatef(12.0f*9.0f, 0.0f, 0.0f);
@@ -464,8 +465,9 @@ board::from_bin(std::string const &name, FILE *bin)
     rect bounds = data_from_bin<rect>(bin);
     boost::optional<std::string> theme = pascal_string_from_bin(bin);
     boost::array<vec4, 2> background = data_from_bin< boost::array<vec4, 2> >(bin);
+    int flags = data_from_bin<int>(bin);
 
-    board *b = new board(name, bounds, *theme, background);
+    board *b = new board(name, bounds, *theme, background, flags);
     try {
         while (thing *t = thing_from_bin(bin)) {
             b->add_thing(t);

@@ -18,7 +18,8 @@
    version="1.0"
    sodipodi:docname="hub.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   battlemints:theme="temple">
+   battlemints:theme="temple"
+   battlemints:safe="true">
   <defs
      id="defs4659">
     <linearGradient
@@ -60,10 +61,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="23.226681"
-     inkscape:cx="5.4573701"
+     inkscape:cx="25.749638"
      inkscape:cy="19.9143"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:window-width="1194"
      inkscape:window-height="703"
@@ -121,7 +122,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:inline">
+     style="display:none">
     <g
        style="display:inline"
        id="player"

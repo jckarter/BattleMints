@@ -91,7 +91,7 @@ struct loader : tripwire {
     static boost::array<renders_with_pair, 1> renders_with_pairs;
 
     std::string universe_name;
-    std::string descriptor;
+    std::vector<std::string> descriptor;
     GLfloat matrix[16];
 
     virtual renders_with_range renders_with() const
@@ -102,14 +102,16 @@ struct loader : tripwire {
 
     virtual char const * kind() const { return "loader"; }
 
+    virtual void trigger(thing *scapegoat);
+
     loader(FILE *bin)
-        : tripwire(0, bin), universe_name(*pascal_string_from_bin(bin)),
-          descriptor(_make_descriptor())
-        { _set_matrix(); }
+        : tripwire(0, bin), universe_name(*pascal_string_from_bin(bin))
+        { _set_descriptor(); _set_matrix(); }
 
 private:
     std::string _make_descriptor();
 
+    void _set_descriptor();
     void _set_matrix();
 };
 

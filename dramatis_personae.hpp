@@ -286,6 +286,8 @@ struct switch_spring : sphere {
     virtual void tick();
     virtual void on_collision(thing &o);
 
+    virtual void switch_on();
+
     switch_spring(FILE *bin)
         : sphere(LAYER_0, bin, MASS, RADIUS, 0.0f, 0.0f), triggered(false), last_touch(NULL)
     {
@@ -300,6 +302,20 @@ struct switch_spring : sphere {
 
 private:
     void _set_matrix();
+};
+
+struct eraser_switch : switch_spring {
+    static const vec4 COLOR;
+
+    std::string universe_name;
+
+    virtual vec4 sphere_color(float) { return COLOR; }
+
+    virtual void switch_on();
+
+    eraser_switch(FILE *bin)
+        : switch_spring(bin), universe_name(*pascal_string_from_bin(bin))
+        { }
 };
 
 struct spawn : thing {

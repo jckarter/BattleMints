@@ -8,6 +8,12 @@ math.rectangles io.pathnames unicode.categories splitting grouping math.parser ;
 IN: battlemints.board-compiler
 
 ! utility
+: string>bool ( string -- bool )
+    {
+        { "true" [ t ] }
+        { "false" [ f ] }
+    } case ;
+
 : write-int ( n -- )
     4 >le write ;
 : write-pascal-string ( string -- )
@@ -21,7 +27,7 @@ IN: battlemints.board-compiler
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
 
 CONSTANT: board-format-magic   HEX: BA7713BD
-CONSTANT: board-format-version 3
+CONSTANT: board-format-version 4
 
 CONSTANT: map-layer-label "Map"
 
@@ -121,6 +127,9 @@ AFTER: sign (write-thing)
 AFTER: switch (write-thing)
     transform>> axes { 1.0 0.0 } a.v write-vec2 ;
 
+AFTER: eraser (write-thing)
+    universe-name>> write-pascal-string ;
+
 : <use>? ( tag -- ? ) "use" svg-name names-match? ;
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
 : battlemints-<path>? ( tag -- ? )
@@ -152,6 +161,9 @@ AFTER: switch (write-thing)
 
 : svg-theme ( svg -- theme )
     "theme" battlemints-name attr "" or ;
+
+: svg-board-flags ( svg -- flags )
+    "safe" battlemints-name attr "false" or string>bool 1 0 ? ;
 
 GENERIC# (tag>>thing) 1 ( thing tag -- thing )
 
@@ -198,12 +210,6 @@ CONSTANT: svg>game-transform T{ affine-transform f
 
 M: object (tag>>thing) drop ;
 
-: string>bool ( string -- bool )
-    {
-        { "true" [ t ] }
-        { "false" [ f ] }
-    } case ;
-
 M: goal (tag>>thing)
     [ "next-board" battlemints-name attr >>next-board ]
     [ "goal-number" battlemints-name attr string>number >>goal-number ]
@@ -217,6 +223,9 @@ M: powerup (tag>>thing)
 
 M: sign (tag>>thing)
     "signface" battlemints-name attr >>signface ;
+
+M: eraser (tag>>thing)
+    "universe-name" battlemints-name attr >>universe-name ;
 
 : children-tags>things ( tag -- things )
     children-tags [ tag>thing ] map ;
@@ -293,7 +302,7 @@ CONSTANT: TILE-EDGE-PRECISION 64
     [ shape? ] partition
     [ [ walls ] [ shells ] bi ] dip 3append ;
 
-TUPLE: board things bounds background theme ;
+TUPLE: board things bounds background theme flags ;
 C: <board> board
 
 : write-board ( board -- )
@@ -304,12 +313,13 @@ C: <board> board
             [ bounds>> first2 [ write-vec2 ] bi@ ]
             [ theme>> write-pascal-string ]
             [ background>> first2 [ write-vec4 ] bi@ ]
+            [ flags>> write-int ]
             [ things>> [ write-thing ] each ]
         } cleave
     ] with-variable ;
 
-: svg>board-props ( svg -- background theme )
-    [ svg-background ] [ svg-theme ] bi ;
+: svg>board-props ( svg -- background theme flags )
+    [ svg-background ] [ svg-theme ] [ svg-board-flags ] tri ;
 
 : svg>board ( svg -- board )
     [ svg>things process-things dup board-extents ]

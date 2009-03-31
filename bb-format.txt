@@ -1,7 +1,7 @@
 magic := 0xBA7713BD
-version := 1
+version := 4
 
-board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} things:thing*
+board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} flags:int things:thing*
 
 pascal-string := length:uchar text:char{length} 
 
@@ -51,3 +51,4 @@ tile     := start:int length:int
 
 sign     := signface:int
 switch   := axis:vec2
+eraser   := :switch universe-name:pascal-string

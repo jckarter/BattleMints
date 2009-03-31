@@ -58,6 +58,7 @@ TUPLE: door < wall ;
 TUPLE: wallpost < point ;
 
 TUPLE: switch < transform-thing ;
+TUPLE: eraser < switch universe-name ;
 TUPLE: sign < transform-thing signface ;
 
 GENERIC: (shape-vertices) ( tile -- vertices )

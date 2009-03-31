@@ -33,12 +33,17 @@ struct cambot {
 
 struct board : controller {
     static const unsigned BOARD_MAGIC = 0xBA7713BD;
-    static const int BOARD_VERSION = 3;
+    static const int BOARD_VERSION = 4;
 
     static const vec2 CELL_SIZE;
     static const float LIVE_RADIUS;
 
+    enum flag_values {
+        SAFE = 1
+    };
+
     std::string name, theme;
+    int flags;
     boost::array<vec4, 2> background_gradient;
 
     boost::array<vec2, 4> background_vertices;
@@ -47,7 +52,7 @@ struct board : controller {
     font *hud_font;
     player *player_thing;
 
-    board(std::string const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg);
+    board(std::string const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg, int f);
     virtual ~board();
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done

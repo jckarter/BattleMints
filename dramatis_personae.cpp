@@ -2,6 +2,8 @@
 #include "serialization.hpp"
 #include "board.hpp"
 #include "renderers.hpp"
+#include "universe.hpp"
+#include <unistd.h>
 
 namespace battlemints {
 
@@ -200,7 +202,7 @@ void player::lose_pellets()
 
 void player::damage()
 {
-    if (!invuln && !panicked) {
+    if (!(board::current()->flags & board::SAFE) && !invuln && !panicked) {
         if (shielded)
             lose_shield();
         else if (grace_period == 0) {
@@ -380,7 +382,14 @@ void switch_spring::tick()
     vec2 axis_return = -perp_axis * vdot(disp + velocity, perp_axis);
     velocity += axis_return + spring * axis;
 
-    if (!triggered && axis_pos > (0.95f * SLOT_LENGTH)) {
+    if (axis_pos > (0.95f * SLOT_LENGTH)) {
+        switch_on();
+    }
+}
+
+void switch_spring::switch_on()
+{
+    if (!triggered) {
         triggered = true;
         if (label)
             board::current()->fire_trigger(label, last_touch);
@@ -400,6 +409,13 @@ void switch_spring::_set_matrix()
     slot_matrix[12] = home.x;
     slot_matrix[13] = home.y;
     slot_matrix[15] = 1.0f;
+}
+
+void
+eraser_switch::switch_on()
+{
+    unlink(universe::filename(universe_name).c_str());
+    board::current()->fire_trigger(label, last_touch);
 }
 
 }
