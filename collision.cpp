@@ -4,6 +4,7 @@
 
 namespace battlemints {
 
+// arm
 void transfer_momentum(sphere const &a, sphere const &b, vec2 &direction, float &a_coef, float &b_coef)
 {
     direction = vnormalize(b.center - a.center);
@@ -16,16 +17,19 @@ void transfer_momentum(sphere const &a, sphere const &b, vec2 &direction, float 
     b_coef = ((2.0f*a.mass*a_comp - mass_diff*b_comp) * mass_sum_inv - b_comp) + a.bounce*b.damp;
 }
 
+// arm
 void collide_sphere_line(sphere &a, line &b)
 {
     a.velocity = vreflect(b.normal, a.velocity);
 }
 
+// arm
 void collide_sphere_point(sphere &a, point &b)
 {
     a.velocity = vreflect(vnormalize(a.center - b.center), a.velocity);
 }
 
+// arm
 void collide_sphere_sphere(sphere &a, sphere &b)
 {
     vec2 direction;
@@ -42,6 +46,7 @@ namespace {
     // {s14-5}:  high1
     // {s20-1}:  low2
     // {s22-3}:  high2
+    // arm
     bool _boxes_overlap_vfp2()
     {
         bool r;
@@ -74,6 +79,7 @@ namespace {
     // Outputs:
     // {s12-3}:  low1
     // {s14-5}:  high1
+    // arm
     void _sphere_box_1_vfp2_r(sphere const &s)
     {
         __asm__ volatile (
@@ -96,6 +102,7 @@ namespace {
     // Outputs:
     // {s20-1}:  low2
     // {s22-3}:  high2
+    // arm
     void _sphere_box_2_vfp2_r(sphere const &s)
     {
         __asm__ volatile (
@@ -118,6 +125,7 @@ namespace {
     // Outputs:
     // {s20-1}:  low2
     // {s22-3}:  high2
+    // arm
     void _point_box_2_vfp2_r(point const &p)
     {
         __asm__ volatile (
@@ -132,6 +140,7 @@ namespace {
     // Outputs:
     // {s20-1}:  low2
     // {s22-3}:  high2
+    // arm
     void _line_box_2_vfp2_r(line const &l)
     {
         __asm__ volatile (
@@ -160,6 +169,7 @@ namespace {
     // {s24-25}: pt_b
     // {s16-7}:  velocity
     //  s1:      radius
+    // arm
     void _collision_time_points_vfp2_r() __attribute__((noinline));
     void _collision_time_points_vfp2_r()
     {
@@ -207,6 +217,7 @@ namespace {
     }
 }
 
+// arm
 void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
     __attribute__((noinline));
 void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
@@ -284,6 +295,7 @@ void collision_time_sphere_line_vfp2_r(sphere const &a, line const &b)
 #endif
 }
 
+// arm
 void collision_time_sphere_point_vfp2_r(sphere const &a, point const &b)
 {
 //    _sphere_box_1_vfp2_r(a);
@@ -304,6 +316,7 @@ void collision_time_sphere_point_vfp2_r(sphere const &a, point const &b)
 //    } else vfp_set_s0(INFINITYF);
 }
 
+// arm
 void collision_time_sphere_sphere_vfp2_r(sphere const &a, sphere const &b)
 {
 //    _sphere_box_1_vfp2_r(a);
@@ -330,6 +343,7 @@ void collision_time_sphere_sphere_vfp2_r(sphere const &a, sphere const &b)
 //    } else vfp_set_s0(INFINITYF);
 }
 
+// arm
 void thing::collide(thing &o)
 {
     switch (collision_type(o)) {
@@ -353,6 +367,7 @@ void thing::collide(thing &o)
     }
 }
 
+// arm
 void thing::collision_time_vfp2_r(thing const &o) const
 {
     switch (collision_type(o)) {

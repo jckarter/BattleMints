@@ -11,6 +11,7 @@ void global_start_walls()
     }};
 }
 
+// arm
 void door::_reset_clump(unsigned i)
 {
     float clump_life = rand_between(3.0f, 20.0f) * (float)i;
@@ -37,6 +38,7 @@ void door::draw_self() const
     glDrawArrays(GL_POINTS, 2, NUM_CLUMPS);
 }
 
+// arm
 void door::tick()
 {
     for (unsigned i = 0; i < NUM_CLUMPS; ++i)
@@ -49,6 +51,7 @@ void door::tick()
         *vi++ += *di++;
 }
 
+// arm
 void door::_init_draw()
 {
     vertices.beam = (boost::array<vec2, 2>){ endpoint_a, endpoint_b };

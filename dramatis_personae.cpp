@@ -282,6 +282,7 @@ void loose_pellet::on_collision(thing &o)
     }
 }
 
+// arm
 loose_pellet *loose_pellet::spawn(sphere const &from)
 {
     float speed = rand_between(MIN_SPEED, MAX_SPEED);
@@ -296,6 +297,7 @@ loose_pellet *loose_pellet::spawn(sphere const &from)
     return lp;
 }
 
+// arm
 void enemy::tick()
 {
     if (cur_accel != ZERO_VEC2)
@@ -364,6 +366,7 @@ void switch_spring::on_collision(thing &o)
     last_touch = &o;
 }
 
+// arm
 void switch_spring::tick()
 {
     vec2 perp_axis = vperp(axis);
@@ -396,6 +399,7 @@ void switch_spring::switch_on()
     }
 }
 
+// arm
 void switch_spring::_set_matrix()
 {
     vec2 perp_axis = vperp(axis);

@@ -144,6 +144,7 @@ image_texture::from_file(std::string const &name)
 
 GLuint sphere_face::array_buffer;
 
+// arm
 void sphere_face::global_start()
 {
     struct {
@@ -173,6 +174,7 @@ void sphere_face::global_finish()
     glDeleteBuffers(1, &array_buffer);
 }
 
+// arm
 sphere_face::state
 sphere_face::state_for_course(vec2 velocity, vec2 accel)
 {
@@ -187,6 +189,7 @@ sphere_face::state_for_course(vec2 velocity, vec2 accel)
         return speed > ideal ? normal   : stressed;
 }
 
+// arm
 float sphere_face::rotation(float magnitude)
 {
     return sphere_face::ROTATE_SPAN*(1.0f - 1.0f/(sphere_face::ROTATE_FACTOR*magnitude + 1.0f));
@@ -223,6 +226,7 @@ font::from_file(std::string const &name)
     return r;
 }
 
+// arm
 void
 font::draw_string(std::string const &s)
 {

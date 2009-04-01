@@ -114,6 +114,7 @@ goal::can_trip(thing &o)
     return o.flags & PLAYER;
 }
 
+// arm
 void
 goal::_set_up_vertices()
 {
@@ -221,6 +222,7 @@ loader::_set_descriptor()
     }
 }
 
+// arm
 void
 loader::_set_matrix()
 {

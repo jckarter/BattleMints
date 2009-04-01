@@ -12,6 +12,7 @@ namespace battlemints {
 boost::unordered_set<std::string> interned_symbols;
 
 #ifndef NO_GRAPHICS
+// arm
 void sphere::accelerate_with_exhaust(vec2 accel)
 {
     velocity += accel;

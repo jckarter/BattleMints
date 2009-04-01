@@ -28,6 +28,7 @@ grid::cell::sort_statics()
         ;
 }
 
+// arm
 grid::grid(rect space, vec2 cell_size)
     : _origin(space.low),
       _cell_size_inv(1.0f/cell_size),
@@ -36,6 +37,7 @@ grid::grid(rect space, vec2 cell_size)
       cells((unsigned)vproduct(vceil((space.high - space.low) * _cell_size_inv)))
 { }
 
+// arm
 void
 grid::_draw() const
 {
@@ -67,12 +69,14 @@ grid::_draw() const
     }
 }
 
+// arm
 void
 grid::add_thing(thing *t)
 {
     cell_for_point(t->center)->things.push_back(t);
 }
 
+// arm
 void
 grid::remove_thing(thing *t)
 {
@@ -80,6 +84,7 @@ grid::remove_thing(thing *t)
     c->things.erase(std::find(c->dynamic_begin(), c->things.end(), t));
 }
 
+// arm
 bool
 grid::move_thing(thing *t)
 {
@@ -94,6 +99,7 @@ grid::move_thing(thing *t)
         return false;
 }
 
+// arm
 std::vector<grid::cell>::iterator
 grid::cell_for_point(vec2 pt)
 {
@@ -104,6 +110,7 @@ grid::cell_for_point(vec2 pt)
     return cells.begin() + _pitch * (unsigned)coords.y + (unsigned)coords.x;
 }
 
+// arm
 std::vector<grid::cell>::const_iterator
 grid::cell_for_point(vec2 pt) const
 {

@@ -14,6 +14,7 @@ const boost::array<vec2, 4> particle_system::exhaust = {
     make_vec2(-9.0, -24.0)
 };
 
+// arm
 void particle_system::explode(thing *th, bool kill)
 {
     static const unsigned SHOCKWAVE_PARTICLES = 25, DEBRIS_PARTICLES = 75;
@@ -43,7 +44,6 @@ void particle_system::explode(thing *th, bool kill)
 
 void particle_system::draw()
 {
-#if 1
     glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
@@ -63,9 +63,9 @@ void particle_system::draw()
     }
 
     glDisableClientState(GL_COLOR_ARRAY);
-#endif
 }
 
+// arm
 static inline void _add_vertex_array_ranges(
     particle_system::vertex_buffer::array_range const &v,
     particle_system::vertex_buffer::array_range const &d)
@@ -76,6 +76,7 @@ static inline void _add_vertex_array_ranges(
         *vi++ += *di++;
 }
 
+// arm
 void particle_system::tick()
 {
     while (!_ages.empty() && _ages.front() >= LIFE_EXPECTANCY) {

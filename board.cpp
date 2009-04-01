@@ -13,6 +13,7 @@
 
 namespace battlemints {
 
+// arm
 void
 cambot::tick()
 {
@@ -43,6 +44,7 @@ board::board(std::string const &nm, rect bound, std::string const &thm, boost::a
 {
 }
 
+// arm
 void
 board::setup()
 {
@@ -83,6 +85,7 @@ board::setup()
     hud_font = font::from_file("profont");
 }
 
+// arm
 void
 board::_setup_background_vertices()
 {
@@ -125,6 +128,7 @@ board::remove_thing(thing *t)
 }
 
 namespace {
+    // arm
     bool _is_not_overlapping_time_vfp2()
     {
         bool r;
@@ -147,6 +151,7 @@ namespace {
         return r;
     }
 
+    // arm
     bool _is_collision_time_vfp2(float collide_time)
     {
         bool r;
@@ -170,6 +175,7 @@ namespace {
     }
 }
 
+// arm
 void
 board::_find_collision_in_pair_vfp2(
     grid::cell::iterator ia, grid::cell::iterator ib, collision &c
@@ -190,6 +196,7 @@ board::_find_collision_in_pair_vfp2(
     }
 }
 
+// arm
 void
 board::_find_collision_in_4_cells_vfp2(
     grid::cell_iterator cell_a,
@@ -233,6 +240,7 @@ board::_find_collision_in_4_cells_vfp2(
     }
 }
 
+// arm
 void
 board::_find_collision_in_2_cells_vfp2(
     grid::cell_iterator cell_a,
@@ -256,6 +264,7 @@ board::_find_collision_in_2_cells_vfp2(
     }
 }
 
+// arm
 void
 board::_find_collision_in_cell_vfp2(
     grid::cell_iterator cell_a,
@@ -274,6 +283,7 @@ board::_find_collision_in_cell_vfp2(
     }
 }
 
+// arm
 board::collision
 board::_find_collision(grid::cell_area live_area)
 {
@@ -303,6 +313,7 @@ board::_find_collision(grid::cell_area live_area)
     return c;
 }
 
+// arm
 void
 board::_collide_things(thing *a, thing *b)
 {
@@ -340,6 +351,7 @@ struct _sort_things_in_cell {
     }
 };
 
+// arm
 void
 board::draw()
 {
@@ -422,6 +434,7 @@ struct _move_things {
 
     _move_things(float t) : timeslice(t) { }
 
+    // arm
     void operator()(grid::cell &c) const
     {
         for (grid::cell::iterator i = c.dynamic_begin(); i != c.things.end(); ++i) {
@@ -439,6 +452,7 @@ struct _tick_things {
 
     _tick_things(board *bb) : b(bb) {}
 
+    // arm
     void operator()(grid::cell &c) const
     {
         grid::cell::iterator end = c.things.end();
@@ -507,6 +521,7 @@ board::from_file(std::string const &name)
 // s7 isn't clobbered by find_collision, so force tick_time to be kept there
 register float tick_time __asm__ ("s7");
 
+// arm
 void
 board::tick()
 {
