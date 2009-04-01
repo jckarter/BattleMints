@@ -59,16 +59,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="23.232521"
-     inkscape:cx="109.08639"
-     inkscape:cy="33.980011"
+     inkscape:zoom="17.605365"
+     inkscape:cx="27.23603"
+     inkscape:cy="34.136443"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="765"
-     inkscape:window-x="-33"
-     inkscape:window-y="45"
+     inkscape:window-x="923"
+     inkscape:window-y="650"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -164,15 +164,6 @@
        transform="matrix(-0.5,0.8660253,-0.8660253,-0.5,24.636212,-35.235689)"
        id="use6162"
        xlink:href="#tile-trapezoid"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(0.5,-0.8660253,0.8660253,0.5,7.6362116,-19.647235)"
-       id="use6172"
-       xlink:href="#tile-rhombus-60"
        y="0"
        x="0"
        style="display:inline" />
@@ -344,7 +335,7 @@
        y="0"
        xlink:href="#bumper"
        id="use6218"
-       transform="translate(14.869318,-30.267046)"
+       transform="translate(14.86939,-35.711835)"
        width="1000"
        height="10" />
     <use
@@ -506,36 +497,18 @@
        y="0"
        xlink:href="#tile-triangle"
        id="use6300"
-       transform="matrix(-1,0,0,-1,24.636168,-31.771462)"
+       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,23.636168,-30.039462)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.4999999,0.8660254,-0.8660254,0.4999999,19.636212,-36.96774)"
+       transform="matrix(-0.9999999,-1.3335416e-7,1.3335416e-7,-0.9999999,21.636212,-36.967689)"
        id="use6302"
        xlink:href="#tile-triangle"
        y="0"
        x="0"
        style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(0.5,-0.8660253,-0.8660253,-0.5,14.636256,-35.235664)"
-       id="use6304"
-       xlink:href="#tile-rhombus-60"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-60"
-       id="use6306"
-       transform="matrix(0.5,0.8660253,-0.8660253,0.5,14.636211,-7.5229317)"
-       width="1000"
-       height="10" />
     <use
        height="10"
        width="1000"
@@ -786,7 +759,7 @@
        y="0"
        xlink:href="#tile-triangle"
        id="use6378"
-       transform="matrix(-0.5,0.8660253,-0.8660253,-0.5,20.636167,-7.5229064)"
+       transform="translate(19.636167,-5.7908558)"
        width="1000"
        height="10" />
     <use
@@ -1737,6 +1710,123 @@
        transform="translate(16.896452,-21.522816)"
        width="1000"
        height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.4999999,0.8660254,0.8660254,-0.4999999,23.636123,-12.718982)"
+       id="use9287"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9802"
+       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,5.9041421,-18.647253)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.5,0.8660253,-0.8660253,0.5,4.9041861,-20.379329)"
+       id="use9804"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9806"
+       transform="matrix(1.3335416e-7,0.9999999,-0.9999999,1.3335416e-7,4.9042367,-22.379329)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,5.9041602,-24.111285)"
+       id="use9808"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.8660254,-0.4999999,0.4999999,0.8660254,17.636141,-3.7908999)"
+       id="use9810"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9812"
+       transform="translate(15.636141,-3.7909499)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.8660254,0.4999999,-0.4999999,0.8660254,13.904115,-4.7909949)"
+       id="use9814"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9816"
+       transform="matrix(0.5,0.8660253,-0.8660253,0.5,12.90416,-6.5229309)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9818"
+       transform="matrix(0.8660254,0.4999999,0.4999999,-0.8660254,17.636213,-38.967791)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(1,0,0,-1,15.636213,-38.967741)"
+       id="use9820"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use9822"
+       transform="matrix(0.8660254,-0.4999999,-0.4999999,-0.8660254,13.904187,-37.967696)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.5,-0.8660253,-0.8660253,-0.5,12.904232,-36.23576)"
+       id="use9824"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -1896,9 +1986,10 @@
        inkscape:label="#path5300" />
     <path
        style="fill:#d5ffd5;fill-rule:evenodd;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-       d="M 0,0 L 1,-1.732 L 2,0 L 0,0 z"
+       d="M 0,0 L 0.88219309,-1.5279584 L 1,-1.9474789 L 1.1001246,-1.5217842 L 2,0 L 0,0 z"
        id="tile-triangle"
-       inkscape:label="#path5302" />
+       inkscape:label="#path5302"
+       sodipodi:nodetypes="cccccc" />
     <g
        id="powerup"
        inkscape:label="#g5752">
