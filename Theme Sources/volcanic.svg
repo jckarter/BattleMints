@@ -211,7 +211,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="stencils">
+     inkscape:label="stencils"
+     style="display:none">
     <path
        sodipodi:nodetypes="ccccccc"
        inkscape:label="#path5308"

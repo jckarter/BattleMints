@@ -776,8 +776,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="stencils"
-     sodipodi:insensitive="true"
-     style="display:inline">
+     style="display:none"
+     sodipodi:insensitive="true">
     <path
        sodipodi:nodetypes="ccccccc"
        inkscape:label="#path5308"

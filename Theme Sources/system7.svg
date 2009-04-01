@@ -34,7 +34,7 @@
      inkscape:cx="213.6741"
      inkscape:cy="916.41053"
      inkscape:document-units="px"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="layer3"
      showgrid="true"
      inkscape:snap-global="false"
      inkscape:object-nodes="true"
@@ -359,7 +359,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="stencils"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:nodetypes="ccccccc"
        inkscape:label="#path5308"

@@ -60,15 +60,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="25.28"
-     inkscape:cx="34.125307"
-     inkscape:cy="104.82654"
+     inkscape:cx="32.543029"
+     inkscape:cy="58.940464"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1232"
      inkscape:window-height="701"
-     inkscape:window-x="1239"
-     inkscape:window-y="519"
+     inkscape:window-x="208"
+     inkscape:window-y="199"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -559,7 +559,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(24.616775,-17.949782)"
+       transform="translate(24.65189,-17.561093)"
        id="use6537"
        xlink:href="#player"
        y="0"
@@ -1409,7 +1409,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(24.621132,-17.704872)"
+       transform="translate(24.80189,-17.56099)"
        id="use9853"
        xlink:href="#mini"
        y="0"
@@ -1841,9 +1841,9 @@
        id="use6652"
        width="1000"
        height="10"
-       transform="matrix(-0.9999999,-8.5712909e-8,8.5712909e-8,-0.9999999,16.466905,-46.796811)" />
+       transform="matrix(-0.9999999,-8.5712909e-8,8.5712909e-8,-0.9999999,16.862475,-46.796811)" />
     <use
-       transform="translate(32.927761,-46.920969)"
+       transform="translate(32.492634,-46.920969)"
        height="10"
        width="1000"
        id="use6654"
@@ -2117,7 +2117,7 @@
        id="use9190"
        width="1000"
        height="10"
-       transform="matrix(8.5712909e-8,-0.9999999,0.9999999,8.5712909e-8,24.642756,-22.232604)" />
+       transform="matrix(8.5712909e-8,-0.9999999,0.9999999,8.5712909e-8,24.62877,-21.684181)" />
     <use
        height="10"
        width="1000"
@@ -2877,7 +2877,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(24.653956,-19.183703)"
+       transform="translate(24.63997,-18.63528)"
        id="use8333"
        xlink:href="#pellet"
        y="0"
@@ -2889,13 +2889,13 @@
        y="0"
        xlink:href="#pellet"
        id="use8336"
-       transform="translate(24.653956,-20.789067)"
+       transform="translate(24.63997,-20.240644)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(24.653956,-19.997928)"
+       transform="translate(24.63997,-19.449505)"
        id="use8338"
        xlink:href="#pellet"
        y="0"
