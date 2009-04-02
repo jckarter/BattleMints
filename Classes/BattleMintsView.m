@@ -2,17 +2,34 @@
 #import <OpenGLES/EAGLDrawable.h>
 
 #import "BattleMintsView.h"
+#import "BattleMintsPauseView.h"
 #include "battlemints.h"
 
-@interface BattleMintsView ()
+#ifndef BENCHMARK
+const double BATTLEMINTS_ANIMATION_INTERVAL = 1.0/60.0;
+#else
+const double BATTLEMINTS_ANIMATION_INTERVAL = 1.0/15.0;
+#endif
 
-@property (nonatomic, retain) EAGLContext *context;
-@property (nonatomic, assign) NSTimer *animationTimer;
+@interface BattleMintsView ()
 
 - (BOOL) createFramebuffer;
 - (void) destroyFramebuffer;
 
 @end
+
+const CGFloat BATTLEMINTS_PAUSE_AREA = 40.0f;
+
+static BOOL _is_pause_touch(BattleMintsView *view, UITouch *touch)
+{
+    CGPoint location = [touch locationInView:view];
+    CGSize bounds = [view bounds].size;
+    
+    return view->animationTimer
+        && (battlemints_pause_flags() & BATTLEMINTS_GAME_ACTIVE)
+        && (bounds.width  - location.x <= BATTLEMINTS_PAUSE_AREA)
+        && (bounds.height - location.y <= BATTLEMINTS_PAUSE_AREA);
+}
 
 static void _report_touch(UIView *view, UITouch *touch)
 {
@@ -28,9 +45,7 @@ static void _report_touch(UIView *view, UITouch *touch)
 
 @implementation BattleMintsView
 
-@synthesize context;
-@synthesize animationTimer;
-@synthesize animationInterval;
+@synthesize pauseView;
 
 + (Class)layerClass
 {
@@ -41,7 +56,8 @@ static void _report_touch(UIView *view, UITouch *touch)
 {
     if ((self = [super initWithCoder:coder])) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
-        
+        animationTimer = nil;
+
         eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
@@ -57,8 +73,6 @@ static void _report_touch(UIView *view, UITouch *touch)
         }
         
         battlemints_start();
-        
-        animationInterval = 1.0 / 60.0;
     }
     return self;
 }
@@ -124,61 +138,66 @@ static void _report_touch(UIView *view, UITouch *touch)
     glDeleteRenderbuffersOES(1, &viewRenderbuffer);
     viewRenderbuffer = 0;
     
-    if(depthRenderbuffer) {
-        glDeleteRenderbuffersOES(1, &depthRenderbuffer);
-        depthRenderbuffer = 0;
-    }
+//    if(depthRenderbuffer) {
+//        glDeleteRenderbuffersOES(1, &depthRenderbuffer);
+//        depthRenderbuffer = 0;
+//    }
 }
 
-- (void)startAnimation
+- (void)unpause
 {
-    if (animationInterval != 0.0)
-        self.animationTimer = [NSTimer
-            scheduledTimerWithTimeInterval:animationInterval
+    if (!animationTimer) {
+        animationTimer = [[NSTimer
+            scheduledTimerWithTimeInterval:BATTLEMINTS_ANIMATION_INTERVAL
             target:self
             selector:@selector(tick)
             userInfo:nil
             repeats:YES
-        ];
-    else
-        self.animationTimer = nil;
-}
-
-- (void)stopAnimation
-{
-    self.animationTimer = nil;
-}
-
-- (void)setAnimationTimer:(NSTimer *)newTimer
-{
-    [animationTimer invalidate];
-    animationTimer = newTimer;
-}
-
-- (void)setAnimationInterval:(NSTimeInterval)interval
-{
-    animationInterval = interval;
-    if (animationTimer) {
-        [self stopAnimation];
-        [self startAnimation];
+        ] retain];
     }
+}
+
+- (void)pause
+{
+    if (animationTimer) {
+        [animationTimer invalidate];
+        [animationTimer release];
+        animationTimer = nil;
+    }
+}
+
+- (void)pauseMenu
+{
+    [[NSBundle mainBundle] loadNibNamed:@"BattleMintsPauseView"
+                           owner:self
+                           options:[NSDictionary dictionary]];
+    [self addSubview:self.pauseView];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
     UITouch *touch = [touches anyObject];
-    _report_touch(self, touch);
+    touchStartedAsPause = _is_pause_touch(self, touch);
+    if (!touchStartedAsPause)
+        _report_touch(self, touch);
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
     UITouch *touch = [touches anyObject];
-    _report_touch(self, touch);
+    if (!touchStartedAsPause)
+        _report_touch(self, touch);
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
-    battlemints_input(0.0, 0.0, 0);
+    UITouch *touch = [touches anyObject];
+
+    BOOL touchEndedAsPause = _is_pause_touch(self, touch);
+    if (touchStartedAsPause && touchEndedAsPause)
+        [self pauseMenu];
+    else
+        battlemints_input(0.0, 0.0, 0);
 }
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
@@ -188,7 +207,7 @@ static void _report_touch(UIView *view, UITouch *touch)
 
 - (void)dealloc
 {
-    [self stopAnimation];
+    [self pause];
     
     [EAGLContext setCurrentContext:context];
     battlemints_finish();

@@ -13,6 +13,13 @@
 
 namespace battlemints {
 
+boost::array<vec2, 4> board::pause_button_vertices = {
+    make_vec2( 0.0f,  0.0f),
+    make_vec2(32.0f,  0.0f),
+    make_vec2( 0.0f, 31.0f),
+    make_vec2(32.0f, 31.0f),
+};
+
 // arm
 void
 cambot::tick()
@@ -38,6 +45,7 @@ board::board(std::string const &nm, rect bound, std::string const &thm, boost::a
       camera(),
       particles(),
       hud_font(NULL),
+      pause_button(NULL),
       _grid(bound, CELL_SIZE),
       _tick_count(0),
       _overlaps()
@@ -83,6 +91,7 @@ board::setup()
         th->awaken();
 
     hud_font = font::from_file("profont");
+    pause_button = image_texture::from_file("pause-button.png");
 }
 
 // arm
@@ -399,9 +408,6 @@ board::_draw_background()
 void
 board::_draw_hud()
 {
-    if (flags & SAFE || !player_thing || !thing_lives(player_thing))
-        return;
-
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -412,18 +418,30 @@ board::_draw_hud()
 
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glBindTexture(GL_TEXTURE_2D, hud_font->texture);
 
-    if (player_thing->pellets == 0 && (tick_count() & 4))
-        glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
-    else
-        glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+    glBindTexture(GL_TEXTURE_2D, pause_button->texture);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    glTranslatef(128.0f, -240.0f, 0.0f);
 
-    glTranslatef(-150.0f, 200.0f, 0.0f);
-    font::draw_string("PELLETS");
+    glVertexPointer(2, GL_FLOAT, 0, (void*)&pause_button_vertices);
+    glTexCoordPointer(2, GL_FLOAT, 0, (void*)&pause_button->texcoords);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-    glTranslatef(12.0f*9.0f, 0.0f, 0.0f);
-    font::draw_string(boost::lexical_cast<std::string>(player_thing->pellets));
+    if (!(flags & SAFE) && player_thing && thing_lives(player_thing)) {
+        glBindTexture(GL_TEXTURE_2D, hud_font->texture);
+
+        if (player_thing->pellets == 0 && (tick_count() & 4))
+            glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
+        else
+            glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+
+        glLoadIdentity();
+        glTranslatef(-150.0f, 200.0f, 0.0f);
+        font::draw_string("PELLETS");
+
+        glTranslatef(12.0f*9.0f, 0.0f, 0.0f);
+        font::draw_string(boost::lexical_cast<std::string>(player_thing->pellets));
+    }
 
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();

@@ -1,36 +1,30 @@
 #import "BattleMintsAppDelegate.h"
 #import "BattleMintsView.h"
 
-#ifndef BENCHMARK
-static const double ANIMATION_INTERVAL = 1.0/60.0;
-#else
-static const double ANIMATION_INTERVAL = 1.0/15.0;
-#endif
-
 @implementation BattleMintsAppDelegate
 
 @synthesize window;
 @synthesize glView;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-    
-	glView.animationInterval = ANIMATION_INTERVAL;
-	[glView startAnimation];
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
+    [glView unpause];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-	glView.animationInterval = 0.0;
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    [glView pause];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-	glView.animationInterval = ANIMATION_INTERVAL;
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [glView unpause];
 }
-
 
 - (void)dealloc {
-	[window release];
-	[glView release];
-	[super dealloc];
+    [window release];
+    [glView release];
+    [super dealloc];
 }
 
 @end

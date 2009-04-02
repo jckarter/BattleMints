@@ -3,30 +3,30 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
+@class BattleMintsPauseView;
+
 @interface BattleMintsView : UIView
 {
-    
-@private
-    /* The pixel dimensions of the backbuffer */
+@public
     GLint backingWidth;
     GLint backingHeight;
     
     EAGLContext *context;
     
-    /* OpenGL names for the renderbuffer and framebuffers used to render to this view */
     GLuint viewRenderbuffer, viewFramebuffer;
     
-    /* OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist) */
-    GLuint depthRenderbuffer;
-    
     NSTimer *animationTimer;
-    NSTimeInterval animationInterval;
+
+    BattleMintsPauseView *pauseView;
+
+    BOOL touchStartedAsPause;
 }
 
-@property NSTimeInterval animationInterval;
+@property(nonatomic, retain) IBOutlet BattleMintsPauseView *pauseView;
 
-- (void)startAnimation;
-- (void)stopAnimation;
+- (void)pause;
+- (void)unpause;
+- (void)pauseMenu;
 - (void)drawView;
 
 @end

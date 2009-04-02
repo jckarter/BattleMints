@@ -38,6 +38,8 @@ struct board : controller {
     static const vec2 CELL_SIZE;
     static const float LIVE_RADIUS;
 
+    static boost::array<vec2, 4> pause_button_vertices;
+
     enum flag_values {
         SAFE = 1
     };
@@ -50,6 +52,7 @@ struct board : controller {
     boost::array<vec4, 4> background_colors;
 
     font *hud_font;
+    image_texture *pause_button;
     player *player_thing;
 
     board(std::string const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg, int f);

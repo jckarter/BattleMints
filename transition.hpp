@@ -29,6 +29,11 @@ struct goal_transition : transition {
         : transition(f, t, 1, 60, make_vec4(1.0, 1.0, 1.0, 5.0)) { }
 };
 
+struct fadeout_transition : transition {
+    fadeout_transition(controller *f, controller *t)
+        : transition(f, t, 1, 30, make_vec4(0.0, 0.0, 0.0, 1.0)) { }
+};
+
 struct death_transition : transition {
     death_transition(controller *f, controller *t)
         : transition(f, t, 3, 120, make_vec4(1.0, 0.0, 0.0, 0.5)) { }

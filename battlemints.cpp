@@ -84,3 +84,32 @@ void battlemints_finish()
     renderer::global_finish();
     sphere_face::global_finish();
 }
+
+extern "C"
+void battlemints_go_to_hub()
+{
+    if (board::current()) {
+        board::change_board_with<fadeout_transition>("hub");
+    }
+}
+
+extern "C"
+void battlemints_go_to_start()
+{
+    if (board::current()) {
+        universe::name.reset();
+        board::change_board_with<fadeout_transition>("start");
+    }
+}
+
+extern "C"
+int battlemints_pause_flags()
+{
+    if (board::current()) {
+        return BATTLEMINTS_GAME_ACTIVE
+            |  (board::current()->name == "hub"   ? BATTLEMINTS_HUB_MAP   : 0)
+            |  (board::current()->name == "start" ? BATTLEMINTS_START_MAP : 0);
+    } else
+        return 0;
+}
+
