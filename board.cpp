@@ -411,9 +411,9 @@ void
 board::_update_hud_bufs()
 {
     pellets_buf[10] = '0' + player_thing->pellets % 10;
-    if (player_thing->pellets > 10) {
+    if (player_thing->pellets >= 10) {
         pellets_buf[9] = '0' + (player_thing->pellets / 10) % 10;
-        if (player_thing->pellets > 100)
+        if (player_thing->pellets >= 100)
             pellets_buf[8] = '0' + (player_thing->pellets / 100) % 10;
         else
             pellets_buf[8] = ' ';
@@ -425,7 +425,7 @@ board::_update_hud_bufs()
     time_buf[10] = '0' + (tick_count() /    60) % 10;
     time_buf[ 9] = '0' + (tick_count() /   600) %  6;
     time_buf[ 7] = '0' + (tick_count() /  3600) % 10;
-    if (tick_count() > 36000)
+    if (tick_count() >= 36000)
         time_buf[ 6] = '0' + (tick_count() / 36000) % 10;
     else
         time_buf[ 6] = ' ';
