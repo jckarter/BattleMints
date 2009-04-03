@@ -174,7 +174,7 @@ loader::draw_self() const
 void
 loader::on_trip(thing &o)
 {
-    universe::name = universe_name;
+    universe::set_name(universe_name);
     universe::instance.load(universe_name);
     board::change_board_with<goal_transition>(universe::instance.current_map);
 }

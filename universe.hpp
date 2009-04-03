@@ -15,6 +15,10 @@ struct universe {
     static universe instance;
     static boost::optional<std::string> name;
 
+    static void set_default_name();
+    static void set_name(std::string const &n);
+    static void clear_name();
+
     static std::string filename(std::string const &nm);
 
     void set_default();

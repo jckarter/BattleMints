@@ -44,7 +44,7 @@ struct board : controller {
         SAFE = 1
     };
 
-    std::string name, theme;
+    std::string name, theme, pellets_buf, time_buf;
     int flags;
     boost::array<vec4, 2> background_gradient;
 
@@ -109,6 +109,7 @@ private:
     void _collide_things(thing *a, thing *b);
     void _draw_background();
     void _draw_hud();
+    void _update_hud_bufs();
     void _setup_background_vertices();
 
     friend struct _tick_things;

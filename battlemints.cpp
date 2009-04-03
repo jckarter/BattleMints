@@ -25,8 +25,13 @@ void battlemints_start()
 {
     sranddev();
 
-    universe::instance.set_default();
-    universe::instance.set_current_map(INITIAL_MAP);
+    universe::set_default_name();
+    if (universe::name)
+        universe::instance.load(*universe::name);
+    else {
+        universe::instance.set_default();
+        universe::instance.set_current_map(INITIAL_MAP);
+    }
 
     sphere_face::global_start(); // must happen first!
     renderer::global_start(); // must happen second!
@@ -97,7 +102,7 @@ extern "C"
 void battlemints_go_to_start()
 {
     if (board::current()) {
-        universe::name.reset();
+        universe::clear_name();
         board::change_board_with<fadeout_transition>("start");
     }
 }

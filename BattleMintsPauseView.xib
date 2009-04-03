@@ -36,7 +36,7 @@
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="930505012">
+					<object class="IBUIImageView" id="1030049608">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{180, 230}</string>
@@ -50,16 +50,16 @@
 							<string key="NSResourceName">pause-background.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="376350310">
+					<object class="IBUIButton" id="361127863">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{27, 70}, {126, 35}}</string>
+						<string key="NSFrame">{{27, 65}, {126, 35}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont" id="636794356">
+						<object class="NSFont" key="IBUIFont" id="1051890580">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">1.500000e+01</double>
 							<int key="NSfFlags">16</int>
@@ -69,37 +69,38 @@
 						<string key="IBUIDisabledTitle">Continue</string>
 						<string key="IBUISelectedTitle">Continue</string>
 						<string key="IBUINormalTitle">Continue</string>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="915868593">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
+						<object class="NSColor" key="IBUIHighlightedTitleColor" id="620275349">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MC40MTE3NjQ3NCAwLjUzMzMzMzM2IDAuMzcyNTQ5MDMAA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
-						</object>
+						<reference key="IBUIDisabledTitleColor" ref="620275349"/>
+						<reference key="IBUISelectedTitleColor" ref="620275349"/>
+						<reference key="IBUINormalTitleColor" ref="620275349"/>
 					</object>
-					<object class="IBUIButton" id="203547877">
+					<object class="IBUIButton" id="780997137">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{27, 126}, {126, 35}}</string>
+						<string key="NSFrame">{{27, 127}, {126, 35}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="636794356"/>
+						<reference key="IBUIFont" ref="1051890580"/>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUIHighlightedTitle">Return to Hub</string>
 						<string key="IBUIDisabledTitle">Return to Hub</string>
 						<string key="IBUISelectedTitle">Return to Hub</string>
 						<string key="IBUINormalTitle">Return to Hub</string>
-						<reference key="IBUIHighlightedTitleColor" ref="915868593"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1006398262">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MC40MTE3NjQ3NCAwLjUzMzMzMzM2IDAuMzcyNTQ5MDMAA</bytes>
 						</object>
+						<reference key="IBUIDisabledTitleColor" ref="1006398262"/>
+						<reference key="IBUISelectedTitleColor" ref="1006398262"/>
+						<reference key="IBUINormalTitleColor" ref="1006398262"/>
 					</object>
-					<object class="IBUIButton" id="902225648">
+					<object class="IBUIButton" id="560449434">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{27, 189}, {126, 35}}</string>
@@ -108,19 +109,21 @@
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="636794356"/>
+						<reference key="IBUIFont" ref="1051890580"/>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUIHighlightedTitle">New Game</string>
 						<string key="IBUIDisabledTitle">New Game</string>
 						<string key="IBUISelectedTitle">New Game</string>
 						<string key="IBUINormalTitle">New Game</string>
-						<reference key="IBUIHighlightedTitleColor" ref="915868593"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+						<object class="NSColor" key="IBUIHighlightedTitleColor" id="220566094">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MC40MTE3NjQ3NCAwLjUzMzMzMzM2IDAuMzcyNTQ5MDMAA</bytes>
 						</object>
+						<reference key="IBUIDisabledTitleColor" ref="220566094"/>
+						<reference key="IBUISelectedTitleColor" ref="220566094"/>
+						<reference key="IBUINormalTitleColor" ref="220566094"/>
 					</object>
-					<object class="IBUILabel" id="339649167">
+					<object class="IBUILabel" id="790761220">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 20}, {140, 29}}</string>
@@ -157,7 +160,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">unpause:</string>
-						<reference key="source" ref="376350310"/>
+						<reference key="source" ref="361127863"/>
 						<reference key="destination" ref="191373211"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -167,14 +170,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">unpauseButton</string>
 						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="376350310"/>
+						<reference key="destination" ref="361127863"/>
 					</object>
 					<int key="connectionID">8</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goToHub:</string>
-						<reference key="source" ref="203547877"/>
+						<reference key="source" ref="780997137"/>
 						<reference key="destination" ref="191373211"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -184,14 +187,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">goToHubButton</string>
 						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="203547877"/>
+						<reference key="destination" ref="780997137"/>
 					</object>
 					<int key="connectionID">10</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goToStart:</string>
-						<reference key="source" ref="902225648"/>
+						<reference key="source" ref="560449434"/>
 						<reference key="destination" ref="191373211"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -201,7 +204,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">goToStartButton</string>
 						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="902225648"/>
+						<reference key="destination" ref="560449434"/>
 					</object>
 					<int key="connectionID">12</int>
 				</object>
@@ -230,11 +233,11 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="339649167"/>
-							<reference ref="902225648"/>
-							<reference ref="376350310"/>
-							<reference ref="203547877"/>
-							<reference ref="930505012"/>
+							<reference ref="790761220"/>
+							<reference ref="1030049608"/>
+							<reference ref="780997137"/>
+							<reference ref="560449434"/>
+							<reference ref="361127863"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -251,27 +254,27 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="339649167"/>
+						<reference key="object" ref="790761220"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
-						<reference key="object" ref="376350310"/>
+						<reference key="object" ref="361127863"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
-						<reference key="object" ref="203547877"/>
+						<reference key="object" ref="780997137"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
-						<reference key="object" ref="902225648"/>
+						<reference key="object" ref="560449434"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">13</int>
-						<reference key="object" ref="930505012"/>
+						<reference key="object" ref="1030049608"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -295,7 +298,7 @@
 					<string>BattleMintsView</string>
 					<string>UIResponder</string>
 					<string>BattleMintsPauseView</string>
-					<string>{{1470, 905}, {180, 230}}</string>
+					<string>{{1472, 913}, {180, 230}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

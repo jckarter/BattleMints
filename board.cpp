@@ -40,6 +40,8 @@ board *board::_current = NULL;
 board::board(std::string const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg, int f)
     : name(nm),
       theme(thm),
+      pellets_buf("PELLETS 000"),
+      time_buf(   "TIME  00'00\"00"),
       flags(f),
       background_gradient(bg),
       camera(),
@@ -406,6 +408,30 @@ board::_draw_background()
 }
 
 void
+board::_update_hud_bufs()
+{
+    pellets_buf[10] = '0' + player_thing->pellets % 10;
+    if (player_thing->pellets > 10) {
+        pellets_buf[9] = '0' + (player_thing->pellets / 10) % 10;
+        if (player_thing->pellets > 100)
+            pellets_buf[8] = '0' + (player_thing->pellets / 100) % 10;
+        else
+            pellets_buf[8] = ' ';
+    } else
+        pellets_buf[8] = pellets_buf[9] = ' ';
+
+    time_buf[13] = '0' +  tick_count()          % 10;
+    time_buf[12] = '0' + (tick_count() /    10) %  6;
+    time_buf[10] = '0' + (tick_count() /    60) % 10;
+    time_buf[ 9] = '0' + (tick_count() /   600) %  6;
+    time_buf[ 7] = '0' + (tick_count() /  3600) % 10;
+    if (tick_count() > 36000)
+        time_buf[ 6] = '0' + (tick_count() / 36000) % 10;
+    else
+        time_buf[ 6] = ' ';
+}
+
+void
 board::_draw_hud()
 {
     glMatrixMode(GL_PROJECTION);
@@ -428,6 +454,8 @@ board::_draw_hud()
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     if (!(flags & SAFE) && player_thing && thing_lives(player_thing)) {
+        _update_hud_bufs();
+
         glBindTexture(GL_TEXTURE_2D, hud_font->texture);
 
         if (player_thing->pellets == 0 && (tick_count() & 4))
@@ -437,10 +465,10 @@ board::_draw_hud()
 
         glLoadIdentity();
         glTranslatef(-150.0f, 200.0f, 0.0f);
-        font::draw_string("PELLETS");
-
-        glTranslatef(12.0f*9.0f, 0.0f, 0.0f);
-        font::draw_string(boost::lexical_cast<std::string>(player_thing->pellets));
+        font::draw_string(pellets_buf);
+        glTranslatef(0.0f, -26.0f, 0.0f);
+        glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+        font::draw_string(time_buf);
     }
 
     glMatrixMode(GL_PROJECTION);

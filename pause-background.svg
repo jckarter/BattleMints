@@ -30,15 +30,15 @@
        id="perspective8701" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath10524">
+       id="clipPath10529">
       <rect
-         style="opacity:0.5;fill:#484537;fill-opacity:1;stroke:none;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect10526"
-         width="78.591034"
-         height="87.759995"
-         x="679.23578"
-         y="-482.83234"
          ry="6.2645035"
+         y="-489.76926"
+         x="679.23578"
+         height="100.42188"
+         width="78.591019"
+         id="rect10531"
+         style="opacity:0.5;fill:#484537;fill-opacity:1;stroke:none;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          transform="matrix(-7.641793e-8,1,-1,-7.641793e-8,0,0)" />
     </clipPath>
   </defs>
@@ -69,7 +69,7 @@
        visible="true"
        enabled="true"
        spacingx="180px"
-       spacingy="201px"
+       spacingy="230px"
        originx="0px"
        originy="0px" />
   </sodipodi:namedview>
@@ -90,9 +90,9 @@
      id="layer1">
     <g
        id="g3350"
-       transform="matrix(-1.7502285e-7,-2.2903375,2.2903375,-1.7502285e-7,-1555.6792,1105.849)"
-       clip-path="url(#clipPath10524)"
-       style="opacity:0.50403226">
+       transform="matrix(-1.7502285e-7,-2.2903375,2.2903375,-1.7502285e-7,-1555.6792,1092.7369)"
+       clip-path="url(#clipPath10529)"
+       style="opacity:0.50403227">
       <rect
          ry="0"
          rx="0"
@@ -101,7 +101,7 @@
          height="78.648254"
          width="129.36177"
          id="rect3346"
-         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.27437665999999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.27437666;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <rect
          y="679.20721"
          x="374.62259"
@@ -124,11 +124,14 @@
     </g>
     <rect
        ry="14.347827"
-       y="-6.3285888e-06"
-       x="-2.4452964e-05"
-       height="201"
-       width="179.99998"
+       y="-29"
+       x="0"
+       height="230"
+       width="179.99995"
        id="rect10519"
-       style="opacity:0.5;fill:#484537;fill-opacity:1;stroke:none;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="opacity:0.5;fill:#484537;fill-opacity:1;stroke:none;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/joe/Documents/Code/BattleMints/pause-background.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
