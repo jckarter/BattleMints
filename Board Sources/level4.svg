@@ -86,15 +86,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="13.34358"
-     inkscape:cx="25.335838"
-     inkscape:cy="111.3645"
+     inkscape:cx="28.333534"
+     inkscape:cy="125.6413"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="716"
-     inkscape:window-x="1130"
-     inkscape:window-y="584"
+     inkscape:window-x="5"
+     inkscape:window-y="26"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -2589,7 +2589,7 @@
        height="10" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 37.705196,-128.8026 L 29.446702,-128.63082"
+       d="M 17.731946,-137.18492 L 10.932929,-131.65023"
        id="path4227"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc"
@@ -2861,7 +2861,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,20.250637,-116.03991)"
+       transform="matrix(0.9975477,6.9989327e-2,-6.9989327e-2,0.9975477,20.360504,-116.27259)"
        id="use4211"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -2976,15 +2976,6 @@
        transform="matrix(-0.8660253,-0.5,0.5,-0.8660253,23.714677,-116.03993)"
        width="1000"
        height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.2588191,0.9659257,0.9659257,0.2588191,22.50027,-118.97182)"
-       id="use4320"
-       xlink:href="#tile-rhombus-45"
-       y="0"
-       x="0"
-       style="display:inline" />
     <use
        style="display:inline"
        x="0"
@@ -3161,16 +3152,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(-8.5712909e-8,0.9999999,-0.9999999,-8.5712909e-8,37.705157,-117.21164)"
-       id="use4382"
-       xlink:href="#tile-hexagon"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,29.446662,-117.03986)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,19.128944,-123.45416)"
        id="use4384"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -3182,13 +3164,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use4386"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,37.705156,-117.21164)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,25.927961,-128.98885)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,29.446675,-120.90351)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,16.396942,-126.18617)"
        id="use4388"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -3200,13 +3182,13 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use4390"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,37.705169,-121.07529)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,23.195958,-131.72086)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,37.705182,-124.93894)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,20.463952,-134.45289)"
        id="use4392"
        xlink:href="#tile-rhombus-30"
        y="0"
@@ -3218,7 +3200,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use4394"
-       transform="matrix(0.9659258,-0.258819,0.258819,0.9659258,29.446688,-124.76716)"
+       transform="matrix(0.5,-0.8660253,0.8660253,0.5,13.664935,-128.9182)"
        width="1000"
        height="10" />
     <use
@@ -3358,13 +3340,13 @@
        y="0"
        xlink:href="#durian"
        id="use4440"
-       transform="translate(35.146439,-119.57756)"
+       transform="translate(35.296323,-112.98263)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(35.146439,-121.57756)"
+       transform="translate(35.071496,-109.66172)"
        id="use4442"
        xlink:href="#durian"
        y="0"
@@ -3378,13 +3360,13 @@
        y="0"
        xlink:href="#durian"
        id="use4444"
-       transform="translate(35.146439,-123.57756)"
+       transform="translate(34.846669,-115.78355)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(35.146439,-125.57756)"
+       transform="translate(35.146439,-114.41115)"
        id="use4446"
        xlink:href="#durian"
        y="0"
@@ -3398,7 +3380,7 @@
        y="0"
        xlink:href="#durian"
        id="use4448"
-       transform="translate(35.146439,-127.57756)"
+       transform="translate(35.146439,-111.31506)"
        width="1000"
        height="10" />
     <use
@@ -3582,6 +3564,244 @@
        xlink:href="#tile-rhombus-30"
        id="use4461"
        transform="matrix(-0.8660254,-0.4999999,-0.4999999,0.8660254,14.751287,-17.36247)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.2588191,0.9659257,0.9659257,-0.2588191,28.756388,-128.98885)"
+       id="use6757"
+       xlink:href="#tile-hexagon"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-hexagon"
+       id="use6759"
+       transform="matrix(-0.8660253,0.5,0.5,0.8660253,34.669905,-126.5394)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-hexagon"
+       id="use6761"
+       transform="matrix(-0.2588191,-0.9659257,-0.9659257,0.2588191,37.705156,-117.21164)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-8.5712909e-8,-0.9999999,-0.9999999,8.5712909e-8,37.705156,-113.21164)"
+       id="use6763"
+       xlink:href="#tile-hexagon"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.7071067,-0.7071068,0.7071068,0.7071067,27.342175,-127.57464)"
+       id="use6765"
+       xlink:href="#tile-square"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.7071068,-0.7071067,-0.7071067,-0.7071068,27.342175,-130.40307)"
+       id="use6767"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use6769"
+       transform="matrix(0.5,0.8660253,0.8660253,-0.5,33.937879,-129.2714)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.7071067,-0.7071068,0.7071068,0.7071067,34.66988,-124.53944)"
+       id="use6771"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use6773"
+       transform="translate(34.669836,-124.53942)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.9659257,-0.2588191,0.2588191,0.9659257,36.66988,-121.07534)"
+       id="use6775"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.2588189,0.9659258,0.9659258,0.2588189,40.533582,-121.07534)"
+       id="use6777"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use6779"
+       transform="translate(37.705061,-117.21167)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use6781"
+       transform="matrix(-0.4999999,0.8660254,0.8660254,0.4999999,41.437111,-116.21167)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.5,0.8660253,-0.8660253,-0.5,36.669836,-124.53947)"
+       id="use6787"
+       xlink:href="#tile-hexagon"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use6803"
+       transform="matrix(-0.7071068,0.7071067,0.7071067,0.7071068,25.128899,-119.45417)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.7071068,-0.7071067,-0.7071067,-0.7071068,19.714724,-120.03996)"
+       id="use6805"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use6807"
+       transform="matrix(8.5712909e-8,-0.9999999,-0.9999999,-8.5712909e-8,21.714718,-118.03997)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use6809"
+       transform="matrix(0.7071068,-0.7071067,-0.7071067,-0.7071068,17.71473,-122.03995)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(8.5712909e-8,-0.9999999,-0.9999999,-8.5712909e-8,19.714724,-120.03996)"
+       id="use6811"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <path
+       battlemints:label="wave8"
+       sodipodi:nodetypes="cc"
+       style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 35.255715,-119.66114 L 30.378519,-114.79022"
+       id="path6831"
+       battlemints:tripwire="alarm" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(22.705999,-126.94997)"
+       id="use6833"
+       xlink:href="#durian"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="wave8" />
+    <use
+       battlemints:label="wave8"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#durian"
+       id="use6835"
+       transform="translate(24.705999,-124.94997)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(20.705999,-128.94997)"
+       id="use6837"
+       xlink:href="#durian"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="wave8" />
+    <use
+       battlemints:label="wave8"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#durian"
+       id="use6839"
+       transform="translate(22.705999,-124.62676)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(24.705999,-122.62676)"
+       id="use6841"
+       xlink:href="#durian"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="wave8" />
+    <use
+       battlemints:label="wave8"
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#durian"
+       id="use6843"
+       transform="translate(20.705999,-126.62676)"
        width="1000"
        height="10" />
   </g>

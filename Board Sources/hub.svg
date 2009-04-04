@@ -547,60 +547,6 @@
        y="0"
        x="0"
        style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-45"
-       id="use5942"
-       transform="matrix(-0.9999999,8.5712909e-8,-8.5712909e-8,-0.9999999,29.334804,-9.1501024)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.9659257,0.2588191,-0.2588191,-0.9659257,25.920594,-7.7358859)"
-       id="use5944"
-       xlink:href="#tile-rhombus-45"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-60"
-       id="use5946"
-       transform="matrix(-0.9999999,8.5712909e-8,-8.5712909e-8,-0.9999999,27.920602,-7.7359033)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,22.98881,-5.4863414)"
-       id="use5948"
-       xlink:href="#tile-rhombus-45"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-45"
-       id="use5950"
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,20.056956,-7.736026)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,21.056976,-6.0039767)"
-       id="use5952"
-       xlink:href="#tile-rhombus-60"
-       y="0"
-       x="0"
-       style="display:inline" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
        d="M 17.642838,-10.882205 L 17.642784,-14.745863"
@@ -610,51 +556,6 @@
        battlemints:next-board="level1"
        battlemints:achieves-goal="false"
        battlemints:goal-number="1" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(0.258819,-0.9659258,0.9659258,0.258819,21.988854,-7.2183668)"
-       id="use5886"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-30"
-       id="use5890"
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,27.334839,-9.1502081)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(16.642838,-9.1502051)"
-       id="use5883"
-       xlink:href="#tile-triangle"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-triangle"
-       id="use5888"
-       transform="matrix(0.5,-0.8660254,0.8660254,0.5,22.98881,-5.4863414)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,29.334795,-9.1501827)"
-       id="use5892"
-       xlink:href="#tile-triangle"
-       y="0"
-       x="0"
-       style="display:inline" />
     <use
        height="10"
        width="1000"
@@ -709,5 +610,167 @@
        id="path3830"
        d="M 28.334795,-10.882234 L 28.334849,-14.74589"
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-60"
+       id="use4497"
+       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,17.642794,-7.418129)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,28.334751,-7.418158)"
+       id="use4499"
+       xlink:href="#tile-rhombus-60"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-triangle"
+       id="use4509"
+       transform="translate(16.642781,-1.8224752)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,22.988756,1.8413898)"
+       id="use4511"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.9999999,8.5712909e-8,8.5712909e-8,0.9999999,29.334806,-1.8225012)"
+       id="use4513"
+       xlink:href="#tile-triangle"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,22.988848,1.8414219)"
+       id="use4515"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use4517"
+       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,20.056995,-0.4082618)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,21.057014,1.3237874)"
+       id="use4519"
+       xlink:href="#tile-rhombus-60"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(0.2588189,-0.9659258,0.9659258,0.2588189,21.988959,0.1093499)"
+       id="use4521"
+       xlink:href="#tile-rhombus-30"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use4523"
+       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,29.334749,-1.8223705)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.9659257,0.2588191,-0.2588191,-0.9659257,25.920538,-0.4081525)"
+       id="use4525"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-60"
+       id="use4527"
+       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,27.920546,-0.40817)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use4529"
+       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,27.334785,-1.8224769)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-45"
+       id="use4531"
+       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,29.334808,-9.1502887)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,28.852453,-5.4863868)"
+       id="use4533"
+       xlink:href="#tile-rhombus-45"
+       y="0"
+       x="0"
+       style="display:inline" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-60"
+       id="use4535"
+       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,29.852441,-7.2184537)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#tile-rhombus-30"
+       id="use4537"
+       transform="matrix(-0.9659258,0.2588191,-0.2588191,-0.9659258,28.334809,-7.4182877)"
+       width="1000"
+       height="10" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 17.64274,-3.554473 L 17.642794,-7.418129"
+       id="path4539"
+       battlemints:tripwire="goal"
+       sodipodi:nodetypes="cc"
+       battlemints:next-board="level5"
+       battlemints:achieves-goal="false"
+       battlemints:goal-number="5" />
   </g>
 </svg>

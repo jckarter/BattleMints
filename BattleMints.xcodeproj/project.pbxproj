@@ -53,6 +53,8 @@
 		D8C28BFB0F847BCD0098F1B2 /* pause-background.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C28BFA0F847BCD0098F1B2 /* pause-background.png */; };
 		D8C28C7A0F852F510098F1B2 /* pause-button.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C28C790F852F510098F1B2 /* pause-button.png */; };
 		D8C28CB20F86AF400098F1B2 /* level4.bb in Resources */ = {isa = PBXBuildFile; fileRef = D8C28CB10F86AF400098F1B2 /* level4.bb */; };
+		D8C28CE10F87FDC40098F1B2 /* level5.bb in Resources */ = {isa = PBXBuildFile; fileRef = D8C28CE00F87FDC40098F1B2 /* level5.bb */; };
+		D8C28CE30F87FDE00098F1B2 /* dim-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C28CE20F87FDE00098F1B2 /* dim-theme.png */; };
 		D8C860720F84160E001B4EFA /* BattleMintsPauseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C860710F84160E001B4EFA /* BattleMintsPauseView.xib */; };
 		D8D0DC800F7A8EB6001CFBDA /* profont.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D0DC7F0F7A8EB6001CFBDA /* profont.png */; };
 		D8D0DD060F7DB699001CFBDA /* universe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8D0DD040F7DB699001CFBDA /* universe.cpp */; };
@@ -137,6 +139,8 @@
 		D8C28BFA0F847BCD0098F1B2 /* pause-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause-background.png"; sourceTree = "<group>"; };
 		D8C28C790F852F510098F1B2 /* pause-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause-button.png"; sourceTree = "<group>"; };
 		D8C28CB10F86AF400098F1B2 /* level4.bb */ = {isa = PBXFileReference; lastKnownFileType = file; path = level4.bb; sourceTree = "<group>"; };
+		D8C28CE00F87FDC40098F1B2 /* level5.bb */ = {isa = PBXFileReference; lastKnownFileType = file; path = level5.bb; sourceTree = "<group>"; };
+		D8C28CE20F87FDE00098F1B2 /* dim-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dim-theme.png"; sourceTree = "<group>"; };
 		D8C860710F84160E001B4EFA /* BattleMintsPauseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BattleMintsPauseView.xib; sourceTree = "<group>"; };
 		D8D0DC7F0F7A8EB6001CFBDA /* profont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profont.png; sourceTree = "<group>"; };
 		D8D0DD040F7DB699001CFBDA /* universe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = universe.cpp; sourceTree = "<group>"; };
@@ -265,13 +269,15 @@
 				D8C28C790F852F510098F1B2 /* pause-button.png */,
 				D8C28BFA0F847BCD0098F1B2 /* pause-background.png */,
 				D8D0DC7F0F7A8EB6001CFBDA /* profont.png */,
-				D834D44B0F7891C600225D1D /* system6-theme.png */,
 				D8D0DD0F0F7DB88F001CFBDA /* start.bb */,
 				D8A2F74B0F6EB5AC00583C9A /* hub.bb */,
 				D8A2F74C0F6EB5AC00583C9A /* level1.bb */,
 				D8A2F74D0F6EB5AC00583C9A /* level2.bb */,
 				D8A2F74E0F6EB5AC00583C9A /* level3.bb */,
 				D8C28CB10F86AF400098F1B2 /* level4.bb */,
+				D8C28CE00F87FDC40098F1B2 /* level5.bb */,
+				D8C28CE20F87FDE00098F1B2 /* dim-theme.png */,
+				D834D44B0F7891C600225D1D /* system6-theme.png */,
 				D834D3AE0F748A3C00225D1D /* idyllic-theme.png */,
 				D834D3AF0F748A3C00225D1D /* industrial-theme.png */,
 				D834D3B00F748A3C00225D1D /* temple-theme.png */,
@@ -378,6 +384,8 @@
 				D8C28BFB0F847BCD0098F1B2 /* pause-background.png in Resources */,
 				D8C28C7A0F852F510098F1B2 /* pause-button.png in Resources */,
 				D8C28CB20F86AF400098F1B2 /* level4.bb in Resources */,
+				D8C28CE10F87FDC40098F1B2 /* level5.bb in Resources */,
+				D8C28CE30F87FDE00098F1B2 /* dim-theme.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

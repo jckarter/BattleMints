@@ -30,8 +30,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.03"
-     inkscape:cx="443.96495"
-     inkscape:cy="812.17503"
+     inkscape:cx="326.00378"
+     inkscape:cy="260.50085"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -39,7 +39,7 @@
      inkscape:object-nodes="true"
      inkscape:window-width="1392"
      inkscape:window-height="856"
-     inkscape:window-x="0"
+     inkscape:window-x="27"
      inkscape:window-y="22"
      inkscape:snap-nodes="true"
      inkscape:snap-bbox="false"
@@ -161,7 +161,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="stencils"
-     style="display:none">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        sodipodi:nodetypes="ccccccc"
        inkscape:label="#path5308"

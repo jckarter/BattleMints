@@ -422,18 +422,16 @@ void switch_spring::tick()
     vec2 axis_return = -perp_axis * vdot(disp + velocity, perp_axis);
     velocity += axis_return + spring * axis;
 
-    if (axis_pos > (0.95f * SLOT_LENGTH)) {
+    if (!triggered && axis_pos > (0.95f * SLOT_LENGTH)) {
+        triggered = true;
         switch_on();
     }
 }
 
 void switch_spring::switch_on()
 {
-    if (!triggered) {
-        triggered = true;
-        if (label)
-            board::current()->fire_trigger(label, last_touch);
-    }
+    if (label)
+        board::current()->fire_trigger(label, last_touch);
 }
 
 // arm
@@ -456,7 +454,8 @@ void
 eraser_switch::switch_on()
 {
     unlink(universe::filename(universe_name).c_str());
-    board::current()->fire_trigger(label, last_touch);
+    if (label)
+        board::current()->fire_trigger(label, last_touch);
 }
 
 }
