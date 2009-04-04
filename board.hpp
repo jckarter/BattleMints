@@ -102,7 +102,8 @@ struct board : controller {
     void fire_trigger(symbol s, thing *scapegoat)
     {
         BOOST_FOREACH (thing *th, _things_by_label[s])
-            th->trigger(scapegoat);
+            if (thing_lives(th))
+                th->trigger(scapegoat);
     }
 
 private:
