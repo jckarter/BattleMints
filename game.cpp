@@ -24,7 +24,7 @@ const vec2 GAME_WINDOW_SIZE = make_vec2(320.0, 480.0);
 const vec2 GAME_WINDOW_UNIT_SIZE = make_vec2(320.0, 480.0) * GAME_UNITS_PER_PIXEL;
 
 const float sphere_face::ROTATE_SPAN = 20.0f,
-            sphere_face::ROTATE_FACTOR = 40.0f;
+            sphere_face::ROTATE_FACTOR = 0.56f;
 
 const vec2 board::CELL_SIZE = make_vec2(5.5, 5.5);
 const float board::LIVE_RADIUS = 15.0;
@@ -77,6 +77,14 @@ const boost::array<vec4, 6> mini::colors = {
     make_vec4(0.3, 0.3,  1.0, 1.0),
     make_vec4(0.3, 0.24, 0.2, 1.0)
 };
+
+const float durian::ACCEL = 0.003f;
+const float durian::RADIUS = 0.35f;
+const float durian::MASS = 0.4f;
+const float durian::SPRING = 0.30f;
+const float durian::DAMP = 1.5f;
+const float durian::RESPONSIVENESS = 0.9f;
+const vec4 durian::COLOR = make_vec4(0.78f, 0.67f, 0.22f, 1.0f);
 
 const float mega::ACCEL = 0.002f;
 const float mega::RADIUS = 2.6f;

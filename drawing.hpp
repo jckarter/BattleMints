@@ -3,6 +3,7 @@
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
+#include <CoreGraphics/CoreGraphics.h>
 #include <boost/optional.hpp>
 #include <boost/utility.hpp>
 #include <string>
@@ -40,14 +41,25 @@ struct gl_texture : boost::noncopyable {
         { i|=--i>>1; i|=i>>2; i|=i>>4; i|=i>>8; i|=i>>16; return i+1; }
 };
 
-struct sphere_texture : gl_texture {
+template<typename Texture>
+struct rendered_texture : gl_texture {
     boost::array<GLfloat, 8> vertices;
-
-    sphere_texture(float radius);
+    rendered_texture(float radius);
 
 private:
-    void _render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, void *data);
-    GLuint _make_sphere_texture(float radius, float border_radius, unsigned pixel_radius);
+    GLuint _make_texture(float radius, float border_radius, unsigned pixel_radius);
+};
+
+struct sphere_texture : rendered_texture<sphere_texture> {
+    sphere_texture(float radius) : rendered_texture<sphere_texture>(radius) {}
+
+    static void render_texture(float radius, float border_radius, unsigned pixel_radius, CGContextRef context);
+};
+
+struct spike_texture : rendered_texture<spike_texture> {
+    spike_texture(float radius) : rendered_texture<spike_texture>(radius*1.2f) {}
+
+    static void render_texture(float radius, float border_radius, unsigned pixel_radius, CGContextRef context);
 };
 
 struct image_texture : gl_texture {

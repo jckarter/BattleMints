@@ -21,6 +21,12 @@
    battlemints:theme="temple">
   <defs
      id="defs4659">
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect3238"
+       prop_scale="0.39"
+       pattern="M 3.9879808,-0.98798077 L 4.06875,-1.1495192 L 4.1495192,-0.98798077"
+       copytype="repeated_stretched" />
     <linearGradient
        id="background-gradient">
       <stop
@@ -79,16 +85,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="17.59818"
-     inkscape:cx="10.424704"
-     inkscape:cy="3.3785041"
+     inkscape:zoom="21.668142"
+     inkscape:cx="9.7842637"
+     inkscape:cy="10.654482"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="true"
-     inkscape:window-width="1175"
-     inkscape:window-height="701"
-     inkscape:window-x="0"
-     inkscape:window-y="22"
+     inkscape:window-width="1308"
+     inkscape:window-height="716"
+     inkscape:window-x="1116"
+     inkscape:window-y="662"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -141,7 +147,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Templates"
-     style="display:inline">
+     style="display:none">
     <g
        style="display:inline"
        id="player"
@@ -175,33 +181,6 @@
        id="tile-octagon"
        sodipodi:nodetypes="ccccccccc"
        inkscape:label="#path6427" />
-    <g
-       style="display:inline"
-       id="mini"
-       inkscape:label="#g5253">
-      <path
-         sodipodi:open="true"
-         sodipodi:end="6.2838755"
-         sodipodi:start="0.00069147816"
-         d="M 0.34999991,0.00024201733 A 0.34999999,0.34999999 0 1 1 0.34999991,0.00024156746"
-         sodipodi:ry="0.34999999"
-         sodipodi:rx="0.34999999"
-         sodipodi:cy="0"
-         sodipodi:cx="0"
-         id="path5247"
-         style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         sodipodi:type="arc" />
-      <text
-         id="text5249"
-         y="0.11120844"
-         x="-0.18511547"
-         style="font-size:0.40000001px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="0.11120844"
-           x="-0.18511547"
-           id="tspan5251"
-           sodipodi:role="line">m</tspan></text>
-    </g>
     <g
        id="mega"
        inkscape:label="#g5218">
@@ -372,6 +351,61 @@
        sodipodi:ry="0.1"
        d="M 0.1,-8.8817842e-16 A 0.1,0.1 0 1 1 -0.1,-8.7593195e-16 A 0.1,0.1 0 1 1 0.1,-9.1267136e-16 z"
        inkscape:label="#path5618" />
+    <g
+       style="display:inline"
+       id="mini"
+       inkscape:label="#g5253">
+      <path
+         sodipodi:open="true"
+         sodipodi:end="6.2838755"
+         sodipodi:start="0.00069147816"
+         d="M 0.34999991,0.00024201733 A 0.34999999,0.34999999 0 1 1 0.34999991,0.00024156746"
+         sodipodi:ry="0.34999999"
+         sodipodi:rx="0.34999999"
+         sodipodi:cy="0"
+         sodipodi:cx="0"
+         id="path5247"
+         style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <text
+         id="text5249"
+         y="0.11120844"
+         x="-0.18511547"
+         style="font-size:0.40000001px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="0.11120844"
+           x="-0.18511547"
+           id="tspan5251"
+           sodipodi:role="line">m</tspan></text>
+    </g>
+    <g
+       inkscape:label="#g5253"
+       id="durian"
+       style="display:inline">
+      <path
+         sodipodi:type="arc"
+         style="opacity:1;fill:#c8ab37;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path2460"
+         sodipodi:cx="0"
+         sodipodi:cy="0"
+         sodipodi:rx="0.34999999"
+         sodipodi:ry="0.34999999"
+         sodipodi:start="0.00069147816"
+         sodipodi:end="6.2838755"
+         sodipodi:open="true"
+         inkscape:path-effect="#path-effect3238"
+         d="M 0.34999991,0.00024201733 A 0.34999999,0.34999999 0 1 1 0.34999991,0.00024156746" />
+      <text
+         xml:space="preserve"
+         style="font-size:0.40000001px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         x="-0.11982422"
+         y="0.14912109"
+         id="text2462"><tspan
+           sodipodi:role="line"
+           id="tspan2464"
+           x="-0.11982422"
+           y="0.14912109">d</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -577,6 +611,15 @@
        height="4.773221"
        x="45.004654"
        y="3.3515849" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#durian"
+       id="use3240"
+       transform="translate(12,7.35)"
+       width="1000"
+       height="10" />
   </g>
   <g
      inkscape:label="Map"

@@ -43,17 +43,31 @@ private:
     static void _prebuild_textures();
 };
 
-struct sphere_renderer : renderer {
-    static sphere_renderer *instance;
+template <typename RenderedTexture>
+struct rendered_renderer : renderer {
 
-    sphere_renderer() {}
-    virtual ~sphere_renderer();
+    rendered_renderer() {}
+    virtual ~rendered_renderer();
 
-    sphere_texture *make_texture(float radius);
+    RenderedTexture *make_texture(float radius);
 
     virtual void draw(std::vector<thing*> const &things, renderer_parameter p);
 
+private:
+    typedef boost::unordered_map<float, RenderedTexture*> texture_cache_map;
+    texture_cache_map texture_cache;
+};
+
+struct sphere_renderer : rendered_renderer<sphere_texture> {
+    static sphere_renderer *instance;
+
     virtual float z_index(renderer_parameter p) { return 100.0f - parameter_as<float>(p); }
+};
+
+struct spike_renderer : rendered_renderer<spike_texture> {
+    static spike_renderer *instance;
+
+    virtual float z_index(renderer_parameter p) { return 100.0f - parameter_as<float>(p) + 0.01f; }
 
 private:
     typedef boost::unordered_map<float, sphere_texture*> sphere_texture_cache_map;

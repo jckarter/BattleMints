@@ -8,6 +8,7 @@
 namespace battlemints {
 
 sphere_renderer *sphere_renderer::instance = NULL;
+spike_renderer *spike_renderer::instance = NULL;
 face_renderer *face_renderer::instance = NULL;
 tile_renderer *tile_renderer::instance = NULL;
 decoration_renderer *decoration_renderer::instance = NULL;
@@ -35,6 +36,7 @@ void
 renderer::global_start()
 {
     sphere_renderer::instance = new sphere_renderer;
+    spike_renderer::instance = new spike_renderer;
     face_renderer::instance = new face_renderer;
     tile_renderer::instance = new tile_renderer;
     decoration_renderer::instance = new decoration_renderer;
@@ -71,29 +73,34 @@ renderer::_prebuild_textures()
     sphere_renderer::instance->make_texture(bumper::INNER_RADIUS);
     sphere_renderer::instance->make_texture(switch_spring::RADIUS);
 
+    spike_renderer::instance->make_texture(durian::RADIUS);
+
     decoration_renderer::instance->make_texture(decoration_renderer::SIGN_DECORATION);
 }
 
-sphere_renderer::~sphere_renderer()
+template<typename RenderedTexture>
+rendered_renderer<RenderedTexture>::~rendered_renderer()
 {
-    BOOST_FOREACH (sphere_texture_cache_map::value_type const &p, sphere_texture_cache)
+    BOOST_FOREACH (typename texture_cache_map::value_type const &p, texture_cache)
         delete p.second;
 }
 
-sphere_texture *
-sphere_renderer::make_texture(float radius)
+template<typename RenderedTexture>
+RenderedTexture *
+rendered_renderer<RenderedTexture>::make_texture(float radius)
 {
-    sphere_texture *t = new sphere_texture(radius);
-    sphere_texture_cache[radius] = t;
+    RenderedTexture *t = new RenderedTexture(radius);
+    texture_cache[radius] = t;
     return t;
 }
 
+template<typename RenderedTexture>
 void
-sphere_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
+rendered_renderer<RenderedTexture>::draw(std::vector<thing*> const &things, renderer_parameter p)
 {
     float radius = parameter_as<float>(p);
 
-    sphere_texture *st = sphere_texture_cache[radius];
+    RenderedTexture *st = texture_cache[radius];
 
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -112,6 +119,9 @@ sphere_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
         glPopMatrix();
     }
 }
+
+template struct rendered_renderer<sphere_texture>;
+template struct rendered_renderer<spike_texture>;
 
 face_renderer::~face_renderer()
 {
@@ -159,9 +169,10 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
         glPushMatrix();
         glTranslatef(sph->center.x, sph->center.y, 0.0f);
         glScalef(sph->radius, sph->radius, sph->radius);
-        if (st != sphere_face::panicked) {
-            glRotatef(sphere_face::rotation(sph->cur_accel.y), -1.0, 0.0, 0.0);
-            glRotatef(sphere_face::rotation(sph->cur_accel.x),  0.0, 1.0, 0.0);
+        if (st != sphere_face::panicked && st != sphere_face::asleep) {
+            vec2 cur_accel = vnormalize(sph->cur_accel);
+            glRotatef(sphere_face::rotation(cur_accel.y), -1.0, 0.0, 0.0);
+            glRotatef(sphere_face::rotation(cur_accel.x),  0.0, 1.0, 0.0);
         }
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, sphere_face::MESH_VERTICES);

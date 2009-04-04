@@ -210,6 +210,35 @@ struct mini : enemy {
           color(colors[rand() % colors.size()]) { }
 };
 
+struct durian : enemy {
+    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
+    static const vec4 COLOR;
+
+    thing *stuck_to;
+
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    virtual char const * kind() const { return "durian"; }
+
+    virtual void die() { for (int i = 0; i < 2; ++i) loose_pellet::spawn(*this); enemy::die(); }
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color(float) { return COLOR; }
+
+    virtual void wall_damage() { }
+    virtual void post_damage() { }
+
+    virtual void on_collision(thing &o);
+    virtual void tick();
+
+    void stick_to(thing &o);
+
+    durian(FILE *bin)
+        : enemy(DURIAN, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS), stuck_to(NULL)
+        { }
+};
+
 struct mega : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS, DEATH_THRESHOLD2;
     static const vec4 COLOR;

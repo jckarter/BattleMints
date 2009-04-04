@@ -44,7 +44,8 @@ struct thing : boost::noncopyable {
         DOES_TICKS = 0x10000,
         CAN_OVERLAP = 0x20000,
         MOVES = 0x40000,
-
+        // thing kinds
+        DURIAN = 0x40000000,
         PLAYER = 0x80000000
     };
     

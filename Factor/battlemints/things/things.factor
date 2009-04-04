@@ -43,6 +43,7 @@ TUPLE: mini < actor ;
 TUPLE: mega < actor ;
 TUPLE: bumper < actor ;
 TUPLE: player < actor ;
+TUPLE: durian < actor ;
 TUPLE: powerup < actor powerup-kind ;
 
 TUPLE: line < transform-thing endpoints ;
@@ -302,6 +303,7 @@ M: tile-triangle shape-color
 GENERIC: actor-radius ( thing -- radius )
     
 M: mini actor-radius drop 0.35 ;
+M: durian actor-radius drop 0.35 ;
 M: mega actor-radius drop 2.6 ;
 M: bumper actor-radius drop 0.5 ;
 M: player actor-radius drop 0.5 ;

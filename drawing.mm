@@ -2,7 +2,7 @@
 #include "game.hpp"
 #include "finally.hpp"
 #include <UIKit/UIKit.h>
-#include <CoreGraphics/CoreGraphics.h>
+#include <cmath>
 #include <iostream>
 
 namespace battlemints {
@@ -40,12 +40,13 @@ const boost::array<float, 8> unit_radius_texcoords = {
      1.0,  1.0
 };
 
-sphere_texture::sphere_texture(float radius)
+template<typename Texture>
+rendered_texture<Texture>::rendered_texture(float radius)
 {
     float border_radius = radius + BORDER_THICKNESS;
     unsigned pixel_radius = lpot(border_radius * PIXELS_PER_GAME_UNIT);
 
-    texture = _make_sphere_texture(radius, border_radius, (unsigned)pixel_radius);
+    texture = _make_texture(radius, border_radius, (unsigned)pixel_radius);
 
     vertices[0] = -border_radius; vertices[1] = -border_radius;
     vertices[2] =  border_radius; vertices[3] = -border_radius;
@@ -53,35 +54,25 @@ sphere_texture::sphere_texture(float radius)
     vertices[6] =  border_radius; vertices[7] =  border_radius;
 }
 
-void sphere_texture::_render_sphere_texture(float radius, float border_radius, unsigned pixel_radius, void *data)
-{
-    CGContextRef context = make_bitmap_context(pixel_radius*2, pixel_radius*2, data);
-
-    float scale = pixel_radius/border_radius;
-
-    CGContextScaleCTM(context, scale, scale);
-    CGContextTranslateCTM(context, border_radius, border_radius);
-
-    CGContextSetLineWidth(context, BORDER_THICKNESS);
-
-    CGContextSetRGBStrokeColor(context, 0.25f, 0.25f, 0.25f, 1.0f);
-    CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-
-    CGRect ellipse_rect = CGRectMake(-radius, -radius, radius*2.0f, radius*2.0f);
-
-    CGContextFillEllipseInRect(context, ellipse_rect);
-    CGContextStrokeEllipseInRect(context, ellipse_rect);
-
-    CGContextRelease(context);
-}
-
-GLuint sphere_texture::_make_sphere_texture(float radius, float border_radius, unsigned pixel_radius)
+template<typename Texture>
+GLuint
+rendered_texture<Texture>::_make_texture(float radius, float border_radius, unsigned pixel_radius)
 {
     std::vector<uint32_t> pixmap((std::vector<uint32_t>::size_type)(pixel_radius*pixel_radius*4));
 
     void *pixmap_data = (void*)&pixmap[0];
 
-    _render_sphere_texture(radius, border_radius, pixel_radius, pixmap_data);
+    CGContextRef context = make_bitmap_context(pixel_radius*2, pixel_radius*2, pixmap_data);
+    float scale = pixel_radius/border_radius;
+    CGContextScaleCTM(context, scale, scale);
+    CGContextTranslateCTM(context, border_radius, border_radius);
+    CGContextSetLineWidth(context, BORDER_THICKNESS);
+    CGContextSetRGBStrokeColor(context, 0.25f, 0.25f, 0.25f, 1.0f);
+    CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
+
+    Texture::render_texture(radius, border_radius, pixel_radius, context);
+
+    CGContextRelease(context);
 
     GLuint texture;
     glGenTextures(1, &texture);
@@ -98,6 +89,33 @@ GLuint sphere_texture::_make_sphere_texture(float radius, float border_radius, u
     );
 
     return texture;
+}
+
+template struct rendered_texture<sphere_texture>;
+template struct rendered_texture<spike_texture>;
+
+void sphere_texture::render_texture(float radius, float border_radius, unsigned pixel_radius, CGContextRef context)
+{
+    CGRect ellipse_rect = CGRectMake(-radius, -radius, radius*2.0f, radius*2.0f);
+
+    CGContextFillEllipseInRect(context, ellipse_rect);
+    CGContextStrokeEllipseInRect(context, ellipse_rect);
+}
+
+void spike_texture::render_texture(float radius, float border_radius, unsigned pixel_radius, CGContextRef context)
+{
+    static const float step = 2.0f*(float)M_PI/17.0f;
+
+    float inside = radius*0.7f;
+
+    CGContextMoveToPoint(context, radius, 0.0f);
+    for (float i = 1.0f; i <= 17.0f; i += 1.0f) {
+        CGContextAddLineToPoint(context, inside*cosf((i-0.5f)*step), inside*sinf((i-0.5f)*step));
+        CGContextAddLineToPoint(context, radius*cosf( i      *step), radius*sinf( i      *step));
+    }
+    CGContextClosePath(context);
+    CGContextFillPath(context);
+    CGContextStrokePath(context);
 }
 
 image_texture::image_texture(CGImageRef image)

@@ -11,6 +11,7 @@ boost::array<renders_with_pair, 3> player::renders_with_pairs_template;
 boost::array<renders_with_pair, 3> player::invuln_renders_with_pairs;
 boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
+boost::array<renders_with_pair, 2> durian::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
 boost::array<renders_with_pair, 2> switch_spring::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
@@ -42,6 +43,11 @@ void global_start_actors()
     mega::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(mega::RADIUS) },
         { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MEGA_FACE) }
+    }};
+
+    durian::renders_with_pairs = (boost::array<renders_with_pair,2>){{
+        { spike_renderer::instance, renderer::as_parameter<float>(durian::RADIUS) },
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_FACE) }
     }};
 
     bumper::renders_with_pairs_template = (boost::array<renders_with_pair,2>){{
@@ -328,6 +334,37 @@ void enemy::trigger(thing *scapegoat)
 {
     if (!target)
         target = scapegoat;
+}
+
+void durian::on_collision(thing &o)
+{
+    enemy::on_collision(o);
+
+    if ((o.flags & LINE) || (o.flags & POINT))
+        stick_to(o);
+    else if (o.flags & DURIAN) {
+        die();
+        static_cast<durian*>(&o)->die();
+    } else
+        o.post_damage();
+}
+
+void durian::tick()
+{
+    enemy::tick();
+
+    if (stuck_to) {
+        if (board::current()->thing_lives(stuck_to))
+            velocity = ZERO_VEC2;
+        else
+            stuck_to = NULL;
+    }
+}
+
+void durian::stick_to(thing &o)
+{
+    stuck_to = &o;
+    velocity = ZERO_VEC2;
 }
 
 renders_with_range bumper::renders_with() const
