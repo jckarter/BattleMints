@@ -286,39 +286,25 @@ public:
         { return new bumper(bin); }
 };
 
-struct switch_spring : sphere {
-    static const float RADIUS, MASS, SLOT_LENGTH, SLOT_WIDTH, SPRING_FACTOR, DAMP;
-    static const vec4 COLOR, TRIGGERED_COLOR, SLOT_COLOR;
+struct switch_base : sphere {
+    static const float SLOT_LENGTH, SLOT_WIDTH, SPRING_FACTOR, DAMP;
     static const boost::array<vec2, 4> slot_vertices;
+    static const vec4 SLOT_COLOR;
     
-    static boost::array<renders_with_pair, 2> renders_with_pairs;
-
     vec2 axis, home;
     float slot_matrix[16];
     bool triggered;
     thing *last_touch;
 
-    switch_spring(vec2 ct, vec2 ax)
-        : sphere(ct - ax * SLOT_LENGTH, MASS, RADIUS, 0.0f, 0.0f, LAYER_0),
-          axis(ax), home(ct), triggered(false),
-          last_touch(NULL)
-        { _set_matrix(); }
-
-    virtual renders_with_range renders_with() const
-        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual void draw_self() const;
 
-    virtual vec4 sphere_color(float) { return triggered ? TRIGGERED_COLOR : COLOR; }
-
-    virtual char const * kind() const { return "switch_spring"; }
-    
     virtual void tick();
     virtual void on_collision(thing &o);
 
-    virtual void switch_on();
+    virtual void switch_on() = 0;
 
-    switch_spring(FILE *bin)
-        : sphere(LAYER_0, bin, MASS, RADIUS, 0.0f, 0.0f), triggered(false), last_touch(NULL)
+    switch_base(FILE *bin, float mass, float radius)
+        : sphere(LAYER_0, bin, mass, radius, 0.0f, 0.0f), triggered(false), last_touch(NULL)
     {
         BATTLEMINTS_READ_SLOTS(*this, axis, axis, bin);
         home = center; center -= axis * SLOT_LENGTH;
@@ -333,17 +319,38 @@ private:
     void _set_matrix();
 };
 
-struct eraser_switch : switch_spring {
+struct trigger_switch : switch_base {
+    static const float RADIUS, MASS;
+    static const vec4 COLOR, TRIGGERED_COLOR;
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    virtual vec4 sphere_color(float) { return triggered ? TRIGGERED_COLOR : COLOR; }
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+
+    virtual char const * kind() const { return "trigger_switch"; }
+    virtual void switch_on();
+
+    trigger_switch(FILE *bin)
+        : switch_base(bin, MASS, RADIUS) { }
+};
+
+struct eraser_switch : switch_base {
     static const vec4 COLOR;
 
     std::string universe_name;
 
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(trigger_switch::renders_with_pairs.begin(), trigger_switch::renders_with_pairs.end()); }
+
     virtual vec4 sphere_color(float) { return COLOR; }
 
+    virtual char const * kind() const { return "eraser_switch"; }
     virtual void switch_on();
 
     eraser_switch(FILE *bin)
-        : switch_spring(bin), universe_name(*pascal_string_from_bin(bin))
+        : switch_base(bin, trigger_switch::MASS, trigger_switch::RADIUS), universe_name(*pascal_string_from_bin(bin))
         { }
 };
 

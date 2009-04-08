@@ -13,7 +13,7 @@ boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> durian::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
-boost::array<renders_with_pair, 2> switch_spring::renders_with_pairs;
+boost::array<renders_with_pair, 2> trigger_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
 boost::array<renders_with_pair, 1> pellet::renders_with_pairs;
 
@@ -55,9 +55,9 @@ void global_start_actors()
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::INNER_RADIUS) }
     }};
 
-    switch_spring::renders_with_pairs = (boost::array<renders_with_pair,2>){{
-        { self_renderer::instance,   (renderer_parameter)"switch_spring" },
-        { sphere_renderer::instance, renderer::as_parameter<float>(switch_spring::RADIUS) }
+    trigger_switch::renders_with_pairs = (boost::array<renders_with_pair,2>){{
+        { self_renderer::instance,   (renderer_parameter)"trigger_switch" },
+        { sphere_renderer::instance, renderer::as_parameter<float>(trigger_switch::RADIUS) }
     }};
 
     pellet::renders_with_pairs = (boost::array<renders_with_pair,1>){{
@@ -386,7 +386,7 @@ vec4 bumper::sphere_color(float radius)
         return bumper::INNER_COLOR;
 }
 
-void switch_spring::draw_self() const
+void switch_base::draw_self() const
 {
     glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -401,13 +401,13 @@ void switch_spring::draw_self() const
     glPopMatrix();
 }
 
-void switch_spring::on_collision(thing &o)
+void switch_base::on_collision(thing &o)
 {
     last_touch = &o;
 }
 
 // arm
-void switch_spring::tick()
+void switch_base::tick()
 {
     vec2 perp_axis = vperp(axis);
     vec2 disp = center - home;
@@ -431,14 +431,8 @@ void switch_spring::tick()
     }
 }
 
-void switch_spring::switch_on()
-{
-    if (label)
-        board::current()->fire_trigger(label, last_touch);
-}
-
 // arm
-void switch_spring::_set_matrix()
+void switch_base::_set_matrix()
 {
     vec2 perp_axis = vperp(axis);
 
@@ -451,6 +445,12 @@ void switch_spring::_set_matrix()
     slot_matrix[12] = home.x;
     slot_matrix[13] = home.y;
     slot_matrix[15] = 1.0f;
+}
+
+void trigger_switch::switch_on()
+{
+    if (label)
+        board::current()->fire_trigger(label, last_touch);
 }
 
 void
