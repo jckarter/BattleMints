@@ -85,16 +85,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.34358"
-     inkscape:cx="28.333534"
-     inkscape:cy="125.6413"
+     inkscape:zoom="46.452578"
+     inkscape:cx="15.818407"
+     inkscape:cy="63.839668"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="716"
-     inkscape:window-x="5"
-     inkscape:window-y="26"
+     inkscape:window-x="601"
+     inkscape:window-y="571"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -406,6 +406,29 @@
            x="-0.11982422"
            y="0.14912109">d</tspan></text>
     </g>
+    <g
+       style="display:inline"
+       inkscape:label="#g4518"
+       transform="translate(-5.6820253e-3,-2.9998637)"
+       id="heavy-switch">
+      <path
+         style="fill:#483737;fill-rule:evenodd;stroke:#6c5d53;stroke-width:0.09;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -0.5,3 L 0.5,3"
+         id="path20496" />
+      <path
+         sodipodi:end="6.2831853"
+         sodipodi:start="0.00069147816"
+         d="M 0.166175,0.00011321983 A 0.16617504,0.16373596 0 1 1 0.16617504,-1.1755564e-09"
+         sodipodi:ry="0.16373596"
+         sodipodi:rx="0.16617504"
+         sodipodi:cy="0"
+         sodipodi:cx="0"
+         id="path20498"
+         style="fill:#241f1c;fill-opacity:1;stroke:#000000;stroke-width:0.01809074;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(2.487461,0,0,2.487461,-0.5076719,2.9998637)"
+         sodipodi:open="true" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -510,15 +533,6 @@
        style="display:inline"
        x="0"
        y="0"
-       xlink:href="#arrow"
-       id="use5933"
-       width="1000"
-       height="10"
-       transform="translate(9.5,5.5)" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
        xlink:href="#tile-rhombus-45"
        id="use6429"
        transform="translate(23.840519,3.9957178)"
@@ -618,6 +632,15 @@
        xlink:href="#durian"
        id="use3240"
        transform="translate(12,7.35)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#heavy-switch"
+       id="use21009"
+       transform="translate(9.6892079,5.4697868)"
        width="1000"
        height="10" />
   </g>
@@ -1168,16 +1191,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(16.969727,-53.297514)"
-       id="use3415"
-       xlink:href="#bumper"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="translate(15.539055,-59.682239)"
+       transform="translate(15.517528,-61.469007)"
        id="use3417"
        xlink:href="#bumper"
        y="0"
@@ -1189,13 +1203,13 @@
        y="0"
        xlink:href="#bumper"
        id="use3419"
-       transform="translate(18.323617,-59.682239)"
+       transform="translate(18.30209,-61.469007)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="translate(24.323617,-57.682239)"
+       transform="matrix(0.9659258,0.258819,-0.258819,0.9659258,24.880243,-55.582526)"
        id="use3421"
        xlink:href="#bumper"
        y="0"
@@ -3385,11 +3399,11 @@
        width="1000"
        height="10" />
     <use
-       transform="matrix(0.8660254,-0.4999999,0.4999999,0.8660254,27.330117,-59.32891)"
+       transform="translate(25.638771,-58.926148)"
        height="10"
        width="1000"
        id="use4450"
-       xlink:href="#switch"
+       xlink:href="#heavy-switch"
        y="0"
        x="0"
        style="display:inline"
@@ -3805,5 +3819,24 @@
        transform="translate(20.705999,-126.62676)"
        width="1000"
        height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#bumper"
+       id="use21451"
+       transform="matrix(0.9659258,0.258819,-0.258819,0.9659258,26.994049,-53.86602)"
+       width="1000"
+       height="10" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(17.031914,-50.952105)"
+       id="use21455"
+       xlink:href="#mega"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:label="wave1" />
   </g>
 </svg>

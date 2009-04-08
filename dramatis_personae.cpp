@@ -14,6 +14,7 @@ boost::array<renders_with_pair, 2> mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> durian::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
 boost::array<renders_with_pair, 2> trigger_switch::renders_with_pairs;
+boost::array<renders_with_pair, 2> heavy_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
 boost::array<renders_with_pair, 1> pellet::renders_with_pairs;
 
@@ -58,6 +59,11 @@ void global_start_actors()
     trigger_switch::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { self_renderer::instance,   (renderer_parameter)"trigger_switch" },
         { sphere_renderer::instance, renderer::as_parameter<float>(trigger_switch::RADIUS) }
+    }};
+
+    heavy_switch::renders_with_pairs = (boost::array<renders_with_pair,2>){{
+        { self_renderer::instance,   (renderer_parameter)"heavy_switch" },
+        { sphere_renderer::instance, renderer::as_parameter<float>(heavy_switch::RADIUS) }
     }};
 
     pellet::renders_with_pairs = (boost::array<renders_with_pair,1>){{

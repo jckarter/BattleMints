@@ -95,6 +95,7 @@ M: object thing-written-name class name>> ;
 M: tile-shell thing-written-name drop "tile" ;
 M: tile-vertices thing-written-name drop "tile_vertices" ;
 M: battlemints-flag thing-written-name drop "battlemints_flag" ;
+M: heavy-switch thing-written-name drop "heavy_switch" ;
 
 M: tile-vertices (write-thing)
     vertices>>

@@ -131,13 +131,18 @@ const boost::array<vec4, 2> powerup::pulse_colors = {
 
 const float switch_base::SLOT_LENGTH = 0.5f;
 const float switch_base::SLOT_WIDTH = 0.05f;
-const float switch_base::SPRING_FACTOR = 0.4f;
+const float switch_base::SPRING_FACTOR = 0.2f;
 const vec4 switch_base::SLOT_COLOR = make_vec4(0.43f, 0.36f, 0.33f, 1.0f);
 
 const vec4 trigger_switch::COLOR = make_vec4(0.89f, 0.87f, 0.86f, 1.0f);
 const vec4 trigger_switch::TRIGGERED_COLOR = make_vec4(0.69f, 1.00f, 0.66f, 1.0f);
 const float trigger_switch::RADIUS = 0.2f;
 const float trigger_switch::MASS = 0.1f;
+
+const vec4 heavy_switch::COLOR = make_vec4(0.14f, 0.12f, 0.11f, 1.0f);
+const vec4 heavy_switch::TRIGGERED_COLOR = make_vec4(0.69f, 1.00f, 0.66f, 1.0f);
+const float heavy_switch::RADIUS = 0.4f;
+const float heavy_switch::MASS = 0.6f;
 
 const vec4 eraser_switch::COLOR = make_vec4(1.0f, 0.0f, 0.0f, 1.0f);
 

@@ -334,6 +334,25 @@ struct trigger_switch : switch_base {
 
     trigger_switch(FILE *bin)
         : switch_base(bin, MASS, RADIUS) { }
+
+    trigger_switch(FILE *bin, float mass, float radius)
+        : switch_base(bin, mass, radius) { }
+};
+
+struct heavy_switch : trigger_switch {
+    static const float RADIUS, MASS;
+    static const vec4 COLOR, TRIGGERED_COLOR;
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    virtual vec4 sphere_color(float) { return triggered ? TRIGGERED_COLOR : COLOR; }
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+
+    virtual char const * kind() const { return "heavy_switch"; }
+
+    heavy_switch(FILE *bin)
+        : trigger_switch(bin, MASS, RADIUS) { }
 };
 
 struct eraser_switch : switch_base {

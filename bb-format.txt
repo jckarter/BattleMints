@@ -33,24 +33,25 @@ class-properties := player
 
 endpoints := endpoint-a:vec2 endpoint-b:vec2
 
-player   := --
-pellet   := --
-mini     := --
-durian   := --
-mega     := --
-bumper   := --
-powerup  := kind:int
-wall     := :endpoints
-wallpost := --
-goal     := :endpoints next-board:pascal-string goal-number:int achieves-goal:int
-alarm    := :endpoints
-loader   := :endpoints universe-name:pascal-string
+player       := --
+pellet       := --
+mini         := --
+durian       := --
+mega         := --
+bumper       := --
+powerup      := kind:int
+wall         := :endpoints
+wallpost     := --
+goal         := :endpoints next-board:pascal-string goal-number:int achieves-goal:int
+alarm        := :endpoints
+loader       := :endpoints universe-name:pascal-string
 
-door     := :endpoints
+door         := :endpoints
 
-tile     := start:int length:int
+tile         := start:int length:int
 
-sign     := signface:int
-flag     := flagface:pascal-string
-switch   := axis:vec2
-eraser   := :switch universe-name:pascal-string
+sign         := signface:int
+flag         := --
+switch       := axis:vec2
+heavy-switch := axis:vec2
+eraser       := :switch universe-name:pascal-string
