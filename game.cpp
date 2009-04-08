@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "dramatis_personae.hpp"
+#include "decorations.hpp"
 #include "renderers.hpp"
 #include "tiles.hpp"
 #include "walls.hpp"
@@ -81,7 +82,7 @@ const boost::array<vec4, 6> mini::colors = {
 const float durian::ACCEL = 0.003f;
 const float durian::RADIUS = 0.35f;
 const float durian::MASS = 0.4f;
-const float durian::SPRING = 0.30f;
+const float durian::SPRING = 0.15f;
 const float durian::DAMP = 1.5f;
 const float durian::RESPONSIVENESS = 0.9f;
 const vec4 durian::COLOR = make_vec4(0.78f, 0.67f, 0.22f, 1.0f);
@@ -149,6 +150,22 @@ const boost::array<vec2, 4> switch_spring::slot_vertices = {
     make_vec2(-SLOT_LENGTH,  SLOT_WIDTH),
     make_vec2( SLOT_LENGTH,  SLOT_WIDTH)
 };
+
+const float
+    flag::FLAP_MIN_AMPLITUDE = 0.001f,
+    flag::FLAP_AMPLITUDE_DAMP = 0.95f,
+    flag::FLAP_MIN_INITIAL_AMPLITUDE = 0.02f,
+    flag::FLAP_MAX_INITIAL_AMPLITUDE = 0.08f,
+    flag::FLAP_MIN_WAVELENGTH = 1.0f,
+    flag::FLAP_MAX_WAVELENGTH = 2.0f,
+    flag::BASE_FLAP_MIN_INITIAL_AMPLITUDE = 0.02f,
+    flag::BASE_FLAP_MAX_INITIAL_AMPLITUDE = 0.06f,
+    flag::BASE_FLAP_MIN_WAVELENGTH = 1.0f,
+    flag::BASE_FLAP_MAX_WAVELENGTH = 1.6f,
+    flag::FLAP_PHASE_STEP = 0.02f,
+    flag::WIDTH = 1.6f,
+    flag::HEIGHT = 1.0f,
+    flag::HEIGHT_OFFSET = 0.7f;
 
 vec2 controller_state;
 int controller_tap_count;

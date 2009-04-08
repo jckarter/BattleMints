@@ -326,7 +326,7 @@ void enemy::tick()
 
 void enemy::on_collision(thing &o)
 {
-    if (!target)
+    if (!target && (o.flags & MOVES))
         target = &o;
 }
 
@@ -339,6 +339,9 @@ void enemy::trigger(thing *scapegoat)
 void durian::on_collision(thing &o)
 {
     enemy::on_collision(o);
+
+    if (stuck_to)
+        stuck_to = NULL;
 
     if ((o.flags & LINE) || (o.flags & POINT))
         stick_to(o);

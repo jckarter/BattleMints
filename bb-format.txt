@@ -36,6 +36,7 @@ endpoints := endpoint-a:vec2 endpoint-b:vec2
 player   := --
 pellet   := --
 mini     := --
+durian   := --
 mega     := --
 bumper   := --
 powerup  := kind:int
@@ -50,5 +51,6 @@ door     := :endpoints
 tile     := start:int length:int
 
 sign     := signface:int
+flag     := flagface:pascal-string
 switch   := axis:vec2
 eraser   := :switch universe-name:pascal-string

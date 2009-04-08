@@ -36,6 +36,7 @@
 		D84C2A830EDD1FBE0000DE73 /* sound_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D84C2A820EDD1FBE0000DE73 /* sound_server.cpp */; };
 		D84C2AB20EDD24180000DE73 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C2AB10EDD24180000DE73 /* OpenAL.framework */; };
 		D86F03360EC4C292004F03F8 /* serialization.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86F03340EC4C292004F03F8 /* serialization.mm */; };
+		D8A124EE0F8C4C2E00B4B749 /* flagpost.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A124ED0F8C4C2E00B4B749 /* flagpost.png */; };
 		D8A2F70D0F68ABA800583C9A /* player_invuln.png in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F70C0F68ABA800583C9A /* player_invuln.png */; };
 		D8A2F74F0F6EB5AC00583C9A /* hub.bb in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F74B0F6EB5AC00583C9A /* hub.bb */; };
 		D8A2F7500F6EB5AC00583C9A /* level1.bb in Resources */ = {isa = PBXBuildFile; fileRef = D8A2F74C0F6EB5AC00583C9A /* level1.bb */; };
@@ -59,6 +60,9 @@
 		D8D0DC800F7A8EB6001CFBDA /* profont.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D0DC7F0F7A8EB6001CFBDA /* profont.png */; };
 		D8D0DD060F7DB699001CFBDA /* universe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8D0DD040F7DB699001CFBDA /* universe.cpp */; };
 		D8D0DD100F7DB88F001CFBDA /* start.bb in Resources */ = {isa = PBXBuildFile; fileRef = D8D0DD0F0F7DB88F001CFBDA /* start.bb */; };
+		D8E7C2280F8BE06C0073D603 /* battlemints-flag.png in Resources */ = {isa = PBXBuildFile; fileRef = D8E7C2240F8BE06C0073D603 /* battlemints-flag.png */; };
+		D8E7C2290F8BE06C0073D603 /* meat-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D8E7C2260F8BE06C0073D603 /* meat-theme.png */; };
+		D8E7C22A0F8BE06C0073D603 /* nightcity-theme.png in Resources */ = {isa = PBXBuildFile; fileRef = D8E7C2270F8BE06C0073D603 /* nightcity-theme.png */; };
 		D8EA4CA20F4DB71E0077124F /* renderers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8EA4CA00F4DB71E0077124F /* renderers.cpp */; };
 		D8F80CD80F05DC62002ACC03 /* transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F80CD60F05DC62002ACC03 /* transition.cpp */; };
 		D8FA4F1C0F5F195200FC3C4F /* decorations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8FA4F190F5F195200FC3C4F /* decorations.cpp */; };
@@ -118,6 +122,7 @@
 		D84C2AB10EDD24180000DE73 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D86F03330EC4C292004F03F8 /* serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization.hpp; sourceTree = "<group>"; };
 		D86F03340EC4C292004F03F8 /* serialization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serialization.mm; sourceTree = "<group>"; };
+		D8A124ED0F8C4C2E00B4B749 /* flagpost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flagpost.png; sourceTree = "<group>"; };
 		D8A2F70C0F68ABA800583C9A /* player_invuln.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_invuln.png; sourceTree = "<group>"; };
 		D8A2F74B0F6EB5AC00583C9A /* hub.bb */ = {isa = PBXFileReference; lastKnownFileType = file; path = hub.bb; sourceTree = "<group>"; };
 		D8A2F74C0F6EB5AC00583C9A /* level1.bb */ = {isa = PBXFileReference; lastKnownFileType = file; path = level1.bb; sourceTree = "<group>"; };
@@ -146,6 +151,10 @@
 		D8D0DD040F7DB699001CFBDA /* universe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = universe.cpp; sourceTree = "<group>"; };
 		D8D0DD050F7DB699001CFBDA /* universe.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = universe.hpp; sourceTree = "<group>"; };
 		D8D0DD0F0F7DB88F001CFBDA /* start.bb */ = {isa = PBXFileReference; lastKnownFileType = file; path = start.bb; sourceTree = "<group>"; };
+		D8E7C2240F8BE06C0073D603 /* battlemints-flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "battlemints-flag.png"; sourceTree = "<group>"; };
+		D8E7C2250F8BE06C0073D603 /* finally.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = finally.hpp; sourceTree = "<group>"; };
+		D8E7C2260F8BE06C0073D603 /* meat-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meat-theme.png"; sourceTree = "<group>"; };
+		D8E7C2270F8BE06C0073D603 /* nightcity-theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nightcity-theme.png"; sourceTree = "<group>"; };
 		D8EA4CA00F4DB71E0077124F /* renderers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderers.cpp; sourceTree = "<group>"; };
 		D8EA4CA10F4DB71E0077124F /* renderers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = renderers.hpp; sourceTree = "<group>"; };
 		D8F80CD60F05DC62002ACC03 /* transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transition.cpp; sourceTree = "<group>"; };
@@ -259,6 +268,7 @@
 				D8122CE90EE10BD400A0AD25 /* sound_effects.cpp */,
 				D84C2A870EDD20760000DE73 /* synth.hpp */,
 				D8122D770EE4EEF700A0AD25 /* tripwire.hpp */,
+				D8E7C2250F8BE06C0073D603 /* finally.hpp */,
 			);
 			name = BattleMints;
 			sourceTree = "<group>";
@@ -266,6 +276,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8A124ED0F8C4C2E00B4B749 /* flagpost.png */,
+				D8E7C2240F8BE06C0073D603 /* battlemints-flag.png */,
+				D8E7C2260F8BE06C0073D603 /* meat-theme.png */,
+				D8E7C2270F8BE06C0073D603 /* nightcity-theme.png */,
 				D8C28C790F852F510098F1B2 /* pause-button.png */,
 				D8C28BFA0F847BCD0098F1B2 /* pause-background.png */,
 				D8D0DC7F0F7A8EB6001CFBDA /* profont.png */,
@@ -386,6 +400,10 @@
 				D8C28CB20F86AF400098F1B2 /* level4.bb in Resources */,
 				D8C28CE10F87FDC40098F1B2 /* level5.bb in Resources */,
 				D8C28CE30F87FDE00098F1B2 /* dim-theme.png in Resources */,
+				D8E7C2280F8BE06C0073D603 /* battlemints-flag.png in Resources */,
+				D8E7C2290F8BE06C0073D603 /* meat-theme.png in Resources */,
+				D8E7C22A0F8BE06C0073D603 /* nightcity-theme.png in Resources */,
+				D8A124EE0F8C4C2E00B4B749 /* flagpost.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

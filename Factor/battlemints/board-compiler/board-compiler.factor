@@ -48,8 +48,8 @@ CONSTANT: signfaces H{
         { "spikes"          3 }
         { "slow"            4 }
         { "stop"            5 }
-        { "leftarrow"       6 }
-        { "rightarrow"      7 }
+        { "fallingrocks"    6 }
+        { "blank"           7 }
         { "arrowup"         8 }
         { "arrowupleft"     9 }
         { "arrowleft"      10 }
@@ -94,6 +94,7 @@ GENERIC: (write-thing) ( thing -- )
 M: object thing-written-name class name>> ;
 M: tile-shell thing-written-name drop "tile" ;
 M: tile-vertices thing-written-name drop "tile_vertices" ;
+M: battlemints-flag thing-written-name drop "battlemints_flag" ;
 
 M: tile-vertices (write-thing)
     vertices>>

@@ -393,7 +393,8 @@
          sodipodi:start="0.00069147816"
          sodipodi:end="6.2838755"
          sodipodi:open="true"
-         inkscape:path-effect="#path-effect3238" />
+         inkscape:path-effect="#path-effect3238"
+         d="M 0.34999991,0.00024201733 A 0.34999999,0.34999999 0 1 1 0.34999991,0.00024156746" />
       <text
          xml:space="preserve"
          style="font-size:0.40000001px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"

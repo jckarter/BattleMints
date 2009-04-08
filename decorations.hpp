@@ -2,6 +2,7 @@
 #define __DECORATIONS_HPP__
 
 #include "thing.hpp"
+#include "renderers.hpp"
 
 namespace battlemints {
 
@@ -11,14 +12,63 @@ struct decoration : thing
 {
     struct params {
         void const *vertices, *texcoords;
+        unsigned count;
     };
 
     decoration(vec2 center) : thing(center, NO_COLLISION) {}
 
-    virtual params decoration_params() = 0;
+    virtual params decoration_params(decoration_renderer::decoration_id d) = 0;
 
 protected:
     decoration(int flags, FILE *bin) : thing(NO_COLLISION | flags, bin) {}
+};
+
+struct flag : decoration
+{
+    static const int NUM_VERTICES = 18;
+    static const float
+        FLAP_MIN_AMPLITUDE, FLAP_MIN_INITIAL_AMPLITUDE, FLAP_MAX_INITIAL_AMPLITUDE,
+        BASE_FLAP_MIN_WAVELENGTH, BASE_FLAP_MAX_WAVELENGTH,
+        BASE_FLAP_MIN_INITIAL_AMPLITUDE, BASE_FLAP_MAX_INITIAL_AMPLITUDE,
+        FLAP_AMPLITUDE_DAMP, FLAP_MIN_WAVELENGTH, FLAP_MAX_WAVELENGTH, FLAP_PHASE_STEP,
+        WIDTH, HEIGHT, HEIGHT_OFFSET;
+
+    static boost::array<vec2, NUM_VERTICES> texcoords;
+
+    static boost::array<vec2, 4> flagpost_texcoords;
+    static boost::array<vec2, 4> flagpost_vertices;
+
+    boost::array<vec2, NUM_VERTICES> vertices;
+
+    struct flap {
+        float wavelength, amplitude, delta_wavelength, phase;
+
+        float height(float theta) const
+            { return amplitude * fast_cos_2pi((phase + theta)*wavelength); }
+    };
+    flap base_flap;
+
+    virtual void tick();
+
+    virtual params decoration_params(decoration_renderer::decoration_id d);
+
+    flag(FILE *bin);
+
+private:
+    void _reset_flap(flap &f);
+    void _reset_base_flap(flap &f);
+};
+
+struct battlemints_flag : flag
+{
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+
+    virtual char const * kind() const { return "battlemints_flag"; }
+
+    battlemints_flag(FILE *bin) : flag(bin) { }
 };
 
 struct sign : decoration
@@ -30,8 +80,8 @@ struct sign : decoration
         spikes,
         slow,
         stop,
-        leftarrow,
-        rightarrow,
+        fallingrocks,
+        blank,
         goalup,
         goalleft,
         goaldown,
@@ -52,7 +102,7 @@ struct sign : decoration
         _set_texcoords(s);
     }
 
-    virtual params decoration_params();
+    virtual params decoration_params(decoration_renderer::decoration_id d);
 
     virtual char const * kind() const { return "sign"; }
     virtual renders_with_range renders_with() const

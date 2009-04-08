@@ -11,25 +11,26 @@ namespace battlemints {
 typedef thing *(*thing_reader)(FILE *bin);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 18> _thing_reader_pairs = {
-    thing_reader_pair("player",          &thing::from_bin<player>),
-    thing_reader_pair("pellet",          &thing::from_bin<pellet>),
-    thing_reader_pair("mini",            &thing::from_bin<mini>),
-    thing_reader_pair("mega",            &thing::from_bin<mega>),
-    thing_reader_pair("bumper",          &thing::from_bin<bumper>),
-    thing_reader_pair("powerup",         &thing::from_bin<powerup>),
-    thing_reader_pair("wall",            &thing::from_bin<wall>),
-    thing_reader_pair("wallpost",        &thing::from_bin<wallpost>),
-    thing_reader_pair("goal",            &thing::from_bin<goal>),
-    thing_reader_pair("alarm",           &thing::from_bin<alarm>),
-    thing_reader_pair("door",            &thing::from_bin<door>),
-    thing_reader_pair("tile",            &thing::from_bin<tile>),
-    thing_reader_pair("tile_vertices",   &thing::from_bin<tile_vertices>),
-    thing_reader_pair("sign",            &thing::from_bin<sign>),
-    thing_reader_pair("switch",          &thing::from_bin<switch_spring>),
-    thing_reader_pair("loader",          &thing::from_bin<loader>),
-    thing_reader_pair("eraser",          &thing::from_bin<eraser_switch>),
-    thing_reader_pair("durian",          &thing::from_bin<durian>)
+static const boost::array<thing_reader_pair, 19> _thing_reader_pairs = {
+    thing_reader_pair("player",           &thing::from_bin<player>),
+    thing_reader_pair("pellet",           &thing::from_bin<pellet>),
+    thing_reader_pair("mini",             &thing::from_bin<mini>),
+    thing_reader_pair("mega",             &thing::from_bin<mega>),
+    thing_reader_pair("bumper",           &thing::from_bin<bumper>),
+    thing_reader_pair("powerup",          &thing::from_bin<powerup>),
+    thing_reader_pair("wall",             &thing::from_bin<wall>),
+    thing_reader_pair("wallpost",         &thing::from_bin<wallpost>),
+    thing_reader_pair("goal",             &thing::from_bin<goal>),
+    thing_reader_pair("alarm",            &thing::from_bin<alarm>),
+    thing_reader_pair("door",             &thing::from_bin<door>),
+    thing_reader_pair("tile",             &thing::from_bin<tile>),
+    thing_reader_pair("tile_vertices",    &thing::from_bin<tile_vertices>),
+    thing_reader_pair("sign",             &thing::from_bin<sign>),
+    thing_reader_pair("switch",           &thing::from_bin<trigger_switch>),
+    thing_reader_pair("loader",           &thing::from_bin<loader>),
+    thing_reader_pair("eraser",           &thing::from_bin<eraser_switch>),
+    thing_reader_pair("durian",           &thing::from_bin<durian>),
+    thing_reader_pair("battlemints_flag", &thing::from_bin<battlemints_flag>)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers

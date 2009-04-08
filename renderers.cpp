@@ -30,7 +30,9 @@ face_renderer::face_id
     face_renderer::MEGA_FACE          = (face_renderer::face_id)"mega";
 
 decoration_renderer::decoration_id
-    decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs.png";
+    decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs.png",
+    decoration_renderer::BATTLEMINTS_FLAG_DECORATION = (decoration_renderer::decoration_id)"battlemints-flag.png",
+    decoration_renderer::FLAGPOST_DECORATION = (decoration_renderer::decoration_id)"flagpost.png";
 
 void
 renderer::global_start()
@@ -76,6 +78,8 @@ renderer::_prebuild_textures()
     spike_renderer::instance->make_texture(durian::RADIUS);
 
     decoration_renderer::instance->make_texture(decoration_renderer::SIGN_DECORATION);
+    decoration_renderer::instance->make_texture(decoration_renderer::BATTLEMINTS_FLAG_DECORATION);
+    decoration_renderer::instance->make_texture(decoration_renderer::FLAGPOST_DECORATION);
 }
 
 template<typename RenderedTexture>
@@ -214,14 +218,14 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
 
     BOOST_FOREACH (thing *th, things) {
         decoration *d = static_cast<decoration*>(th);
-        decoration::params params = d->decoration_params();
+        decoration::params params = d->decoration_params(deco);
 
         glPushMatrix();
         glTranslatef(d->center.x, d->center.y, 0.0f);
         glVertexPointer(2, GL_FLOAT, 0, (void*)params.vertices);
         glTexCoordPointer(2, GL_FLOAT, 0, (void*)params.texcoords);
 
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, params.count);
 
         glPopMatrix();
     }
