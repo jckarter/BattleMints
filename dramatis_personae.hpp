@@ -234,7 +234,8 @@ struct shield_mini : enemy {
 
     shield_mini(FILE *bin)
         : enemy(0, bin, mini::MASS, OUTER_RADIUS, SHIELD_SPRING, mini::DAMP, mini::ACCEL, mini::RESPONSIVENESS),
-          color(mini::colors[rand() % mini::colors.size()]), shielded(true) { }
+          color(mini::colors[rand() % mini::colors.size()]), shielded(true)
+        { face_radius = mini::RADIUS; }
 };
 
 struct durian : enemy {

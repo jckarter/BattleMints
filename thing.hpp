@@ -127,10 +127,7 @@ static inline std::ostream &operator<<(std::ostream &os, thing const &th)
 struct sphere : thing {
     static const float EXHAUST_FACTOR;
 
-    float mass;
-    float radius;
-    float bounce;
-    float damp;
+    float mass, radius, face_radius, bounce, damp;
     vec2 cur_accel;
 
     sphere(vec2 ct, float m, float r, float b, float d)
@@ -150,8 +147,8 @@ struct sphere : thing {
 
 protected:
     sphere(int flags, FILE *bin, float m, float r, float b, float d)
-        : thing(SPHERE | DOES_TICKS | MOVES | flags, bin), mass(m), radius(r), bounce(b), damp(d),
-          cur_accel(ZERO_VEC2) {}
+        : thing(SPHERE | DOES_TICKS | MOVES | flags, bin), mass(m),
+          radius(r), face_radius(r), bounce(b), damp(d), cur_accel(ZERO_VEC2) {}
 #endif
 };
 

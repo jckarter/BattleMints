@@ -178,7 +178,7 @@ face_renderer::draw(std::vector<thing*> const &things, renderer_parameter p)
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         glTranslatef(sph->center.x, sph->center.y, 0.0f);
-        glScalef(sph->radius, sph->radius, sph->radius);
+        glScalef(sph->face_radius, sph->face_radius, sph->face_radius);
         if (st != sphere_face::panicked && st != sphere_face::asleep) {
             vec2 cur_accel = vnormalize(sph->cur_accel);
             glRotatef(sphere_face::rotation(cur_accel.y), -1.0, 0.0, 0.0);

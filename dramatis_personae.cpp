@@ -112,6 +112,7 @@ void bomb::die()
     if (explode_time < 0) {
         explode_time = EXPLODE_TIME;
         radius = EXPLOSION_RADIUS;
+        face_radius = EXPLOSION_RADIUS;
         bounce = EXPLOSION_SPRING;
         mass = EXPLOSION_MASS;
     }
@@ -206,10 +207,12 @@ void player::update_stats()
 {
     if (invuln) {
         radius = SHIELD_RADIUS;
+        face_radius = SHIELD_RADIUS;
         bounce = INVULN_SPRING;
         mass   = INVULN_MASS;
         damp   = INVULN_DAMP;
     } else {
+        face_radius = RADIUS;
         if (shielded) {
             radius = SHIELD_RADIUS;
             bounce = SHIELD_SPRING;
