@@ -4,7 +4,8 @@ generalizations io.encodings.binary io.encodings.string io.encodings.utf8 io.fil
 kernel literals math math.affine-transforms namespaces fry math.order
 math.functions math.vectors memoize method-chains sequences sequences.squish
 svg words xml xml.data xml.syntax xml.traversal sorting quadtrees vectors
-math.rectangles io.pathnames unicode.categories splitting grouping math.parser ;
+math.rectangles io.pathnames unicode.categories splitting grouping math.parser
+tr ;
 IN: battlemints.board-compiler
 
 ! utility
@@ -91,11 +92,10 @@ GENERIC: (write-thing) ( thing -- )
     [ thing-metaflags write-int ]
     [ (write-thing) ] tri ;
 
-M: object thing-written-name class name>> ;
+TR: hyphens>underscores "-" "_" ;
+
+M: object thing-written-name class name>> hyphens>underscores ;
 M: tile-shell thing-written-name drop "tile" ;
-M: tile-vertices thing-written-name drop "tile_vertices" ;
-M: battlemints-flag thing-written-name drop "battlemints_flag" ;
-M: heavy-switch thing-written-name drop "heavy_switch" ;
 
 M: tile-vertices (write-thing)
     vertices>>

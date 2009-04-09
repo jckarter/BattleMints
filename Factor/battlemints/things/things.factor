@@ -40,8 +40,10 @@ TUPLE: tile-rhombus-30 < tile ;
 TUPLE: tile-triangle < tile ;
 
 TUPLE: mini < actor ;
+TUPLE: shield-mini < actor ;
 TUPLE: mega < actor ;
 TUPLE: bumper < actor ;
+TUPLE: bomb < actor ;
 TUPLE: player < actor ;
 TUPLE: durian < actor ;
 TUPLE: powerup < actor powerup-kind ;
@@ -306,9 +308,11 @@ GENERIC: actor-radius ( thing -- radius )
     
 M: mini actor-radius drop 0.35 ;
 M: durian actor-radius drop 0.35 ;
+M: shield-mini actor-radius drop 0.45 ;
 M: mega actor-radius drop 2.6 ;
 M: bumper actor-radius drop 0.5 ;
 M: player actor-radius drop 0.5 ;
+M: bomb actor-radius drop 0.35 ;
 M: powerup actor-radius drop 0.5 ;
 M: pellet actor-radius drop 0.0 ;
 

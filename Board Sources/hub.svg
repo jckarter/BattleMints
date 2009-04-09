@@ -61,15 +61,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="23.226681"
-     inkscape:cx="25.749638"
-     inkscape:cy="19.9143"
+     inkscape:cx="24.027481"
+     inkscape:cy="9.1287116"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1194"
      inkscape:window-height="703"
-     inkscape:window-x="1204"
-     inkscape:window-y="763"
+     inkscape:window-x="246"
+     inkscape:window-y="197"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -656,42 +656,6 @@
        x="0"
        style="display:inline" />
     <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,22.988848,1.8414219)"
-       id="use4515"
-       xlink:href="#tile-rhombus-45"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#tile-rhombus-45"
-       id="use4517"
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,20.056995,-0.4082618)"
-       width="1000"
-       height="10" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(-0.5,-0.8660253,0.8660253,-0.5,21.057014,1.3237874)"
-       id="use4519"
-       xlink:href="#tile-rhombus-60"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
-       height="10"
-       width="1000"
-       transform="matrix(0.2588189,-0.9659258,0.9659258,0.2588189,21.988959,0.1093499)"
-       id="use4521"
-       xlink:href="#tile-rhombus-30"
-       y="0"
-       x="0"
-       style="display:inline" />
-    <use
        style="display:inline"
        x="0"
        y="0"
@@ -772,5 +736,14 @@
        battlemints:next-board="level5"
        battlemints:achieves-goal="false"
        battlemints:goal-number="5" />
+    <path
+       battlemints:goal-number="6"
+       battlemints:achieves-goal="false"
+       battlemints:next-board="level6"
+       sodipodi:nodetypes="cc"
+       battlemints:tripwire="goal"
+       id="path20411"
+       d="M 21.988779,0.109399 L 18.642781,-1.8224752"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
   </g>
 </svg>

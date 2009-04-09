@@ -11,10 +11,12 @@ namespace battlemints {
 typedef thing *(*thing_reader)(FILE *bin);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 20> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 22> _thing_reader_pairs = {
+    thing_reader_pair("bomb",             &thing::from_bin<bomb>),
     thing_reader_pair("player",           &thing::from_bin<player>),
     thing_reader_pair("pellet",           &thing::from_bin<pellet>),
     thing_reader_pair("mini",             &thing::from_bin<mini>),
+    thing_reader_pair("shield_mini",      &thing::from_bin<shield_mini>),
     thing_reader_pair("mega",             &thing::from_bin<mega>),
     thing_reader_pair("bumper",           &thing::from_bin<bumper>),
     thing_reader_pair("powerup",          &thing::from_bin<powerup>),

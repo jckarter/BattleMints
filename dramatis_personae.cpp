@@ -11,6 +11,8 @@ boost::array<renders_with_pair, 3> player::renders_with_pairs_template;
 boost::array<renders_with_pair, 3> player::invuln_renders_with_pairs;
 boost::array<renders_with_pair, 1> powerup::renders_with_pairs;
 boost::array<renders_with_pair, 2> mini::renders_with_pairs;
+boost::array<renders_with_pair, 3> shield_mini::renders_with_pairs;
+boost::array<renders_with_pair, 2> bomb::renders_with_pairs;
 boost::array<renders_with_pair, 2> durian::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
 boost::array<renders_with_pair, 2> trigger_switch::renders_with_pairs;
@@ -41,6 +43,17 @@ void global_start_actors()
         { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_FACE) }
     }};
 
+    shield_mini::renders_with_pairs = (boost::array<renders_with_pair,3>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(shield_mini::OUTER_RADIUS) },
+        { sphere_renderer::instance, renderer::as_parameter<float>(mini::RADIUS) },
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_FACE) }
+    }};
+
+    bomb::renders_with_pairs = (boost::array<renders_with_pair,2>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(mini::RADIUS) },
+        { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MINI_WHITE_FACE) }
+    }};
+
     mega::renders_with_pairs = (boost::array<renders_with_pair,2>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(mega::RADIUS) },
         { face_renderer::instance,   renderer::as_parameter<face_renderer::face_id>(face_renderer::MEGA_FACE) }
@@ -69,6 +82,67 @@ void global_start_actors()
     pellet::renders_with_pairs = (boost::array<renders_with_pair,1>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(pellet::RADIUS) }
     }};
+}
+
+renders_with_range shield_mini::renders_with() const
+{
+    return boost::make_iterator_range(
+        renders_with_pairs.begin() + (!shielded || (board::current()->tick_count() & 1)),
+        renders_with_pairs.end()
+    );
+}
+
+void shield_mini::damage()
+{
+    if (shielded)
+        lose_shield();
+    else
+        die();
+}
+
+void shield_mini::lose_shield()
+{
+    shielded = false;
+    radius = mini::RADIUS;
+    bounce = mini::SPRING;
+}
+
+void bomb::die()
+{
+    if (explode_time < 0) {
+        explode_time = EXPLODE_TIME;
+        radius = EXPLOSION_RADIUS;
+        bounce = EXPLOSION_SPRING;
+        mass = EXPLOSION_MASS;
+    }
+}
+
+void bomb::tick()
+{
+    enemy::tick();
+    if (explode_time > 0) {
+        board::current()->particles.explode(this, false);
+        --explode_time;
+    }
+    else if (explode_time == 0) {
+        board::current()->remove_thing(this);
+    }
+    else if (target) {
+        if (fuse > 0) {
+            --fuse;
+            if (fuse == 0)
+                die();
+        }
+    } else
+        fuse = FUSE;
+}
+
+vec4 bomb::sphere_color(float r)
+{
+    int fuse_time = FUSE - fuse;
+    return target
+        ? blend(COLOR, BLUSH_COLOR, fast_sin_2pi(fuse_time*fuse_time*BLUSH_FACTOR))
+        : COLOR;
 }
 
 renders_with_range player::renders_with() const

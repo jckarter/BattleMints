@@ -27,6 +27,7 @@ face_renderer::face_id
     face_renderer::PLAYER_FACE        = (face_renderer::face_id)"player",
     face_renderer::PLAYER_INVULN_FACE = (face_renderer::face_id)"player_invuln",
     face_renderer::MINI_FACE          = (face_renderer::face_id)"mini",
+    face_renderer::MINI_WHITE_FACE    = (face_renderer::face_id)"mini-white",
     face_renderer::MEGA_FACE          = (face_renderer::face_id)"mega";
 
 decoration_renderer::decoration_id
@@ -65,12 +66,14 @@ renderer::_prebuild_textures()
     face_renderer::instance->make_face(face_renderer::PLAYER_FACE);
     face_renderer::instance->make_face(face_renderer::PLAYER_INVULN_FACE);
     face_renderer::instance->make_face(face_renderer::MINI_FACE);
+    face_renderer::instance->make_face(face_renderer::MINI_WHITE_FACE);
     face_renderer::instance->make_face(face_renderer::MEGA_FACE);
 
     sphere_renderer::instance->make_texture(player::SHIELD_RADIUS);
     sphere_renderer::instance->make_texture(pellet::RADIUS);
     sphere_renderer::instance->make_texture(player::RADIUS);
     sphere_renderer::instance->make_texture(mini::RADIUS);
+    sphere_renderer::instance->make_texture(shield_mini::OUTER_RADIUS);
     sphere_renderer::instance->make_texture(mega::RADIUS);
     sphere_renderer::instance->make_texture(bumper::INNER_RADIUS);
     sphere_renderer::instance->make_texture(trigger_switch::RADIUS);

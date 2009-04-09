@@ -36,6 +36,7 @@ endpoints := endpoint-a:vec2 endpoint-b:vec2
 player       := --
 pellet       := --
 mini         := --
+shield-mini  := --
 durian       := --
 mega         := --
 bumper       := --

@@ -27,7 +27,7 @@ struct player : sphere {
     static const int
         INVULN_PELLET_BURN = 30,
         PANIC_CHARGE = 30*60,
-        PANIC_TAP_COUNT = 3,
+        PANIC_TAP_COUNT = 4,
         PANIC_TIME = 3,
         MAX_PELLET_SPILL = 20;
 
@@ -210,6 +210,33 @@ struct mini : enemy {
           color(colors[rand() % colors.size()]) { }
 };
 
+struct shield_mini : enemy {
+    static const float OUTER_RADIUS, SHIELD_SPRING;
+    static const vec4 OUTER_COLOR;
+
+    static boost::array<renders_with_pair, 3> renders_with_pairs;
+
+    vec4 color;
+    bool shielded;
+
+    virtual renders_with_range renders_with() const;
+    virtual vec4 sphere_color(float r) { return r == OUTER_RADIUS ? OUTER_COLOR : color; }
+
+    virtual char const * kind() const { return "shield_mini"; }
+
+    virtual void wall_damage() { damage(); }
+    virtual void post_damage() { damage(); }
+
+    void damage();
+    void lose_shield();
+
+    virtual void die() { for (int i = 0; i < 2; ++i) loose_pellet::spawn(*this); enemy::die(); }
+
+    shield_mini(FILE *bin)
+        : enemy(0, bin, mini::MASS, OUTER_RADIUS, SHIELD_SPRING, mini::DAMP, mini::ACCEL, mini::RESPONSIVENESS),
+          color(mini::colors[rand() % mini::colors.size()]), shielded(true) { }
+};
+
 struct durian : enemy {
     static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
     static const vec4 COLOR;
@@ -236,6 +263,33 @@ struct durian : enemy {
 
     durian(FILE *bin)
         : enemy(DURIAN, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS), stuck_to(NULL)
+        { }
+};
+
+struct bomb : enemy {
+    static const float ACCEL, RADIUS, MASS, SPRING, DAMP, RESPONSIVENESS;
+    static const float EXPLOSION_RADIUS, EXPLOSION_MASS, EXPLOSION_SPRING;
+    static const float BLUSH_FACTOR;
+    static const vec4 COLOR, BLUSH_COLOR;
+
+    static const int FUSE = 180, EXPLODE_TIME = 3;
+
+    static boost::array<renders_with_pair, 2> renders_with_pairs;
+
+    int fuse, explode_time;
+
+    virtual char const * kind() const { return "bomb"; }
+
+    virtual void die();
+    virtual void tick();
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color(float r);
+
+    bomb(FILE *bin)
+        : enemy(0, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS),
+          fuse(FUSE), explode_time(-1)
         { }
 };
 
