@@ -33,10 +33,10 @@ struct flag : decoration
         FLAP_AMPLITUDE_DAMP, FLAP_MIN_WAVELENGTH, FLAP_MAX_WAVELENGTH, FLAP_PHASE_STEP,
         WIDTH, HEIGHT, HEIGHT_OFFSET;
 
-    static boost::array<vec2, NUM_VERTICES> texcoords;
+    static const boost::array<vec2, NUM_VERTICES> texcoords;
 
-    static boost::array<vec2, 4> flagpost_texcoords;
-    static boost::array<vec2, 4> flagpost_vertices;
+    static const boost::array<vec2, 4> flagpost_texcoords;
+    static const boost::array<vec2, 4> flagpost_vertices;
 
     boost::array<vec2, NUM_VERTICES> vertices;
 
@@ -129,6 +129,20 @@ private:
             make_vec2(0.125f*column + 0.125f, 0.5f*row       ),
         };
     }
+};
+
+struct start_banner : decoration {
+    static const boost::array<vec2, 4> vertices, texcoords;
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
+    virtual params decoration_params(decoration_renderer::decoration_id d)
+        { return (params){ (void*)&vertices, (void*)&texcoords, 4 }; }
+
+    virtual char const * kind() const { return "start_banner"; }
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+
+    start_banner(FILE *bin) : decoration(0, bin) { }
 };
 
 }

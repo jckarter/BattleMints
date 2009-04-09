@@ -11,8 +11,9 @@ const boost::array<vec2, 4> sign::vertices = {
 
 boost::array<renders_with_pair, 1> sign::renders_with_pairs;
 boost::array<renders_with_pair, 2> battlemints_flag::renders_with_pairs;
+boost::array<renders_with_pair, 1> start_banner::renders_with_pairs;
 
-boost::array<vec2, flag::NUM_VERTICES> flag::texcoords = {
+const boost::array<vec2, flag::NUM_VERTICES> flag::texcoords = {
     make_vec2(0.0f,   1.0f),
     make_vec2(0.0f,   0.0f),
     make_vec2(0.125f, 1.0f),
@@ -33,18 +34,32 @@ boost::array<vec2, flag::NUM_VERTICES> flag::texcoords = {
     make_vec2(1.0f,   0.0f),
 };
 
-boost::array<vec2, 4> flag::flagpost_texcoords = {
+const boost::array<vec2, 4> flag::flagpost_texcoords = {
     make_vec2(0.0f, 1.0f),
     make_vec2(1.0f, 1.0f),
     make_vec2(0.0f, 0.0f),
     make_vec2(1.0f, 0.0f)
 };
 
-boost::array<vec2, 4> flag::flagpost_vertices = {
+const boost::array<vec2, 4> flag::flagpost_vertices = {
     make_vec2(-0.1f, 0.0f),
     make_vec2( 0.1f, 0.0f),
     make_vec2(-0.1f, 1.8f),
     make_vec2( 0.1f, 1.8f)
+};
+
+const boost::array<vec2, 4> start_banner::vertices = {
+    make_vec2(-5.0f, -1.875f),
+    make_vec2( 5.0f, -1.875f),
+    make_vec2(-5.0f,  1.875f),
+    make_vec2( 5.0f,  1.875f)
+};
+
+const boost::array<vec2, 4> start_banner::texcoords = {
+    make_vec2(0.0f, 1.0f ),
+    make_vec2(1.0f, 1.0f ),
+    make_vec2(0.0f, 0.25f),
+    make_vec2(1.0f, 0.25f)
 };
 
 void global_start_decorations()
@@ -56,6 +71,10 @@ void global_start_decorations()
     battlemints_flag::renders_with_pairs = (boost::array<renders_with_pair, 2>){{
         { decoration_renderer::instance, decoration_renderer::BATTLEMINTS_FLAG_DECORATION },
         { decoration_renderer::instance, decoration_renderer::FLAGPOST_DECORATION }
+    }};
+
+    start_banner::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
+        { decoration_renderer::instance, decoration_renderer::START_BANNER_DECORATION }
     }};
 }
 

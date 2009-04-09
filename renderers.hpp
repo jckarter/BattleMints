@@ -107,7 +107,9 @@ struct tile_renderer : renderer {
 
 struct decoration_renderer : renderer {
     typedef void const *decoration_id;
-    static decoration_id SIGN_DECORATION, BATTLEMINTS_FLAG_DECORATION, FLAGPOST_DECORATION;
+    static decoration_id
+        SIGN_DECORATION, BATTLEMINTS_FLAG_DECORATION,
+        FLAGPOST_DECORATION, START_BANNER_DECORATION;
     static decoration_renderer *instance;
 
     decoration_renderer() {}

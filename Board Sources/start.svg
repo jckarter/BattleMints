@@ -109,9 +109,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="61.064763"
-     inkscape:cx="21.518267"
-     inkscape:cy="34.393729"
+     inkscape:zoom="23.160149"
+     inkscape:cx="28.564214"
+     inkscape:cy="30.380728"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -120,8 +120,8 @@
      inkscape:window-x="68"
      inkscape:window-y="22"
      inkscape:snap-global="true"
-     inkscape:snap-bbox="false"
-     inkscape:snap-nodes="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-nodes="false"
      inkscape:object-nodes="true"
      showguides="true"
      inkscape:guide-bbox="true">
@@ -464,6 +464,52 @@
          d="M 0,0 L 0,-1.8"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#DotS);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
+    <g
+       style="display:inline"
+       id="start-banner"
+       transform="matrix(0.3683243,0,0,0.3683243,1.8931889,-0.3817306)"
+       inkscape:label="#g2755">
+      <g
+         transform="matrix(6.8734639e-2,0,0,6.8734639e-2,-34.090986,-7.118258)"
+         inkscape:export-ydpi="36.370155"
+         inkscape:export-xdpi="36.370155"
+         inkscape:export-filename="/Users/joe/Documents/Code/BattleMints/start-banner.png"
+         id="g2504">
+        <path
+           style="font-size:81.71643829px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#256521;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Charcoal CY;-inkscape-font-specification:Charcoal CY Bold Italic"
+           d="M 309.80433,102.96102 C 308.60726,108.97272 305.48172,113.48148 300.42769,116.48732 C 296.11838,119.06756 290.81161,120.35768 284.50735,120.35768 L 263.20042,120.35768 L 275.44991,59.070353 L 298.39276,59.070353 C 303.65959,59.070414 307.51664,60.280731 309.96393,62.701308 C 312.62392,65.308202 313.44853,69.191857 312.43777,74.352284 C 311.7461,77.783779 310.18998,80.749721 307.7694,83.250119 C 305.24231,85.856993 302.26307,87.439715 298.83166,87.998291 C 307.90235,89.221941 311.5599,94.209511 309.80433,102.96102 M 299.23067,76.626619 C 300.40104,70.80118 297.79421,67.888439 291.41015,67.888386 L 286.98118,67.888386 L 283.54973,85.125447 L 288.0585,85.125447 C 294.38936,85.125483 298.11341,82.292543 299.23067,76.626619 M 296.27802,102.0433 C 297.4484,96.164639 294.62876,93.225297 287.8191,93.22527 L 281.91381,93.22527 L 278.24295,111.53965 L 284.86645,111.53965 C 291.19731,111.53966 295.00117,108.37421 296.27802,102.0433"
+           id="text3398" />
+        <path
+           style="font-size:47.3372345px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#256521;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Charcoal CY;-inkscape-font-specification:Charcoal CY Bold Italic"
+           d="M 341.22695,110.85976 L 333.04463,110.85976 L 332.09696,102.33073 L 320.40134,102.33073 L 316.0097,110.85976 L 309.5147,110.85976 L 328.53743,75.356831 L 336.02632,75.356831 L 341.22695,110.85976 M 331.47289,97.222561 L 329.71623,84.163221 L 322.99009,97.222561 L 331.47289,97.222561 M 366.82849,80.649911 L 359.10845,80.649911 L 353.07573,110.85976 L 345.07833,110.85976 L 351.11105,80.649911 L 343.2061,80.649911 L 344.26934,75.356831 L 367.89173,75.356831 L 366.82849,80.649911 M 390.86693,80.649911 L 383.14689,80.649911 L 377.11417,110.85976 L 369.11676,110.85976 L 375.14949,80.649911 L 367.24454,80.649911 L 368.30778,75.356831 L 391.93017,75.356831 L 390.86693,80.649911 M 409.68164,110.85976 L 388.4862,110.85976 L 395.58217,75.356831 L 403.57957,75.356831 L 397.52373,105.6129 L 410.72176,105.6129 L 409.68164,110.85976 M 434.92199,110.85976 L 413.35674,110.85976 L 420.4527,75.356831 L 442.01796,75.356831 L 440.95472,80.649911 L 427.38687,80.649911 L 425.49153,90.219061 L 436.03146,90.219061 L 434.96822,95.512141 L 424.42829,95.512141 L 422.39427,105.6129 L 435.96212,105.6129 L 434.92199,110.85976"
+           id="text3402"
+           sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccc" />
+        <path
+           style="font-size:80.97151184px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#256521;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Charcoal CY;-inkscape-font-specification:Charcoal CY Bold Italic"
+           d="M 478.34286,110.79708 L 470.8969,110.79708 L 475.01794,90.168503 L 459.86847,110.79708 L 455.7006,110.79708 L 449.51906,90.168503 L 445.39802,110.79708 L 439.77843,110.79708 L 446.96682,74.831713 L 452.96105,74.831713 L 461.27335,101.00963 L 480.19264,74.831713 L 485.53125,74.831713 L 478.34286,110.79708"
+           id="text3406" />
+        <path
+           style="font-size:46.55789948px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#256521;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Charcoal CY;-inkscape-font-specification:Charcoal CY Bold Italic"
+           d="M 490.69453,110.2552 L 483.94619,110.2552 L 490.92533,75.336781 L 497.11496,75.336781 L 490.13582,110.2552 M 522.02378,110.2552 L 518.63651,110.2552 L 505.56483,88.317521 L 501.17729,110.2552 C 501.17729,110.2552 498.3784,110.8139 495.58489,110.2552 L 502.56403,75.336781 L 506.74696,75.336781 L 519.34124,96.001391 L 523.47871,75.336781 L 529.00291,75.336781 L 522.02378,110.2552 M 554.32787,80.542711 L 546.73493,80.542711 L 540.80152,110.2552 L 532.93578,110.2552 L 538.86919,80.542711 L 531.09438,80.542711 L 532.14012,75.336781 L 555.3736,75.336781 L 554.32787,80.542711 M 575.87908,99.866061 C 574.43928,107.09527 569.29397,110.70987 560.44314,110.70987 C 556.47237,110.70987 553.18362,110.1188 550.57686,108.93667 L 552.66833,103.5034 C 554.94166,104.71585 557.42717,105.32207 560.12487,105.32207 C 562.20117,105.32207 563.73946,105.10231 564.73974,104.6628 C 566.24012,104.01112 567.17219,102.76836 567.53594,100.93453 C 567.82388,99.479611 567.22524,98.206541 565.74001,97.115331 C 565.04284,96.615211 563.70157,95.933211 561.71621,95.069321 C 559.20037,93.978141 557.46506,92.682341 556.51027,91.181921 C 555.41906,89.454211 555.14626,87.211191 555.69187,84.452851 C 556.32839,81.255061 558.23042,78.792281 561.39794,77.064511 C 564.0653,75.609611 567.11157,74.882151 570.53674,74.882111 C 574.1589,74.882151 577.04603,75.351971 579.19815,76.291581 L 577.33402,81.406581 C 574.56052,80.648831 572.08259,80.269941 569.90021,80.269911 C 565.95975,80.269941 563.75461,81.421771 563.28481,83.725381 C 562.98168,85.271281 563.56517,86.529191 565.03527,87.499121 C 565.21712,87.620391 566.64175,88.203881 569.30914,89.249591 C 574.68934,91.371391 576.87932,94.910211 575.87908,99.866061"
+           id="text3410"
+           sodipodi:nodetypes="ccccccccccccccccccccccccccsccssscsccssccscscc" />
+      </g>
+      <flowRoot
+         inkscape:export-ydpi="36.370155"
+         inkscape:export-xdpi="36.370155"
+         inkscape:export-filename="/Users/joe/Documents/Code/BattleMints/start-banner.png"
+         transform="matrix(6.8734639e-2,0,0,6.8734639e-2,-32.823888,-6.9516542)"
+         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+         id="flowRoot2496"
+         xml:space="preserve"><flowRegion
+           id="flowRegion2498"><rect
+             style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;font-family:Helvetica;-inkscape-font-specification:Helvetica"
+             y="130.32178"
+             x="255.33426"
+             height="59.893211"
+             width="294.7377"
+             id="rect2500" /></flowRegion><flowPara
+           id="flowPara2502">Just touch the screen, and you will fly toward your finger. Fly down one of these tunnels to start a new game or continue a game in progress.</flowPara></flowRoot>    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -686,6 +732,15 @@
        width="1"
        height="1"
        transform="translate(11.462097,7.5389395)" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#start-banner"
+       id="use2786"
+       transform="translate(9.9999999,10.508095)"
+       width="1000"
+       height="10" />
   </g>
   <g
      inkscape:label="Map"
@@ -712,7 +767,7 @@
     <use
        height="10"
        width="1000"
-       transform="translate(30.454503,-25.342348)"
+       transform="translate(30.5625,-23.5625)"
        id="use2602"
        xlink:href="#player"
        y="0"
@@ -1980,5 +2035,14 @@
        width="1"
        height="1"
        transform="translate(41.351738,-21.303447)" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(30.438691,-26.295329)"
+       id="use2789"
+       xlink:href="#start-banner"
+       y="0"
+       x="0"
+       style="display:inline" />
   </g>
 </svg>

@@ -33,7 +33,8 @@ face_renderer::face_id
 decoration_renderer::decoration_id
     decoration_renderer::SIGN_DECORATION = (decoration_renderer::decoration_id)"signs.png",
     decoration_renderer::BATTLEMINTS_FLAG_DECORATION = (decoration_renderer::decoration_id)"battlemints-flag.png",
-    decoration_renderer::FLAGPOST_DECORATION = (decoration_renderer::decoration_id)"flagpost.png";
+    decoration_renderer::FLAGPOST_DECORATION = (decoration_renderer::decoration_id)"flagpost.png",
+    decoration_renderer::START_BANNER_DECORATION = (decoration_renderer::decoration_id)"start-banner.png";
 
 void
 renderer::global_start()
@@ -84,6 +85,7 @@ renderer::_prebuild_textures()
     decoration_renderer::instance->make_texture(decoration_renderer::SIGN_DECORATION);
     decoration_renderer::instance->make_texture(decoration_renderer::BATTLEMINTS_FLAG_DECORATION);
     decoration_renderer::instance->make_texture(decoration_renderer::FLAGPOST_DECORATION);
+    decoration_renderer::instance->make_texture(decoration_renderer::START_BANNER_DECORATION);
 }
 
 template<typename RenderedTexture>
@@ -215,10 +217,11 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
     image_texture *tex = decoration_cache[deco]; 
         
     glEnable(GL_TEXTURE_2D);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindTexture(GL_TEXTURE_2D, tex->texture);
     glMatrixMode(GL_MODELVIEW);
-    glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
     BOOST_FOREACH (thing *th, things) {
         decoration *d = static_cast<decoration*>(th);
@@ -233,6 +236,8 @@ decoration_renderer::draw(std::vector<thing*> const &things, renderer_parameter 
 
         glPopMatrix();
     }
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 image_texture *

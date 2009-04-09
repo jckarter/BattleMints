@@ -64,6 +64,7 @@ TUPLE: switch < transform-thing ;
 TUPLE: heavy-switch < switch ;
 TUPLE: eraser < switch universe-name ;
 TUPLE: sign < transform-thing signface ;
+TUPLE: start-banner < transform-thing ;
 TUPLE: battlemints-flag < transform-thing ;
 
 GENERIC: (shape-vertices) ( tile -- vertices )
