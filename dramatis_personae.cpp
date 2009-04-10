@@ -3,6 +3,7 @@
 #include "board.hpp"
 #include "renderers.hpp"
 #include "universe.hpp"
+#include "battlemints.h"
 #include <unistd.h>
 
 namespace battlemints {
@@ -19,6 +20,7 @@ boost::array<renders_with_pair, 2> trigger_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> heavy_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
 boost::array<renders_with_pair, 1> pellet::renders_with_pairs;
+boost::array<renders_with_pair, 1> protip::renders_with_pairs;
 
 void global_start_actors()
 {
@@ -81,6 +83,10 @@ void global_start_actors()
 
     pellet::renders_with_pairs = (boost::array<renders_with_pair,1>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(pellet::RADIUS) }
+    }};
+
+    protip::renders_with_pairs = (boost::array<renders_with_pair,1>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(protip::RADIUS) }
     }};
 }
 
@@ -317,6 +323,7 @@ vec4 powerup::sphere_color(float)
 
 void powerup::tick()
 {
+    spring::tick();
     if (charge_time > 0)
         --charge_time;
 }
@@ -542,6 +549,46 @@ eraser_switch::switch_on()
     unlink(universe::filename(universe_name).c_str());
     if (label)
         board::current()->fire_trigger(label, last_touch);
+}
+
+void
+spring::tick()
+{
+    velocity += spring_factor*(home - center);
+}
+
+void
+protip::on_collision(thing &o)
+{
+    if ((o.flags & PLAYER) && (next_popup_delay == 0)) {
+        popup_delay = POPUP_DELAY; next_popup_delay = NEXT_POPUP_DELAY;
+    }
+}
+
+void
+protip::tick()
+{
+    spring::tick();
+    
+    if (popup_delay > 0) {
+        --popup_delay;
+        if (popup_delay == 0)
+            pop_up();
+    }
+    if (next_popup_delay > 0)
+        --next_popup_delay;
+}
+
+vec4
+protip::sphere_color(float radius)
+{
+    return blend(COLOR, POPUP_COLOR, (float)next_popup_delay/(float)NEXT_POPUP_DELAY);
+}
+
+void
+protip::pop_up()
+{
+    battlemints_ui_pop_up(text.c_str());
 }
 
 }

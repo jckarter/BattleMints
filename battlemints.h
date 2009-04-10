@@ -25,6 +25,8 @@ enum battlemints_pause_flag_values {
 
 int battlemints_pause_flags(void);
 
+void battlemints_ui_pop_up(char const *text);
+
 #ifdef __cplusplus
 }
 #endif

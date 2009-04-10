@@ -11,7 +11,7 @@ namespace battlemints {
 typedef thing *(*thing_reader)(FILE *bin);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 23> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 24> _thing_reader_pairs = {
     thing_reader_pair("bomb",             &thing::from_bin<bomb>),
     thing_reader_pair("player",           &thing::from_bin<player>),
     thing_reader_pair("pellet",           &thing::from_bin<pellet>),
@@ -34,13 +34,14 @@ static const boost::array<thing_reader_pair, 23> _thing_reader_pairs = {
     thing_reader_pair("eraser",           &thing::from_bin<eraser_switch>),
     thing_reader_pair("durian",           &thing::from_bin<durian>),
     thing_reader_pair("battlemints_flag", &thing::from_bin<battlemints_flag>),
-    thing_reader_pair("start_banner",     &thing::from_bin<start_banner>)
+    thing_reader_pair("start_banner",     &thing::from_bin<start_banner>),
+    thing_reader_pair("protip",           &thing::from_bin<protip>)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers
     (_thing_reader_pairs.begin(), _thing_reader_pairs.end());
 
-void _safe_fread(void *p, size_t size, size_t nmemb, FILE *stream)
+bool _safe_fread(void *p, size_t size, size_t nmemb, FILE *stream)
 {
     size_t count = fread(p, size, nmemb, stream);
     while (count != nmemb) {
@@ -50,15 +51,18 @@ void _safe_fread(void *p, size_t size, size_t nmemb, FILE *stream)
             p = (void*)((char*)p + size * nmemb);
             count = fread(p, size, nmemb, stream);
         }
+        else if (feof(stream))
+            return false;
         else
             throw invalid_board(
                 "fread got " + boost::lexical_cast<std::string>(count) + " records but expected "
                     + boost::lexical_cast<std::string>(size * nmemb) + " records"
             );
     }
+    return true;
 }
 
-void _safe_fwrite(void const *p, size_t size, size_t nmemb, FILE *stream)
+bool _safe_fwrite(void const *p, size_t size, size_t nmemb, FILE *stream)
 {
     size_t count = fwrite(p, size, nmemb, stream);
     while (count != nmemb) {
@@ -68,22 +72,22 @@ void _safe_fwrite(void const *p, size_t size, size_t nmemb, FILE *stream)
             p = (void const *)((char const *)p + size * nmemb);
             count = fwrite(p, size, nmemb, stream);
         }
+        else if (feof(stream))
+            return false;
         else
             throw invalid_board(
                 "fwrite got " + boost::lexical_cast<std::string>(count) + " records but expected "
                     + boost::lexical_cast<std::string>(size * nmemb) + " records"
             );
     }
+    return true;
 }
 
-boost::optional<std::string> pascal_string_from_bin(FILE *bin)
+template<typename LengthType>
+boost::optional<std::string> _pascal_string_from_bin(FILE *bin)
 {
-    int length = getc(bin);
-    while (length == EOF && ferror(bin) && errno == EINTR) {
-        clearerr(bin);
-        length = getc(bin);
-    }
-    if (length == EOF)
+    LengthType length;
+    if (!safe_fread(&length, sizeof(length), 1, bin))
         return boost::optional<std::string>();
 
     std::string r(length, '\0');
@@ -92,6 +96,16 @@ boost::optional<std::string> pascal_string_from_bin(FILE *bin)
         safe_fread(&r[0], length, 1, bin);
 
     return r;
+}
+
+boost::optional<std::string> pascal_string_from_bin(FILE *bin)
+{
+    return _pascal_string_from_bin<uint8_t>(bin);
+}
+
+boost::optional<std::string> long_pascal_string_from_bin(FILE *bin)
+{
+    return _pascal_string_from_bin<uint16_t>(bin);
 }
 
 thing *thing_from_bin(FILE *bin)

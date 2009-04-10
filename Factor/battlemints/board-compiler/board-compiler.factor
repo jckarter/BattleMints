@@ -15,10 +15,14 @@ IN: battlemints.board-compiler
         { "false" [ f ] }
     } case ;
 
+: write-short ( n -- )
+    2 >le write ;
 : write-int ( n -- )
     4 >le write ;
 : write-pascal-string ( string -- )
     utf8 encode [ length write1 ] [ write ] bi ;
+: write-long-pascal-string ( string -- )
+    utf8 encode [ length write-short ] [ write ] bi ;
 : write-vec2 ( sequence -- )
     first2 [ float>bits write-int ] bi@ ;
 : write-vec4 ( sequence -- )
@@ -132,6 +136,9 @@ AFTER: switch (write-thing)
 AFTER: eraser (write-thing)
     universe-name>> write-pascal-string ;
 
+AFTER: protip (write-thing)
+    text>> write-long-pascal-string ;
+
 : <use>? ( tag -- ? ) "use" svg-name names-match? ;
 : <path>? ( tag -- ? ) "path" svg-name names-match? ;
 : battlemints-<path>? ( tag -- ? )
@@ -228,6 +235,9 @@ M: sign (tag>>thing)
 
 M: eraser (tag>>thing)
     "universe-name" battlemints-name attr >>universe-name ;
+
+M: protip (tag>>thing)
+    "text" battlemints-name attr >>text ;
 
 : children-tags>things ( tag -- things )
     children-tags [ tag>thing ] map ;

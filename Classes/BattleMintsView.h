@@ -4,6 +4,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 @class BattleMintsPauseView;
+@class BattleMintsPopupView;
 
 @interface BattleMintsView : UIView
 {
@@ -18,15 +19,19 @@
     NSTimer *animationTimer;
 
     BattleMintsPauseView *pauseView;
+    BattleMintsPopupView *popupView;
 
     BOOL touchStartedAsPause;
 }
 
 @property(nonatomic, retain) IBOutlet BattleMintsPauseView *pauseView;
+@property(nonatomic, retain) IBOutlet BattleMintsPopupView *popupView;
 
 - (void)pause;
 - (void)unpause;
 - (void)pauseMenu;
 - (void)drawView;
+
+- (void)popUp:(NSString*)text;
 
 @end

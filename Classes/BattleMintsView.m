@@ -3,6 +3,7 @@
 
 #import "BattleMintsView.h"
 #import "BattleMintsPauseView.h"
+#import "BattleMintsPopupView.h"
 #include "battlemints.h"
 
 #ifndef BENCHMARK
@@ -45,7 +46,7 @@ static void _report_touch(UIView *view, UITouch *touch)
 
 @implementation BattleMintsView
 
-@synthesize pauseView;
+@synthesize pauseView, popupView;
 
 + (Class)layerClass
 {
@@ -172,6 +173,15 @@ static void _report_touch(UIView *view, UITouch *touch)
                            owner:self
                            options:[NSDictionary dictionary]];
     [self addSubview:self.pauseView];
+}
+
+- (void)popUp:(NSString*)text
+{
+    [[NSBundle mainBundle] loadNibNamed:@"BattleMintsPopupView"
+                           owner:self
+                           options:[NSDictionary dictionary]];
+    self.popupView.popupText.text = text;
+    [self addSubview:self.popupView];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event

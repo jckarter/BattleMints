@@ -86,15 +86,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="27.857618"
-     inkscape:cx="17.595172"
-     inkscape:cy="22.238083"
+     inkscape:cx="13.090121"
+     inkscape:cy="19.640025"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="716"
-     inkscape:window-x="36"
-     inkscape:window-y="99"
+     inkscape:window-x="1103"
+     inkscape:window-y="597"
      inkscape:snap-global="true"
      inkscape:snap-bbox="false"
      inkscape:snap-nodes="true"
@@ -497,6 +497,33 @@
            x="-0.1341797"
            y="0.14912109">b</tspan></text>
     </g>
+    <g
+       inkscape:label="#g5752"
+       id="protip">
+      <path
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path2722"
+         sodipodi:cx="0"
+         sodipodi:cy="0"
+         sodipodi:rx="0.5"
+         sodipodi:ry="0.5"
+         d="M 0.49999988,0.00034573905 A 0.5,0.5 0 1 1 0.49999988,0.00034509638"
+         sodipodi:start="0.00069147816"
+         sodipodi:end="6.2838755"
+         sodipodi:open="true" />
+      <text
+         xml:space="preserve"
+         style="font-size:0.91350412px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Times;-inkscape-font-specification:Times Bold"
+         x="-0.123555"
+         y="0.31557819"
+         id="text2724"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan2726"
+           x="-0.123555"
+           y="0.31557819">i</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -592,7 +619,7 @@
        id="use5757"
        width="1000"
        height="10"
-       transform="translate(9.0910412,5.3941985)" />
+       transform="translate(9.6806925,4.5961465)" />
     <use
        style="display:inline"
        x="0"
@@ -619,7 +646,7 @@
        id="use4522"
        width="1000"
        height="10"
-       transform="translate(11.20531,5.5002273)" />
+       transform="translate(12.138627,5.4643305)" />
     <path
        style="fill:#502d16;fill-rule:evenodd;stroke:#483737;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 25.165451,7.4008588 L 25.165451,3.3093193"
@@ -643,7 +670,7 @@
        y="0"
        xlink:href="#sign"
        id="use5202"
-       transform="translate(9.078811,3.5283412)"
+       transform="translate(9.6806923,3.0616825)"
        width="1000"
        height="10" />
     <use
@@ -652,7 +679,7 @@
        y="0"
        xlink:href="#pellet"
        id="use6129"
-       transform="translate(9.0543815,6.8814849)"
+       transform="translate(9.6806925,7.5994214)"
        width="1000"
        height="10" />
     <rect
@@ -677,7 +704,7 @@
        y="0"
        xlink:href="#heavy-switch"
        id="use21009"
-       transform="translate(11.299051,4.2692259)"
+       transform="translate(12.232368,4.2333291)"
        width="1000"
        height="10" />
     <use
@@ -718,6 +745,15 @@
        xlink:href="#bomb"
        id="use21869"
        transform="translate(7.3692531,8.6870313)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#protip"
+       id="use2736"
+       transform="translate(9.6806925,6.2977838)"
        width="1000"
        height="10" />
   </g>
@@ -1023,5 +1059,15 @@
        y="0"
        x="0"
        style="display:inline" />
+    <use
+       height="10"
+       width="1000"
+       transform="translate(26.736914,-14.891803)"
+       id="use2739"
+       xlink:href="#protip"
+       y="0"
+       x="0"
+       style="display:inline"
+       battlemints:text="Now is the time for all good mints to come to the aid of their country." />
   </g>
 </svg>

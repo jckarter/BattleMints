@@ -60,6 +60,8 @@ TUPLE: door < wall ;
 
 TUPLE: wallpost < point ;
 
+TUPLE: protip < transform-thing text ;
+
 TUPLE: switch < transform-thing ;
 TUPLE: heavy-switch < switch ;
 TUPLE: eraser < switch universe-name ;

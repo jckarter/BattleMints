@@ -17,6 +17,17 @@ namespace battlemints {
 
 void global_start_actors();
 
+struct spring : sphere {
+    float spring_factor;
+    vec2 home;
+
+    virtual void tick();
+
+    spring(int flags, FILE *bin, float mass, float radius, float bounce, float damp, float sf)
+        : sphere(flags, bin, mass, radius, bounce, damp), spring_factor(sf)
+        { home = center; }
+};
+
 struct player : sphere {
     static const float ACCEL_SCALE, RADIUS, MASS, SPRING, DAMP;
     static const float SHIELD_RADIUS, SHIELD_SPRING;
@@ -76,8 +87,8 @@ struct player : sphere {
         { }
 };
 
-struct powerup : sphere {
-    static const float RADIUS, MASS, SPRING, DAMP;
+struct powerup : spring {
+    static const float RADIUS, MASS, SPRING, DAMP, SPRING_FACTOR;
     static const vec4 CHARGED_COLOR, DEAD_COLOR;
     static const int CHARGE_TIME = 300;
 
@@ -93,9 +104,6 @@ struct powerup : sphere {
     unsigned charge_time;
     int powerup_kind;
 
-    powerup(vec2 center, int k)
-        : sphere(center, MASS, RADIUS, SPRING, DAMP, LAYER_0), powerup_kind(k), charge_time(0) { }
-
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
     virtual vec4 sphere_color(float);
@@ -108,7 +116,7 @@ struct powerup : sphere {
     virtual char const * kind() const { return "powerup"; }
 
     powerup(FILE *bin)
-        : sphere(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP), charge_time(0)
+        : spring(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP, SPRING_FACTOR), charge_time(0)
         { BATTLEMINTS_READ_SLOTS(*this, powerup_kind, powerup_kind, bin); }
 
     virtual void print(std::ostream &os) const
@@ -320,25 +328,44 @@ struct mega : enemy {
         : enemy(0, bin, MASS, RADIUS, SPRING, DAMP, ACCEL, RESPONSIVENESS) { }
 };
 
-struct bumper : sphere {
-    static const float RADIUS, MASS, INNER_RADIUS, SPRING, DAMP;
+struct bumper : spring {
+    static const float RADIUS, MASS, INNER_RADIUS, SPRING, DAMP, SPRING_FACTOR;
     static const vec4 INNER_COLOR, OUTER_COLOR;
 
     static boost::array<renders_with_pair, 2> renders_with_pairs_template;
-
-    bumper(vec2 ct)
-        : sphere(ct, MASS, RADIUS, SPRING, DAMP, LAYER_0) { }
 
     virtual char const * kind() const { return "bumper"; }
 
     virtual renders_with_range renders_with() const;
     virtual vec4 sphere_color(float radius);
 
-    bumper(FILE *bin) : sphere(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP) { }
+    bumper(FILE *bin) : spring(LAYER_0, bin, MASS, RADIUS, SPRING, DAMP, SPRING_FACTOR) { }
+};
 
-public:
-    static thing *from_bin(FILE *bin)
-        { return new bumper(bin); }
+struct protip : spring {
+    static const float MASS, RADIUS, SPRING_FACTOR;
+    static const vec4 COLOR, POPUP_COLOR;
+    static const int POPUP_DELAY = 10, NEXT_POPUP_DELAY = 30;
+
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+
+    std::string text;
+    int popup_delay, next_popup_delay;
+
+    virtual void on_collision(thing &o);
+    virtual void tick();
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual vec4 sphere_color(float radius);
+
+    void pop_up();
+
+    protip(FILE *bin)
+        : spring(LAYER_0, bin, MASS, RADIUS, 0.0f, 0.0f, SPRING_FACTOR),
+          text(*long_pascal_string_from_bin(bin)),
+          popup_delay(0), next_popup_delay(0)
+        {}
 };
 
 struct switch_base : sphere {

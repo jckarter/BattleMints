@@ -4,6 +4,7 @@ version := 4
 board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} flags:int things:thing*
 
 pascal-string := length:uchar text:char{length} 
+long-pascal-string := length:uint16 text:char{length} 
 
 thing := class:pascal-string metaflags:int properties:thing-properties
 
@@ -43,6 +44,7 @@ bumper       := --
 powerup      := kind:int
 wall         := :endpoints
 wallpost     := --
+protip       := text:long-pascal-string
 goal         := :endpoints next-board:pascal-string goal-number:int achieves-goal:int
 alarm        := :endpoints
 loader       := :endpoints universe-name:pascal-string
