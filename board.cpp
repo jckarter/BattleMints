@@ -24,15 +24,18 @@ boost::array<vec2, 4> board::pause_button_vertices = {
 void
 cambot::tick()
 {
-    center += velocity;
     velocity *= FRICTION;
     if (target && board::current()->thing_lives(target)) {
         vec2 goal = target->center + target->velocity * LEAD_FACTOR;
-        vec2 goal_velocity = (goal - center) * FOLLOW_FACTOR;
+        vec2 goal_distance = goal - center;
+        vec2 goal_velocity = goal_distance*vnorm(goal_distance) * FOLLOW_FACTOR;
         if (goal_velocity != ZERO_VEC2)
             velocity += ACCEL * vnormalize(goal_velocity - velocity);
     } else
         target = NULL;
+
+    if (vnorm2(velocity) > MOVEMENT_THRESHOLD)
+        center += velocity;
 }
 
 board *board::_current = NULL;
