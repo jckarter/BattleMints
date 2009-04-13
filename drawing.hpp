@@ -95,8 +95,8 @@ struct sphere_face : boost::noncopyable {
 };
 
 struct font : image_texture {
-    static const vec2 GLYPH_TEXCOORD_PITCH, GLYPH_TEXCOORD_SIZE;
-    static const vec2 GLYPH_VERTEX_SIZE;
+    static const vec2 GLYPH_TEXCOORD_SIZE;
+    static const vec2 GLYPH_VERTEX_SIZE, GLYPH_DISTANCE;
     static font *from_file(std::string const &name);
 
     struct vertex {

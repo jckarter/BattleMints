@@ -224,14 +224,12 @@ void _glyph_row_col(char c, int &out_row, int &out_col)
 
 }
 
-const vec2 font::GLYPH_TEXCOORD_PITCH = make_vec2(8.0/128.0, 16.0/128.0),
-           font::GLYPH_TEXCOORD_SIZE  = make_vec2(6.0/128.0, 13.0/128.0),
-           font::GLYPH_VERTEX_SIZE    = make_vec2(12.0, 26.0);
+const vec2 font::GLYPH_TEXCOORD_SIZE  = make_vec2(8.0/128.0, 16.0/128.0),
+           font::GLYPH_VERTEX_SIZE    = make_vec2(16.0, 32.0),
+           font::GLYPH_DISTANCE       = make_vec2(12.0, 26.0);
 
 font::font(CGImageRef image) : image_texture(image)
 {
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 font *
@@ -260,31 +258,31 @@ font::draw_string(std::string const &s)
         _glyph_row_col(*si, row, col);
         
         vertices[0] = (vertex){
-            make_vec2(i  *GLYPH_VERTEX_SIZE.x,   0.0f),
+            make_vec2(i*GLYPH_DISTANCE.x,   0.0f),
             make_vec2(
-                col*GLYPH_TEXCOORD_PITCH.x,
-                row*GLYPH_TEXCOORD_PITCH.y + GLYPH_TEXCOORD_SIZE.y
+                col*GLYPH_TEXCOORD_SIZE.x,
+                (row+1)*GLYPH_TEXCOORD_SIZE.y
             )
         };
         vertices[1] = (vertex){
-            make_vec2((i+1)*GLYPH_VERTEX_SIZE.x,   0.0f),
+            make_vec2(i*GLYPH_DISTANCE.x + GLYPH_VERTEX_SIZE.x,   0.0f),
             make_vec2(
-                col*GLYPH_TEXCOORD_PITCH.x + GLYPH_TEXCOORD_SIZE.x,
-                row*GLYPH_TEXCOORD_PITCH.y + GLYPH_TEXCOORD_SIZE.y
+                (col+1)*GLYPH_TEXCOORD_SIZE.x,
+                (row+1)*GLYPH_TEXCOORD_SIZE.y
             )
         };
         vertices[2] = (vertex){
-            make_vec2(i  *GLYPH_VERTEX_SIZE.x,   GLYPH_VERTEX_SIZE.y),
+            make_vec2(i*GLYPH_DISTANCE.x,   GLYPH_VERTEX_SIZE.y),
             make_vec2(
-                col*GLYPH_TEXCOORD_PITCH.x,
-                row*GLYPH_TEXCOORD_PITCH.y
+                col*GLYPH_TEXCOORD_SIZE.x,
+                row*GLYPH_TEXCOORD_SIZE.y
             )
         };
         vertices[3] = (vertex){
-            make_vec2((i+1)*GLYPH_VERTEX_SIZE.x,   GLYPH_VERTEX_SIZE.y),
+            make_vec2(i*GLYPH_DISTANCE.x + GLYPH_VERTEX_SIZE.x,   GLYPH_VERTEX_SIZE.y),
             make_vec2(
-                col*GLYPH_TEXCOORD_PITCH.x + GLYPH_TEXCOORD_SIZE.x,
-                row*GLYPH_TEXCOORD_PITCH.y
+                (col+1)*GLYPH_TEXCOORD_SIZE.x,
+                row*GLYPH_TEXCOORD_SIZE.y
             )
         };
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
