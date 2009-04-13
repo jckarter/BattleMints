@@ -1633,7 +1633,7 @@
        height="10" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 114.22681,-15.915525 L 113.22712,-21.111297"
+       d="M 114.22681,-17.915525 L 113.22712,-23.111297"
        id="path6613"
        battlemints:tripwire="goal"
        sodipodi:nodetypes="cc" />
