@@ -30,7 +30,7 @@ void battlemints_start()
         universe::instance.load(*universe::name);
     else {
         universe::instance.set_default();
-        universe::instance.set_current_map(board_name::make(0, 0));
+        universe::instance.current_map = board_name::make(0, 0);
     }
 
     sphere_face::global_start(); // must happen first!
@@ -112,8 +112,8 @@ int battlemints_pause_flags()
 {
     if (board::current()) {
         return BATTLEMINTS_GAME_ACTIVE
-            |  (board::current()->name == "hub"   ? BATTLEMINTS_HUB_MAP   : 0)
-            |  (board::current()->name == "start" ? BATTLEMINTS_START_MAP : 0);
+            |  (board::current()->name.world == 0 ? BATTLEMINTS_START_MAP : 0)
+            |  (board::current()->name.stage == 0 ? BATTLEMINTS_HUB_MAP   : 0);
     } else
         return 0;
 }

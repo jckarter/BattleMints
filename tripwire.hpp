@@ -46,7 +46,7 @@ struct portal : tripwire {
     portal(FILE *bin) : tripwire(0, bin) { _set_up_vertices(); }
 
 protected:
-    virtual GLuint _texture() = 0;
+    virtual GLuint _texture() const = 0;
 private:
     void _set_up_vertices();
     boost::array<vec2, 4> _vertices;
@@ -67,7 +67,7 @@ struct goal : portal {
     goal(FILE *bin) : portal(bin) { }
 
 protected:
-    virtual GLuint _texture() { return goal_texture; }
+    virtual GLuint _texture() const { return goal_texture; }
 };
 
 struct stage_exit : portal {
@@ -86,7 +86,7 @@ struct stage_exit : portal {
     stage_exit(FILE *bin) : portal(bin), stage_number(data_from_bin<int>(bin)) { }
 
 protected:
-    virtual GLuint _texture() { return arrow_texture; }
+    virtual GLuint _texture() const { return arrow_texture; }
 };
 
 struct world_exit : portal {
@@ -106,7 +106,7 @@ struct world_exit : portal {
     world_exit(FILE *bin) : portal(bin), world_number(data_from_bin<int>(bin)) { }
 
 protected:
-    virtual GLuint _texture() { return goal::goal_texture; }
+    virtual GLuint _texture() const { return goal::goal_texture; }
 };
 
 struct alarm : tripwire {

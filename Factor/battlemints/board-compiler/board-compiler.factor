@@ -32,7 +32,7 @@ IN: battlemints.board-compiler
 XML-NS: battlemints-name com.duriansoftware.BattleMints.board
 
 CONSTANT: board-format-magic   HEX: BA7713BD
-CONSTANT: board-format-version 4
+CONSTANT: board-format-version 5
 
 CONSTANT: map-layer-label "Map"
 

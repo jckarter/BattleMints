@@ -559,10 +559,10 @@ board::from_file(board_name const &name)
         return from_bin(name, bin);
 
     } catch (std::exception const &x) {
-        std::cerr << "Reading board " << name << " failed: " << x.what() << "\n";
+        std::cerr << "Reading board " << name.filename() << " failed: " << x.what() << "\n";
         return NULL;
     } catch (...) {
-        std::cerr << "Reading board " << name << " failed: ...\n";
+        std::cerr << "Reading board " << name.filename() << " failed: ...\n";
         return NULL;
     }
 }

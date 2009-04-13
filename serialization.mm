@@ -11,7 +11,7 @@ namespace battlemints {
 typedef thing *(*thing_reader)(FILE *bin);
 typedef std::pair<std::string, thing_reader> thing_reader_pair;
 
-static const boost::array<thing_reader_pair, 24> _thing_reader_pairs = {
+static const boost::array<thing_reader_pair, 26> _thing_reader_pairs = {
     thing_reader_pair("bomb",             &thing::from_bin<bomb>),
     thing_reader_pair("player",           &thing::from_bin<player>),
     thing_reader_pair("pellet",           &thing::from_bin<pellet>),
@@ -35,7 +35,9 @@ static const boost::array<thing_reader_pair, 24> _thing_reader_pairs = {
     thing_reader_pair("durian",           &thing::from_bin<durian>),
     thing_reader_pair("battlemints_flag", &thing::from_bin<battlemints_flag>),
     thing_reader_pair("start_banner",     &thing::from_bin<start_banner>),
-    thing_reader_pair("protip",           &thing::from_bin<protip>)
+    thing_reader_pair("protip",           &thing::from_bin<protip>),
+    thing_reader_pair("stage_exit",       &thing::from_bin<stage_exit>),
+    thing_reader_pair("world_exit",       &thing::from_bin<world_exit>)
 };
 
 static const std::map<std::string, thing_reader> _thing_readers

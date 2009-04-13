@@ -21,8 +21,8 @@ boost::array<renders_with_pair, 1>
     world_exit::renders_with_pairs,
     loader::renders_with_pairs;
 
-GLuint goal::_goal_texture;
-GLuint goal::_arrow_texture;
+GLuint goal::goal_texture;
+GLuint stage_exit::arrow_texture;
 
 void
 global_start_tripwires()
@@ -60,8 +60,8 @@ global_start_tripwires()
         0,   0,   0,   255, 255, 0,   0,   0
     };
 
-    glGenTextures(1, &goal::_goal_texture);
-    glBindTexture(GL_TEXTURE_2D, goal::_goal_texture);
+    glGenTextures(1, &goal::goal_texture);
+    glBindTexture(GL_TEXTURE_2D, goal::goal_texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -92,12 +92,14 @@ global_start_tripwires()
 void
 global_finish_tripwires()
 {
-    glDeleteTextures(1, &goal::_goal_texture);
+    glDeleteTextures(1, &goal::goal_texture);
 }
 
 void
 portal::on_trip(thing &o)
 {
+    if (achieves_goal())
+        universe::instance.achieved_goals[board::current()->name.goal_number()] = 1;
     board::change_board_with<goal_transition>(next_board(board::current()->name));
 }
 
@@ -124,16 +126,9 @@ portal::draw_self() const
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-void
-goal::on_trip(thing &o)
-{
-    universe::instance.achieved_goals[board::current()->name.goal_number()] = 1;
-    portal::on_trip(o);
-}
-
 // arm
 void
-goal::_set_up_vertices()
+portal::_set_up_vertices()
 {
     float texture_length = vnorm(endpoint_b - endpoint_a)/(GOAL_THICKNESS*2.0f);
 
@@ -220,7 +215,7 @@ loader::_set_descriptor()
         descriptor.push_back("NEW GAME");
     else {
         descriptor.push_back(
-            std::string(temp.current_map)
+            temp.current_map.filename()
                 + " (" + boost::lexical_cast<std::string>(temp.achieved_goals.count())
                 + " complete)"
         );
