@@ -13,7 +13,7 @@
 namespace battlemints {
 
 const float GOAL_THICKNESS = 0.1f;
-const float loader::TEXT_SCALE = 1.0f/60.0f;
+const float loader::TEXT_SCALE = 1.0f/40.0f;
 
 boost::array<renders_with_pair, 1>
     goal::renders_with_pairs,
@@ -214,11 +214,8 @@ loader::_set_descriptor()
     if (!temp.saved)
         descriptor.push_back("NEW GAME");
     else {
-        descriptor.push_back(
-            temp.current_map.filename()
-                + " (" + boost::lexical_cast<std::string>(temp.achieved_goals.count())
-                + " complete)"
-        );
+        descriptor.push_back(temp.current_map.description());
+        descriptor.push_back(boost::lexical_cast<std::string>(temp.achieved_goals.count()) + " complete");
 
         struct stat s;
         int err = stat(universe::filename(universe_name).c_str(), &s);
@@ -228,7 +225,7 @@ loader::_set_descriptor()
             localtime_r(&mtime_secs, &mtime);
 
             char mtime_string[19];
-            strftime(mtime_string, 19, "%Y-%m-%d %H:%M", &mtime);
+            strftime(mtime_string, 19, "%b %d", &mtime);
             descriptor.push_back(mtime_string);
         }
     }

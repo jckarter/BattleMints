@@ -230,6 +230,8 @@ const vec2 font::GLYPH_TEXCOORD_SIZE  = make_vec2(8.0/128.0, 16.0/128.0),
 
 font::font(CGImageRef image) : image_texture(image)
 {
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 font *

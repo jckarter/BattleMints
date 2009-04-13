@@ -17,6 +17,14 @@ struct board_name {
             + "-"
             + boost::lexical_cast<std::string>(stage); }
 
+    std::string description() const
+    {
+        std::string r =  "World " + boost::lexical_cast<std::string>(world);
+        if (stage != 0)
+            r += "-" + boost::lexical_cast<std::string>(stage);
+        return r;
+    }
+
     static board_name make(int w, int s) { return (board_name){ w, s }; }
 
     board_name with_stage(int s) const { return (board_name){ world, s }; }
