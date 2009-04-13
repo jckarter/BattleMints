@@ -117,8 +117,8 @@ portal::draw_self() const
 
     glBindTexture(GL_TEXTURE_2D, _texture());
 
-    if (universe::instance.achieved_goals[board::current()->name.goal_number()])
-        glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+    if (universe::instance.achieved_goals[next_board(board::current()->name).goal_number()])
+        glColor4f(1.0f, 1.0f, 1.0f, 0.4f);
     else
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
@@ -251,8 +251,8 @@ loader::_set_matrix()
     }
 
     vec2 offset_center = center
-        - scaled_x * font::GLYPH_VERTEX_SIZE.x * 0.5f * size
-        + scaled_y * font::GLYPH_VERTEX_SIZE.y * 0.5f * (descriptor.size()-1);
+        - scaled_x * font::GLYPH_DISTANCE.x * 0.5f * size
+        + scaled_y * font::GLYPH_DISTANCE.y * 0.5f * (descriptor.size()-1);
 
     memset(matrix, 0, sizeof(matrix));
     matrix[ 0] = scaled_x.x;

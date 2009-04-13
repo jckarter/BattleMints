@@ -470,7 +470,7 @@ board::_draw_hud()
         glTranslatef(-150.0f, 200.0f, 0.0f);
         font::draw_string(pellets_buf);
         glTranslatef(0.0f, -26.0f, 0.0f);
-        glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+        glColor4f(1.0f, 1.0f, 1.0f, 0.75f);
         font::draw_string(time_buf);
     }
 
