@@ -113,10 +113,11 @@ M: transform-thing (write-thing)
 AFTER: line (write-thing)
     endpoints>> first2 [ write-vec2 ] bi@ ;
 
-AFTER: goal (write-thing)
-    [ next-board>> write-pascal-string ]
-    [ goal-number>> write-int ]
-    [ achieves-goal?>> 1 0 ? write-int ] tri ;
+AFTER: stage-exit (write-thing)
+    [ stage-number>> write-int ] ;
+
+AFTER: world-exit (write-thing)
+    [ world-number>> write-int ] ;
 
 AFTER: loader (write-thing)
     universe-name>> write-pascal-string ;
@@ -219,10 +220,10 @@ CONSTANT: svg>game-transform T{ affine-transform f
 
 M: object (tag>>thing) drop ;
 
-M: goal (tag>>thing)
-    [ "next-board" battlemints-name attr >>next-board ]
-    [ "goal-number" battlemints-name attr string>number >>goal-number ]
-    [ "achieves-goal" battlemints-name attr string>bool >>achieves-goal? ] tri ;
+M: stage-exit (tag>>thing)
+    [ "stage-number" battlemints-name attr string>number >>goal-number ] ;
+M: world-exit (tag>>thing)
+    [ "world-number" battlemints-name attr string>number >>goal-number ] ;
 
 M: loader (tag>>thing)
     "universe-name" battlemints-name attr >>universe-name ;

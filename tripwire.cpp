@@ -15,7 +15,11 @@ namespace battlemints {
 const float GOAL_THICKNESS = 0.1f;
 const float loader::TEXT_SCALE = 1.0f/60.0f;
 
-boost::array<renders_with_pair, 1> goal::renders_with_pairs, loader::renders_with_pairs;
+boost::array<renders_with_pair, 1>
+    goal::renders_with_pairs,
+    stage_exit::renders_with_pairs,
+    world_exit::renders_with_pairs,
+    loader::renders_with_pairs;
 
 GLuint goal::_goal_texture;
 GLuint goal::_arrow_texture;
@@ -25,6 +29,14 @@ global_start_tripwires()
 {
     goal::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
         { self_renderer::instance, (renderer_parameter)"goal" }
+    }};
+
+    stage_exit::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
+        { self_renderer::instance, (renderer_parameter)"stage_exit" }
+    }};
+
+    world_exit::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
+        { self_renderer::instance, (renderer_parameter)"world_exit" }
     }};
 
     loader::renders_with_pairs = (boost::array<renders_with_pair, 1>){{
@@ -62,8 +74,8 @@ global_start_tripwires()
         GL_LUMINANCE, GL_UNSIGNED_BYTE, (void*)&checkerboard_texture
     );
 
-    glGenTextures(1, &goal::_arrow_texture);
-    glBindTexture(GL_TEXTURE_2D, goal::_arrow_texture);
+    glGenTextures(1, &stage_exit::arrow_texture);
+    glBindTexture(GL_TEXTURE_2D, stage_exit::arrow_texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -84,15 +96,27 @@ global_finish_tripwires()
 }
 
 void
-goal::draw_self() const
+portal::on_trip(thing &o)
+{
+    board::change_board_with<goal_transition>(next_board(board::current()->name));
+}
+
+bool
+portal::can_trip(thing &o)
+{
+    return o.flags & PLAYER;
+}
+
+void
+portal::draw_self() const
 {
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glBindTexture(GL_TEXTURE_2D, achieves_goal ? _goal_texture : _arrow_texture);
+    glBindTexture(GL_TEXTURE_2D, _texture());
 
-    if (universe::instance.achieved_goals[goal_number])
-        glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
+    if (universe::instance.achieved_goals[board::current()->name.goal_number()])
+        glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
     else
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     glVertexPointer(2, GL_FLOAT, 0, (void*)&_vertices);
@@ -103,15 +127,8 @@ goal::draw_self() const
 void
 goal::on_trip(thing &o)
 {
-    if (achieves_goal)
-        universe::instance.achieved_goals[goal_number] = 1;
-    board::change_board_with<goal_transition>(next_board);
-}
-
-bool
-goal::can_trip(thing &o)
-{
-    return o.flags & PLAYER;
+    universe::instance.achieved_goals[board::current()->name.goal_number()] = 1;
+    portal::on_trip(o);
 }
 
 // arm

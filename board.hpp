@@ -33,7 +33,7 @@ struct cambot {
 
 struct board : controller {
     static const unsigned BOARD_MAGIC = 0xBA7713BD;
-    static const int BOARD_VERSION = 4;
+    static const int BOARD_VERSION = 5;
 
     static const vec2 CELL_SIZE;
     static const float LIVE_RADIUS;
@@ -44,7 +44,8 @@ struct board : controller {
         SAFE = 1
     };
 
-    std::string name, theme, pellets_buf, time_buf;
+    board_name name;
+    std::string theme, pellets_buf, time_buf;
     int flags;
     boost::array<vec4, 2> background_gradient;
 
@@ -55,7 +56,7 @@ struct board : controller {
     image_texture *pause_button;
     player *player_thing;
 
-    board(std::string const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg, int f);
+    board(board_name const &nm, rect bound, std::string const &theme, boost::array<vec4, 2> const &bg, int f);
     virtual ~board();
 
     void add_thing(thing *t); // board takes ownership of added things and deletes them when done
@@ -66,14 +67,14 @@ struct board : controller {
     virtual void tick();
     virtual void draw();
 
-    static board *from_bin(std::string const &name, FILE *bin);
+    static board *from_bin(board_name const &name, FILE *bin);
 
-    static board *from_file(std::string const &name);
+    static board *from_file(board_name const &name);
 
     static board *current() { return _current; }
 
     template<typename Transition>
-    static void change_board_with(std::string const &name)
+    static void change_board_with(board_name const &name)
     {
         if (current() == controller::current())
             controller::set_current(

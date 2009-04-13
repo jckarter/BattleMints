@@ -52,7 +52,7 @@ void universe::set_default()
     saved = false;
     achieved_goals.reset();
     flipped_color_switches.reset();
-    set_current_map(NEW_GAME_MAP);
+    current_map = board_name::make(1, 0);
     current_checkpoint = 0;
 }
 
@@ -89,18 +89,6 @@ void universe::save(std::string const &nm)
     finally<FILE*> close_f(f, fclose);
 
     safe_fwrite(this, sizeof(universe), 1, f);
-}
-
-void universe::set_current_map(std::string const &s)
-{
-    if (s.size() >= MAP_NAME_SIZE-1) {
-        std::cerr << "current_map name " << s << " too long\n";
-        strncpy(current_map, s.c_str(), 63);
-        current_map[63] = '\0';
-    } else {
-        strcpy(current_map, s.c_str());
-        memset(current_map + s.size(), '\0', MAP_NAME_SIZE - s.size());
-    }
 }
 
 }

@@ -2,6 +2,7 @@
 #define __UNIVERSE_HPP__
 
 #include "game.hpp"
+#include "board.hpp"
 #include <bitset>
 #include <string>
 #include <boost/optional.hpp>
@@ -10,7 +11,7 @@ namespace battlemints {
 
 struct universe {
     static const unsigned MAGIC = 0xBA77135A;
-    static const int MAP_NAME_SIZE = 64, VERSION = 1;
+    static const int VERSION = 2;
 
     static universe instance;
     static boost::optional<std::string> name;
@@ -30,10 +31,8 @@ struct universe {
     int saved;
     std::bitset<NUM_GOALS> achieved_goals;
     std::bitset<NUM_COLOR_SWITCHES> flipped_color_switches;
-    char current_map[MAP_NAME_SIZE];
+    board_name current_map;
     int current_checkpoint;
-
-    void set_current_map(std::string const &s);
 };
 
 }

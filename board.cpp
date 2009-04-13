@@ -40,7 +40,7 @@ cambot::tick()
 
 board *board::_current = NULL;
 
-board::board(std::string const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg, int f)
+board::board(board_name const &nm, rect bound, std::string const &thm, boost::array<vec4, 2> const &bg, int f)
     : name(nm),
       theme(thm),
       pellets_buf("PELLETS 000"),
@@ -61,7 +61,7 @@ board::board(std::string const &nm, rect bound, std::string const &thm, boost::a
 void
 board::setup()
 {
-    universe::instance.set_current_map(name);
+    universe::instance.current_map = name;
     universe::instance.current_checkpoint = 0;
     if (universe::name)
         universe::instance.save(*universe::name);
@@ -464,7 +464,7 @@ board::_draw_hud()
         if (player_thing->pellets == 0 && (tick_count() & 4))
             glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
         else
-            glColor4f(0.0f, 0.0f, 0.0f, 0.75f);
+            glColor4f(1.0f, 1.0f, 1.0f, 0.75f);
 
         glLoadIdentity();
         glTranslatef(-150.0f, 200.0f, 0.0f);
@@ -518,7 +518,7 @@ struct _tick_things {
 };
 
 board *
-board::from_bin(std::string const &name, FILE *bin)
+board::from_bin(board_name const &name, FILE *bin)
 {
     if (data_from_bin<unsigned>(bin) != BOARD_MAGIC)
         throw invalid_board("Bad magic");
@@ -546,13 +546,13 @@ board::from_bin(std::string const &name, FILE *bin)
 }
 
 board *
-board::from_file(std::string const &name)
+board::from_file(board_name const &name)
 {
-    boost::optional<std::string> path = resource_filename(name, "bb");
+    boost::optional<std::string> path = resource_filename(name.filename(), "bb");
     try {
         FILE *bin = fopen(path->c_str(), "rb");
         if (!bin)
-            throw invalid_board("Could not open board " + name);
+            throw invalid_board("Could not open board " + name.filename());
 
         finally<FILE*> close_bin(bin, fclose);
 

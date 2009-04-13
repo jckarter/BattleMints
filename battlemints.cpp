@@ -30,11 +30,11 @@ void battlemints_start()
         universe::instance.load(*universe::name);
     else {
         universe::instance.set_default();
-        universe::instance.set_current_map(INITIAL_MAP);
+        universe::instance.set_current_map(board_name::make(0, 0));
     }
 
     sphere_face::global_start(); // must happen first!
-    renderer::global_start(); // must happen second!
+    renderer::global_start();    // must happen second!
     global_start_tripwires();
     global_start_actors();
     global_start_decorations();
@@ -94,7 +94,7 @@ extern "C"
 void battlemints_go_to_hub()
 {
     if (board::current()) {
-        board::change_board_with<fadeout_transition>("hub");
+        board::change_board_with<fadeout_transition>(board::current()->name.with_stage(0));
     }
 }
 
@@ -103,7 +103,7 @@ void battlemints_go_to_start()
 {
     if (board::current()) {
         universe::clear_name();
-        board::change_board_with<fadeout_transition>("start");
+        board::change_board_with<fadeout_transition>(board_name::make(0, 0));
     }
 }
 

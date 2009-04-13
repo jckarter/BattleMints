@@ -16,7 +16,7 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="hub.svg"
+   sodipodi:docname="1-0.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    battlemints:theme="temple"
    battlemints:safe="true">
@@ -352,16 +352,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Palette"
-     style="display:none">
-    <use
-       style="display:inline"
-       x="0"
-       y="0"
-       xlink:href="#mega"
-       id="use5276"
-       transform="translate(3.6624999,5.6624999)"
-       width="1000"
-       height="10" />
+     style="display:inline">
     <use
        style="display:inline"
        x="0"
@@ -369,6 +360,15 @@
        xlink:href="#player"
        id="use5288"
        transform="translate(7.5625,5.5625)"
+       width="1000"
+       height="10" />
+    <use
+       style="display:inline"
+       x="0"
+       y="0"
+       xlink:href="#mega"
+       id="use5276"
+       transform="translate(3.6624999,5.6624999)"
        width="1000"
        height="10" />
     <use
@@ -520,7 +520,7 @@
        battlemints:label="righthall"
        sodipodi:nodetypes="cc"
        style="fill:#502d16;fill-rule:evenodd;stroke:#cccccc;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 39.852982,7.7808599 L 39.852982,3.6893204"
+       d="M 43.852982,7.7808599 L 43.852982,3.6893204"
        id="path5013"
        battlemints:tripwire="alarm" />
     <use
@@ -532,6 +532,18 @@
        transform="translate(11.834644,3.5283412)"
        width="1000"
        height="10" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 39.852982,7.7808599 L 39.852982,3.6893204"
+       id="path3373"
+       battlemints:tripwire="stage-exit"
+       battlemints:stage-number="0" />
+    <path
+       battlemints:tripwire="world-exit"
+       id="path3375"
+       d="M 41.852982,7.7808599 L 41.852982,3.6893204"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008080;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
+       battlemints:world-number="0" />
   </g>
   <g
      inkscape:label="Map"
@@ -541,25 +553,16 @@
     <use
        height="10"
        width="1000"
-       transform="translate(22.969785,-12.962906)"
+       transform="translate(18.922715,-19.377943)"
        id="use5913"
        xlink:href="#player"
        y="0"
        x="0"
        style="display:inline" />
-    <path
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 17.642838,-10.882205 L 17.642784,-14.745863"
-       id="path5954"
-       battlemints:tripwire="goal"
-       sodipodi:nodetypes="cc"
-       battlemints:next-board="level1"
-       battlemints:achieves-goal="false"
-       battlemints:goal-number="1" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-1,0,0,-1,29.334809,-16.477889)"
+       transform="matrix(-1,0,0,-1,25.287739,-22.892926)"
        id="use5903"
        xlink:href="#tile-triangle"
        y="0"
@@ -571,7 +574,7 @@
        y="0"
        xlink:href="#tile-triangle"
        id="use5905"
-       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,22.988836,-20.141752)"
+       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,18.941766,-26.556789)"
        width="1000"
        height="10" />
     <use
@@ -580,49 +583,22 @@
        y="0"
        xlink:href="#tile-triangle"
        id="use5911"
-       transform="matrix(1,0,0,-1,16.642784,-16.477863)"
+       transform="matrix(1,0,0,-1,12.595714,-22.8929)"
        width="1000"
        height="10" />
-    <path
-       battlemints:next-board="level2"
-       sodipodi:nodetypes="cc"
-       battlemints:tripwire="goal"
-       id="path6521"
-       d="M 18.642838,-16.477825 L 21.988836,-18.409701"
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       battlemints:achieves-goal="false"
-       battlemints:goal-number="2" />
-    <path
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 27.334809,-16.477889 L 23.988811,-18.409765"
-       id="path5330"
-       battlemints:tripwire="goal"
-       sodipodi:nodetypes="cc"
-       battlemints:next-board="level3"
-       battlemints:achieves-goal="false"
-       battlemints:goal-number="3" />
-    <path
-       battlemints:goal-number="4"
-       battlemints:achieves-goal="false"
-       battlemints:next-board="level4"
-       sodipodi:nodetypes="cc"
-       battlemints:tripwire="goal"
-       id="path3830"
-       d="M 28.334795,-10.882234 L 28.334849,-14.74589"
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
     <use
        style="display:inline"
        x="0"
        y="0"
        xlink:href="#tile-rhombus-60"
        id="use4497"
-       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,17.642794,-7.418129)"
+       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,13.595724,-13.833166)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,28.334751,-7.418158)"
+       transform="matrix(0.4999999,-0.8660254,0.8660254,0.4999999,24.287681,-13.833195)"
        id="use4499"
        xlink:href="#tile-rhombus-60"
        y="0"
@@ -634,13 +610,13 @@
        y="0"
        xlink:href="#tile-triangle"
        id="use4509"
-       transform="translate(16.642781,-1.8224752)"
+       transform="translate(12.595711,-8.2375117)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(0.5,-0.8660254,0.8660254,0.5,22.988756,1.8413898)"
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,18.941686,-4.5736467)"
        id="use4511"
        xlink:href="#tile-triangle"
        y="0"
@@ -649,7 +625,7 @@
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.9999999,8.5712909e-8,8.5712909e-8,0.9999999,29.334806,-1.8225012)"
+       transform="matrix(-0.9999999,8.5712909e-8,8.5712909e-8,0.9999999,25.287736,-8.2375377)"
        id="use4513"
        xlink:href="#tile-triangle"
        y="0"
@@ -661,13 +637,13 @@
        y="0"
        xlink:href="#tile-rhombus-45"
        id="use4523"
-       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,29.334749,-1.8223705)"
+       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,25.287679,-8.2374067)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.9659257,0.2588191,-0.2588191,-0.9659257,25.920538,-0.4081525)"
+       transform="matrix(-0.9659257,0.2588191,-0.2588191,-0.9659257,21.873468,-6.8231887)"
        id="use4525"
        xlink:href="#tile-rhombus-45"
        y="0"
@@ -679,7 +655,7 @@
        y="0"
        xlink:href="#tile-rhombus-60"
        id="use4527"
-       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,27.920546,-0.40817)"
+       transform="matrix(-0.9999999,1.3335416e-7,-1.3335416e-7,-0.9999999,23.873476,-6.8232067)"
        width="1000"
        height="10" />
     <use
@@ -688,7 +664,7 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use4529"
-       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,27.334785,-1.8224769)"
+       transform="matrix(-0.7071068,-0.7071067,0.7071067,-0.7071068,23.287715,-8.2375127)"
        width="1000"
        height="10" />
     <use
@@ -697,13 +673,13 @@
        y="0"
        xlink:href="#tile-rhombus-45"
        id="use4531"
-       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,29.334808,-9.1502887)"
+       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,25.287738,-15.565325)"
        width="1000"
        height="10" />
     <use
        height="10"
        width="1000"
-       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,28.852453,-5.4863868)"
+       transform="matrix(-0.2588189,0.9659258,-0.9659258,-0.2588189,24.805383,-11.901423)"
        id="use4533"
        xlink:href="#tile-rhombus-45"
        y="0"
@@ -715,7 +691,7 @@
        y="0"
        xlink:href="#tile-rhombus-60"
        id="use4535"
-       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,29.852441,-7.2184537)"
+       transform="matrix(-0.4999999,0.8660254,-0.8660254,-0.4999999,25.805371,-13.63349)"
        width="1000"
        height="10" />
     <use
@@ -724,26 +700,50 @@
        y="0"
        xlink:href="#tile-rhombus-30"
        id="use4537"
-       transform="matrix(-0.9659258,0.2588191,-0.2588191,-0.9659258,28.334809,-7.4182877)"
+       transform="matrix(-0.9659258,0.2588191,-0.2588191,-0.9659258,24.287739,-13.833324)"
        width="1000"
        height="10" />
     <path
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 17.64274,-3.554473 L 17.642794,-7.418129"
-       id="path4539"
-       battlemints:tripwire="goal"
-       sodipodi:nodetypes="cc"
-       battlemints:next-board="level5"
-       battlemints:achieves-goal="false"
-       battlemints:goal-number="5" />
+       battlemints:stage-number="6"
+       battlemints:tripwire="stage-exit"
+       id="path3377"
+       d="M 17.94173,-6.3056721 L 14.595711,-8.2375117"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       sodipodi:nodetypes="cc" />
     <path
-       battlemints:goal-number="6"
-       battlemints:achieves-goal="false"
-       battlemints:next-board="level6"
        sodipodi:nodetypes="cc"
-       battlemints:tripwire="goal"
-       id="path20411"
-       d="M 21.988779,0.109399 L 18.642781,-1.8224752"
-       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline" />
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 13.595724,-13.833166 L 13.595713,-9.9695087"
+       id="path3379"
+       battlemints:tripwire="stage-exit"
+       battlemints:stage-number="5" />
+    <path
+       battlemints:stage-number="1"
+       battlemints:tripwire="stage-exit"
+       id="path3383"
+       d="M 13.595779,-21.160899 L 13.595768,-17.297242"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 14.595714,-22.8929 L 17.941747,-24.824719"
+       id="path3385"
+       battlemints:tripwire="stage-exit"
+       battlemints:stage-number="2" />
+    <path
+       battlemints:stage-number="3"
+       battlemints:tripwire="stage-exit"
+       id="path3387"
+       d="M 23.287739,-22.892926 L 19.94172,-24.824767"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
+       d="M 24.287726,-17.297267 L 24.287739,-21.160926"
+       id="path3389"
+       battlemints:tripwire="stage-exit"
+       battlemints:stage-number="4" />
   </g>
 </svg>

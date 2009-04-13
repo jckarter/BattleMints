@@ -52,7 +52,9 @@ TUPLE: line < transform-thing endpoints ;
 
 TUPLE: tripwire < line ;
 TUPLE: alarm < tripwire ;
-TUPLE: goal < tripwire next-board goal-number achieves-goal? ;
+TUPLE: goal < tripwire ;
+TUPLE: stage-exit < tripwire stage-number ;
+TUPLE: world-exit < tripwire world-number ;
 TUPLE: loader < tripwire universe-name ;
 
 TUPLE: wall < line ;

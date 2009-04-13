@@ -1,5 +1,5 @@
 magic := 0xBA7713BD
-version := 4
+version := 5
 
 board := magic:int version:int extents:vec2{2} theme:pascal-string background:vec4{2} flags:int things:thing*
 
@@ -45,7 +45,9 @@ powerup      := kind:int
 wall         := :endpoints
 wallpost     := --
 protip       := text:long-pascal-string
-goal         := :endpoints next-board:pascal-string goal-number:int achieves-goal:int
+goal         := :endpoints
+stage-exit   := :endpoints stage:int
+world-exit   := :endpoints world:int
 alarm        := :endpoints
 loader       := :endpoints universe-name:pascal-string
 

@@ -16,7 +16,7 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="level3.svg"
+   sodipodi:docname="1-3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    battlemints:theme="system6">
   <defs
@@ -60,15 +60,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="17.605365"
-     inkscape:cx="27.23603"
-     inkscape:cy="34.136443"
+     inkscape:cx="92.383301"
+     inkscape:cy="23.56471"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1308"
      inkscape:window-height="765"
-     inkscape:window-x="923"
-     inkscape:window-y="650"
+     inkscape:window-x="1135"
+     inkscape:window-y="344"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -1633,13 +1633,10 @@
        height="10" />
     <path
        style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1;display:inline"
-       d="M 114.22681,-17.915525 L 113.22712,-23.111297"
+       d="M 114.22681,-15.915525 L 113.22712,-21.111297"
        id="path6613"
        battlemints:tripwire="goal"
-       sodipodi:nodetypes="cc"
-       battlemints:next-board="hub"
-       battlemints:goal-number="3"
-       battlemints:achieves-goal="true" />
+       sodipodi:nodetypes="cc" />
     <use
        battlemints:label="megaroom2"
        height="10"

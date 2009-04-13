@@ -16,7 +16,7 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="level1.svg"
+   sodipodi:docname="1-1.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    battlemints:theme="volcanic">
   <defs
@@ -60,8 +60,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="14.297458"
-     inkscape:cx="68.440624"
-     inkscape:cy="29.992009"
+     inkscape:cx="21.627403"
+     inkscape:cy="34.911053"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -645,10 +645,7 @@
        d="M 27.113842,-38.201649 L 20.185842,-38.201649"
        id="path4725"
        battlemints:tripwire="goal"
-       sodipodi:nodetypes="cc"
-       battlemints:next-board="hub"
-       battlemints:achieves-goal="true"
-       battlemints:goal-number="1" />
+       sodipodi:nodetypes="cc" />
     <use
        height="10"
        width="1000"

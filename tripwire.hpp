@@ -34,43 +34,79 @@ protected:
     tripwire(int flags, FILE *bin) : line(CAN_OVERLAP | LAYER_2 | DOES_TICKS | flags, bin) { }
 };
 
-struct goal : tripwire {
-    static boost::array<renders_with_pair, 1> renders_with_pairs;
-
-    std::string next_board;
-    int goal_number;
-    int achieves_goal;
-
-    goal(vec2 pt_a, vec2 pt_b, std::string const &nb, int gn, bool ag)
-        : tripwire(pt_a, pt_b, 0), next_board(nb),
-          goal_number(gn), achieves_goal(ag)
-        { _set_up_vertices(); }
-
-    virtual renders_with_range renders_with() const
-        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
-    virtual void draw_self() const;
+struct portal : tripwire {
     virtual void on_trip(thing &o);
     virtual bool can_trip(thing &o);
 
-    virtual char const * kind() const { return "goal"; }
+    virtual void draw_self() const;
 
-    static void global_start();
-    static void global_finish();
+    virtual board_name next_board(board_name current) const = 0;
+    virtual bool achieves_goal() const { return false; }
 
-    goal(FILE *bin)
-        : tripwire(0, bin), next_board(*pascal_string_from_bin(bin)),
-          goal_number(data_from_bin<int>(bin)), achieves_goal(data_from_bin<int>(bin))
-        { _set_up_vertices(); }
+    portal(FILE *bin) : tripwire(0, bin) { _set_up_vertices(); }
 
-    virtual void print(std::ostream &os) const
-        { tripwire::print(os); os << " next-board:" << next_board; }
-
-    static GLuint _goal_texture, _arrow_texture;
-
+protected:
+    virtual GLuint _texture() = 0;
 private:
     void _set_up_vertices();
     boost::array<vec2, 4> _vertices;
     boost::array<vec2, 4> _texcoords;
+};
+
+struct goal : portal {
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+    static GLuint goal_texture;
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual char const * kind() const { return "goal"; }
+
+    virtual board_name next_board(board_name current) const { return current.with_stage(0); }
+    virtual bool achieves_goal() const { return true; }
+
+    goal(FILE *bin) : portal(bin) { }
+
+protected:
+    virtual GLuint _texture() { return goal_texture; }
+};
+
+struct stage_exit : portal {
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+    static GLuint arrow_texture;
+
+    int stage_number;
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual char const * kind() const { return "stage_exit"; }
+
+    virtual board_name next_board(board_name current) const
+        { return current.with_stage(stage_number); }
+
+    stage_exit(FILE *bin) : portal(bin), stage_number(data_from_bin<int>(bin)) { }
+
+protected:
+    virtual GLuint _texture() { return arrow_texture; }
+};
+
+struct world_exit : portal {
+    static boost::array<renders_with_pair, 1> renders_with_pairs;
+    static GLuint arrow_texture;
+
+    int world_number;
+
+    virtual renders_with_range renders_with() const
+        { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
+    virtual char const * kind() const { return "world_exit"; }
+
+    virtual board_name next_board(board_name current) const
+        { return board_name::make(world_number, 0); }
+    virtual bool achieves_goal() const { return true; }
+
+    world_exit(FILE *bin) : portal(bin), world_number(data_from_bin<int>(bin)) { }
+
+protected:
+    virtual GLuint _texture() { return goal::goal_texture; }
 };
 
 struct alarm : tripwire {
