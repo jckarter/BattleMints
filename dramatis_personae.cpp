@@ -433,13 +433,15 @@ void durian::on_collision(thing &o)
     if (stuck_to)
         stuck_to = NULL;
 
-    if ((o.flags & LINE) || (o.flags & POINT))
-        stick_to(o);
-    else if (o.flags & DURIAN) {
-        die();
-        static_cast<durian*>(&o)->die();
-    } else
-        o.post_damage();
+    if (board::current()->thing_lives(this) && board::current()->thing_lives(&o)) {
+        if ((o.flags & LINE) || (o.flags & POINT))
+            stick_to(o);
+        else if (o.flags & DURIAN) {
+            die();
+            static_cast<durian*>(&o)->die();
+        } else
+            o.post_damage();
+    }
 }
 
 void durian::tick()

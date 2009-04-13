@@ -256,7 +256,7 @@ struct durian : enemy {
 
     virtual char const * kind() const { return "durian"; }
 
-    virtual void die() { for (int i = 0; i < 2; ++i) loose_pellet::spawn(*this); enemy::die(); }
+    virtual void die() { loose_pellet::spawn(*this); enemy::die(); }
 
     virtual renders_with_range renders_with() const
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
