@@ -60,16 +60,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="23.226681"
-     inkscape:cx="24.027481"
-     inkscape:cy="9.1287116"
+     inkscape:zoom="21.649824"
+     inkscape:cx="23.531066"
+     inkscape:cy="26.338658"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1194"
      inkscape:window-height="703"
-     inkscape:window-x="246"
-     inkscape:window-y="197"
+     inkscape:window-x="133"
+     inkscape:window-y="53"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-nodes="true"
@@ -544,6 +544,12 @@
        d="M 41.852982,7.7808599 L 41.852982,3.6893204"
        style="fill:#000000;fill-rule:evenodd;stroke:#008080;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.2;stroke-dashoffset:0;stroke-opacity:1"
        battlemints:world-number="0" />
+    <path
+       battlemints:tripwire="color-door"
+       id="path11267"
+       d="M 33.868249,7.7808599 L 33.868249,3.6893204"
+       style="fill:#502d16;fill-rule:evenodd;stroke:#800000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       battlemints:switch-number="0" />
   </g>
   <g
      inkscape:label="Map"
@@ -745,5 +751,12 @@
        id="path3389"
        battlemints:tripwire="stage-exit"
        battlemints:stage-number="4" />
+    <path
+       battlemints:switch-number="0"
+       style="display:inline;fill:#502d16;fill-rule:evenodd;stroke:#800000;stroke-width:0.20000000000000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 23.287725,-15.56522 L 14.595724,-15.565217"
+       id="path11271"
+       battlemints:tripwire="color-door"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>

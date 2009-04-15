@@ -78,6 +78,7 @@ renderer::_prebuild_textures()
     sphere_renderer::instance->make_texture(mega::RADIUS);
     sphere_renderer::instance->make_texture(bumper::INNER_RADIUS);
     sphere_renderer::instance->make_texture(trigger_switch::RADIUS);
+    sphere_renderer::instance->make_texture(color_switch::HALO_RADIUS);
     sphere_renderer::instance->make_texture(heavy_switch::RADIUS);
 
     spike_renderer::instance->make_texture(durian::RADIUS);

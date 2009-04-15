@@ -72,7 +72,7 @@ struct wallpost : point {
 };
 
 struct door : wall {
-    static const vec4 CLUMP_COLOR, COLOR;
+    static const vec4 COLOR;
     static boost::array<renders_with_pair, 1> renders_with_pairs;
     static const unsigned NUM_CLUMPS = 3;
 
@@ -90,6 +90,7 @@ struct door : wall {
         { return boost::make_iterator_range(renders_with_pairs.begin(), renders_with_pairs.end()); }
 
     virtual void draw_self() const;
+    virtual vec4 door_color() const { return COLOR; }
     virtual void trigger(thing *scapegoat) { board::current()->remove_thing(this); }
     virtual char const * kind() const { return "door"; }
 
@@ -98,6 +99,18 @@ struct door : wall {
 private:
     void _init_draw();
     void _reset_clump(unsigned i);
+};
+
+struct color_door : door {
+    int switch_number;
+
+    virtual vec4 door_color() const;
+
+    virtual void tick();
+
+    virtual char const * kind() const { return "door"; }
+
+    color_door(FILE *bin) : door(bin), switch_number(data_from_bin<int>(bin)) { }
 };
 
 void global_start_walls();

@@ -59,6 +59,7 @@ TUPLE: loader < tripwire universe-name ;
 
 TUPLE: wall < line ;
 TUPLE: door < wall ;
+TUPLE: color-door < wall switch-number ;
 
 TUPLE: wallpost < point ;
 
@@ -66,6 +67,7 @@ TUPLE: protip < transform-thing text ;
 
 TUPLE: switch < transform-thing ;
 TUPLE: heavy-switch < switch ;
+TUPLE: color-switch < switch switch-number ;
 TUPLE: eraser < switch universe-name ;
 TUPLE: sign < transform-thing signface ;
 TUPLE: start-banner < transform-thing ;

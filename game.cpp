@@ -151,6 +151,19 @@ const float switch_base::SLOT_WIDTH = 0.05f;
 const float switch_base::SPRING_FACTOR = 0.3f;
 const vec4 switch_base::SLOT_COLOR = make_vec4(0.43f, 0.36f, 0.33f, 1.0f);
 
+const boost::array<vec4, color_switch::NUM_SWITCHES> color_switch::colors = {
+    make_vec4(0.5f, 0.0f,  0.0f,  1.0f),
+    make_vec4(0.0f, 0.5f,  0.0f,  1.0f),
+    make_vec4(0.0f, 0.0f,  0.5f,  1.0f),
+    make_vec4(0.5f, 0.0f,  0.5f,  1.0f),
+    make_vec4(0.5f, 0.25f, 0.0f,  1.0f),
+    make_vec4(0.5f, 0.5f,  0.0f,  1.0f),
+    make_vec4(0.5f, 0.25f, 0.25f, 1.0f),
+    make_vec4(0.5f, 0.5f,  0.5f,  1.0f)
+};
+const vec4 color_switch::HALO_COLOR = make_vec4(0.75f, 1.0f, 0.75f, 1.0f);
+const float color_switch::HALO_RADIUS = 0.3f;
+
 const vec4 trigger_switch::COLOR = make_vec4(0.89f, 0.87f, 0.86f, 1.0f);
 const vec4 trigger_switch::TRIGGERED_COLOR = make_vec4(0.69f, 1.00f, 0.66f, 1.0f);
 const float trigger_switch::RADIUS = 0.2f;
@@ -170,8 +183,7 @@ const float protip::SPRING_FACTOR = 0.1f;
 const vec4 protip::COLOR       = make_vec4(1.0f, 1.0f, 1.0f, 1.0f);
 const vec4 protip::POPUP_COLOR = make_vec4(0.5f, 1.0f, 0.5f, 1.0f);
 
-const vec4 door::CLUMP_COLOR = make_vec4(1.0f, 0.88f, 0.88f, 1.0f);
-const vec4 door::COLOR = make_vec4(1.0f, 0.66f, 0.66f, 1.0f);
+const vec4 door::COLOR = make_vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 const boost::array<vec2, 4> switch_base::slot_vertices = {
     make_vec2(-SLOT_LENGTH, -SLOT_WIDTH),

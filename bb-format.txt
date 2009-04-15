@@ -52,11 +52,13 @@ alarm        := :endpoints
 loader       := :endpoints universe-name:pascal-string
 
 door         := :endpoints
+color-door   := :endpoints switch-number:int
 
 tile         := start:int length:int
 
 sign         := signface:int
 flag         := --
 switch       := axis:vec2
+color-switch := axis:vec2 switch-number:int
 heavy-switch := axis:vec2
 eraser       := :switch universe-name:pascal-string

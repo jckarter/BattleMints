@@ -9,6 +9,7 @@
 #include "serialization.hpp"
 #include "drawing.hpp"
 #include "transition.hpp"
+#include "universe.hpp"
 #include <boost/array.hpp>
 #include <iostream>
 #include <vector>
@@ -419,6 +420,31 @@ struct trigger_switch : switch_base {
 
     trigger_switch(FILE *bin, float mass, float radius)
         : switch_base(bin, mass, radius) { }
+};
+
+struct color_switch : switch_base {
+    static const int NUM_SWITCHES = 8;
+    static const boost::array<vec4, NUM_SWITCHES> colors;
+    static const vec4 HALO_COLOR;
+    static const float HALO_RADIUS;
+
+    static boost::array<renders_with_pair, 3> renders_with_pairs;
+
+    int switch_number;
+
+    virtual renders_with_range renders_with() const;
+    virtual vec4 sphere_color(float r)
+        { return r == HALO_RADIUS ? HALO_COLOR : colors[switch_number]; }
+
+    virtual char const * kind() const { return "color_switch"; }
+    virtual void switch_on();
+
+    bool switched() const { return universe::instance.flipped_color_switches[switch_number]; }
+
+    color_switch(FILE *bin)
+        : switch_base(bin, trigger_switch::MASS, trigger_switch::RADIUS),
+          switch_number(data_from_bin<int>(bin))
+        { if (switched()) { prev_center = center += axis * 2.0f * SLOT_LENGTH; } }
 };
 
 struct heavy_switch : trigger_switch {

@@ -16,6 +16,7 @@ boost::array<renders_with_pair, 3> shield_mini::renders_with_pairs;
 boost::array<renders_with_pair, 2> bomb::renders_with_pairs;
 boost::array<renders_with_pair, 2> durian::renders_with_pairs;
 boost::array<renders_with_pair, 2> mega::renders_with_pairs;
+boost::array<renders_with_pair, 3> color_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> trigger_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> heavy_switch::renders_with_pairs;
 boost::array<renders_with_pair, 2> bumper::renders_with_pairs_template;
@@ -69,6 +70,12 @@ void global_start_actors()
     bumper::renders_with_pairs_template = (boost::array<renders_with_pair,2>){{
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::RADIUS) },
         { sphere_renderer::instance, renderer::as_parameter<float>(bumper::INNER_RADIUS) }
+    }};
+
+    color_switch::renders_with_pairs = (boost::array<renders_with_pair,3>){{
+        { sphere_renderer::instance, renderer::as_parameter<float>(color_switch::HALO_RADIUS) },
+        { self_renderer::instance,   (renderer_parameter)"color_switch" },
+        { sphere_renderer::instance, renderer::as_parameter<float>(trigger_switch::RADIUS) }
     }};
 
     trigger_switch::renders_with_pairs = (boost::array<renders_with_pair,2>){{
@@ -537,6 +544,19 @@ void switch_base::_set_matrix()
     slot_matrix[12] = home.x;
     slot_matrix[13] = home.y;
     slot_matrix[15] = 1.0f;
+}
+
+renders_with_range color_switch::renders_with() const
+{
+    return boost::make_iterator_range(
+        renders_with_pairs.begin() + !switched(),
+        renders_with_pairs.end()
+    );
+}
+
+void color_switch::switch_on()
+{
+    universe::instance.flipped_color_switches[switch_number] = 1;
 }
 
 void trigger_switch::switch_on()

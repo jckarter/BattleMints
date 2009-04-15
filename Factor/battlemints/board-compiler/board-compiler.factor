@@ -113,6 +113,9 @@ M: transform-thing (write-thing)
 AFTER: line (write-thing)
     endpoints>> first2 [ write-vec2 ] bi@ ;
 
+AFTER: color-door (write-thing)
+    switch-number>> write-int ;
+
 AFTER: stage-exit (write-thing)
     stage-number>> write-int ;
 
@@ -133,6 +136,9 @@ AFTER: sign (write-thing)
 
 AFTER: switch (write-thing)
     transform>> axes { 1.0 0.0 } a.v write-vec2 ;
+
+AFTER: color-switch (write-thing)
+    switch-number>> write-int ;
 
 AFTER: eraser (write-thing)
     universe-name>> write-pascal-string ;
@@ -219,6 +225,11 @@ CONSTANT: svg>game-transform T{ affine-transform f
     } cleave ;
 
 M: object (tag>>thing) drop ;
+
+M: color-switch (tag>>thing)
+    "switch-number" battlemints-name attr string>number >>switch-number ;
+M: color-door (tag>>thing)
+    "switch-number" battlemints-name attr string>number >>switch-number ;
 
 M: stage-exit (tag>>thing)
     "stage-number" battlemints-name attr string>number >>stage-number ;
